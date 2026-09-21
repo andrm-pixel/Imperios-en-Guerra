@@ -1,0 +1,116 @@
+using System;
+
+namespace ImperiosEnGuerra.Controladores.Red.Contratos
+{
+    [Serializable]
+    public class EstadoPartidaDto
+    {
+        public string estado;
+        public MapaEstadoDto mapa;
+        public JugadorEstadoDto jugadorHumano;
+        public JugadorEstadoDto jugadorMaquina;
+        public EconomiaEstadoDto economia;
+    }
+
+    [Serializable]
+    public class EconomiaEstadoDto
+    {
+        public CostoEstadoDto centroUrbano;
+        public CostoEstadoDto aldeano;
+        public CostoEstadoDto guerrero;
+        public CostoEstadoDto lancero;
+        public CostoEstadoDto arquero;
+        public CostoEstadoDto monje;
+    }
+
+    [Serializable]
+    public class CostoEstadoDto
+    {
+        public int oro;
+        public int madera;
+        public int comida;
+    }
+
+    [Serializable]
+    public class MapaEstadoDto
+    {
+        public int ancho;
+        public int alto;
+        public RecursoEstadoDto[] recursos;
+    }
+
+    [Serializable]
+    public class JugadorEstadoDto
+    {
+        public string nombre;
+        public string tipo;
+        public RecursosJugadorEstadoDto recursos;
+        public EdificioEstadoDto[] edificios;
+        public ObraConstruccionEstadoDto[] obrasConstruccion;
+        public UnidadEstadoDto[] unidades;
+    }
+
+    [Serializable]
+    public class RecursosJugadorEstadoDto
+    {
+        public int oro;
+        public int madera;
+        public int comida;
+    }
+
+    [Serializable]
+    public class RecursoEstadoDto
+    {
+        public string tipo;
+        public CoordenadaEstadoDto coordenada;
+        public int cantidadRestante;
+    }
+
+    [Serializable]
+    public class EdificioEstadoDto
+    {
+        public string tipo;
+        public CoordenadaEstadoDto coordenada;
+        public EntrenamientoEstadoDto[] colaEntrenamiento;
+    }
+
+    [Serializable]
+    public class EntrenamientoEstadoDto
+    {
+        public string id;
+        public string tipoUnidad;
+        public int progreso;
+    }
+
+    [Serializable]
+    public class ObraConstruccionEstadoDto
+    {
+        public string id;
+        public string tipo;
+        public CoordenadaEstadoDto coordenada;
+        public int progreso;
+    }
+
+    [Serializable]
+    public class UnidadEstadoDto
+    {
+        public string id;
+        public string tipo;
+        public CoordenadaEstadoDto coordenada;
+        public bool disponible;
+
+        public string estado;
+        public string ordenActiva;
+
+        public int capacidadCarga;
+        public int cargaActual;
+        public string tipoCarga;
+}
+
+    [Serializable]
+    public class CoordenadaEstadoDto
+    {
+        public int x;
+        public int y;
+    }
+}
