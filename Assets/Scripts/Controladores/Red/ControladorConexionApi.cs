@@ -18,6 +18,13 @@ namespace ImperiosEnGuerra.Controladores.Red
         [SerializeField]
         private VistaHud vistaHud;
 
+        [Header("API interna (sin terminal)")]
+        [SerializeField]
+        private ApiInterna.ApiInternaJuego apiInterna;
+
+        [SerializeField]
+        private bool usarApiExterna = false;
+
         private EconomiaEstadoDto economiaActual;
 
     public bool MovimientoEnCurso { get; private set; }
@@ -40,25 +47,43 @@ public bool AccionEnCurso =>
     AtaqueEnCurso;
 
 public bool PuedeIniciarMovimiento =>
-    isActiveAndEnabled;
+    usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
 public bool PuedeIniciarRecoleccion =>
-    isActiveAndEnabled;
+    usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
 public bool PuedeIniciarConstruccion =>
-    isActiveAndEnabled;
+    usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
 public bool PuedeIniciarEntrenamiento =>
-    isActiveAndEnabled;
+    usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
 public bool PuedeIniciarAtaque =>
-    isActiveAndEnabled;
+    usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
+
+        private bool ApiInternaDisponible
+        {
+            get { return apiInterna != null && apiInterna.EstaDisponible; }
+        }
+
+        private void ExigirApiInterna()
+        {
+            if (ApiInternaDisponible)
+                return;
+            throw new System.InvalidOperationException("La API interna no está disponible.");
+        }
 
         public void MoverUnidad(string unidadId, int x, int y)
         {
             if (!PuedeIniciarMovimiento)
             {
                 MostrarError("La conexión con la API no está disponible.");
+                return;
+            }
+
+            if (!usarApiExterna)
+            {
+                StartCoroutine(EjecutarMovimientoInterno(unidadId, x, y));
                 return;
             }
 
@@ -74,6 +99,12 @@ public bool PuedeIniciarAtaque =>
             if (!PuedeIniciarRecoleccion)
             {
                 MostrarError("La conexión con la API no está disponible.");
+                return;
+            }
+
+            if (!usarApiExterna)
+            {
+                StartCoroutine(EjecutarRecoleccionInterna(aldeanoId, x, y));
                 return;
             }
 
@@ -94,6 +125,12 @@ public bool PuedeIniciarAtaque =>
         {
             MostrarError(
                 "La conexión con la API no está disponible.");
+            return;
+        }
+
+        if (!usarApiExterna)
+        {
+            StartCoroutine(EjecutarConstruccionInterna(aldeanoId, tipoEdificio, x, y));
             return;
         }
 
@@ -118,6 +155,12 @@ public bool PuedeIniciarAtaque =>
             {
                 MostrarError(
                     "La conexión con la API no está disponible.");
+                return;
+            }
+
+            if (!usarApiExterna)
+            {
+                StartCoroutine(EjecutarEntrenamientoInterno(edificioX, edificioY, tipoUnidad, destinoX, destinoY));
                 return;
             }
 
@@ -150,6 +193,12 @@ public bool PuedeIniciarAtaque =>
                 return;
             }
 
+            if (!usarApiExterna)
+            {
+                StartCoroutine(EjecutarAtaqueInterno(atacanteId, objetivoId));
+                return;
+            }
+
             StartCoroutine(
                 EnviarAtaque(
                     new AtaqueDto
@@ -157,6 +206,266 @@ public bool PuedeIniciarAtaque =>
                         atacanteId = atacanteId,
                         objetivoId = objetivoId
                     }));
+        }
+
+        private IEnumerator EjecutarMovimientoInterno(string unidadId, int x, int y)
+        {
+            movimientosActivos++;
+            MovimientoEnCurso = movimientosActivos > 0;
+            try
+            {
+                System.Guid procesoId;
+                try
+                {
+                    ExigirApiInterna();
+                    procesoId = apiInterna.IniciarMovimiento(unidadId, x, y);
+                }
+                catch (System.Exception ex)
+                {
+                    MostrarError(ex.Message);
+                    yield break;
+                }
+                yield return EsperarProcesoInterno(procesoId, unidadId, "Movimiento");
+            }
+            finally
+            {
+                movimientosActivos = Mathf.Max(0, movimientosActivos - 1);
+                MovimientoEnCurso = movimientosActivos > 0;
+            }
+        }
+
+        private IEnumerator EjecutarRecoleccionInterna(string aldeanoId, int x, int y)
+        {
+            recoleccionesActivas++;
+            RecoleccionEnCurso = recoleccionesActivas > 0;
+            try
+            {
+                System.Guid procesoId;
+                try
+                {
+                    ExigirApiInterna();
+                    procesoId = apiInterna.IniciarRecoleccion(aldeanoId, x, y);
+                }
+                catch (System.Exception ex)
+                {
+                    MostrarError(ex.Message);
+                    yield break;
+                }
+                yield return EsperarProcesoInterno(procesoId, aldeanoId, "Recolección");
+            }
+            finally
+            {
+                recoleccionesActivas = Mathf.Max(0, recoleccionesActivas - 1);
+                RecoleccionEnCurso = recoleccionesActivas > 0;
+            }
+        }
+
+        private IEnumerator EjecutarConstruccionInterna(string aldeanoId, string tipoEdificio, int x, int y)
+        {
+            construccionesActivas++;
+            ConstruccionEnCurso = construccionesActivas > 0;
+            try
+            {
+                System.Guid procesoId;
+                try
+                {
+                    ExigirApiInterna();
+                    procesoId = apiInterna.IniciarConstruccion(aldeanoId, tipoEdificio, x, y);
+                }
+                catch (System.Exception ex)
+                {
+                    MostrarError(ex.Message);
+                    yield break;
+                }
+                yield return EsperarProcesoInterno(procesoId, aldeanoId, "Construcción");
+            }
+            finally
+            {
+                construccionesActivas = Mathf.Max(0, construccionesActivas - 1);
+                ConstruccionEnCurso = construccionesActivas > 0;
+            }
+        }
+
+        private IEnumerator EjecutarEntrenamientoInterno(int edificioX, int edificioY, string tipoUnidad, int destinoX, int destinoY)
+        {
+            entrenamientosActivos++;
+            EntrenamientoEnCurso = entrenamientosActivos > 0;
+            try
+            {
+                System.Guid procesoId;
+                try
+                {
+                    ExigirApiInterna();
+                    procesoId = apiInterna.IniciarEntrenamiento(edificioX, edificioY, tipoUnidad, destinoX, destinoY);
+                }
+                catch (System.Exception ex)
+                {
+                    MostrarError(ex.Message);
+                    yield break;
+                }
+                yield return EsperarProcesoInterno(procesoId, null, "Entrenamiento");
+            }
+            finally
+            {
+                entrenamientosActivos = Mathf.Max(0, entrenamientosActivos - 1);
+                EntrenamientoEnCurso = entrenamientosActivos > 0;
+            }
+        }
+
+        private IEnumerator EjecutarAtaqueInterno(string atacanteId, string objetivoId)
+        {
+            ataquesActivos++;
+            AtaqueEnCurso = ataquesActivos > 0;
+            try
+            {
+                ResultadoAccionDto resultado;
+                try
+                {
+                    ExigirApiInterna();
+                    resultado = apiInterna.Atacar(atacanteId, objetivoId);
+                }
+                catch (System.Exception ex)
+                {
+                    MostrarError(ex.Message);
+                    yield break;
+                }
+                if (resultado == null || !resultado.exito)
+                {
+                    MostrarError(resultado?.mensaje ?? "El ataque fue rechazado por el Modelo.");
+                    yield return SincronizarEstadoInterno();
+                    yield break;
+                }
+                yield return SincronizarEstadoInterno(
+                    string.IsNullOrWhiteSpace(resultado.mensaje) ? "Ataque realizado." : resultado.mensaje);
+            }
+            finally
+            {
+                ataquesActivos = Mathf.Max(0, ataquesActivos - 1);
+                AtaqueEnCurso = ataquesActivos > 0;
+            }
+        }
+
+        private IEnumerator EsperarProcesoInterno(System.Guid procesoId, string unidadId, string nombre)
+        {
+            const float intervalo = 0.1f;
+            while (isActiveAndEnabled)
+            {
+                ResultadoProcesoDto resultado = null;
+                bool listo = false;
+                try
+                {
+                    ExigirApiInterna();
+                    listo = apiInterna.IntentarObtenerResultado(procesoId, out resultado);
+                }
+                catch (System.Exception ex)
+                {
+                    MostrarError(ex.Message);
+                    yield break;
+                }
+                if (!listo || resultado == null)
+                {
+                    yield return ActualizarSnapshotInterno(unidadId);
+                    yield return new WaitForSecondsRealtime(intervalo);
+                    continue;
+                }
+                if (resultado.estado == "Cancelado")
+                {
+                    Debug.Log($"{nombre} cancelado.");
+                    yield return SincronizarEstadoInterno();
+                    yield break;
+                }
+                if (resultado.estado == "Fallido")
+                {
+                    MostrarError(string.IsNullOrWhiteSpace(resultado.errorTecnico)
+                        ? $"El worker de {nombre.ToLower()} finalizó con error."
+                        : resultado.errorTecnico);
+                    yield return SincronizarEstadoInterno();
+                    yield break;
+                }
+                if (resultado.estado != "Completado")
+                {
+                    MostrarError($"Estado concurrente no reconocido: {resultado.estado}");
+                    yield return SincronizarEstadoInterno();
+                    yield break;
+                }
+                if (!resultado.exito)
+                {
+                    MostrarError(string.IsNullOrWhiteSpace(resultado.mensaje)
+                        ? $"La acción fue rechazada por el Modelo."
+                        : resultado.mensaje);
+                    yield return SincronizarEstadoInterno();
+                    yield break;
+                }
+                Debug.Log($"{nombre} ejecutado por worker {resultado.hiloTrabajoId}.");
+                yield return SincronizarEstadoInterno(
+                    string.IsNullOrWhiteSpace(resultado.mensaje) ? $"{nombre} realizado." : resultado.mensaje);
+                yield break;
+            }
+        }
+
+        private IEnumerator ActualizarSnapshotInterno(string unidadId)
+        {
+            EstadoPartidaDto estado = null;
+            try
+            {
+                ExigirApiInterna();
+                estado = apiInterna.ObtenerEstado();
+            }
+            catch
+            {
+                yield break;
+            }
+            if (!string.IsNullOrWhiteSpace(unidadId))
+            {
+                UnidadEstadoDto unidad = BuscarUnidadHumana(estado, unidadId);
+                if (unidad?.coordenada != null && vistaPartida != null)
+                    vistaPartida.ActualizarMovimientoUnidad(unidad.id, unidad.coordenada.x, unidad.coordenada.y, unidad.estado, unidad.ordenActiva);
+            }
+            var recursos = estado?.jugadorHumano?.recursos;
+            if (vistaHud != null && recursos != null)
+                vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida);
+        }
+
+        private IEnumerator SincronizarEstadoInterno(string mensaje = "")
+        {
+            EstadoPartidaDto estado = null;
+            try
+            {
+                ExigirApiInterna();
+                estado = apiInterna.ObtenerEstado();
+            }
+            catch (System.Exception ex)
+            {
+                MostrarError(ex.Message);
+                yield break;
+            }
+            AplicarEstado(estado, mensaje);
+        }
+
+        private void AplicarEstado(EstadoPartidaDto estado, string mensaje)
+        {
+            if (estado?.mapa == null || estado.mapa.ancho <= 0 || estado.jugadorHumano == null || estado.jugadorMaquina == null)
+            {
+                MostrarError("La API interna devolvió un estado incompleto.");
+                return;
+            }
+            if (vistaPartida == null)
+            {
+                MostrarError("VistaPartida no está configurada en ControladorAPI.");
+                return;
+            }
+            economiaActual = estado.economia;
+            vistaPartida.Sincronizar(estado);
+            if (vistaHud != null)
+            {
+                var recursos = estado.jugadorHumano.recursos;
+                if (recursos != null)
+                {
+                    vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida);
+                    if (!string.IsNullOrEmpty(mensaje))
+                        vistaHud.MostrarMensaje(mensaje);
+                }
+            }
         }
 
         private void OnDisable()
@@ -1357,11 +1666,32 @@ public bool PuedeIniciarAtaque =>
 
         private void Start()
         {
+            if (!usarApiExterna && apiInterna == null)
+            {
+                apiInterna = FindFirstObjectByType<ApiInterna.ApiInternaJuego>();
+                if (apiInterna == null)
+                {
+                    var go = new GameObject("ApiInternaJuego");
+                    apiInterna = go.AddComponent<ApiInterna.ApiInternaJuego>();
+                }
+            }
             StartCoroutine(ComprobarConexion());
         }
 
         private IEnumerator ComprobarConexion()
         {
+            if (!usarApiExterna)
+            {
+                if (!ApiInternaDisponible)
+                {
+                    MostrarError("La API interna no está disponible.");
+                    Debug.LogError("La API interna no está disponible.");
+                    yield break;
+                }
+                Debug.Log("API interna conectada correctamente.");
+                yield return SincronizarEstadoInterno("Partida recibida correctamente.");
+                yield break;
+            }
             string url =
                 $"{urlBaseApi}/api/estado";
 

@@ -4,12 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using ImperiosEnGuerra.Modelo.Acciones;
 
-namespace ImperiosEnGuerra.Servicios.Concurrencia
+namespace ImperiosEnGuerra.Modelo.Concurrencia
 {
     /// <summary>
+    /// Núcleo de concurrencia del juego. Vive en el Modelo.
     /// Inicia trabajos reales en ThreadPool mediante Task.Run, permite cancelarlos
     /// y publica sus resultados en una cola thread-safe para consumo posterior.
-    /// No depende de UnityEngine.
+    /// No depende de UnityEngine. Ninguna otra capa debe crear Thread/Task.
     /// </summary>
     public sealed class GestorProcesosConcurrentes : IDisposable
     {

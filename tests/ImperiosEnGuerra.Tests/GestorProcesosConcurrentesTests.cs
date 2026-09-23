@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ImperiosEnGuerra.Modelo.Acciones;
-using ImperiosEnGuerra.Servicios.Concurrencia;
+using ImperiosEnGuerra.Modelo.Concurrencia;
 using NUnit.Framework;
 
 namespace ImperiosEnGuerra.Tests

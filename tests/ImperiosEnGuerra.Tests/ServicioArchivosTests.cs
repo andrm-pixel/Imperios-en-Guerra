@@ -5,7 +5,7 @@ using NUnit.Framework;
 using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Recursos;
-using ImperiosEnGuerra.Servicios;
+using ImperiosEnGuerra.Modelo.Persistencia;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {

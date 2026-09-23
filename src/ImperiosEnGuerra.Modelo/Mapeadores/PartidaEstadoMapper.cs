@@ -1,17 +1,17 @@
-using ImperiosEnGuerra.Api.Contratos;
+using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Recursos;
 using ImperiosEnGuerra.Modelo.Unidades;
 
-namespace ImperiosEnGuerra.Api.Mapeadores;
+namespace ImperiosEnGuerra.Modelo.Mapeadores;
 
 public static class PartidaEstadoMapper
 {
     public static EstadoPartidaResponse Convertir(Partida partida)
     {
-        ArgumentNullException.ThrowIfNull(partida);
+        if (partida == null) throw new ArgumentNullException(nameof(partida));
 
         Mapa mapa = partida.JugadorHumano.Mapa;
 

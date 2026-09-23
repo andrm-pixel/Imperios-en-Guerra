@@ -1,5 +1,6 @@
 using ImperiosEnGuerra.Vistas;
 using ImperiosEnGuerra.Controladores.Red;
+using ImperiosEnGuerra.Modelo.Reglas;
 using UnityEngine;
 
 namespace ImperiosEnGuerra.Controladores
@@ -321,7 +322,7 @@ namespace ImperiosEnGuerra.Controladores
             {
                 conexionApi.Construir(
                     id,
-                    "CentroUrbano",
+                    ReglasAcciones.TipoCentroUrbano,
                     x,
                     y);
 
@@ -385,11 +386,13 @@ namespace ImperiosEnGuerra.Controladores
         private static bool EsObjetivoAtaqueValido(
             EntidadSeleccionableVista objetivo)
         {
-            return objetivo != null &&
-                objetivo.isActiveAndEnabled &&
-                objetivo.Categoria == CategoriaEntidadVisual.Unidad &&
-                objetivo.Propietario == "Maquina" &&
-                !string.IsNullOrWhiteSpace(objetivo.IdLogico);
+            // Puente: la regla vive en el Modelo.
+            if (objetivo == null || !objetivo.isActiveAndEnabled)
+                return false;
+            return ReglasAcciones.EsObjetivoAtaqueValido(
+                objetivo.Categoria.ToString(),
+                objetivo.Propietario,
+                objetivo.IdLogico);
         }
 
         private bool PuedeIniciarAccion(string accion)
@@ -422,45 +425,18 @@ namespace ImperiosEnGuerra.Controladores
             EntidadSeleccionableVista entidad,
             string accion)
         {
-            if (entidad == null ||
-                !entidad.isActiveAndEnabled ||
-                entidad.Propietario != "Humano")
-            {
+            // Puente: las reglas viven en el Modelo (ReglasAcciones).
+            if (entidad == null || !entidad.isActiveAndEnabled)
                 return false;
-            }
-
-            if (entidad.Categoria == CategoriaEntidadVisual.Edificio)
-            {
-                return accion == "Entrenar" &&
-                    entidad.TipoLogico == "CentroUrbano";
-            }
-
-            if (entidad.Categoria != CategoriaEntidadVisual.Unidad)
-                return false;
-
-            // Una unidad mantiene una sola orden lógica a la vez. Esto no
-            // bloquea a otras unidades: el jugador puede seleccionarlas y
-            // ordenarles acciones concurrentes de forma independiente.
-            if (!string.IsNullOrWhiteSpace(
-                    entidad.OrdenActiva))
-            {
-                return false;
-            }
-
+            if (accion == "Entrenar")
+                return ReglasAcciones.PermiteEntrenar(entidad.Propietario, entidad.Categoria.ToString(), entidad.TipoLogico);
             if (accion == "Mover")
-                return true;
-
-            if (accion == "Recolectar" ||
-                accion == "Construir")
-            {
-                return entidad.TipoLogico == "Aldeano";
-            }
-
-            return accion == "Atacar" &&
-                (entidad.TipoLogico == "Guerrero" ||
-                 entidad.TipoLogico == "Lancero" ||
-                 entidad.TipoLogico == "Arquero" ||
-                 entidad.TipoLogico == "Monje");
+                return ReglasAcciones.PermiteMover(entidad.Propietario, entidad.Categoria.ToString(), entidad.OrdenActiva);
+            if (accion == "Recolectar" || accion == "Construir")
+                return ReglasAcciones.PermiteRecolectar(entidad.Propietario, entidad.Categoria.ToString(), entidad.TipoLogico, entidad.OrdenActiva);
+            if (accion == "Atacar")
+                return ReglasAcciones.PermiteAtacar(entidad.Propietario, entidad.Categoria.ToString(), entidad.TipoLogico, entidad.OrdenActiva);
+            return false;
         }
 
         private void PrepararAccion(string accion)

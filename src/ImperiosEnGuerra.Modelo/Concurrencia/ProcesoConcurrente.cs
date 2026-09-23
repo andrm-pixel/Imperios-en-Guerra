@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ImperiosEnGuerra.Servicios.Concurrencia
+namespace ImperiosEnGuerra.Modelo.Concurrencia
 {
     /// <summary>
-    /// Referencia estable a un proceso concurrente iniciado.
+    /// Referencia estable a un proceso concurrente iniciado. Vive en el Modelo.
     /// </summary>
     public sealed class ProcesoConcurrente
     {

@@ -1,10 +1,10 @@
 using System.IO;
-using ImperiosEnGuerra.Api.Contratos;
-using ImperiosEnGuerra.Api.Mapeadores;
+using ImperiosEnGuerra.Modelo.Contratos;
+using ImperiosEnGuerra.Modelo.Mapeadores;
 using ImperiosEnGuerra.Modelo.Acciones;
 using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Unidades;
-using ImperiosEnGuerra.Servicios;
+using ImperiosEnGuerra.Modelo.Persistencia;
 using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Movimiento;
@@ -12,7 +12,7 @@ using ImperiosEnGuerra.Modelo.Recoleccion;
 using ImperiosEnGuerra.Modelo.Recursos;
 using System.Linq; // para usar FirstOrDefault()
 
-namespace ImperiosEnGuerra.Api.Servicios;
+namespace ImperiosEnGuerra.Modelo.Servicios;
 
 public sealed class EstadoPartidaService
 {
@@ -1081,7 +1081,7 @@ public sealed class EstadoPartidaService
 
     public void EstablecerPartida(Partida partida)
     {
-        ArgumentNullException.ThrowIfNull(partida);
+        if (partida == null) throw new ArgumentNullException(nameof(partida));
 
         lock (sincronizacion)
         {

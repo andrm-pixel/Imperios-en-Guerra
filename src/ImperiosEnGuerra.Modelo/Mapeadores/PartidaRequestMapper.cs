@@ -1,8 +1,8 @@
-using ImperiosEnGuerra.Api.Contratos;
+using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Recursos;
 
-namespace ImperiosEnGuerra.Api.Mapeadores;
+namespace ImperiosEnGuerra.Modelo.Mapeadores;
 
 public static class PartidaRequestMapper
 {

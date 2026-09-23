@@ -1,4 +1,4 @@
-using ImperiosEnGuerra.Api.Mapeadores;
+using ImperiosEnGuerra.Modelo.Mapeadores;
 using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Recursos;

@@ -1,4 +1,4 @@
-namespace ImperiosEnGuerra.Api.Contratos;
+namespace ImperiosEnGuerra.Modelo.Contratos;
 
 public sealed class RecolectarRequest
 {

@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImperiosEnGuerra.Modelo\ImperiosEnGuerra.Modelo.csproj" />
-    <ProjectReference Include="..\ImperiosEnGuerra.Servicios\ImperiosEnGuerra.Servicios.csproj" />
   </ItemGroup>
 
 </Project>

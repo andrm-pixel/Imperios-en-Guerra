@@ -1,7 +1,7 @@
 using ImperiosEnGuerra.Modelo.Acciones;
 using ImperiosEnGuerra.Modelo.Unidades;
 
-namespace ImperiosEnGuerra.Api.Servicios;
+namespace ImperiosEnGuerra.Modelo.Servicios;
 
 public sealed class ServicioOrdenesUnidad
 {

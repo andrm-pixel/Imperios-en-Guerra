@@ -1,7 +1,7 @@
 using System;
 using ImperiosEnGuerra.Modelo.Acciones;
 
-namespace ImperiosEnGuerra.Servicios.Concurrencia
+namespace ImperiosEnGuerra.Modelo.Concurrencia
 {
     public enum EstadoProcesoConcurrente
     {
@@ -11,8 +11,8 @@ namespace ImperiosEnGuerra.Servicios.Concurrencia
     }
 
     /// <summary>
-    /// Mensaje inmutable producido por un worker y listo para ser consumido
-    /// desde otra capa, incluido el Main Thread de Unity.
+    /// Mensaje inmutable producido por un worker del Modelo y listo para ser
+    /// consumido desde otra capa, incluido el Main Thread de Unity.
     /// </summary>
     public sealed class ResultadoProcesoConcurrente
     {

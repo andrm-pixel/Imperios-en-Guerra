@@ -1,12 +1,12 @@
-using ImperiosEnGuerra.Api.Contratos;
-using ImperiosEnGuerra.Api.Servicios;
+using ImperiosEnGuerra.Modelo.Contratos;
+using ImperiosEnGuerra.Modelo.Servicios;
 using ImperiosEnGuerra.Modelo.Acciones;
 using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Recursos;
 using ImperiosEnGuerra.Modelo.Unidades;
-using ImperiosEnGuerra.Servicios.Concurrencia;
+using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 

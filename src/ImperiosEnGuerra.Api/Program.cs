@@ -1,12 +1,12 @@
 using Microsoft.Extensions.Options;
 using ImperiosEnGuerra.Api.Configuracion;
-using ImperiosEnGuerra.Api.Servicios;
-using ImperiosEnGuerra.Api.Contratos;
-using ImperiosEnGuerra.Api.Mapeadores;
+using ImperiosEnGuerra.Modelo.Servicios;
+using ImperiosEnGuerra.Modelo.Contratos;
+using ImperiosEnGuerra.Modelo.Mapeadores;
 using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Map;
-using ImperiosEnGuerra.Servicios;
-using ImperiosEnGuerra.Servicios.Concurrencia;
+using ImperiosEnGuerra.Modelo.Persistencia;
+using ImperiosEnGuerra.Modelo.Concurrencia;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -392,5 +392,17 @@ app.MapPost(
         });
 })
 .WithName("IniciarAtaqueConcurrente");
+
+app.MapPost(
+    "/api/partida/atacar",
+    (AtacarRequest? request, EstadoPartidaService estadoPartida) =>
+{
+    var resultado = estadoPartida.Atacar(request);
+
+    return resultado.Exito
+        ? Results.Ok(resultado)
+        : Results.BadRequest(resultado);
+})
+.WithName("Atacar");
 
 app.Run();

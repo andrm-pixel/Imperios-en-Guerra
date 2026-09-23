@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 using ImperiosEnGuerra.Modelo.Unidades;
 using ImperiosEnGuerra.Modelo.Acciones;
-using ImperiosEnGuerra.Api.Contratos;
-using ImperiosEnGuerra.Servicios.Concurrencia;
+using ImperiosEnGuerra.Modelo.Contratos;
+using ImperiosEnGuerra.Modelo.Concurrencia;
 using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Movimiento;
 using ImperiosEnGuerra.Modelo.Recoleccion;
 using ImperiosEnGuerra.Modelo.Recursos;
 
-namespace ImperiosEnGuerra.Api.Servicios;
+namespace ImperiosEnGuerra.Modelo.Servicios;
 
 public sealed class ServicioAccionesConcurrentes
 {
