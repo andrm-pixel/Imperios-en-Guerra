@@ -22,9 +22,10 @@ Recordings/
 .vs/
 
 # Unity genera .csproj automáticamente,
-# pero los proyectos externos de src/ y tests/ sí se versionan.
+# pero los proyectos externos de Modelo/, Controlador/ y tests/ sí se versionan.
 *.csproj
-!src/**/*.csproj
+!Modelo/**/*.csproj
+!Controlador/**/*.csproj
 !tests/**/*.csproj
 
 *.sln
@@ -73,7 +74,7 @@ desktop.ini
 # =========================
 # Archivos generados durante la partida
 # =========================
-/src/ImperiosEnGuerra.Api/DatosPartida/
+/Controlador/ImperiosEnGuerra.Controlador/DatosPartida/
 
 # =========================
 # Configuración local de asistente
@@ -82,7 +83,7 @@ AGENTS.md
 # =========================
 # Tiny Swords - archivos graficos externos, no redistribuir
 # =========================
-/Assets/Art/TinySwords/**/*.png
-/Assets/Art/TinySwords/**/*.aseprite
-/Assets/Art/TinySwords/**/*.jpg
-/Assets/Art/TinySwords/**/*.jpeg
+/Vista/Assets/Art/TinySwords/**/*.png
+/Vista/Assets/Art/TinySwords/**/*.aseprite
+/Vista/Assets/Art/TinySwords/**/*.jpg
+/Vista/Assets/Art/TinySwords/**/*.jpeg

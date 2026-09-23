@@ -1,4 +1,4 @@
-namespace ImperiosEnGuerra.Api.Configuracion;
+namespace ImperiosEnGuerra.Controlador.Configuracion;
 
 public class AccionesConcurrentesOptions
 {

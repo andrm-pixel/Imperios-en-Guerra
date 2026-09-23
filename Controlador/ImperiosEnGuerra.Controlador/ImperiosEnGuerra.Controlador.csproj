@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ImperiosEnGuerra.Modelo\ImperiosEnGuerra.Modelo.csproj" />
+    <ProjectReference Include="..\..\Modelo\ImperiosEnGuerra.Modelo\ImperiosEnGuerra.Modelo.csproj" />
   </ItemGroup>
 
 </Project>

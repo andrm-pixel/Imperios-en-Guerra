@@ -1,0 +1,6 @@
+@Controlador_HostAddress = http://localhost:5086
+
+GET {{Controlador_HostAddress}}/api/estado
+Accept: application/json
+
+###

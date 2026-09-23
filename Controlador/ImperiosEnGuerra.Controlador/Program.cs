@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Options;
-using ImperiosEnGuerra.Api.Configuracion;
+using ImperiosEnGuerra.Controlador.Configuracion;
 using ImperiosEnGuerra.Modelo.Servicios;
 using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Mapeadores;
@@ -34,7 +34,7 @@ app.MapGet("/api/estado", () =>
     return Results.Ok(new
     {
         estado = "activo",
-        servicio = "ImperiosEnGuerra.Api"
+        servicio = "ImperiosEnGuerra.Controlador"
     });
 })
 .WithName("ObtenerEstado");

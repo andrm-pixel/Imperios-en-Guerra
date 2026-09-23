@@ -50,7 +50,7 @@ o directamente:
 
 $repo = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 
-$destino = Join-Path $repo "Assets\Art\TinySwords"
+$destino = Join-Path $repo "Vista\Assets\Art\TinySwords"
 
 New-Item `
     -ItemType Directory `

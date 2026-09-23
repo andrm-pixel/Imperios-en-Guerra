@@ -4,6 +4,23 @@ Proyecto académico de Programación Orientada a Objetos desarrollado en C# y Un
 
 **Imperios en Guerra** es un videojuego de estrategia en tiempo real (RTS) inspirado en Age of Empires. La modalidad actual del proyecto es **Humano vs Máquina**.
 
+## Estructura MVC del repositorio
+
+```text
+Modelo/        Lógica del juego y concurrencia (Thread/Task/lock solo aquí)
+  ImperiosEnGuerra.Modelo/
+Controlador/   Puente HTTP y API interna (sin hilos propios)
+  ImperiosEnGuerra.Controlador/
+Vista/         Proyecto Unity: escenas, sprites y scripts de presentación
+  Assets/Scripts/Controladores/  puente (corutinas, sin Thread/Task)
+  Assets/Scripts/Vistas/         solo lectura del estado
+tests/         Pruebas .NET (NUnit)
+docs/          Documentación
+scripts/       Instalador de sprites Tiny Swords
+```
+
+Abrir en Unity Hub la carpeta `Vista`. La API externa (opcional) se ejecuta con `dotnet run --project Controlador/ImperiosEnGuerra.Controlador`.
+
 ## Tecnologías
 
 - C#

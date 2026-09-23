@@ -58,7 +58,7 @@ Ahora abra el proyecto en Unity.
 ## 5. Abrir Unity
 
 1. Abrir Unity Hub.
-2. Abrir el proyecto `ImperiosEnGuerra`.
+2. Abrir el proyecto desde la carpeta `Vista`.
 3. Esperar a que Unity termine de importar y compilar.
 4. Revisar la Console.
 5. Verificar que no existan errores.
