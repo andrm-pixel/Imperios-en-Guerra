@@ -131,6 +131,56 @@ public bool PuedeIniciarAtaque =>
             throw new System.InvalidOperationException("La API interna no está disponible.");
         }
 
+        /// <summary>
+        /// Interrumpe la orden activa de una unidad y espera a que quede
+        /// disponible para recibir la nueva. Puente sin hilos.
+        /// </summary>
+        private IEnumerator SustituirOrden(string unidadId)
+        {
+            if (string.IsNullOrWhiteSpace(unidadId) ||
+                !procesosPorUnidad.TryGetValue(unidadId, out System.Guid anterior))
+            {
+                yield break;
+            }
+
+            try
+            {
+                ExigirApiInterna();
+                apiInterna.CancelarProceso(anterior);
+            }
+            catch (System.Exception ex)
+            {
+                MostrarError(ex.Message);
+                yield break;
+            }
+            finally
+            {
+                OlvidarProceso(unidadId);
+            }
+
+            const int maximoIntentos = 30;
+            for (int i = 0; i < maximoIntentos && isActiveAndEnabled; i++)
+            {
+                bool disponible = false;
+                try
+                {
+                    ExigirApiInterna();
+                    UnidadEstadoDto unidad =
+                        BuscarUnidadHumana(apiInterna.ObtenerEstado(), unidadId);
+                    disponible = unidad != null && unidad.disponible;
+                }
+                catch
+                {
+                    yield break;
+                }
+
+                if (disponible)
+                    yield break;
+
+                yield return new WaitForSecondsRealtime(0.1f);
+            }
+        }
+
         public void MoverUnidad(string unidadId, int x, int y)
         {
             if (!PuedeIniciarMovimiento)
@@ -272,6 +322,7 @@ public bool PuedeIniciarAtaque =>
             MovimientoEnCurso = movimientosActivos > 0;
             try
             {
+                yield return SustituirOrden(unidadId);
                 System.Guid procesoId;
                 try
                 {
@@ -300,6 +351,7 @@ public bool PuedeIniciarAtaque =>
             RecoleccionEnCurso = recoleccionesActivas > 0;
             try
             {
+                yield return SustituirOrden(aldeanoId);
                 System.Guid procesoId;
                 try
                 {
@@ -328,6 +380,7 @@ public bool PuedeIniciarAtaque =>
             ConstruccionEnCurso = construccionesActivas > 0;
             try
             {
+                yield return SustituirOrden(aldeanoId);
                 System.Guid procesoId;
                 try
                 {
@@ -382,6 +435,7 @@ public bool PuedeIniciarAtaque =>
             AtaqueEnCurso = ataquesActivos > 0;
             try
             {
+                yield return SustituirOrden(atacanteId);
                 System.Guid procesoId;
                 try
                 {

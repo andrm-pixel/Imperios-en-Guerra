@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using ImperiosEnGuerra.Modelo.Core;
+using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Unidades;
 
@@ -8,9 +9,10 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 {
     /// <summary>
     /// Aplica daño real de combate en el Modelo con estadísticas por tipo.
+    /// El objetivo puede ser una unidad enemiga o un edificio enemigo.
     /// Valores del prototipo: Guerrero 25/alc.1, Lancero 20/alc.2,
-    /// Arquero 15/alc.4, Monje 10/alc.1. La unidad destruida se retira
-    /// y libera su casilla.
+    /// Arquero 15/alc.4, Monje 10/alc.1. Lo destruido se retira y libera
+    /// su casilla. Victoria: sin Centro Urbano o sin unidades enemigas.
     /// </summary>
     public sealed class OperacionAtaque
     {
@@ -46,56 +48,108 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 return ResultadoAccion.Fallido(
                     "La unidad atacante no es una unidad militar permitida.");
 
-            var objetivoPropio = partida.JugadorHumano.Unidades
+            if (atacante.Coordenada == null)
+                return ResultadoAccion.Fallido(
+                    "La unidad atacante no tiene posición válida.");
+
+            var objetivoPropioUnidad = partida.JugadorHumano.Unidades
                 .FirstOrDefault(unidad => unidad.Id == solicitud.ObjetivoId);
 
-            if (objetivoPropio != null)
+            var objetivoPropioEdificio = partida.JugadorHumano.Edificios
+                .FirstOrDefault(edificio => edificio.Id == solicitud.ObjetivoId);
+
+            if (objetivoPropioUnidad != null ||
+                objetivoPropioEdificio != null)
                 return ResultadoAccion.Fallido(
                     "El objetivo pertenece al jugador humano.");
 
-            var objetivo = partida.JugadorMaquina.Unidades
+            var objetivoUnidad = partida.JugadorMaquina.Unidades
                 .FirstOrDefault(unidad => unidad.Id == solicitud.ObjetivoId);
 
-            if (objetivo == null)
-                return ResultadoAccion.Fallido(
-                    "No existe la unidad enemiga objetivo indicada.");
+            var objetivoEdificio = objetivoUnidad == null
+                ? partida.JugadorMaquina.Edificios
+                    .FirstOrDefault(edificio => edificio.Id == solicitud.ObjetivoId)
+                : null;
 
-            if (atacante.Coordenada == null ||
-                objetivo.Coordenada == null)
+            if (objetivoUnidad == null &&
+                objetivoEdificio == null)
                 return ResultadoAccion.Fallido(
-                    "Atacante u objetivo sin posición válida.");
+                    "No existe el objetivo enemigo indicado.");
+
+            Coordenada posicionObjetivo =
+                objetivoUnidad != null
+                    ? objetivoUnidad.Coordenada
+                    : objetivoEdificio.Coordenada;
+
+            string nombreObjetivo =
+                objetivoUnidad != null
+                    ? objetivoUnidad.GetType().Name
+                    : objetivoEdificio.GetType().Name;
+
+            if (posicionObjetivo == null)
+                return ResultadoAccion.Fallido(
+                    "El objetivo no tiene posición válida.");
 
             int distancia =
-                Math.Abs(atacante.Coordenada.X - objetivo.Coordenada.X) +
-                Math.Abs(atacante.Coordenada.Y - objetivo.Coordenada.Y);
+                Math.Abs(atacante.Coordenada.X - posicionObjetivo.X) +
+                Math.Abs(atacante.Coordenada.Y - posicionObjetivo.Y);
 
             if (distancia > atacante.AlcanceAtaque)
                 return ResultadoAccion.Fallido(
                     $"Objetivo fuera de alcance ({distancia} > {atacante.AlcanceAtaque}). Mueve la unidad para acercarla.");
 
-            bool destruido = objetivo.RecibirDano(atacante.PuntosAtaque);
+            bool destruido =
+                objetivoUnidad != null
+                    ? objetivoUnidad.RecibirDano(atacante.PuntosAtaque)
+                    : objetivoEdificio.RecibirDano(atacante.PuntosAtaque);
+
+            int vidaRestante =
+                objetivoUnidad != null
+                    ? objetivoUnidad.Vida
+                    : objetivoEdificio.Vida;
 
             if (!destruido)
             {
                 return ResultadoAccion.Exitoso(
-                    $"Impacto: {atacante.PuntosAtaque} de daño a {objetivo.GetType().Name} (vida {objetivo.Vida}).");
+                    $"Impacto: {atacante.PuntosAtaque} de daño a {nombreObjetivo} (vida {vidaRestante}).");
             }
 
-            partida.JugadorMaquina.EliminarUnidad(objetivo);
+            if (objetivoUnidad != null)
+            {
+                partida.JugadorMaquina.EliminarUnidad(objetivoUnidad);
+            }
+            else
+            {
+                partida.JugadorMaquina.EliminarEdificio(objetivoEdificio);
+            }
 
-            Mapa mapaMaquina = partida.JugadorMaquina.Mapa;
-            mapaMaquina.ObtenerCasilla(
-                objetivo.Coordenada.X,
-                objetivo.Coordenada.Y)?.Liberar();
+            partida.JugadorMaquina.Mapa.ObtenerCasilla(
+                posicionObjetivo.X,
+                posicionObjetivo.Y)?.Liberar();
 
-            if (partida.JugadorMaquina.Unidades.Count == 0)
+            if (EsVictoriaHumana(partida))
             {
                 return ResultadoAccion.Exitoso(
-                    $"Unidad enemiga destruida. ¡Victoria! Todas las unidades de la máquina fueron eliminadas.");
+                    $"{nombreObjetivo} enemigo destruido. ¡Victoria! La máquina perdió su Centro Urbano o todas sus unidades.");
             }
 
             return ResultadoAccion.Exitoso(
-                "Unidad enemiga destruida.");
+                $"{nombreObjetivo} enemigo destruido.");
+        }
+
+        public static bool EsVictoriaHumana(Partida partida)
+        {
+            if (partida == null)
+                return false;
+
+            bool sinCentro = !partida.JugadorMaquina.Edificios
+                .OfType<CentroUrbano>()
+                .Any();
+
+            bool sinUnidades =
+                partida.JugadorMaquina.Unidades.Count == 0;
+
+            return sinCentro || sinUnidades;
         }
 
         private static bool EsUnidadMilitar(Unidad unidad)

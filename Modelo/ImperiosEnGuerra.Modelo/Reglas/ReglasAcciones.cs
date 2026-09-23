@@ -18,13 +18,18 @@ namespace ImperiosEnGuerra.Modelo.Reglas
                 || tipoUnidad == "Monje";
         }
 
+        /// <summary>
+        /// Las órdenes son interrumpibles: una unidad ocupada puede recibir
+        /// una nueva orden (el controlador cancela la anterior primero).
+        /// Por eso la orden activa no bloquea las opciones.
+        /// </summary>
         public static bool PermiteMover(string? propietario, string? categoria, string? ordenActiva)
         {
             if (propietario != "Humano")
                 return false;
             if (categoria != "Unidad")
                 return false;
-            return string.IsNullOrWhiteSpace(ordenActiva);
+            return true;
         }
 
         public static bool PermiteRecolectar(string? propietario, string? categoria, string? tipoLogico, string? ordenActiva)
@@ -55,9 +60,13 @@ namespace ImperiosEnGuerra.Modelo.Reglas
 
         public static bool EsObjetivoAtaqueValido(string? categoria, string? propietario, string? idLogico)
         {
-            return categoria == "Unidad"
-                && propietario == "Maquina"
-                && !string.IsNullOrWhiteSpace(idLogico);
+            if (string.IsNullOrWhiteSpace(idLogico) ||
+                propietario != "Maquina")
+            {
+                return false;
+            }
+
+            return categoria == "Unidad" || categoria == "Edificio";
         }
     }
 }

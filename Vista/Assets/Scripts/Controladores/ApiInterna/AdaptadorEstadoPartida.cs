@@ -51,6 +51,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                 },
                 edificios = jugador.Edificios.Select(e => new UnityDto.EdificioEstadoDto
                 {
+                    id = e.Id,
                     tipo = e.Tipo,
                     coordenada = new UnityDto.CoordenadaEstadoDto { x = e.Coordenada.X, y = e.Coordenada.Y },
                     colaEntrenamiento = e.ColaEntrenamiento.Select(p => new UnityDto.EntrenamientoEstadoDto

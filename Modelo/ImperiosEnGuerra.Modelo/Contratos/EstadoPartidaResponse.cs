@@ -59,6 +59,7 @@ public sealed class RecursoEstadoResponse
 
 public sealed class EdificioEstadoResponse
 {
+    public string Id { get; set; }
     public string Tipo { get; set; }
     public CoordenadaEstadoResponse Coordenada { get; set; }
     public IReadOnlyList<EntrenamientoEstadoResponse> ColaEntrenamiento { get; set; }

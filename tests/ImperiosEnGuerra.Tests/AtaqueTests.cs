@@ -2,6 +2,7 @@ using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Servicios;
 using ImperiosEnGuerra.Modelo.Acciones;
 using ImperiosEnGuerra.Modelo.Core;
+using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Recursos;
 using ImperiosEnGuerra.Modelo.Unidades;
@@ -139,6 +140,67 @@ public class AtaqueTests
 
         Assert.That(resultado.Exito, Is.False);
         Assert.That(resultado.Mensaje, Does.Contain("disponible"));
+    }
+
+    [Test]
+    public void AtaqueAEdificio_AplicaDano()
+    {
+        var centroEnemigo = new CentroUrbano(new Coordenada(1, 2));
+        partida.JugadorMaquina.AgregarEdificio(centroEnemigo);
+
+        ResultadoAccion resultado = operacion.Ejecutar(
+            partida,
+            new SolicitudAtaque(
+                atacante.Id,
+                centroEnemigo.Id));
+
+        Assert.That(resultado.Exito, Is.True);
+        Assert.That(resultado.Mensaje, Does.Contain("Impacto"));
+        Assert.That(centroEnemigo.Vida, Is.EqualTo(475));
+        Assert.That(
+            partida.JugadorMaquina.Edificios.Contains(centroEnemigo),
+            Is.True);
+    }
+
+    [Test]
+    public void DestruirCentro_DeclaraVictoria()
+    {
+        var centroEnemigo = new CentroUrbano(new Coordenada(1, 2));
+        partida.JugadorMaquina.AgregarEdificio(centroEnemigo);
+
+        ResultadoAccion ultimo = null;
+
+        for (int i = 0; i < 20; i++)
+        {
+            ultimo = operacion.Ejecutar(
+                partida,
+                new SolicitudAtaque(
+                    atacante.Id,
+                    centroEnemigo.Id));
+
+            Assert.That(ultimo.Exito, Is.True);
+        }
+
+        Assert.That(
+            partida.JugadorMaquina.Edificios.Contains(centroEnemigo),
+            Is.False);
+        Assert.That(ultimo.Mensaje, Does.Contain("¡Victoria!"));
+    }
+
+    [Test]
+    public void EdificioPropio_Falla()
+    {
+        var centroPropio = new CentroUrbano(new Coordenada(0, 0));
+        partida.JugadorHumano.AgregarEdificio(centroPropio);
+
+        ResultadoAccion resultado = operacion.Ejecutar(
+            partida,
+            new SolicitudAtaque(
+                atacante.Id,
+                centroPropio.Id));
+
+        Assert.That(resultado.Exito, Is.False);
+        Assert.That(resultado.Mensaje, Does.Contain("humano"));
     }
 
     [Test]

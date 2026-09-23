@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ImperiosEnGuerra.Controladores.Red.Contratos;
 using UnityEngine;
 
@@ -248,11 +249,12 @@ namespace ImperiosEnGuerra.Vistas
                 EntidadSeleccionableVista existente =
                     BuscarEntidad(
                         CategoriaEntidadVisual.Edificio,
-                        string.Empty,
+                        edificio.id,
                         edificio.tipo,
                         propietario,
                         edificio.coordenada.x,
-                        edificio.coordenada.y);
+                        edificio.coordenada.y,
+                        ignorarCoordenada: true);
 
                 if (existente != null)
                     continue;
@@ -274,7 +276,45 @@ namespace ImperiosEnGuerra.Vistas
                     CategoriaEntidadVisual.Edificio,
                     edificio.tipo,
                     propietario,
-                    edificio.coordenada);
+                    edificio.coordenada,
+                    edificio.id);
+            }
+
+            EliminarEntidadesDestruidas(
+                CategoriaEntidadVisual.Edificio,
+                propietario,
+                datos.Select(edificio => edificio != null ? edificio.id : null));
+        }
+
+        /// <summary>
+        /// Retira los visuales destruidos en el Modelo para que el mapa
+        /// refleje bajas de combate. Solo presentación, sin reglas.
+        /// </summary>
+        private void EliminarEntidadesDestruidas(
+            CategoriaEntidadVisual categoria,
+            string propietario,
+            System.Collections.Generic.IEnumerable<string> idsVivos)
+        {
+            var vivos =
+                new System.Collections.Generic.HashSet<string>(
+                    idsVivos ?? System.Array.Empty<string>());
+
+            EntidadSeleccionableVista[] entidades =
+                GetComponentsInChildren<EntidadSeleccionableVista>(true);
+
+            foreach (EntidadSeleccionableVista entidad in entidades)
+            {
+                if (entidad == null ||
+                    entidad.Categoria != categoria ||
+                    entidad.Propietario != propietario ||
+                    string.IsNullOrWhiteSpace(entidad.IdLogico) ||
+                    vivos.Contains(entidad.IdLogico))
+                {
+                    continue;
+                }
+
+                movimientosVisuales.Remove(entidad.IdLogico);
+                Destroy(entidad.gameObject);
             }
         }
 
@@ -414,6 +454,11 @@ namespace ImperiosEnGuerra.Vistas
                     unidad.estado,
                     unidad.ordenActiva);
             }
+
+            EliminarEntidadesDestruidas(
+                CategoriaEntidadVisual.Unidad,
+                propietario,
+                datos.Select(unidad => unidad != null ? unidad.id : null));
         }
 
         private EntidadSeleccionableVista BuscarEntidad(
@@ -636,7 +681,7 @@ namespace ImperiosEnGuerra.Vistas
                         edificio.coordenada.x, edificio.coordenada.y, 20, edificios,
                         Vector3.one * escalaEdificios);
                     ConfigurarSeleccionable(objeto, CategoriaEntidadVisual.Edificio,
-                        edificio.tipo, propietario, edificio.coordenada);
+                        edificio.tipo, propietario, edificio.coordenada, edificio.id);
                 }
             }
 
