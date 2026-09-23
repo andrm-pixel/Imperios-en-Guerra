@@ -34,7 +34,7 @@ public sealed class ServicioAccionesConcurrentes
     //
     // Mantiene los tiempos de demostración actuales del proyecto:
     //
-    // Movimiento:      1 segundo
+    // Movimiento:      0.5 segundos por casilla
     // Recolección:     1 segundo
     // Construcción:    7 segundos
     // Entrenamiento:   5 segundos
@@ -48,7 +48,7 @@ public sealed class ServicioAccionesConcurrentes
             estadoPartida,
             gestorProcesos,
             servicioOrdenes,
-            TimeSpan.FromSeconds(1),
+            TimeSpan.FromSeconds(0.5),
             TimeSpan.FromSeconds(1),
             TimeSpan.FromSeconds(7),
             TimeSpan.FromSeconds(5),

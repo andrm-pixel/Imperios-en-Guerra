@@ -152,42 +152,23 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                         aldeano.Id,
                         Direcciones.Length);
 
-            for (int desplazamiento = 0;
-                 desplazamiento < Direcciones.Length;
-                 desplazamiento++)
-            {
-                int indice =
-                    (inicio + desplazamiento) %
-                    Direcciones.Length;
-
-                var elegido =
-                    candidatos
-                        .Where(
-                            c =>
-                                c.Indice == indice)
-                        .OrderBy(
-                            c => c.Plan.Pasos.Count)
-                        .FirstOrDefault();
-
-                if (elegido.Plan != null)
-                {
-                    return ResultadoAproximacionDeposito.Exitoso(
-                        elegido.Centro,
-                        elegido.Punto,
-                        elegido.Plan.Pasos);
-                }
-            }
-
-            var masCorto =
+            // Camino más corto primero; la preferencia rotativa solo
+            // desempata para no alargar rutas hacia el depósito.
+            var elegido =
                 candidatos
                     .OrderBy(
                         c => c.Plan.Pasos.Count)
+                    .ThenBy(
+                        c =>
+                            (c.Indice - inicio +
+                             Direcciones.Length) %
+                            Direcciones.Length)
                     .First();
 
             return ResultadoAproximacionDeposito.Exitoso(
-                masCorto.Centro,
-                masCorto.Punto,
-                masCorto.Plan.Pasos);
+                elegido.Centro,
+                elegido.Punto,
+                elegido.Plan.Pasos);
         }
 
         private static int Distancia(

@@ -34,7 +34,7 @@ namespace ImperiosEnGuerra.Vistas
         private int altoVisual;
 
         [SerializeField, Min(0.1f)]
-        private float velocidadMovimientoVisual = 2.5f;
+        private float velocidadMovimientoVisual = 4f;
 
         private sealed class MovimientoVisualPendiente
         {

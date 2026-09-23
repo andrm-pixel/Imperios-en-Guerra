@@ -188,7 +188,7 @@ public class PlanificadorAproximacionRecursoTests
     }
 
     [Test]
-    public void DosAldeanosMismoRecurso_PrefierenLadosDistintos()
+    public void DosAldeanosMismoRecurso_AmbosEncuentranCasillaMasCorta()
     {
         var segundo =
             new Aldeano(
@@ -220,12 +220,19 @@ public class PlanificadorAproximacionRecursoTests
             segundoPlan.Exito,
             Is.True);
 
+        // Ambos deben quedar junto al recurso por el camino más corto;
+        // si comparten casilla, el replan en tiempo de ejecución los separa.
         Assert.That(
-            Coincide(
+            Distancia(
                 primero.PuntoInteraccion,
-                segundoPlan.PuntoInteraccion),
-            Is.False,
-            "Dos recolectores no deberían competir por la misma casilla adyacente cuando existen alternativas.");
+                recurso.Coordenada),
+            Is.EqualTo(1));
+
+        Assert.That(
+            Distancia(
+                segundoPlan.PuntoInteraccion,
+                recurso.Coordenada),
+            Is.EqualTo(1));
     }
 
     [Test]

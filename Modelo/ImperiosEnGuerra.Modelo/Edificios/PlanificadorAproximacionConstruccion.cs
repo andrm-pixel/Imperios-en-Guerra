@@ -140,40 +140,22 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                         aldeano.Id,
                         Direcciones.Length);
 
-            for (int desplazamiento = 0;
-                 desplazamiento < Direcciones.Length;
-                 desplazamiento++)
-            {
-                int indice =
-                    (inicio + desplazamiento) %
-                    Direcciones.Length;
-
-                var elegido =
-                    candidatos
-                        .Where(
-                            c =>
-                                c.Indice == indice)
-                        .OrderBy(
-                            c => c.Plan.Pasos.Count)
-                        .FirstOrDefault();
-
-                if (elegido.Plan != null)
-                {
-                    return ResultadoAproximacionConstruccion.Exitoso(
-                        elegido.Punto,
-                        elegido.Plan.Pasos);
-                }
-            }
-
-            var masCorto =
+            // Camino más corto primero; la preferencia rotativa solo
+            // desempata para no alargar rutas hacia la obra.
+            var elegido =
                 candidatos
                     .OrderBy(
                         c => c.Plan.Pasos.Count)
+                    .ThenBy(
+                        c =>
+                            (c.Indice - inicio +
+                             Direcciones.Length) %
+                            Direcciones.Length)
                     .First();
 
             return ResultadoAproximacionConstruccion.Exitoso(
-                masCorto.Punto,
-                masCorto.Plan.Pasos);
+                elegido.Punto,
+                elegido.Plan.Pasos);
         }
 
         private static int Distancia(
