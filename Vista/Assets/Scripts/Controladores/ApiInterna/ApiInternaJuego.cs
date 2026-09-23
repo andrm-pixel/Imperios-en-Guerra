@@ -201,6 +201,12 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return true;
         }
 
+        public bool CancelarProceso(Guid procesoId)
+        {
+            ExigirDisponible();
+            return accionesConcurrentes.Cancelar(procesoId);
+        }
+
         public bool PermiteMover(string propietario, string categoria, string ordenActiva)
         {
             return ReglasAcciones.PermiteMover(propietario, categoria, ordenActiva);

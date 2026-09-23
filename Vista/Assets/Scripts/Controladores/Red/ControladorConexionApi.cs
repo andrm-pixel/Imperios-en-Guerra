@@ -39,6 +39,64 @@ namespace ImperiosEnGuerra.Controladores.Red
     private int entrenamientosActivos;
     private int ataquesActivos;
 
+    private readonly System.Collections.Generic.Dictionary<string, System.Guid> procesosPorUnidad =
+        new System.Collections.Generic.Dictionary<string, System.Guid>();
+
+    private void RegistrarProceso(string claveUnidad, System.Guid procesoId)
+    {
+        if (!string.IsNullOrWhiteSpace(claveUnidad))
+            procesosPorUnidad[claveUnidad] = procesoId;
+    }
+
+    private void OlvidarProceso(string claveUnidad)
+    {
+        if (!string.IsNullOrWhiteSpace(claveUnidad))
+            procesosPorUnidad.Remove(claveUnidad);
+    }
+
+    /// <summary>
+    /// Cancela la orden activa de una unidad para sacarla de su tarea.
+    /// Solo modo interno; sin API interna no hay nada que cancelar.
+    /// </summary>
+    public void CancelarOrdenesDe(string unidadId)
+    {
+        if (usarApiExterna)
+        {
+            MostrarError("La cancelación solo está disponible en modo interno.");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(unidadId) ||
+            !procesosPorUnidad.TryGetValue(unidadId, out System.Guid procesoId))
+        {
+            if (vistaHud != null)
+                vistaHud.MostrarMensaje("La unidad no tiene una orden activa para cancelar.");
+            return;
+        }
+
+        try
+        {
+            ExigirApiInterna();
+            if (apiInterna.CancelarProceso(procesoId))
+            {
+                if (vistaHud != null)
+                    vistaHud.MostrarMensaje("Orden cancelada. La unidad queda libre.");
+            }
+            else if (vistaHud != null)
+            {
+                vistaHud.MostrarMensaje("La orden ya había terminado.");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            MostrarError(ex.Message);
+        }
+        finally
+        {
+            OlvidarProceso(unidadId);
+        }
+    }
+
 public bool AccionEnCurso =>
     MovimientoEnCurso ||
     RecoleccionEnCurso ||
@@ -225,10 +283,12 @@ public bool PuedeIniciarAtaque =>
                     MostrarError(ex.Message);
                     yield break;
                 }
+                RegistrarProceso(unidadId, procesoId);
                 yield return EsperarProcesoInterno(procesoId, unidadId, "Movimiento");
             }
             finally
             {
+                OlvidarProceso(unidadId);
                 movimientosActivos = Mathf.Max(0, movimientosActivos - 1);
                 MovimientoEnCurso = movimientosActivos > 0;
             }
@@ -251,10 +311,12 @@ public bool PuedeIniciarAtaque =>
                     MostrarError(ex.Message);
                     yield break;
                 }
+                RegistrarProceso(aldeanoId, procesoId);
                 yield return EsperarProcesoInterno(procesoId, aldeanoId, "Recolección");
             }
             finally
             {
+                OlvidarProceso(aldeanoId);
                 recoleccionesActivas = Mathf.Max(0, recoleccionesActivas - 1);
                 RecoleccionEnCurso = recoleccionesActivas > 0;
             }
@@ -277,10 +339,12 @@ public bool PuedeIniciarAtaque =>
                     MostrarError(ex.Message);
                     yield break;
                 }
+                RegistrarProceso(aldeanoId, procesoId);
                 yield return EsperarProcesoInterno(procesoId, aldeanoId, "Construcción");
             }
             finally
             {
+                OlvidarProceso(aldeanoId);
                 construccionesActivas = Mathf.Max(0, construccionesActivas - 1);
                 ConstruccionEnCurso = construccionesActivas > 0;
             }
@@ -329,10 +393,12 @@ public bool PuedeIniciarAtaque =>
                     MostrarError(ex.Message);
                     yield break;
                 }
+                RegistrarProceso(atacanteId, procesoId);
                 yield return EsperarProcesoInterno(procesoId, atacanteId, "Ataque");
             }
             finally
             {
+                OlvidarProceso(atacanteId);
                 ataquesActivos = Mathf.Max(0, ataquesActivos - 1);
                 AtaqueEnCurso = ataquesActivos > 0;
             }
@@ -413,10 +479,19 @@ public bool PuedeIniciarAtaque =>
                 UnidadEstadoDto unidad = BuscarUnidadHumana(estado, unidadId);
                 if (unidad?.coordenada != null && vistaPartida != null)
                     vistaPartida.ActualizarMovimientoUnidad(unidad.id, unidad.coordenada.x, unidad.coordenada.y, unidad.estado, unidad.ordenActiva);
+                var recursos = estado?.jugadorHumano?.recursos;
+                if (vistaHud != null && recursos != null)
+                {
+                    if (unidad != null)
+                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, unidad.tipoCarga, unidad.cargaActual);
+                    else
+                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida);
+                }
+                yield break;
             }
-            var recursos = estado?.jugadorHumano?.recursos;
-            if (vistaHud != null && recursos != null)
-                vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida);
+            var recursosSolo = estado?.jugadorHumano?.recursos;
+            if (vistaHud != null && recursosSolo != null)
+                vistaHud.MostrarRecursos(recursosSolo.oro, recursosSolo.madera, recursosSolo.comida);
         }
 
         private IEnumerator SincronizarEstadoInterno(string mensaje = "")

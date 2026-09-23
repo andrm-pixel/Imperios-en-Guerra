@@ -610,9 +610,69 @@ public sealed class ServicioAccionesConcurrentes
                             !estadoPartida.RecursoDisponible(
                                 objetivo))
                         {
-                            return ResultadoAccion.Exitoso(
-                                $"Recolección completada. Se depositaron {totalDepositado} " +
-                                $"de {tipoObjetivo} y el nodo quedó agotado.");
+                            // Recolección continua: al agotarse el nodo, el
+                            // aldeano sigue con el nodo disponible más cercano
+                            // del mismo tipo en lugar de abandonar la zona.
+                            // Solo queda libre cuando no hay más nodos o el
+                            // jugador lo saca con otra orden/cancelación.
+                            Coordenada siguiente =
+                                estadoPartida.BuscarRecursoDisponibleCercano(
+                                    tipoObjetivo,
+                                    aldeano.Coordenada);
+
+                            if (siguiente == null)
+                            {
+                                return ResultadoAccion.Exitoso(
+                                    $"Recolección completada. Se depositaron {totalDepositado} " +
+                                    $"de {tipoObjetivo} y no quedan nodos disponibles. En espera de órdenes.");
+                            }
+
+                            objetivo = siguiente;
+
+                            if (copia != null &&
+                                copia.Objetivo != null)
+                            {
+                                copia.Objetivo.X = siguiente.X;
+                                copia.Objetivo.Y = siguiente.Y;
+                            }
+
+                            Console.WriteLine(
+                                $"RECOLECCION_SIGUIENTE_NODO: {unidadId} -> " +
+                                $"({siguiente.X},{siguiente.Y})");
+
+                            if (!estadoPartida.IntentarReemplazarOrdenUnidad(
+                                    unidadId,
+                                    TipoAccionJuego.Mover))
+                            {
+                                return ResultadoAccion.Fallido(
+                                    "No se pudo iniciar el desplazamiento al siguiente nodo.");
+                            }
+
+                            planInicial =
+                                PrepararAproximacionRecursoConReintentos(
+                                    copia,
+                                    token,
+                                    true);
+
+                            if (!planInicial.Exito)
+                            {
+                                return ResultadoAccion.Fallido(
+                                    planInicial.Mensaje);
+                            }
+
+                            ResultadoAccion idaSiguiente =
+                                EjecutarHaciaRecursoConReplan(
+                                    copia,
+                                    unidadId,
+                                    planInicial,
+                                    retardoPaso,
+                                    token,
+                                    out planInicial);
+
+                            if (!idaSiguiente.Exito)
+                                return idaSiguiente;
+
+                            continue;
                         }
 
                         if (!estadoPartida.IntentarReemplazarOrdenUnidad(

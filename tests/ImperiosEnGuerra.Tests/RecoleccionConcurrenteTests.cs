@@ -346,6 +346,71 @@ public class RecoleccionConcurrenteTests
         return new Partida(humano, maquina);
     }
 
+    [Test]
+    public async Task NodoAgotado_ContinuaConElMasCercanoSinAbandonarZona()
+    {
+        var mapa = new Mapa(6, 6);
+
+        var humano = new Jugador(
+            "Humano",
+            TipoJugador.Humano,
+            mapa,
+            new RecursosJugador());
+
+        var maquina = new Jugador(
+            "Máquina",
+            TipoJugador.Maquina,
+            mapa,
+            new RecursosJugador());
+
+        var aldeanoCercano = new Aldeano(new Coordenada(1, 1));
+        humano.AgregarUnidad(aldeanoCercano);
+        humano.AgregarEdificio(new CentroUrbano(new Coordenada(0, 0)));
+        Assert.That(mapa.ObtenerCasilla(0, 0).Ocupar(), Is.True);
+        Assert.That(
+            mapa.ColocarRecurso(new Recurso(TipoRecurso.Oro, new Coordenada(2, 2), 10)),
+            Is.True);
+        Assert.That(
+            mapa.ColocarRecurso(new Recurso(TipoRecurso.Oro, new Coordenada(4, 2), 10)),
+            Is.True);
+
+        var partidaDoble = new Partida(humano, maquina);
+        var estado = new EstadoPartidaService();
+        estado.EstablecerPartida(partidaDoble);
+
+        using var gestor = new GestorProcesosConcurrentes();
+        var servicio = new ServicioAccionesConcurrentes(
+            estado, gestor, TimeSpan.Zero);
+
+        ProcesoConcurrente proceso =
+            servicio.IniciarRecoleccion(CrearRequest(aldeanoCercano, 2, 2));
+
+        Assert.That(
+            proceso.Finalizacion.Wait(TimeSpan.FromSeconds(30)),
+            Is.True);
+
+        Assert.That(
+            servicio.IntentarObtenerResultado(
+                out ResultadoProcesoConcurrente resultado),
+            Is.True);
+
+        Assert.That(resultado.Resultado, Is.Not.Null);
+        Assert.That(resultado.Resultado.Exito, Is.True);
+        Assert.That(
+            resultado.Resultado.Mensaje,
+            Does.Contain("no quedan nodos"));
+
+        Assert.That(
+            mapa.ObtenerRecursoEn(new Coordenada(2, 2)).CantidadRestante,
+            Is.Zero);
+        Assert.That(
+            mapa.ObtenerRecursoEn(new Coordenada(4, 2)).CantidadRestante,
+            Is.Zero);
+        Assert.That(
+            partidaDoble.JugadorHumano.Recursos.ObtenerCantidad(TipoRecurso.Oro),
+            Is.EqualTo(20));
+    }
+
     private static RecolectarRequest CrearRequest(
         Aldeano aldeano,
         int x,

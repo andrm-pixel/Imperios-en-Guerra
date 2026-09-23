@@ -247,6 +247,26 @@ namespace ImperiosEnGuerra.Controladores
 
             LimpiarCaptura();
 
+            // Sin captura en curso, Esc saca a la unidad seleccionada
+            // de su orden activa (recolección continua, movimiento...).
+            if (string.IsNullOrEmpty(accionCancelada))
+            {
+                var seleccionada =
+                    controladorSeleccion == null
+                        ? null
+                        : controladorSeleccion.SeleccionActual;
+
+                if (seleccionada != null &&
+                    !string.IsNullOrWhiteSpace(seleccionada.IdLogico) &&
+                    !string.IsNullOrWhiteSpace(seleccionada.OrdenActiva) &&
+                    conexionApi != null &&
+                    conexionApi.isActiveAndEnabled)
+                {
+                    conexionApi.CancelarOrdenesDe(seleccionada.IdLogico);
+                    return;
+                }
+            }
+
             if (vistaHud != null)
             {
                 vistaHud.MostrarMensaje(

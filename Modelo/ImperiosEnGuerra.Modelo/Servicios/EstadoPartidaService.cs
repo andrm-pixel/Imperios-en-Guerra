@@ -301,6 +301,50 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Busca el nodo disponible más cercano del tipo indicado para
+    /// recolección continua sin abandonar la zona de trabajo.
+    /// </summary>
+    public Coordenada? BuscarRecursoDisponibleCercano(
+        TipoRecurso tipo,
+        Coordenada desde)
+    {
+        lock (sincronizacion)
+        {
+            if (partidaActiva == null ||
+                desde == null)
+            {
+                return null;
+            }
+
+            Coordenada? mejor = null;
+            int mejorDistancia = int.MaxValue;
+
+            foreach (Recurso recurso in partidaActiva.JugadorHumano.Mapa.Recursos)
+            {
+                if (recurso == null ||
+                    recurso.Tipo != tipo ||
+                    recurso.Agotado ||
+                    recurso.Coordenada == null)
+                {
+                    continue;
+                }
+
+                int distancia =
+                    Math.Abs(recurso.Coordenada.X - desde.X) +
+                    Math.Abs(recurso.Coordenada.Y - desde.Y);
+
+                if (distancia < mejorDistancia)
+                {
+                    mejorDistancia = distancia;
+                    mejor = recurso.Coordenada;
+                }
+            }
+
+            return mejor;
+        }
+    }
+
     public ResultadoPasoRecoleccion RecolectarPaso(
         Guid aldeanoId,
         Coordenada objetivo,

@@ -88,10 +88,18 @@ namespace ImperiosEnGuerra.Vistas
             TipoUnidadSolicitado?.Invoke("Arquero");
         private void SolicitarEntrenarMonje() =>
             TipoUnidadSolicitado?.Invoke("Monje");
-        public void MostrarRecursos(int oro, int madera, int comida)
+        public void MostrarRecursos(int oro, int madera, int comida, string tipoCarga = null, int cargaActual = 0)
         {
-            if (recursos != null)
+            if (recursos == null)
+                return;
+
+            if (string.IsNullOrWhiteSpace(tipoCarga) || cargaActual <= 0)
+            {
                 recursos.text = $"Oro: {oro} | Madera: {madera} | Comida: {comida}";
+                return;
+            }
+
+            recursos.text = $"Oro: {oro} | Madera: {madera} | Comida: {comida} (+{cargaActual} {tipoCarga} en camino)";
         }
 
         public void MostrarSeleccion(EntidadSeleccionableVista entidad)
