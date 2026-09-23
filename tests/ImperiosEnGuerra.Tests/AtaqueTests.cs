@@ -33,7 +33,7 @@ public class AtaqueTests
                 new RecursosJugador()));
 
         atacante = new Guerrero(new Coordenada(1, 1));
-        objetivo = new Lancero(new Coordenada(4, 4));
+        objetivo = new Lancero(new Coordenada(2, 1));
 
         partida.JugadorHumano.AgregarUnidad(atacante);
         partida.JugadorMaquina.AgregarUnidad(objetivo);
@@ -42,7 +42,7 @@ public class AtaqueTests
     }
 
     [Test]
-    public void AtaqueValido_PreparaSinAplicarDanoInventado()
+    public void AtaqueValido_AplicaDanoReal()
     {
         int unidadesHumano = partida.JugadorHumano.Unidades.Count;
         int unidadesMaquina = partida.JugadorMaquina.Unidades.Count;
@@ -54,11 +54,47 @@ public class AtaqueTests
                 objetivo.Id));
 
         Assert.That(resultado.Exito, Is.True);
-        Assert.That(resultado.Mensaje, Does.Contain("pendiente"));
+        Assert.That(resultado.Mensaje, Does.Contain("Impacto"));
         Assert.That(partida.JugadorHumano.Unidades.Count, Is.EqualTo(unidadesHumano));
         Assert.That(partida.JugadorMaquina.Unidades.Count, Is.EqualTo(unidadesMaquina));
-        Assert.That(objetivo.Coordenada.X, Is.EqualTo(4));
-        Assert.That(objetivo.Coordenada.Y, Is.EqualTo(4));
+        Assert.That(objetivo.Vida, Is.EqualTo(75));
+    }
+
+    [Test]
+    public void ObjetivoFueraDeAlcance_Falla()
+    {
+        var lejano = new Lancero(new Coordenada(4, 4));
+        partida.JugadorMaquina.AgregarUnidad(lejano);
+
+        ResultadoAccion resultado = operacion.Ejecutar(
+            partida,
+            new SolicitudAtaque(
+                atacante.Id,
+                lejano.Id));
+
+        Assert.That(resultado.Exito, Is.False);
+        Assert.That(resultado.Mensaje, Does.Contain("alcance"));
+        Assert.That(lejano.Vida, Is.EqualTo(100));
+    }
+
+    [Test]
+    public void CuatroImpactos_DestruyenLanceroYDeclaranVictoria()
+    {
+        ResultadoAccion ultimo = null;
+
+        for (int i = 0; i < 4; i++)
+        {
+            ultimo = operacion.Ejecutar(
+                partida,
+                new SolicitudAtaque(
+                    atacante.Id,
+                    objetivo.Id));
+
+            Assert.That(ultimo.Exito, Is.True);
+        }
+
+        Assert.That(partida.JugadorMaquina.Unidades.Count, Is.EqualTo(0));
+        Assert.That(ultimo.Mensaje, Does.Contain("¡Victoria!"));
     }
 
     [Test]

@@ -1063,9 +1063,24 @@ public sealed class EstadoPartidaService
                 atacanteId,
                 objetivoId);
 
+            ResultadoAccion resultado =
+                new OperacionAtaque().Ejecutar(partidaActiva, solicitud);
+
+            if (resultado.Exito &&
+                resultado.Mensaje != null &&
+                resultado.Mensaje.Contains("¡Victoria!"))
+            {
+                RegistrarEventoSeguro(
+                    $"VICTORIA|EXITO|{partidaActiva.JugadorHumano.Nombre} derrota a {partidaActiva.JugadorMaquina.Nombre}.");
+                GuardarResultadoFinalSeguro(
+                    $"Ganador={partidaActiva.JugadorHumano.Nombre}\n" +
+                    $"Perdedor={partidaActiva.JugadorMaquina.Nombre}\n" +
+                    $"UnidadesRestantesHumano={partidaActiva.JugadorHumano.Unidades.Count}\n");
+            }
+
             return RegistrarResultado(
                 "ATACAR",
-                new OperacionAtaque().Ejecutar(partidaActiva, solicitud));
+                resultado);
         }
     }
 
@@ -1158,6 +1173,27 @@ public sealed class EstadoPartidaService
         {
             Console.Error.WriteLine(
                 $"No se pudo escribir log_partida.txt: {ex.Message}");
+        }
+    }
+
+    private void GuardarResultadoFinalSeguro(string contenido)
+    {
+        if (servicioArchivos == null)
+            return;
+
+        try
+        {
+            servicioArchivos.GuardarResultadoFinal(contenido);
+        }
+        catch (IOException ex)
+        {
+            Console.Error.WriteLine(
+                $"No se pudo escribir resultado_final.txt: {ex.Message}");
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            Console.Error.WriteLine(
+                $"No se pudo escribir resultado_final.txt: {ex.Message}");
         }
     }
 }

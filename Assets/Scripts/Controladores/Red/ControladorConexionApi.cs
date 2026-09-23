@@ -318,25 +318,18 @@ public bool PuedeIniciarAtaque =>
             AtaqueEnCurso = ataquesActivos > 0;
             try
             {
-                ResultadoAccionDto resultado;
+                System.Guid procesoId;
                 try
                 {
                     ExigirApiInterna();
-                    resultado = apiInterna.Atacar(atacanteId, objetivoId);
+                    procesoId = apiInterna.IniciarAtaque(atacanteId, objetivoId);
                 }
                 catch (System.Exception ex)
                 {
                     MostrarError(ex.Message);
                     yield break;
                 }
-                if (resultado == null || !resultado.exito)
-                {
-                    MostrarError(resultado?.mensaje ?? "El ataque fue rechazado por el Modelo.");
-                    yield return SincronizarEstadoInterno();
-                    yield break;
-                }
-                yield return SincronizarEstadoInterno(
-                    string.IsNullOrWhiteSpace(resultado.mensaje) ? "Ataque realizado." : resultado.mensaje);
+                yield return EsperarProcesoInterno(procesoId, atacanteId, "Ataque");
             }
             finally
             {
@@ -1884,38 +1877,22 @@ public bool PuedeIniciarAtaque =>
 
                 recursosHumano = new[]
                 {
-                    new RecursoInicialDto(
-                        "Oro",
-                        1,
-                        2),
-
-                    new RecursoInicialDto(
-                        "Madera",
-                        2,
-                        1),
-
-                    new RecursoInicialDto(
-                        "Comida",
-                        2,
-                        2)
+                    new RecursoInicialDto("Oro", 4, 2),
+                    new RecursoInicialDto("Oro", 1, 5),
+                    new RecursoInicialDto("Madera", 5, 1),
+                    new RecursoInicialDto("Madera", 2, 4),
+                    new RecursoInicialDto("Comida", 3, 3),
+                    new RecursoInicialDto("Comida", 6, 2)
                 },
 
                 recursosMaquina = new[]
                 {
-                    new RecursoInicialDto(
-                        "Oro",
-                        8,
-                        7),
-
-                    new RecursoInicialDto(
-                        "Madera",
-                        7,
-                        8),
-
-                    new RecursoInicialDto(
-                        "Comida",
-                        7,
-                        7)
+                    new RecursoInicialDto("Oro", 5, 7),
+                    new RecursoInicialDto("Oro", 8, 4),
+                    new RecursoInicialDto("Madera", 4, 8),
+                    new RecursoInicialDto("Madera", 7, 5),
+                    new RecursoInicialDto("Comida", 6, 6),
+                    new RecursoInicialDto("Comida", 3, 7)
                 }
             };
         }

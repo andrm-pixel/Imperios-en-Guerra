@@ -180,7 +180,7 @@ public class RegistroAccionesTests
 
         aldeano = new Aldeano(new Coordenada(1, 1));
         guerrero = new Guerrero(new Coordenada(2, 1));
-        enemigo = new Lancero(new Coordenada(8, 8));
+        enemigo = new Lancero(new Coordenada(4, 3));
 
         humano.AgregarUnidad(aldeano);
         humano.AgregarUnidad(guerrero);

@@ -17,5 +17,15 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             : base(coordenada, velocidadMovimiento)
         {
         }
+
+        protected Soldado(
+            Coordenada coordenada,
+            double velocidadMovimiento,
+            int vidaMaxima,
+            int puntosAtaque,
+            int alcanceAtaque)
+            : base(coordenada, velocidadMovimiento, vidaMaxima, puntosAtaque, alcanceAtaque)
+        {
+        }
     }
 }

@@ -92,18 +92,24 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                 new Coordenada(1, 1),
                 new List<Recurso>
                 {
-                    new Recurso(TipoRecurso.Oro, new Coordenada(1, 2)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(2, 1)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(2, 2))
+                    new Recurso(TipoRecurso.Oro, new Coordenada(4, 2)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(1, 5)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(5, 1)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(2, 4)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(3, 3)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(6, 2))
                 },
                 "CPU",
                 mapa,
                 new Coordenada(8, 8),
                 new List<Recurso>
                 {
-                    new Recurso(TipoRecurso.Oro, new Coordenada(8, 7)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(7, 8)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(7, 7))
+                    new Recurso(TipoRecurso.Oro, new Coordenada(5, 7)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(8, 4)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(4, 8)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(7, 5)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(6, 6)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(3, 7))
                 });
 
             servicioArchivos.GuardarConfiguracionInicial(partida);
@@ -165,20 +171,15 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
-        public ContratosUnity.ResultadoAccionDto Atacar(string atacanteId, string objetivoId)
+        public Guid IniciarAtaque(string atacanteId, string objetivoId)
         {
             ExigirDisponible();
-            var resultado = estadoPartida.Atacar(new AtacarRequest
+            var proceso = accionesConcurrentes.IniciarAtaque(new AtacarRequest
             {
                 AtacanteId = atacanteId,
                 ObjetivoId = objetivoId
             });
-            return new ContratosUnity.ResultadoAccionDto
-            {
-                exito = resultado.Exito,
-                mensaje = resultado.Mensaje,
-                error = resultado.Exito ? null : resultado.Mensaje
-            };
+            return proceso.Id;
         }
 
         public bool IntentarObtenerResultado(Guid procesoId, out ContratosUnity.ResultadoProcesoDto dto)

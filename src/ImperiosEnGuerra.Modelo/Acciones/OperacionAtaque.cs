@@ -1,11 +1,16 @@
+using System;
 using System.Linq;
 using ImperiosEnGuerra.Modelo.Core;
+using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
     /// <summary>
-    /// Valida la intención base de ataque sin aplicar daño mientras no existan estadísticas definidas.
+    /// Aplica daño real de combate en el Modelo con estadísticas por tipo.
+    /// Valores del prototipo: Guerrero 25/alc.1, Lancero 20/alc.2,
+    /// Arquero 15/alc.4, Monje 10/alc.1. La unidad destruida se retira
+    /// y libera su casilla.
     /// </summary>
     public sealed class OperacionAtaque
     {
@@ -55,8 +60,42 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 return ResultadoAccion.Fallido(
                     "No existe la unidad enemiga objetivo indicada.");
 
+            if (atacante.Coordenada == null ||
+                objetivo.Coordenada == null)
+                return ResultadoAccion.Fallido(
+                    "Atacante u objetivo sin posición válida.");
+
+            int distancia =
+                Math.Abs(atacante.Coordenada.X - objetivo.Coordenada.X) +
+                Math.Abs(atacante.Coordenada.Y - objetivo.Coordenada.Y);
+
+            if (distancia > atacante.AlcanceAtaque)
+                return ResultadoAccion.Fallido(
+                    $"Objetivo fuera de alcance ({distancia} > {atacante.AlcanceAtaque}). Mueve la unidad para acercarla.");
+
+            bool destruido = objetivo.RecibirDano(atacante.PuntosAtaque);
+
+            if (!destruido)
+            {
+                return ResultadoAccion.Exitoso(
+                    $"Impacto: {atacante.PuntosAtaque} de daño a {objetivo.GetType().Name} (vida {objetivo.Vida}).");
+            }
+
+            partida.JugadorMaquina.EliminarUnidad(objetivo);
+
+            Mapa mapaMaquina = partida.JugadorMaquina.Mapa;
+            mapaMaquina.ObtenerCasilla(
+                objetivo.Coordenada.X,
+                objetivo.Coordenada.Y)?.Liberar();
+
+            if (partida.JugadorMaquina.Unidades.Count == 0)
+            {
+                return ResultadoAccion.Exitoso(
+                    $"Unidad enemiga destruida. ¡Victoria! Todas las unidades de la máquina fueron eliminadas.");
+            }
+
             return ResultadoAccion.Exitoso(
-                "Ataque preparado correctamente. El daño queda pendiente hasta definir estadísticas de combate.");
+                "Unidad enemiga destruida.");
         }
 
         private static bool EsUnidadMilitar(Unidad unidad)

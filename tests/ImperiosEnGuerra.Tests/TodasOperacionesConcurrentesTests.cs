@@ -218,7 +218,7 @@ public class TodasOperacionesConcurrentesTests
 
 
         enemigo =
-            new Lancero(new Coordenada(4,4));
+            new Lancero(new Coordenada(1,3));
 
 
         humano.AgregarUnidad(aldeanoMovimiento);

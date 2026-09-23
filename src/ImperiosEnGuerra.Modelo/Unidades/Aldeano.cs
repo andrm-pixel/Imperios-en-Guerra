@@ -66,7 +66,10 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             int capacidadCarga)
             : base(
                 coordenada,
-                1.00d)
+                1.00d,
+                50,
+                0,
+                1)
         {
             if (capacidadCarga <= 0)
             {

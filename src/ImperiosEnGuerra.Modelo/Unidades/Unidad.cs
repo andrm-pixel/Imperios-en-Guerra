@@ -42,12 +42,32 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         public TipoAccionJuego? OrdenActiva { get; private set; }
 
         /// <summary>
+        /// Puntos de vida actuales. Llegar a cero destruye la unidad.
+        /// </summary>
+        public int Vida { get; private set; }
+
+        /// <summary>
+        /// Daño que inflige cada ataque exitoso.
+        /// </summary>
+        public int PuntosAtaque { get; }
+
+        /// <summary>
+        /// Alcance máximo en distancia Manhattan para atacar.
+        /// </summary>
+        public int AlcanceAtaque { get; }
+
+        private readonly object sincronizacionVida = new object();
+
+        /// <summary>
         /// Inicializa una unidad con un identificador único, disponible, sin orden y en estado Idle.
         /// </summary>
         /// <param name="coordenada">Posición lógica inicial.</param>
         protected Unidad(
             Coordenada coordenada,
-            double velocidadMovimiento = 1d)
+            double velocidadMovimiento = 1d,
+            int vidaMaxima = 100,
+            int puntosAtaque = 10,
+            int alcanceAtaque = 1)
         {
             if (velocidadMovimiento <= 0d ||
                 double.IsNaN(velocidadMovimiento) ||
@@ -58,12 +78,72 @@ namespace ImperiosEnGuerra.Modelo.Unidades
                     "La velocidad de movimiento debe ser un valor positivo y finito.");
             }
 
+            if (vidaMaxima <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(vidaMaxima),
+                    "La vida máxima debe ser positiva.");
+            }
+
+            if (puntosAtaque < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(puntosAtaque),
+                    "Los puntos de ataque no pueden ser negativos.");
+            }
+
+            if (alcanceAtaque < 1)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(alcanceAtaque),
+                    "El alcance de ataque debe ser al menos 1.");
+            }
+
             Id = Guid.NewGuid();
             Coordenada = coordenada;
             VelocidadMovimiento = velocidadMovimiento;
+            Vida = vidaMaxima;
+            PuntosAtaque = puntosAtaque;
+            AlcanceAtaque = alcanceAtaque;
             Disponible = true;
             Estado = EstadoUnidad.Idle;
             OrdenActiva = null;
+        }
+
+        /// <summary>
+        /// Aplica daño a la unidad de forma sincronizada. Devuelve true si la unidad queda destruida.
+        /// </summary>
+        public bool RecibirDano(int dano)
+        {
+            if (dano < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(dano),
+                    "El daño no puede ser negativo.");
+            }
+
+            lock (sincronizacionVida)
+            {
+                if (Vida <= 0)
+                    return true;
+
+                Vida = Math.Max(0, Vida - dano);
+                return Vida <= 0;
+            }
+        }
+
+        /// <summary>
+        /// Indica si la unidad sigue con vida.
+        /// </summary>
+        public bool EstaViva
+        {
+            get
+            {
+                lock (sincronizacionVida)
+                {
+                    return Vida > 0;
+                }
+            }
         }
 
         /// <summary>

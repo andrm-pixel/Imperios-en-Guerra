@@ -49,7 +49,7 @@ public class AtaqueConcurrenteTests
         Assert.That(resultado.Resultado, Is.Not.Null);
         Assert.That(resultado.Resultado.Exito, Is.True);
         Assert.That(resultado.Resultado.Mensaje,
-            Does.Contain("pendiente"));
+            Does.Contain("Impacto"));
     }
 
 
@@ -99,8 +99,8 @@ public class AtaqueConcurrenteTests
             Is.EqualTo(EstadoProcesoConcurrente.Cancelado));
 
 
-        Assert.That(objetivo.Coordenada.X, Is.EqualTo(4));
-        Assert.That(objetivo.Coordenada.Y, Is.EqualTo(4));
+        Assert.That(objetivo.Coordenada.X, Is.EqualTo(2));
+        Assert.That(objetivo.Coordenada.Y, Is.EqualTo(1));
     }
 
 
@@ -132,7 +132,7 @@ public class AtaqueConcurrenteTests
 
         objetivo =
             new Lancero(
-                new Coordenada(4, 4));
+                new Coordenada(2, 1));
 
 
         humano.AgregarUnidad(atacante);

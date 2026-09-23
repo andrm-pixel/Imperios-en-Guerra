@@ -238,9 +238,10 @@ public sealed class ServicioAccionesConcurrentes
                             pasos.Dequeue();
 
                         ResultadoAccion resultadoPaso =
-                            estadoPartida.AvanzarMovimiento(
+                            AvanzarMovimientoConReintentos(
                                 unidadId,
-                                siguiente);
+                                siguiente,
+                                token);
 
                         if (!resultadoPaso.Exito)
                         {

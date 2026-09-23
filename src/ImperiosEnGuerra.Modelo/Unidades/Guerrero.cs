@@ -11,7 +11,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         /// Inicializa el Guerrero en la coordenada indicada.
         /// </summary>
         public Guerrero(Coordenada coordenada)
-            : base(coordenada, 1.00d)
+            : base(coordenada, 1.00d, 120, 25, 1)
         {
         }
     }
