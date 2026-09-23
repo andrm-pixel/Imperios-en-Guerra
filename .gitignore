@@ -80,6 +80,11 @@ desktop.ini
 # Configuración local de asistente
 # =========================
 AGENTS.md
+
+# =========================
+# Recuperación de escenas de Unity
+# =========================
+Vista/Assets/_Recovery/
 # =========================
 # Tiny Swords - archivos graficos externos, no redistribuir
 # =========================
