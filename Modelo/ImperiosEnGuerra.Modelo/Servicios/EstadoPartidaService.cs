@@ -1168,6 +1168,32 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Posición actual de un objetivo enemigo (unidad o edificio).
+    /// Null si no existe (destruido) o no hay partida.
+    /// </summary>
+    public Coordenada? ObtenerCoordenadaObjetivoEnemigo(Guid objetivoId)
+    {
+        lock (sincronizacion)
+        {
+            if (partidaActiva == null)
+                return null;
+
+            Unidad? unidad =
+                partidaActiva.JugadorMaquina.Unidades
+                    .FirstOrDefault(u => u.Id == objetivoId);
+
+            if (unidad != null)
+                return unidad.Coordenada;
+
+            Edificio? edificio =
+                partidaActiva.JugadorMaquina.Edificios
+                    .FirstOrDefault(e => e.Id == objetivoId);
+
+            return edificio?.Coordenada;
+        }
+    }
+
     public CentroUrbano? ObtenerCentroUrbano(Coordenada coordenada)
     {
         lock (sincronizacion)

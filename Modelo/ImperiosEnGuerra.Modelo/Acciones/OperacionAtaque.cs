@@ -40,7 +40,8 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 return ResultadoAccion.Fallido(
                     "No existe la unidad atacante humana indicada.");
 
-            if (!atacante.Disponible)
+            if (!atacante.Disponible &&
+                atacante.OrdenActiva != TipoAccionJuego.Atacar)
                 return ResultadoAccion.Fallido(
                     "La unidad atacante no está disponible.");
 

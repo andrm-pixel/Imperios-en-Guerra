@@ -49,7 +49,7 @@ public class AtaqueConcurrenteTests
         Assert.That(resultado.Resultado, Is.Not.Null);
         Assert.That(resultado.Resultado.Exito, Is.True);
         Assert.That(resultado.Resultado.Mensaje,
-            Does.Contain("Impacto"));
+            Does.Contain("destruid"));
     }
 
 
@@ -103,6 +103,54 @@ public class AtaqueConcurrenteTests
         Assert.That(objetivo.Coordenada.Y, Is.EqualTo(1));
     }
 
+
+    [Test]
+    public async Task ObjetivoLejos_CaminaHastaAlcanceYDestruye()
+    {
+        var mapa = new Mapa(8, 8);
+        var humano = new Jugador(
+            "Humano", TipoJugador.Humano, mapa, new RecursosJugador());
+        var maquina = new Jugador(
+            "Máquina", TipoJugador.Maquina, mapa, new RecursosJugador());
+
+        var atacanteLejos = new Guerrero(new Coordenada(1, 1));
+        var objetivoLejos = new Lancero(new Coordenada(4, 4));
+        humano.AgregarUnidad(atacanteLejos);
+        maquina.AgregarUnidad(objetivoLejos);
+
+        var partidaLejos = new Partida(humano, maquina);
+        var estado = new EstadoPartidaService();
+        estado.EstablecerPartida(partidaLejos);
+
+        using var gestor = new GestorProcesosConcurrentes();
+        var servicio = new ServicioAccionesConcurrentes(
+            estado, gestor, TimeSpan.Zero);
+
+        ProcesoConcurrente proceso = servicio.IniciarAtaque(
+            new AtacarRequest
+            {
+                AtacanteId = atacanteLejos.Id.ToString(),
+                ObjetivoId = objetivoLejos.Id.ToString()
+            });
+
+        Assert.That(
+            proceso.Finalizacion.Wait(TimeSpan.FromSeconds(30)),
+            Is.True);
+
+        Assert.That(
+            servicio.IntentarObtenerResultado(
+                out ResultadoProcesoConcurrente resultado),
+            Is.True);
+
+        Assert.That(resultado.Resultado, Is.Not.Null);
+        Assert.That(resultado.Resultado.Exito, Is.True);
+        Assert.That(maquina.Unidades.Contains(objetivoLejos), Is.False);
+
+        int distanciaFinal =
+            Math.Abs(atacanteLejos.Coordenada.X - 4) +
+            Math.Abs(atacanteLejos.Coordenada.Y - 4);
+        Assert.That(distanciaFinal, Is.LessThanOrEqualTo(1));
+    }
 
     private static Partida CrearPartida(
         out Guerrero atacante,

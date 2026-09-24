@@ -1044,12 +1044,143 @@ public sealed class ServicioAccionesConcurrentes
             "ATACAR",
             token =>
             {
-                EsperarAntesDeAplicar(
-                    token,
-                    retardoAtaque);
+                if (!Guid.TryParse(
+                        copia?.AtacanteId,
+                        out Guid atacanteId))
+                {
+                    return ResultadoAccion.Fallido(
+                        "El ID del atacante debe tener formato Guid válido.");
+                }
 
-                return estadoPartida.Atacar(
-                    copia);
+                if (!Guid.TryParse(
+                        copia?.ObjetivoId,
+                        out Guid objetivoId))
+                {
+                    return ResultadoAccion.Fallido(
+                        "El ID del objetivo debe tener formato Guid válido.");
+                }
+
+                Unidad? atacante =
+                    estadoPartida.ObtenerUnidad(
+                        atacanteId);
+
+                if (atacante == null)
+                {
+                    return ResultadoAccion.Fallido(
+                        "No existe la unidad atacante humana indicada.");
+                }
+
+                TimeSpan retardoPaso =
+                    CalcularRetardoPasoMovimiento(
+                        retardoMovimiento,
+                        atacante.VelocidadMovimiento);
+
+                if (!estadoPartida.IntentarIniciarOrdenUnidad(
+                        atacanteId,
+                        TipoAccionJuego.Atacar))
+                {
+                    return ResultadoAccion.Fallido(
+                        "La unidad no está disponible.");
+                }
+
+                try
+                {
+                    const int maximoRondas = 40;
+                    ResultadoAccion ultimo =
+                        ResultadoAccion.Fallido(
+                            "El ataque no pudo ejecutarse.");
+
+                    for (int ronda = 0;
+                         ronda < maximoRondas;
+                         ronda++)
+                    {
+                        token.ThrowIfCancellationRequested();
+
+                        Coordenada? objetivo =
+                            estadoPartida.ObtenerCoordenadaObjetivoEnemigo(
+                                objetivoId);
+
+                        if (objetivo == null)
+                        {
+                            return ResultadoAccion.Exitoso(
+                                "El objetivo enemigo ya fue destruido.");
+                        }
+
+                        Unidad? posicion =
+                            estadoPartida.ObtenerUnidad(
+                                atacanteId);
+
+                        if (posicion == null ||
+                            posicion.Coordenada == null)
+                        {
+                            return ResultadoAccion.Fallido(
+                                "La unidad atacante perdió su posición.");
+                        }
+
+                        int distancia =
+                            Math.Abs(
+                                posicion.Coordenada.X -
+                                objetivo.X) +
+                            Math.Abs(
+                                posicion.Coordenada.Y -
+                                objetivo.Y);
+
+                        if (distancia <= posicion.AlcanceAtaque)
+                        {
+                            if (!estadoPartida.IntentarReemplazarOrdenUnidad(
+                                    atacanteId,
+                                    TipoAccionJuego.Atacar))
+                            {
+                                return ResultadoAccion.Fallido(
+                                    "No se pudo activar la fase de ataque.");
+                            }
+
+                            EsperarAntesDeAplicar(
+                                token,
+                                retardoAtaque);
+
+                            ultimo =
+                                estadoPartida.Atacar(
+                                    copia);
+
+                            if (!ultimo.Exito)
+                            {
+                                return ultimo;
+                            }
+
+                            Console.WriteLine(
+                                $"ATAQUE_IMPACTO: {atacanteId} ronda {ronda + 1}: " +
+                                $"{ultimo.Mensaje}");
+
+                            if (ultimo.Mensaje != null &&
+                                ultimo.Mensaje.Contains("destruid"))
+                            {
+                                return ultimo;
+                            }
+
+                            continue;
+                        }
+
+                        if (!AcercarAlObjetivo(
+                                atacanteId,
+                                objetivo,
+                                posicion.AlcanceAtaque,
+                                retardoPaso,
+                                token))
+                        {
+                            return ResultadoAccion.Fallido(
+                                "No existe una ruta transitable hasta el objetivo.");
+                        }
+                    }
+
+                    return ResultadoAccion.Fallido(
+                        "El objetivo resistió demasiadas rondas; se aborta el ataque.");
+                }
+                finally
+                {
+                    estadoPartida.CompletarOrdenUnidad(
+                        atacanteId);
+                }
             });
     }
 
@@ -1281,6 +1412,98 @@ public sealed class ServicioAccionesConcurrentes
         return ResultadoAccion.Fallido(
             "No se encontró una ruta libre hacia un Centro Urbano tras varios cambios del mapa. " +
             "La carga del Aldeano se conserva para poder reintentarla.");
+    }
+
+    private bool AcercarAlObjetivo(
+        Guid unidadId,
+        Coordenada objetivo,
+        int alcance,
+        TimeSpan retardoPaso,
+        CancellationToken token)
+    {
+        if (!estadoPartida.IntentarReemplazarOrdenUnidad(
+                unidadId,
+                TipoAccionJuego.Mover))
+        {
+            return false;
+        }
+
+        ResultadoPlanMovimiento mejor = null;
+        string idTexto = unidadId.ToString("D");
+
+        for (int dx = -alcance; dx <= alcance; dx++)
+        {
+            for (int dy = -alcance; dy <= alcance; dy++)
+            {
+                if (Math.Abs(dx) + Math.Abs(dy) == 0 ||
+                    Math.Abs(dx) + Math.Abs(dy) > alcance)
+                {
+                    continue;
+                }
+
+                token.ThrowIfCancellationRequested();
+
+                var candidato =
+                    estadoPartida.PrepararMovimientoProgresivo(
+                        new MoverUnidadRequest
+                        {
+                            UnidadId = idTexto,
+                            Destino = new CoordenadaRequest
+                            {
+                                X = objetivo.X + dx,
+                                Y = objetivo.Y + dy
+                            }
+                        },
+                        true);
+
+                if (!candidato.Exito)
+                {
+                    continue;
+                }
+
+                if (mejor == null ||
+                    candidato.Pasos.Count < mejor.Pasos.Count)
+                {
+                    mejor = candidato;
+                }
+            }
+        }
+
+        if (mejor == null)
+        {
+            return false;
+        }
+
+        var pasos =
+            new Queue<Coordenada>(
+                mejor.Pasos);
+
+        while (pasos.Count > 0)
+        {
+            EsperarAntesDeAplicar(
+                token,
+                retardoPaso);
+
+            Coordenada siguiente =
+                pasos.Dequeue();
+
+            ResultadoAccion resultado =
+                AvanzarMovimientoConReintentos(
+                    unidadId,
+                    siguiente,
+                    token);
+
+            if (!resultado.Exito)
+            {
+                return false;
+            }
+
+            Console.WriteLine(
+                $"ATAQUE_APROXIMACION: {unidadId} -> " +
+                $"({siguiente.X},{siguiente.Y})");
+        }
+
+        return true;
     }
 
     private ResultadoAccion EjecutarHaciaObraConReplan(
