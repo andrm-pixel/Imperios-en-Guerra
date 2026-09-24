@@ -347,7 +347,7 @@ public class RecoleccionConcurrenteTests
     }
 
     [Test]
-    public async Task NodoAgotado_ContinuaConElMasCercanoSinAbandonarZona()
+    public async Task NodoAgotado_AldeanoSeDetieneEnEspera()
     {
         var mapa = new Mapa(6, 6);
 
@@ -394,21 +394,22 @@ public class RecoleccionConcurrenteTests
                 out ResultadoProcesoConcurrente resultado),
             Is.True);
 
+        // Al agotarse el nodo el aldeano se detiene y queda libre junto
+        // a él; el segundo nodo queda intacto hasta nueva orden.
         Assert.That(resultado.Resultado, Is.Not.Null);
         Assert.That(resultado.Resultado.Exito, Is.True);
         Assert.That(
             resultado.Resultado.Mensaje,
-            Does.Contain("no quedan nodos"));
+            Does.Contain("En espera de órdenes"));
 
         Assert.That(
             mapa.ObtenerRecursoEn(new Coordenada(2, 2)).CantidadRestante,
             Is.Zero);
         Assert.That(
             mapa.ObtenerRecursoEn(new Coordenada(4, 2)).CantidadRestante,
-            Is.Zero);
-        Assert.That(
-            partidaDoble.JugadorHumano.Recursos.ObtenerCantidad(TipoRecurso.Oro),
-            Is.EqualTo(20));
+            Is.EqualTo(10));
+        Assert.That(aldeanoCercano.OrdenActiva, Is.Null);
+        Assert.That(aldeanoCercano.Disponible, Is.True);
     }
 
     private static RecolectarRequest CrearRequest(
