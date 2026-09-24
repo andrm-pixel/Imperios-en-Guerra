@@ -2023,7 +2023,13 @@ public bool PuedeIniciarAtaque =>
                     new RecursoInicialDto("Piedra", 2, 5),
                     new RecursoInicialDto("Piedra", 4, 9),
                     new RecursoInicialDto("Hierro", 5, 5),
-                    new RecursoInicialDto("Hierro", 1, 5)
+                    new RecursoInicialDto("Hierro", 1, 5),
+                    new RecursoInicialDto("Madera", 0, 6),
+                    new RecursoInicialDto("Madera", 4, 5),
+                    new RecursoInicialDto("Oro", 2, 7),
+                    new RecursoInicialDto("Comida", 0, 8),
+                    new RecursoInicialDto("Piedra", 5, 9),
+                    new RecursoInicialDto("Hierro", 3, 4)
                 },
 
                 recursosMaquina = new[]
@@ -2037,7 +2043,13 @@ public bool PuedeIniciarAtaque =>
                     new RecursoInicialDto("Piedra", 12, 5),
                     new RecursoInicialDto("Piedra", 10, 9),
                     new RecursoInicialDto("Hierro", 9, 9),
-                    new RecursoInicialDto("Hierro", 12, 11)
+                    new RecursoInicialDto("Hierro", 12, 11),
+                    new RecursoInicialDto("Madera", 14, 6),
+                    new RecursoInicialDto("Madera", 10, 5),
+                    new RecursoInicialDto("Oro", 14, 9),
+                    new RecursoInicialDto("Comida", 14, 8),
+                    new RecursoInicialDto("Piedra", 9, 5),
+                    new RecursoInicialDto("Hierro", 11, 10)
                 }
             };
         }

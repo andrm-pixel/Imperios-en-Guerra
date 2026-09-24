@@ -1186,6 +1186,43 @@ public sealed class ServicioAccionesConcurrentes
 
 
     // ============================================================
+    // IA DE LA MÁQUINA
+    // ============================================================
+    //
+    // Turno periódico de caza y guardia. Vive en el Modelo y corre en
+    // un worker del gestor como cualquier otra acción concurrente.
+    //
+
+    public ProcesoConcurrente IniciarIA()
+    {
+        return gestorProcesos.Iniciar(
+            "IA_MAQUINA",
+            token =>
+            {
+                TimeSpan retardoTurno = TimeSpan.FromSeconds(2);
+
+                while (true)
+                {
+                    EsperarAntesDeAplicar(
+                        token,
+                        retardoTurno);
+
+                    token.ThrowIfCancellationRequested();
+
+                    ResultadoAccion turno =
+                        estadoPartida.EjecutarTurnoMaquina();
+
+                    if (turno.Mensaje != null &&
+                        turno.Mensaje.Contains("¡Victoria!"))
+                    {
+                        return turno;
+                    }
+                }
+            });
+    }
+
+
+    // ============================================================
     // CANCELACIÓN
     // ============================================================
 

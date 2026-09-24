@@ -10,6 +10,7 @@ using ImperiosEnGuerra.Modelo.Persistencia;
 using ImperiosEnGuerra.Modelo.Recursos;
 using ImperiosEnGuerra.Modelo.Reglas;
 using ImperiosEnGuerra.Modelo.Servicios;
+using ImperiosEnGuerra.Modelo.Unidades;
 using ContratosUnity = ImperiosEnGuerra.Controladores.Red.Contratos;
 
 namespace ImperiosEnGuerra.Controladores.ApiInterna
@@ -101,7 +102,13 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                     new Recurso(TipoRecurso.Piedra, new Coordenada(2, 5)),
                     new Recurso(TipoRecurso.Piedra, new Coordenada(4, 9)),
                     new Recurso(TipoRecurso.Hierro, new Coordenada(5, 5)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(1, 5))
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(1, 5)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(0, 6)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(4, 5)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(2, 7)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(0, 8)),
+                    new Recurso(TipoRecurso.Piedra, new Coordenada(5, 9)),
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(3, 4))
                 },
                 "CPU",
                 mapa,
@@ -117,11 +124,26 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                     new Recurso(TipoRecurso.Piedra, new Coordenada(12, 5)),
                     new Recurso(TipoRecurso.Piedra, new Coordenada(10, 9)),
                     new Recurso(TipoRecurso.Hierro, new Coordenada(9, 9)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(12, 11))
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(12, 11)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(14, 6)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(10, 5)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(14, 9)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(14, 8)),
+                    new Recurso(TipoRecurso.Piedra, new Coordenada(9, 5)),
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(11, 10))
                 });
 
             servicioArchivos.GuardarConfiguracionInicial(partida);
             estadoPartida.EstablecerPartida(partida);
+
+            // Guarnición inicial de la máquina: patrulla su base y caza
+            // humanos en un radio de 7 casillas.
+            estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
+                new Guerrero(new Coordenada(11, 7)));
+            estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
+                new Lancero(new Coordenada(12, 6)));
+
+            accionesConcurrentes.IniciarIA();
         }
 
         public ContratosUnity.EstadoPartidaDto ObtenerEstado()

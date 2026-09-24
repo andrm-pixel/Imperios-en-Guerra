@@ -153,6 +153,16 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             return sinCentro || sinUnidades;
         }
 
+        public static bool EsVictoriaMaquina(Partida partida)
+        {
+            if (partida == null)
+                return false;
+
+            // El humano puede reconstruir su centro con un aldeano si
+            // sobrevive alguien; la máquina solo gana arrasando todo.
+            return partida.JugadorHumano.Unidades.Count == 0;
+        }
+
         private static bool EsUnidadMilitar(Unidad unidad)
         {
             return unidad is Soldado || unidad is Monje;

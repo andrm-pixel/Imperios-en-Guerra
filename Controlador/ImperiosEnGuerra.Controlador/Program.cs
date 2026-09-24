@@ -7,6 +7,7 @@ using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Persistencia;
 using ImperiosEnGuerra.Modelo.Concurrencia;
+using ImperiosEnGuerra.Modelo.Unidades;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -101,6 +102,10 @@ app.MapPost(
             partida);
 
         estadoPartida.EstablecerPartida(partida);
+
+        DestacarGuarnicionMaquina(partida, centroMaquina);
+
+        accionesConcurrentes.IniciarIA();
 
         return Results.Ok(new
         {
@@ -404,5 +409,40 @@ app.MapPost(
         : Results.BadRequest(resultado);
 })
 .WithName("Atacar");
+
+static void DestacarGuarnicionMaquina(Partida partida, Coordenada centroMaquina)
+{
+    var candidatos = new[]
+    {
+        new Coordenada(centroMaquina.X - 2, centroMaquina.Y),
+        new Coordenada(centroMaquina.X - 1, centroMaquina.Y - 1)
+    };
+
+    var colocados = new List<Unidad>();
+
+    foreach (Coordenada posicion in candidatos)
+    {
+        if (!partida.JugadorMaquina.Mapa.EstaDentroDeLimites(posicion) ||
+            !partida.JugadorMaquina.Mapa.PuedeColocar(posicion))
+        {
+            continue;
+        }
+
+        bool ocupadaPorUnidad =
+            partida.JugadorHumano.Unidades.Any(u => u.Coordenada != null && u.Coordenada.X == posicion.X && u.Coordenada.Y == posicion.Y) ||
+            partida.JugadorMaquina.Unidades.Any(u => u.Coordenada != null && u.Coordenada.X == posicion.X && u.Coordenada.Y == posicion.Y);
+
+        if (ocupadaPorUnidad)
+            continue;
+
+        colocados.Add(
+            colocados.Count == 0
+                ? (Unidad)new Guerrero(posicion)
+                : (Unidad)new Lancero(posicion));
+    }
+
+    foreach (Unidad unidad in colocados)
+        partida.JugadorMaquina.AgregarUnidad(unidad);
+}
 
 app.Run();

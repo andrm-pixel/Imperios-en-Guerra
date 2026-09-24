@@ -3,6 +3,7 @@ using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Mapeadores;
 using ImperiosEnGuerra.Modelo.Acciones;
 using ImperiosEnGuerra.Modelo.Core;
+using ImperiosEnGuerra.Modelo.IA;
 using ImperiosEnGuerra.Modelo.Unidades;
 using ImperiosEnGuerra.Modelo.Persistencia;
 using ImperiosEnGuerra.Modelo.Edificios;
@@ -1165,6 +1166,36 @@ public sealed class EstadoPartidaService
 
             return partidaActiva.JugadorHumano.Unidades
                 .FirstOrDefault(u => u.Id == id);
+        }
+    }
+
+    /// <summary>
+    /// Ejecuta un turno de la máquina (caza y guardia) bajo el lock global.
+    /// Toda la decisión vive en InteligenciaMaquina.
+    /// </summary>
+    public ResultadoAccion EjecutarTurnoMaquina()
+    {
+        lock (sincronizacion)
+        {
+            if (partidaActiva == null)
+                return ResultadoAccion.Fallido("No hay una partida activa.");
+
+            ResultadoAccion resultado =
+                new InteligenciaMaquina().EjecutarTurno(partidaActiva);
+
+            if (resultado.Exito &&
+                resultado.Mensaje != null &&
+                resultado.Mensaje.Contains("¡Victoria!"))
+            {
+                RegistrarEventoSeguro(
+                    $"VICTORIA|EXITO|{partidaActiva.JugadorMaquina.Nombre} derrota a {partidaActiva.JugadorHumano.Nombre}.");
+                GuardarResultadoFinalSeguro(
+                    $"Ganador={partidaActiva.JugadorMaquina.Nombre}\n" +
+                    $"Perdedor={partidaActiva.JugadorHumano.Nombre}\n" +
+                    $"UnidadesRestantesMaquina={partidaActiva.JugadorMaquina.Unidades.Count}\n");
+            }
+
+            return RegistrarResultado("IA_MAQUINA", resultado);
         }
     }
 
