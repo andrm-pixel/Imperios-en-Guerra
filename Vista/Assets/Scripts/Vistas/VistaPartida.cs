@@ -1041,10 +1041,8 @@ namespace ImperiosEnGuerra.Vistas
                 return;
             }
 
-            // Franja lateral izquierda reservada a la interfaz (recursos,
-            // botones, selección y mensajes) para que ningún panel tape el mapa.
-            const float margenIzquierdo = 0.18f;
-            camara.rect = new Rect(margenIzquierdo, 0f, 1f - margenIzquierdo, 1f);
+            // La interfaz flota sobre el mapa como en el diseño original.
+            camara.rect = new Rect(0f, 0f, 1f, 1f);
 
             camara.orthographic = true;
             camara.transform.position = PosicionVisual((mapa.ancho - 1) / 2f, (mapa.alto - 1) / 2f)
