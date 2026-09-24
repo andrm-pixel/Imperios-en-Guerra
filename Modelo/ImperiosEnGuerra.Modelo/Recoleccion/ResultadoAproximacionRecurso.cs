@@ -6,7 +6,7 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Recoleccion
 {
     /// <summary>
-    /// Resultado de calcular una ruta hasta una casilla de interacción
+    /// Resultado de calcular una ruta hasta una casilla de interaccion
     /// adyacente a un nodo de recurso.
     /// </summary>
     public sealed class ResultadoAproximacionRecurso
@@ -66,7 +66,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// <param name="tipoRecurso">El valor de tipo recurso.</param>
         /// <param name="puntoInteraccion">El valor de punto interaccion.</param>
         /// <param name="pasos">El valor de pasos.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAproximacionRecurso Exitoso(
             TipoRecurso tipoRecurso,
             Coordenada puntoInteraccion,
@@ -98,7 +98,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
         /// <param name="reintentable">El valor de reintentable.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAproximacionRecurso Fallido(
             string mensaje,
             bool reintentable = false)

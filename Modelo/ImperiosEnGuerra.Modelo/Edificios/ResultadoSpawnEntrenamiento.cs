@@ -43,7 +43,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// <param name="unidadId">El valor de unidad id.</param>
         /// <param name="coordenada">El valor de coordenada.</param>
         /// <param name="tipoUnidad">El valor de tipo unidad.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoSpawnEntrenamiento Exitoso(
             Guid unidadId,
             Coordenada coordenada,
@@ -60,7 +60,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// Crea un resultado fallido el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoSpawnEntrenamiento Fallido(
             string mensaje)
         {

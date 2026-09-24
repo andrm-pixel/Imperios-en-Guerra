@@ -13,33 +13,33 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Text seleccion;
         /// <summary>Texto inferior para mensajes y errores.</summary>
         [SerializeField] private Text mensaje;
-        /// <summary>Botón que solicita la acción Mover.</summary>
+        /// <summary>Boton que solicita la accion Mover.</summary>
         [SerializeField] private Button mover;
-        /// <summary>Botón que solicita la acción Recolectar.</summary>
+        /// <summary>Boton que solicita la accion Recolectar.</summary>
         [SerializeField] private Button recolectar;
-        /// <summary>Botón que solicita la acción Construir.</summary>
+        /// <summary>Boton que solicita la accion Construir.</summary>
         [SerializeField] private Button construir;
-        /// <summary>Botón que abre el selector de entrenamiento.</summary>
+        /// <summary>Boton que abre el selector de entrenamiento.</summary>
         [SerializeField] private Button entrenar;
-        /// <summary>Botón que solicita la acción Atacar.</summary>
+        /// <summary>Boton que solicita la accion Atacar.</summary>
         [SerializeField] private Button atacar;
-        /// <summary>Botón fijo que ordena a todo el ejército atacar.</summary>
+        /// <summary>Boton fijo que ordena a todo el ejercito atacar.</summary>
         [SerializeField] private Button batalla;
         /// <summary>Panel con los tipos de unidad entrenables.</summary>
         [SerializeField] private GameObject selectorEntrenamiento;
-        /// <summary>Botón para entrenar un Aldeano.</summary>
+        /// <summary>Boton para entrenar un Aldeano.</summary>
         [SerializeField] private Button entrenarAldeano;
-        /// <summary>Botón para entrenar un Soldado.</summary>
+        /// <summary>Boton para entrenar un Soldado.</summary>
         [SerializeField] private Button entrenarSoldado;
-        /// <summary>Botón para entrenar un Arquero.</summary>
+        /// <summary>Boton para entrenar un Arquero.</summary>
         [SerializeField] private Button entrenarArquero;
 
-        /// <summary>Se emite cuando se pulsa un botón de acción.</summary>
+        /// <summary>Se emite cuando se pulsa un boton de accion.</summary>
         public event Action<string> AccionSolicitada;
         /// <summary>Se emite al elegir un tipo de unidad a entrenar.</summary>
         public event Action<string> TipoUnidadSolicitado;
 
-        /// <summary>Suscribe los botones a sus solicitudes de acción.</summary>
+        /// <summary>Suscribe los botones a sus solicitudes de accion.</summary>
         private void OnEnable()
         {
             if (mover != null) mover.onClick.AddListener(SolicitarMover);
@@ -78,26 +78,26 @@ namespace ImperiosEnGuerra.Vistas
                 entrenarArquero.onClick.RemoveListener(SolicitarEntrenarArquero);
         }
 
-        /// <summary>Notifica la intención de mover la unidad.</summary>
+        /// <summary>Notifica la intencion de mover la unidad.</summary>
         private void SolicitarMover() => AccionSolicitada?.Invoke("Mover");
-        /// <summary>Notifica la intención de recolectar un recurso.</summary>
+        /// <summary>Notifica la intencion de recolectar un recurso.</summary>
         private void SolicitarRecolectar() => AccionSolicitada?.Invoke("Recolectar");
-        /// <summary>Notifica la intención de construir un edificio.</summary>
+        /// <summary>Notifica la intencion de construir un edificio.</summary>
         private void SolicitarConstruir() => AccionSolicitada?.Invoke("Construir");
-        /// <summary>Notifica la intención de entrenar una unidad.</summary>
+        /// <summary>Notifica la intencion de entrenar una unidad.</summary>
         private void SolicitarEntrenar() => AccionSolicitada?.Invoke("Entrenar");
-        /// <summary>Notifica la intención de atacar un objetivo.</summary>
+        /// <summary>Notifica la intencion de atacar un objetivo.</summary>
         private void SolicitarAtacar() => AccionSolicitada?.Invoke("Atacar");
-        /// <summary>Notifica la orden de batalla total del ejército.</summary>
+        /// <summary>Notifica la orden de batalla total del ejercito.</summary>
         private void SolicitarBatalla() => AccionSolicitada?.Invoke("Batalla");
 
-        /// <summary>Notifica la elección del tipo Aldeano.</summary>
+        /// <summary>Notifica la eleccion del tipo Aldeano.</summary>
         private void SolicitarEntrenarAldeano() =>
             TipoUnidadSolicitado?.Invoke("Aldeano");
-        /// <summary>Notifica la elección del tipo Soldado.</summary>
+        /// <summary>Notifica la eleccion del tipo Soldado.</summary>
         private void SolicitarEntrenarSoldado() =>
             TipoUnidadSolicitado?.Invoke("Soldado");
-        /// <summary>Notifica la elección del tipo Arquero.</summary>
+        /// <summary>Notifica la eleccion del tipo Arquero.</summary>
         private void SolicitarEntrenarArquero() =>
             TipoUnidadSolicitado?.Invoke("Arquero");
         /// <summary>Muestra los recursos y la carga en camino en el HUD.</summary>
@@ -110,7 +110,7 @@ namespace ImperiosEnGuerra.Vistas
                 $"Oro: {oro} | Madera: {madera} | Comida: {comida} | Piedra: {piedra} | Hierro: {hierro}";
         }
 
-        /// <summary>Muestra los datos de la entidad seleccionada en una línea.</summary>
+        /// <summary>Muestra los datos de la entidad seleccionada en una linea.</summary>
         public void MostrarSeleccion(EntidadSeleccionableVista entidad)
         {
             if (seleccion == null)
@@ -165,7 +165,7 @@ namespace ImperiosEnGuerra.Vistas
                 selectorEntrenamiento.SetActive(mostrar);
         }
 
-        /// <summary>Activa solo los botones válidos para la selección.</summary>
+        /// <summary>Activa solo los botones validos para la seleccion.</summary>
         public void MostrarOpciones(bool puedeMover, bool puedeRecolectar, bool puedeConstruir,
             bool puedeEntrenar, bool puedeAtacar)
         {

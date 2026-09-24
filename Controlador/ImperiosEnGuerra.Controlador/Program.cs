@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using ImperiosEnGuerra.Controlador.Configuracion;
 using ImperiosEnGuerra.Modelo.Servicios;
 using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Mapeadores;
@@ -9,7 +8,7 @@ using ImperiosEnGuerra.Modelo.Persistencia;
 using ImperiosEnGuerra.Modelo.Concurrencia;
 using ImperiosEnGuerra.Modelo.Unidades;
 
-// Punto de entrada: configura servicios y la aplicación web mínima.
+// Punto de entrada: configura servicios y la aplicacion web minima.
 // Registra archivos, estado de partida y servicios de acciones concurrentes.
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +19,8 @@ builder.Services.AddSingleton(
             Directory.GetCurrentDirectory(),
             "DatosPartida")));
 builder.Services.AddSingleton<EstadoPartidaService>();
-builder.Services.AddSingleton<GestorProcesosConcurrentes>();
-builder.Services.AddSingleton<ServicioOrdenesUnidad>();
-builder.Services.AddSingleton<ServicioAccionesConcurrentes>();
+builder.Services.AddSingleton<TareasJuego>();
+builder.Services.AddSingleton<MotorAcciones>();
 
 
 var app = builder.Build();
@@ -44,7 +42,7 @@ app.MapGet("/api/estado", () =>
 })
 .WithName("ObtenerEstado");
 
-// Verifica la conexión con el modelo creando un mapa de prueba.
+// Verifica la conexion con el modelo creando un mapa de prueba.
 app.MapGet("/api/modelo/prueba", () =>
 {
     Mapa mapa = new Mapa(10, 8);
@@ -59,13 +57,13 @@ app.MapGet("/api/modelo/prueba", () =>
 })
 .WithName("ProbarModelo");
 
-// Inicia una nueva partida y arranca la IA de la máquina.
+// Inicia una nueva partida y arranca la IA de la maquina.
 app.MapPost(
     "/api/partida/iniciar",
     (
         IniciarPartidaRequest request,
         EstadoPartidaService estadoPartida,
-        ServicioAccionesConcurrentes accionesConcurrentes,
+        MotorAcciones accionesConcurrentes,
         ServicioArchivos servicioArchivos) =>
 {
     try
@@ -188,7 +186,7 @@ app.MapGet("/api/partida", (EstadoPartidaService estadoPartida) =>
 })
 .WithName("ObtenerPartidaActiva");
 
-// Mueve una unidad de forma síncrona.
+// Mueve una unidad de forma sincrona.
 app.MapPost(
     "/api/partida/mover",
     (MoverUnidadRequest? request, EstadoPartidaService estadoPartida) =>
@@ -206,7 +204,7 @@ app.MapPost(
     "/api/partida/mover-concurrente",
     (
         MoverUnidadRequest? request,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     var proceso =
         accionesConcurrentes.IniciarMovimiento(request);
@@ -227,7 +225,7 @@ app.MapGet(
     "/api/procesos/{procesoId:guid}/resultado",
     (
         Guid procesoId,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     if (!accionesConcurrentes.IntentarObtenerResultado(
         procesoId,
@@ -252,7 +250,7 @@ app.MapGet(
 // Obtiene el siguiente resultado disponible de cualquier proceso.
 app.MapGet(
     "/api/procesos/resultado",
-    (ServicioAccionesConcurrentes accionesConcurrentes) =>
+    (MotorAcciones accionesConcurrentes) =>
 {
     if (!accionesConcurrentes.IntentarObtenerResultado(
         out ResultadoProcesoConcurrente resultado))
@@ -273,12 +271,12 @@ app.MapGet(
 })
 .WithName("ObtenerResultadoProceso");
 
-// Solicita la cancelación de un proceso concurrente activo.
+// Solicita la cancelacion de un proceso concurrente activo.
 app.MapPost(
     "/api/procesos/{procesoId:guid}/cancelar",
     (
         Guid procesoId,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     return accionesConcurrentes.Cancelar(procesoId)
         ? Results.Ok(new
@@ -293,12 +291,12 @@ app.MapPost(
 })
 .WithName("CancelarProceso");
 
-// Inicia una recolección como proceso concurrente (devuelve 202).
+// Inicia una recoleccion como proceso concurrente (devuelve 202).
 app.MapPost(
     "/api/partida/recolectar-concurrente",
     (
         RecolectarRequest? request,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     var proceso =
         accionesConcurrentes.IniciarRecoleccion(request);
@@ -314,7 +312,7 @@ app.MapPost(
 })
 .WithName("IniciarRecoleccionConcurrente");
 
-// Inicia una recolección de recursos de forma síncrona.
+// Inicia una recoleccion de recursos de forma sincrona.
 app.MapPost(
     "/api/partida/recolectar",
     (RecolectarRequest? request, EstadoPartidaService estadoPartida) =>
@@ -327,12 +325,12 @@ app.MapPost(
 })
 .WithName("IniciarRecoleccion");
 
-// Inicia una construcción como proceso concurrente (devuelve 202).
+// Inicia una construccion como proceso concurrente (devuelve 202).
 app.MapPost(
     "/api/partida/construir-concurrente",
     (
         ConstruirRequest? request,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     var proceso =
         accionesConcurrentes.IniciarConstruccion(request);
@@ -348,7 +346,7 @@ app.MapPost(
 })
 .WithName("IniciarConstruccionConcurrente");
 
-// Construye un edificio de forma síncrona.
+// Construye un edificio de forma sincrona.
 app.MapPost(
     "/api/partida/construir",
     (ConstruirRequest? request, EstadoPartidaService estadoPartida) =>
@@ -367,7 +365,7 @@ app.MapPost(
     "/api/partida/entrenar-concurrente",
     (
         EntrenarRequest? request,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     var proceso =
         accionesConcurrentes.IniciarEntrenamiento(request);
@@ -383,7 +381,7 @@ app.MapPost(
 })
 .WithName("IniciarEntrenamientoConcurrente");
 
-// Entrena una unidad de forma síncrona.
+// Entrena una unidad de forma sincrona.
 app.MapPost(
     "/api/partida/entrenar",
     (EntrenarRequest? request, EstadoPartidaService estadoPartida) =>
@@ -401,7 +399,7 @@ app.MapPost(
     "/api/partida/atacar-concurrente",
     (
         AtacarRequest? request,
-        ServicioAccionesConcurrentes accionesConcurrentes) =>
+        MotorAcciones accionesConcurrentes) =>
 {
     ProcesoConcurrente proceso =
         accionesConcurrentes.IniciarAtaque(request);
@@ -417,7 +415,7 @@ app.MapPost(
 })
 .WithName("IniciarAtaqueConcurrente");
 
-// Ejecuta un ataque entre unidades de forma síncrona.
+// Ejecuta un ataque entre unidades de forma sincrona.
 app.MapPost(
     "/api/partida/atacar",
     (AtacarRequest? request, EstadoPartidaService estadoPartida) =>
@@ -430,7 +428,7 @@ app.MapPost(
 })
 .WithName("Atacar");
 
-// Coloca la guarnición inicial (guerrero y arquero) junto al centro de la máquina.
+// Coloca la guarnicion inicial (guerrero y arquero) junto al centro de la maquina.
 static void DestacarGuarnicionMaquina(Partida partida, Coordenada centroMaquina)
 {
     var candidatos = new[]

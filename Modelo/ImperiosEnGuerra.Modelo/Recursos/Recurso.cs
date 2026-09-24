@@ -4,7 +4,7 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Recursos
 {
     /// <summary>
-    /// Representa un nodo físico de recurso con cantidad restante sincronizada.
+    /// Representa un nodo fisico de recurso con cantidad restante sincronizada.
     /// </summary>
     public class Recurso
     {
@@ -19,17 +19,17 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         private int cantidadRestante;
 
         /// <summary>
-        /// Tipo del recurso físico.
+        /// Tipo del recurso fisico.
         /// </summary>
         public TipoRecurso Tipo { get; }
 
         /// <summary>
-        /// Posición lógica del recurso físico.
+        /// Posicion logica del recurso fisico.
         /// </summary>
         public Coordenada Coordenada { get; }
 
         /// <summary>
-        /// Cantidad que todavía puede extraerse del nodo.
+        /// Cantidad que todavia puede extraerse del nodo.
         /// </summary>
         public int CantidadRestante
         {
@@ -102,7 +102,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
 
         /// <summary>
         /// Extrae hasta la cantidad solicitada sin permitir valores negativos
-        /// ni entregar más recurso del disponible.
+        /// ni entregar mas recurso del disponible.
         /// </summary>
         public int Extraer(
             int cantidadSolicitada)

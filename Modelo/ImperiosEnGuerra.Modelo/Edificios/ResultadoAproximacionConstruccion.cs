@@ -55,7 +55,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// </summary>
         /// <param name="puntoInteraccion">El valor de punto interaccion.</param>
         /// <param name="pasos">El valor de pasos.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAproximacionConstruccion Exitoso(
             Coordenada puntoInteraccion,
             IEnumerable<Coordenada> pasos)
@@ -78,7 +78,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
         /// <param name="reintentable">El valor de reintentable.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAproximacionConstruccion Fallido(
             string mensaje,
             bool reintentable = false)

@@ -6,9 +6,9 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Recursos
 {
     /// <summary>
-    /// Balance económico propio del prototipo académico.
-    /// Comida sostiene crecimiento y ejército; Madera se reserva a construcción;
-    /// Oro financia tropas y expansión; Piedra refuerza construcción;
+    /// Balance economico propio del prototipo academico.
+    /// Comida sostiene crecimiento y ejercito; Madera se reserva a construccion;
+    /// Oro financia tropas y expansion; Piedra refuerza construccion;
     /// Hierro arma a las tropas avanzadas.
     /// </summary>
     public sealed class ConfiguracionEconomia
@@ -51,7 +51,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// </summary>
         /// <param name="tipoEdificio">El valor de tipo edificio.</param>
         /// <param name="costo">El valor de costo.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool IntentarObtenerCostoEdificio(
             string tipoEdificio,
             out CostoRecursos costo)
@@ -72,7 +72,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// </summary>
         /// <param name="tipoUnidad">El valor de tipo unidad.</param>
         /// <param name="costo">El valor de costo.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool IntentarObtenerCostoUnidad(
             string tipoUnidad,
             out CostoRecursos costo)

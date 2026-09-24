@@ -2,7 +2,7 @@ using System;
 
 namespace ImperiosEnGuerra.Controladores.Red.Contratos
 {
-    /// <summary>Solicitud de recolección de un recurso por un aldeano.</summary>
+    /// <summary>Solicitud de recoleccion de un recurso por un aldeano.</summary>
     [Serializable]
     public class RecolectarDto
     {

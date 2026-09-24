@@ -17,7 +17,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
         /// <param name="solicitud">El valor de solicitud.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             SolicitudConstruccion solicitud)
@@ -42,7 +42,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 
             if (unidad == null)
                 return ResultadoAccion.Fallido(
-                    "No existe una unidad humana con ese ID.");
+                    "La unidad humana no existe o fue destruida.");
 
             if (!(unidad is Aldeano))
                 return ResultadoAccion.Fallido(

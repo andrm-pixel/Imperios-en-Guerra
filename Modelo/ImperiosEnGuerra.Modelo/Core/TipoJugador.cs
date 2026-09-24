@@ -1,7 +1,7 @@
 namespace ImperiosEnGuerra.Modelo.Core
 {
     /// <summary>
-    /// Distingue la modalidad de participación en la partida.
+    /// Distingue la modalidad de participacion en la partida.
     /// </summary>
     public enum TipoJugador
     {
@@ -10,7 +10,7 @@ namespace ImperiosEnGuerra.Modelo.Core
         /// </summary>
         Humano,
         /// <summary>
-        /// Participante máquina.
+        /// Participante maquina.
         /// </summary>
         Maquina
     }

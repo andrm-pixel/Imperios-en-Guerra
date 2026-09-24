@@ -9,7 +9,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
     /// <summary>
-    /// Transfiere la carga transportada al saldo del jugador únicamente cuando
+    /// Transfiere la carga transportada al saldo del jugador unicamente cuando
     /// el Aldeano se encuentra junto a un Castillo humano.
     /// </summary>
     public sealed class OperacionDepositoRecoleccion
@@ -20,7 +20,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// <param name="partida">El valor de partida.</param>
         /// <param name="aldeanoId">El valor de aldeano id.</param>
         /// <param name="castillo">El valor de centro urbano.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoDepositoRecoleccion Ejecutar(
             Partida partida,
             Guid aldeanoId,
@@ -41,7 +41,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             if (aldeano == null)
             {
                 return ResultadoDepositoRecoleccion.Fallido(
-                    "No existe un Aldeano humano con ese ID.");
+                    "El Aldeano humano no existe o fue destruido.");
             }
 
             if (castillo == null)

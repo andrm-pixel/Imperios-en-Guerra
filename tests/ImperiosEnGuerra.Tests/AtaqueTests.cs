@@ -194,10 +194,10 @@ public class AtaqueTests
             partida.JugadorMaquina.Edificios.Contains(centroEnemigo),
             Is.False);
 
-        // Sin centro pero con ejército vivo: aún no hay victoria total.
+        // Sin centro pero con ejercito vivo: aun no hay victoria total.
         Assert.That(ultimo.Mensaje, Does.Not.Contain("¡Victoria!"));
 
-        // Al eliminar también la última unidad sí hay victoria total.
+        // Al eliminar tambien la ultima unidad si hay victoria total.
         for (int i = 0; i < 4; i++)
         {
             ultimo = operacion.Ejecutar(

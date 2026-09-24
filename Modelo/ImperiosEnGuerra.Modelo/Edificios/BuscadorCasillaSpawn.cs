@@ -6,7 +6,7 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Edificios
 {
     /// <summary>
-    /// Busca la casilla libre más cercana al edificio, evitando recursos,
+    /// Busca la casilla libre mas cercana al edificio, evitando recursos,
     /// edificios y unidades de ambos jugadores.
     /// </summary>
     public sealed class BuscadorCasillaSpawn
@@ -16,7 +16,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
         /// <param name="edificio">El valor de edificio.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public Coordenada Buscar(
             Partida partida,
             Coordenada edificio)

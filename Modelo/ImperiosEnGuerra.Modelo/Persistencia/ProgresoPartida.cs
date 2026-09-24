@@ -15,7 +15,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
     /// Guarda y restaura el progreso en texto plano versionado.
     /// Lo usan <see cref="Servicios.EstadoPartidaService"/> (guardar/cargar)
     /// y la tecla F5/F9 del juego. Formato PROGRESO_V1 con secciones por
-    /// jugador; cualquier línea malformada o tipo desconocido lanza excepción.
+    /// jugador; cualquier linea malformada o tipo desconocido lanza excepcion.
     /// </summary>
     public static class ProgresoPartida
     {
@@ -23,7 +23,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
 
         /// <summary>
         /// Serializa la partida completa: mapa, saldos, edificios, unidades
-        /// (con vida y carga) y recursos físicos restantes.
+        /// (con vida y carga) y recursos fisicos restantes.
         /// </summary>
         public static string Serializar(Partida partida)
         {

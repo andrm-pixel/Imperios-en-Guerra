@@ -3,7 +3,7 @@ using System;
 namespace ImperiosEnGuerra.Modelo.Recursos
 {
     /// <summary>
-    /// Costo económico inmutable de los cinco recursos del proyecto.
+    /// Costo economico inmutable de los cinco recursos del proyecto.
     /// </summary>
     public sealed class CostoRecursos
     {
@@ -72,9 +72,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             Hierro == 0;
 
         /// <summary>
-        /// Ejecuta la operación to string.
+        /// Ejecuta la operacion to string.
         /// </summary>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public override string ToString()
         {
             return $"Oro {Oro}, Madera {Madera}, Comida {Comida}, Piedra {Piedra}, Hierro {Hierro}";

@@ -1,12 +1,12 @@
 namespace ImperiosEnGuerra.Modelo.Map
 {
     /// <summary>
-    /// Representa una celda del mapa con posición, transitabilidad y ocupación independientes.
+    /// Representa una celda del mapa con posicion, transitabilidad y ocupacion independientes.
     /// </summary>
     public class Casilla
     {
         /// <summary>
-        /// Posición lógica recibida al crear la casilla.
+        /// Posicion logica recibida al crear la casilla.
         /// </summary>
         public Coordenada Posicion { get; }
         /// <summary>
@@ -19,9 +19,9 @@ namespace ImperiosEnGuerra.Modelo.Map
         public bool EstaOcupada { get; private set; }
 
         /// <summary>
-        /// Crea una casilla desocupada con la posición y transitabilidad indicadas.
+        /// Crea una casilla desocupada con la posicion y transitabilidad indicadas.
         /// </summary>
-        /// <param name="posicion">Posición lógica que se conserva sin validación.</param>
+        /// <param name="posicion">Posicion logica que se conserva sin validacion.</param>
         /// <param name="esTransitable">Transitabilidad inicial.</param>
         public Casilla(Coordenada posicion, bool esTransitable)
         {
@@ -31,7 +31,7 @@ namespace ImperiosEnGuerra.Modelo.Map
         }
 
         /// <summary>
-        /// Actualiza la transitabilidad sin cambiar la ocupación.
+        /// Actualiza la transitabilidad sin cambiar la ocupacion.
         /// </summary>
         /// <param name="esTransitable">Nuevo valor de transitabilidad.</param>
         public void CambiarTransitabilidad(bool esTransitable)
@@ -42,7 +42,7 @@ namespace ImperiosEnGuerra.Modelo.Map
         /// <summary>
         /// Marca la casilla como ocupada si estaba libre, independientemente de su transitabilidad.
         /// </summary>
-        /// <returns>true si pasó a estar ocupada; false si ya lo estaba.</returns>
+        /// <returns>true si paso a estar ocupada; false si ya lo estaba.</returns>
         public bool Ocupar()
         {
             if (EstaOcupada)

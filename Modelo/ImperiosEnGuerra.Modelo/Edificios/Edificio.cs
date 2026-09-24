@@ -5,7 +5,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
 {
     /// <summary>
     /// Base de las construcciones del Modelo, con identidad estable,
-    /// posición lógica y vida para combate.
+    /// posicion logica y vida para combate.
     /// </summary>
     public abstract class Edificio
     {
@@ -18,7 +18,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         public Guid Id { get; }
 
         /// <summary>
-        /// Posición lógica de la construcción, establecida al crearla.
+        /// Posicion logica de la construccion, establecida al crearla.
         /// </summary>
         public Coordenada Coordenada { get; }
 
@@ -28,14 +28,14 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         public int Vida { get; private set; }
 
         /// <summary>
-        /// Vida máxima del edificio; sirve para restaurar partidas guardadas.
+        /// Vida maxima del edificio; sirve para restaurar partidas guardadas.
         /// </summary>
         public int VidaMaxima { get; }
 
         /// <summary>
-        /// Inicializa la posición común de las construcciones.
+        /// Inicializa la posicion comun de las construcciones.
         /// </summary>
-        /// <param name="coordenada">Posición lógica no nula.</param>
+        /// <param name="coordenada">Posicion logica no nula.</param>
         /// <param name="vidaMaxima">Vida inicial del edificio.</param>
         /// <exception cref="ArgumentNullException">La coordenada es nula.</exception>
         protected Edificio(
@@ -80,7 +80,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Aplica daño al edificio de forma sincronizada. Devuelve true si queda destruido.
+        /// Aplica dano al edificio de forma sincronizada. Devuelve true si queda destruido.
         /// </summary>
         public bool RecibirDano(int dano)
         {

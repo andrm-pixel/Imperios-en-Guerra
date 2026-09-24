@@ -5,8 +5,8 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Unidades
 {
     /// <summary>
-    /// Representa la especialización Aldeano con carga transportada separada
-    /// del saldo económico del jugador.
+    /// Representa la especializacion Aldeano con carga transportada separada
+    /// del saldo economico del jugador.
     /// </summary>
     public class Aldeano : Unidad
     {
@@ -108,7 +108,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         }
 
         /// <summary>
-        /// Extrae del nodo y añade a la carga del Aldeano de forma sincronizada.
+        /// Extrae del nodo y anade a la carga del Aldeano de forma sincronizada.
         /// No mezcla tipos de recurso en una misma carga.
         /// </summary>
         public int RecolectarDesde(
@@ -170,7 +170,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         }
 
         /// <summary>
-        /// Vacía la carga para que una operación de depósito pueda transferirla
+        /// Vacia la carga para que una operacion de deposito pueda transferirla
         /// al saldo del jugador.
         /// </summary>
         public int VaciarCarga(

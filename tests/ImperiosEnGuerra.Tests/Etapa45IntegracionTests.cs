@@ -24,7 +24,7 @@ public class Etapa45IntegracionTests
             "Maquina", TipoJugador.Maquina, mapa, new RecursosJugador());
 
         // Esta prueba construye la partida manualmente para controlar el mapa,
-        // así que aplicamos explícitamente el mismo balance inicial usado por
+        // asi que aplicamos explicitamente el mismo balance inicial usado por
         // InicializadorPartida: 0 Oro, 20 Madera y 30 Comida.
         new ConfiguracionInicioPartida()
             .AplicarSaldoInicial(humano.Recursos);
@@ -49,8 +49,8 @@ public class Etapa45IntegracionTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
-        var servicio = new ServicioAccionesConcurrentes(
+        using var gestor = new TareasJuego();
+        var servicio = new MotorAcciones(
             estado, gestor, TimeSpan.Zero);
 
         foreach ((int x, int y) in new[] { (4, 1), (4, 2), (4, 3), (4, 4), (4, 5) })
@@ -152,8 +152,8 @@ public class Etapa45IntegracionTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
-        var servicio = new ServicioAccionesConcurrentes(
+        using var gestor = new TareasJuego();
+        var servicio = new MotorAcciones(
             estado, gestor, TimeSpan.FromSeconds(10));
 
         int oro = humano.Recursos.ObtenerCantidad(TipoRecurso.Oro);

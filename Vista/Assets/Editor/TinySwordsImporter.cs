@@ -16,7 +16,7 @@ public static class TinySwordsImporter
     private const string NombreSuelo = "Tilemap_color1_9";
 
     [MenuItem("Tools/Imperios en Guerra/Configurar Tiny Swords")]
-    /// <summary>Configura el tilemap desde el menú Tools.</summary>
+    /// <summary>Configura el tilemap desde el menu Tools.</summary>
     public static void Configurar()
     {
         try
@@ -175,10 +175,10 @@ public static class TinySwordsImporter
     }
 }
 
-/// <summary>Detecta la importación del tilemap.</summary>
+/// <summary>Detecta la importacion del tilemap.</summary>
 public sealed class TinySwordsAssetPostprocessor : AssetPostprocessor
 {
-    /// <summary>Programa la configuración tras importar el tilemap.</summary>
+    /// <summary>Programa la configuracion tras importar el tilemap.</summary>
     private static void OnPostprocessAllAssets(
         string[] importedAssets,
         string[] deletedAssets,

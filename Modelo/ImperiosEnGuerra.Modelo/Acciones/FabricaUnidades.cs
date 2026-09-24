@@ -14,7 +14,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// </summary>
         /// <param name="tipoUnidad">El valor de tipo unidad.</param>
         /// <param name="coordenada">El valor de coordenada.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static Unidad Crear(
             string tipoUnidad,
             Coordenada coordenada)

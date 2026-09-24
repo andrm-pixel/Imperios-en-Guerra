@@ -8,7 +8,7 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
     {
         /// <summary>Nombre del jugador humano.</summary>
         public string nombreHumano;
-        /// <summary>Nombre del jugador máquina.</summary>
+        /// <summary>Nombre del jugador maquina.</summary>
         public string nombreMaquina;
 
         /// <summary>Ancho del mapa en casillas.</summary>
@@ -16,24 +16,24 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         /// <summary>Alto del mapa en casillas.</summary>
         public int altoMapa;
 
-        /// <summary>Posición inicial del centro urbano humano.</summary>
+        /// <summary>Posicion inicial del centro urbano humano.</summary>
         public CoordenadaDto centroHumano;
-        /// <summary>Posición inicial del centro urbano máquina.</summary>
+        /// <summary>Posicion inicial del centro urbano maquina.</summary>
         public CoordenadaDto centroMaquina;
 
         /// <summary>Recursos iniciales del lado humano.</summary>
         public RecursoInicialDto[] recursosHumano;
-        /// <summary>Recursos iniciales del lado máquina.</summary>
+        /// <summary>Recursos iniciales del lado maquina.</summary>
         public RecursoInicialDto[] recursosMaquina;
     }
 
-    /// <summary>Coordenada lógica serializable para los contratos de la API.</summary>
+    /// <summary>Coordenada logica serializable para los contratos de la API.</summary>
     [Serializable]
     public class CoordenadaDto
     {
-        /// <summary>Columna lógica en el mapa.</summary>
+        /// <summary>Columna logica en el mapa.</summary>
         public int x;
-        /// <summary>Fila lógica en el mapa.</summary>
+        /// <summary>Fila logica en el mapa.</summary>
         public int y;
 
         /// <summary>Crea una coordenada con los valores indicados.</summary>
@@ -50,12 +50,12 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
     {
         /// <summary>Tipo de recurso (Oro, Madera, Comida, Piedra, Hierro).</summary>
         public string tipo;
-        /// <summary>Columna lógica del recurso.</summary>
+        /// <summary>Columna logica del recurso.</summary>
         public int x;
-        /// <summary>Fila lógica del recurso.</summary>
+        /// <summary>Fila logica del recurso.</summary>
         public int y;
 
-        /// <summary>Crea un recurso inicial con tipo y posición.</summary>
+        /// <summary>Crea un recurso inicial con tipo y posicion.</summary>
         public RecursoInicialDto(string tipo, int x, int y)
         {
             this.tipo = tipo;

@@ -9,7 +9,7 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Persistencia
 {
     /// <summary>
-    /// Núcleo de persistencia del Modelo. Centraliza configuración, eventos y
+    /// Nucleo de persistencia del Modelo. Centraliza configuracion, eventos y
     /// resultado de partida mediante System.IO. Ninguna otra capa debe usar
     /// File/Directory directamente para los archivos de partida.
     /// </summary>
@@ -25,8 +25,8 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         /// <summary>
         /// Conserva la ruta recibida y asegura que exista el directorio, sin crear los archivos de partida.
         /// </summary>
-        /// <param name="directorioBase">Ruta del directorio donde se guardarán los archivos.</param>
-        /// <exception cref="ArgumentException">La ruta es nula, vacía o solo contiene espacios.</exception>
+        /// <param name="directorioBase">Ruta del directorio donde se guardaran los archivos.</param>
+        /// <exception cref="ArgumentException">La ruta es nula, vacia o solo contiene espacios.</exception>
         /// <exception cref="IOException">El directorio no se puede crear por un error de entrada o salida.</exception>
         /// <exception cref="UnauthorizedAccessException">No se dispone de acceso para crear el directorio.</exception>
         public ServicioArchivos(string directorioBase)
@@ -44,7 +44,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         /// <summary>
         /// Escribe el contenido en configuracion.txt, creando el archivo o reemplazando todo su contenido.
         /// </summary>
-        /// <param name="contenido">Texto que se guarda; puede estar vacío.</param>
+        /// <param name="contenido">Texto que se guarda; puede estar vacio.</param>
         /// <exception cref="ArgumentNullException">El contenido es nulo.</exception>
         /// <exception cref="IOException">La escritura falla por un error de entrada o salida.</exception>
         /// <exception cref="UnauthorizedAccessException">No se dispone de acceso para escribir el archivo.</exception>
@@ -59,10 +59,10 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         }
 
         /// <summary>
-        /// Genera una descripción determinista del estado recibido de ambos jugadores y la guarda mediante GuardarConfiguracion.
-        /// Incluye nombres, tipos, dimensiones, saldos, edificios, unidades y recursos físicos; usa números con cultura invariable y saltos de línea LF.
+        /// Genera una descripcion determinista del estado recibido de ambos jugadores y la guarda mediante GuardarConfiguracion.
+        /// Incluye nombres, tipos, dimensiones, saldos, edificios, unidades y recursos fisicos; usa numeros con cultura invariable y saltos de linea LF.
         /// </summary>
-        /// <param name="partida">Partida cuyo estado actual se registra como configuración inicial.</param>
+        /// <param name="partida">Partida cuyo estado actual se registra como configuracion inicial.</param>
         /// <exception cref="ArgumentNullException">La partida es nula.</exception>
         /// <exception cref="IOException">La escritura falla por un error de entrada o salida.</exception>
         /// <exception cref="UnauthorizedAccessException">No se dispone de acceso para escribir el archivo.</exception>
@@ -83,10 +83,10 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         }
 
         /// <summary>
-        /// Añade una sección de jugador; ordena los edificios por nombre de tipo y coordenadas, y los recursos por tipo y coordenadas.
+        /// Anade una seccion de jugador; ordena los edificios por nombre de tipo y coordenadas, y los recursos por tipo y coordenadas.
         /// </summary>
-        /// <param name="texto">Texto al que se agrega la sección.</param>
-        /// <param name="seccion">Identificador de la sección.</param>
+        /// <param name="texto">Texto al que se agrega la seccion.</param>
+        /// <param name="seccion">Identificador de la seccion.</param>
         /// <param name="jugador">Jugador cuyos datos se describen.</param>
         private void AgregarJugador(StringBuilder texto, string seccion, Jugador jugador)
         {
@@ -144,7 +144,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         }
 
         /// <summary>
-        /// Añade el saldo de un recurso con representación numérica de cultura invariable.
+        /// Anade el saldo de un recurso con representacion numerica de cultura invariable.
         /// </summary>
         /// <param name="texto">Texto al que se agrega el saldo.</param>
         /// <param name="jugador">Jugador que posee los saldos.</param>
@@ -157,9 +157,9 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         }
 
         /// <summary>
-        /// Añade el contenido al final de log_partida.txt seguido de Environment.NewLine; crea el archivo si no existe.
+        /// Anade el contenido al final de log_partida.txt seguido de Environment.NewLine; crea el archivo si no existe.
         /// </summary>
-        /// <param name="contenido">Texto que se guarda; puede estar vacío.</param>
+        /// <param name="contenido">Texto que se guarda; puede estar vacio.</param>
         /// <exception cref="ArgumentNullException">El contenido es nulo.</exception>
         /// <exception cref="IOException">La escritura falla por un error de entrada o salida.</exception>
         /// <exception cref="UnauthorizedAccessException">No se dispone de acceso para escribir el archivo.</exception>
@@ -175,7 +175,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         }
 
         /// <summary>
-        /// Guarda el progreso serializado en progreso.txt para continuar después.
+        /// Guarda el progreso serializado en progreso.txt para continuar despues.
         /// Lo usa <see cref="Servicios.EstadoPartidaService"/> con la tecla F5.
         /// </summary>
         public void GuardarProgreso(string contenido)
@@ -208,7 +208,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         /// <summary>
         /// Escribe el contenido en resultado_final.txt, creando el archivo o reemplazando todo su contenido.
         /// </summary>
-        /// <param name="contenido">Texto que se guarda; puede estar vacío.</param>
+        /// <param name="contenido">Texto que se guarda; puede estar vacio.</param>
         /// <exception cref="ArgumentNullException">El contenido es nulo.</exception>
         /// <exception cref="IOException">La escritura falla por un error de entrada o salida.</exception>
         /// <exception cref="UnauthorizedAccessException">No se dispone de acceso para escribir el archivo.</exception>

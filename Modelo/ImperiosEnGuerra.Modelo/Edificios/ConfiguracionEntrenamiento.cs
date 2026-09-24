@@ -32,7 +32,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// </summary>
         /// <param name="tipoUnidad">El valor de tipo unidad.</param>
         /// <param name="factor">El valor de factor.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool IntentarObtenerFactor(
             string tipoUnidad,
             out double factor)

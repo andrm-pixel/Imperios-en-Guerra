@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using ImperiosEnGuerra.Modelo.Unidades;
 using ImperiosEnGuerra.Modelo.Acciones;
 using ImperiosEnGuerra.Modelo.Contratos;
 using ImperiosEnGuerra.Modelo.Concurrencia;
+using ImperiosEnGuerra.Modelo.Core;
 using ImperiosEnGuerra.Modelo.Edificios;
 using ImperiosEnGuerra.Modelo.Map;
 using ImperiosEnGuerra.Modelo.Movimiento;
@@ -14,13 +16,12 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Servicios;
 
 /// <summary>
-/// Representa servicio acciones concurrentes dentro del modelo del juego.
+/// Motor de acciones del juego.
 /// </summary>
-public sealed class ServicioAccionesConcurrentes
+public sealed class MotorAcciones
 {
     private readonly EstadoPartidaService estadoPartida;
-    private readonly GestorProcesosConcurrentes gestorProcesos;
-    private readonly ServicioOrdenesUnidad servicioOrdenes;
+    private readonly TareasJuego gestorProcesos;
 
     private readonly TimeSpan retardoMovimiento;
     private readonly TimeSpan retardoRecoleccion;
@@ -31,32 +32,20 @@ public sealed class ServicioAccionesConcurrentes
     private readonly ConfiguracionEntrenamiento configuracionEntrenamiento;
 
 
-    // ============================================================
-    // CONSTRUCTOR USADO POR LA API MEDIANTE INYECCIÓN DE DEPENDENCIAS
-    // ============================================================
-    //
-    // Mantiene los tiempos de demostración actuales del proyecto:
-    //
-    // Movimiento:      0.5 segundos por casilla
-    // Recolección:     1 segundo
-    // Construcción:    7 segundos
-    // Entrenamiento:   5 segundos
-    // Ataque:          1 segundo
-    //
+    // Constructor para la API con tiempos base del juego.
+    // Movimiento 0.5s por casilla, recoleccion 1s,
+    // construccion 7s, entrenamiento 5s, ataque 1s.
     /// <summary>
-    /// Inicializa una nueva instancia de ServicioAccionesConcurrentes.
+    /// Crea un motor con los retardos base.
     /// </summary>
-    /// <param name="estadoPartida">El valor de estado partida.</param>
-    /// <param name="gestorProcesos">El valor de gestor procesos.</param>
-    /// <param name="servicioOrdenes">El valor de servicio ordenes.</param>
-    public ServicioAccionesConcurrentes(
+    /// <param name="estadoPartida">Estado de la partida.</param>
+    /// <param name="gestorProcesos">Gestor de tareas.</param>
+    public MotorAcciones(
         EstadoPartidaService estadoPartida,
-        GestorProcesosConcurrentes gestorProcesos,
-        ServicioOrdenesUnidad servicioOrdenes)
+        TareasJuego gestorProcesos)
         : this(
             estadoPartida,
             gestorProcesos,
-            servicioOrdenes,
             TimeSpan.FromSeconds(0.5),
             TimeSpan.FromSeconds(1),
             TimeSpan.FromSeconds(7),
@@ -66,34 +55,20 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // CONSTRUCTOR UTILIZADO PRINCIPALMENTE POR LAS PRUEBAS
-    // ============================================================
-    //
-    // Permite usar, por ejemplo:
-    //
-    // TimeSpan.Zero
-    // TimeSpan.FromMilliseconds(5)
-    // TimeSpan.FromMilliseconds(100)
-    // TimeSpan.FromSeconds(10)
-    //
-    // Así las pruebas no tienen que esperar los tiempos reales
-    // del prototipo.
-    //
+    // Constructor para pruebas con un solo retardo.
     /// <summary>
-    /// Inicializa una nueva instancia de ServicioAccionesConcurrentes.
+    /// Crea un motor con un retardo unico para pruebas.
     /// </summary>
-    /// <param name="estadoPartida">El valor de estado partida.</param>
-    /// <param name="gestorProcesos">El valor de gestor procesos.</param>
-    /// <param name="retardoDemostracion">El valor de retardo demostracion.</param>
-    public ServicioAccionesConcurrentes(
+    /// <param name="estadoPartida">Estado de la partida.</param>
+    /// <param name="gestorProcesos">Gestor de tareas.</param>
+    /// <param name="retardoDemostracion">Retardo usado en pruebas.</param>
+    public MotorAcciones(
         EstadoPartidaService estadoPartida,
-        GestorProcesosConcurrentes gestorProcesos,
+        TareasJuego gestorProcesos,
         TimeSpan retardoDemostracion)
         : this(
             estadoPartida,
             gestorProcesos,
-            new ServicioOrdenesUnidad(),
             retardoDemostracion,
             retardoDemostracion,
             retardoDemostracion,
@@ -103,28 +78,20 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // CONSTRUCTOR COMPLETO
-    // ============================================================
-    //
-    // Centraliza la configuración y validación de dependencias
-    // y retardos.
-    //
+    // Constructor completo con validacion de retardos.
     /// <summary>
-    /// Inicializa una nueva instancia de ServicioAccionesConcurrentes.
+    /// Crea un motor con todos los retardos.
     /// </summary>
-    /// <param name="estadoPartida">El valor de estado partida.</param>
-    /// <param name="gestorProcesos">El valor de gestor procesos.</param>
-    /// <param name="servicioOrdenes">El valor de servicio ordenes.</param>
-    /// <param name="retardoMovimiento">El valor de retardo movimiento.</param>
-    /// <param name="retardoRecoleccion">El valor de retardo recoleccion.</param>
-    /// <param name="retardoConstruccion">El valor de retardo construccion.</param>
-    /// <param name="retardoEntrenamiento">El valor de retardo entrenamiento.</param>
-    /// <param name="retardoAtaque">El valor de retardo ataque.</param>
-    public ServicioAccionesConcurrentes(
+    /// <param name="estadoPartida">Estado de la partida.</param>
+    /// <param name="gestorProcesos">Gestor de tareas.</param>
+    /// <param name="retardoMovimiento">Retardo de movimiento.</param>
+    /// <param name="retardoRecoleccion">Retardo de recoleccion.</param>
+    /// <param name="retardoConstruccion">Retardo de construccion.</param>
+    /// <param name="retardoEntrenamiento">Retardo de entrenamiento.</param>
+    /// <param name="retardoAtaque">Retardo de ataque.</param>
+    public MotorAcciones(
         EstadoPartidaService estadoPartida,
-        GestorProcesosConcurrentes gestorProcesos,
-        ServicioOrdenesUnidad servicioOrdenes,
+        TareasJuego gestorProcesos,
         TimeSpan retardoMovimiento,
         TimeSpan retardoRecoleccion,
         TimeSpan retardoConstruccion,
@@ -140,11 +107,6 @@ public sealed class ServicioAccionesConcurrentes
             gestorProcesos
             ?? throw new ArgumentNullException(
                 nameof(gestorProcesos));
-
-        this.servicioOrdenes =
-            servicioOrdenes
-            ?? throw new ArgumentNullException(
-                nameof(servicioOrdenes));
 
         ValidarRetardo(
             retardoMovimiento,
@@ -179,15 +141,13 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // MOVIMIENTO
-    // ============================================================
+    // Movimiento
 
     /// <summary>
     /// Inicia movimiento.
     /// </summary>
-    /// <param name="request">El valor de request.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <param name="request">Peticion.</param>
+    /// <returns>Resultado.</returns>
     public ProcesoConcurrente IniciarMovimiento(
         MoverUnidadRequest? request)
     {
@@ -213,7 +173,7 @@ public sealed class ServicioAccionesConcurrentes
                 if (unidad == null)
                 {
                     return ResultadoAccion.Fallido(
-                        "No existe una unidad humana con ese ID.");
+                        "La unidad humana no existe o fue destruida.");
                 }
 
                 TimeSpan retardoPaso =
@@ -326,15 +286,13 @@ public sealed class ServicioAccionesConcurrentes
             });
     }
 
-    // ============================================================
-    // RECOLECCIÓN
-    // ============================================================
+    // Recoleccion
 
     /// <summary>
     /// Inicia recoleccion.
     /// </summary>
-    /// <param name="request">El valor de request.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <param name="request">Peticion.</param>
+    /// <returns>Resultado.</returns>
     public ProcesoConcurrente IniciarRecoleccion(
         RecolectarRequest? request)
     {
@@ -385,9 +343,7 @@ public sealed class ServicioAccionesConcurrentes
 
                 try
                 {
-                    // Política de cancelación recuperable:
-                    // si el Aldeano conserva una carga de una orden anterior,
-                    // la deposita antes de intentar una nueva extracción.
+                    // Si hay carga previa, se deposita antes de seguir.
                     if (aldeano.CargaActual > 0)
                     {
                         ResultadoAproximacionDeposito cargaPendiente =
@@ -702,15 +658,13 @@ public sealed class ServicioAccionesConcurrentes
             });
     }
 
-    // ============================================================
-    // CONSTRUCCIÓN
-    // ============================================================
+    // Construccion
 
     /// <summary>
     /// Inicia construccion.
     /// </summary>
-    /// <param name="request">El valor de request.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <param name="request">Peticion.</param>
+    /// <returns>Resultado.</returns>
     public ProcesoConcurrente IniciarConstruccion(
         ConstruirRequest? request)
     {
@@ -880,15 +834,13 @@ public sealed class ServicioAccionesConcurrentes
             });
     }
 
-    // ============================================================
-    // ENTRENAMIENTO
-    // ============================================================
+    // Entrenamiento
 
     /// <summary>
     /// Inicia entrenamiento.
     /// </summary>
-    /// <param name="request">El valor de request.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <param name="request">Peticion.</param>
+    /// <returns>Resultado.</returns>
     public ProcesoConcurrente IniciarEntrenamiento(
         EntrenarRequest? request)
     {
@@ -1015,15 +967,13 @@ public sealed class ServicioAccionesConcurrentes
             });
     }
 
-    // ============================================================
-    // ATAQUE
-    // ============================================================
+    // Ataque
 
     /// <summary>
     /// Inicia ataque.
     /// </summary>
-    /// <param name="request">El valor de request.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <param name="request">Peticion.</param>
+    /// <returns>Resultado.</returns>
     public ProcesoConcurrente IniciarAtaque(
         AtacarRequest? request)
     {
@@ -1057,7 +1007,7 @@ public sealed class ServicioAccionesConcurrentes
                 if (atacante == null)
                 {
                     return ResultadoAccion.Fallido(
-                        "No existe la unidad atacante humana indicada.");
+                        "La unidad atacante no existe o fue destruida.");
                 }
 
                 TimeSpan retardoPaso =
@@ -1175,18 +1125,12 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // IA DE LA MÁQUINA
-    // ============================================================
-    //
-    // Turno periódico de caza y guardia. Vive en el Modelo y corre en
-    // un worker del gestor como cualquier otra acción concurrente.
-    //
+    // IA de la maquina: turno de caza y guardia.
 
     /// <summary>
-    /// Inicia ia.
+    /// Inicia IA.
     /// </summary>
-    /// <returns>Resultado de la operación.</returns>
+    /// <returns>Resultado.</returns>
     public ProcesoConcurrente IniciarIA()
     {
         return gestorProcesos.Iniciar(
@@ -1216,15 +1160,119 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // CANCELACIÓN
-    // ============================================================
+    // Batalla total
+
 
     /// <summary>
-    /// Cancela el elemento solicitado.
+    /// Ordena a todo el ejercito humano atacar a su objetivo enemigo mas
+    /// cercano, un worker por unidad. Sin hilos propios.
     /// </summary>
-    /// <param name="procesoId">El valor de proceso id.</param>
-    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+    public sealed class ProcesoBatalla
+    {
+        /// <summary>Unidad que ataca.</summary>
+        public Guid UnidadId { get; }
+        /// <summary>Proceso del worker de ataque.</summary>
+        public Guid ProcesoId { get; }
+
+        /// <summary>Crea la referencia unidad-proceso.</summary>
+        public ProcesoBatalla(Guid unidadId, Guid procesoId)
+        {
+            UnidadId = unidadId;
+            ProcesoId = procesoId;
+        }
+    }
+
+    /// <summary>
+    /// Inicia un worker de ataque por cada unidad militar con objetivo.
+    /// </summary>
+    /// <returns>Procesos iniciados, vacio si no hay tropas.</returns>
+    public IReadOnlyList<ProcesoBatalla> IniciarBatalla()
+    {
+        Partida partida = estadoPartida.ObtenerPartida();
+
+        if (partida == null)
+            return Array.Empty<ProcesoBatalla>();
+
+        var procesos = new List<ProcesoBatalla>();
+
+        foreach (Unidad unidad in partida.JugadorHumano.Unidades.ToList())
+        {
+            if (!(unidad is UnidadMilitar) ||
+                unidad.Coordenada == null)
+            {
+                continue;
+            }
+
+            Guid? objetivo =
+                BuscarEnemigoMasCercano(partida, unidad.Coordenada);
+
+            if (!objetivo.HasValue)
+                continue;
+
+            ProcesoConcurrente proceso = IniciarAtaque(
+                new AtacarRequest
+                {
+                    AtacanteId = unidad.Id.ToString("D"),
+                    ObjetivoId = objetivo.Value.ToString("D")
+                });
+
+            procesos.Add(new ProcesoBatalla(unidad.Id, proceso.Id));
+        }
+
+        return procesos;
+    }
+
+    private static Guid? BuscarEnemigoMasCercano(
+        Partida partida,
+        Coordenada desde)
+    {
+        Guid? mejor = null;
+        int mejorDistancia = int.MaxValue;
+
+        foreach (Unidad unidad in partida.JugadorMaquina.Unidades)
+        {
+            if (unidad == null || unidad.Coordenada == null)
+                continue;
+
+            int distancia = DistanciaManhattan(desde, unidad.Coordenada);
+
+            if (distancia < mejorDistancia)
+            {
+                mejorDistancia = distancia;
+                mejor = unidad.Id;
+            }
+        }
+
+        foreach (Edificio edificio in partida.JugadorMaquina.Edificios)
+        {
+            if (edificio == null || edificio.Coordenada == null)
+                continue;
+
+            int distancia = DistanciaManhattan(desde, edificio.Coordenada);
+
+            if (distancia < mejorDistancia)
+            {
+                mejorDistancia = distancia;
+                mejor = edificio.Id;
+            }
+        }
+
+        return mejor;
+    }
+
+    private static int DistanciaManhattan(Coordenada a, Coordenada b)
+    {
+        return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
+    }
+
+
+    // Cancelacion
+
+    /// <summary>
+    /// Cancela un proceso.
+    /// </summary>
+    /// <param name="procesoId">Id del proceso.</param>
+    /// <returns>True si ok, false si no.</returns>
     public bool Cancelar(
         Guid procesoId)
     {
@@ -1234,7 +1282,7 @@ public sealed class ServicioAccionesConcurrentes
 
 
     /// <summary>
-    /// Cancela todos.
+    /// Cancela todo.
     /// </summary>
     public void CancelarTodos()
     {
@@ -1242,16 +1290,14 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // RESULTADOS DE LOS PROCESOS
-    // ============================================================
+    // Resultados
 
     /// <summary>
-    /// Intenta obtener resultado.
+    /// Lee un resultado.
     /// </summary>
-    /// <param name="procesoId">El valor de proceso id.</param>
-    /// <param name="resultado">El valor de resultado.</param>
-    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+    /// <param name="procesoId">Id del proceso.</param>
+    /// <param name="resultado">Resultado final.</param>
+    /// <returns>True si ok, false si no.</returns>
     public bool IntentarObtenerResultado(
         Guid procesoId,
         out ResultadoProcesoConcurrente resultado)
@@ -1263,10 +1309,10 @@ public sealed class ServicioAccionesConcurrentes
 
 
     /// <summary>
-    /// Intenta obtener resultado.
+    /// Lee un resultado.
     /// </summary>
-    /// <param name="resultado">El valor de resultado.</param>
-    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+    /// <param name="resultado">Resultado final.</param>
+    /// <returns>True si ok, false si no.</returns>
     public bool IntentarObtenerResultado(
         out ResultadoProcesoConcurrente resultado)
     {
@@ -1276,7 +1322,7 @@ public sealed class ServicioAccionesConcurrentes
 
 
     /// <summary>
-    /// Obtiene procesos activos.
+    /// Procesos activos.
     /// </summary>
     public int ProcesosActivos =>
         gestorProcesos.ProcesosActivos;
@@ -1852,9 +1898,7 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // ESPERA CANCELABLE
-    // ============================================================
+    // Espera cancelable
 
     private static void EsperarAntesDeAplicar(
         CancellationToken token,
@@ -1875,9 +1919,7 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // VALIDACIÓN DE RETARDOS
-    // ============================================================
+    // Valida retardos
 
     private static void ValidarRetardo(
         TimeSpan retardo,
@@ -1891,14 +1933,7 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
-    // ============================================================
-    // COPIAS DE REQUESTS
-    // ============================================================
-    //
-    // Los workers trabajan con copias de los datos recibidos.
-    // Esto evita depender de objetos que podrían ser modificados
-    // externamente mientras una Task se está ejecutando.
-    // ============================================================
+    // Copias para los workers: evita usar datos externos mutables.
 
     private static EntrenarRequest? Copiar(
         EntrenarRequest? request)

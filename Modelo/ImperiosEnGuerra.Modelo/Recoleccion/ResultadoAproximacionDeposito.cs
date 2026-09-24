@@ -62,7 +62,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// <param name="castillo">El valor de centro urbano.</param>
         /// <param name="puntoInteraccion">El valor de punto interaccion.</param>
         /// <param name="pasos">El valor de pasos.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAproximacionDeposito Exitoso(
             Coordenada castillo,
             Coordenada puntoInteraccion,
@@ -91,7 +91,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
         /// <param name="reintentable">El valor de reintentable.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAproximacionDeposito Fallido(
             string mensaje,
             bool reintentable = false)

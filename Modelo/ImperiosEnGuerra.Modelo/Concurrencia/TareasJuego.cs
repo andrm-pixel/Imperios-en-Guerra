@@ -7,12 +7,11 @@ using ImperiosEnGuerra.Modelo.Acciones;
 namespace ImperiosEnGuerra.Modelo.Concurrencia
 {
     /// <summary>
-    /// Núcleo de concurrencia del juego. Vive en el Modelo.
-    /// Inicia trabajos reales en ThreadPool mediante Task.Run, permite cancelarlos
-    /// y publica sus resultados en una cola thread-safe para consumo posterior.
-    /// No depende de UnityEngine. Ninguna otra capa debe crear Thread/Task.
+    /// Nucleo de concurrencia del juego en el Modelo.
+    /// Lanza trabajos en ThreadPool, permite cancelarlos
+    /// y publica resultados en cola segura para consumo posterior.
     /// </summary>
-    public sealed class GestorProcesosConcurrentes : IDisposable
+    public sealed class TareasJuego : IDisposable
     {
         private readonly ConcurrentDictionary<Guid, CancellationTokenSource> cancelaciones =
             new ConcurrentDictionary<Guid, CancellationTokenSource>();
@@ -26,11 +25,11 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         private int cerrado;
 
         /// <summary>
-        /// Inicia el elemento solicitado.
+        /// Inicia un trabajo.
         /// </summary>
-        /// <param name="nombre">El valor de nombre.</param>
-        /// <param name="trabajo">El valor de trabajo.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="nombre">Nombre del proceso.</param>
+        /// <param name="trabajo">Trabajo a ejecutar.</param>
+        /// <returns>Resultado.</returns>
         public ProcesoConcurrente Iniciar(
             string nombre,
             Func<CancellationToken, ResultadoAccion> trabajo)
@@ -44,7 +43,7 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
                 throw new ArgumentNullException(nameof(trabajo));
 
             if (Volatile.Read(ref cerrado) != 0)
-                throw new ObjectDisposedException(nameof(GestorProcesosConcurrentes));
+                throw new ObjectDisposedException(nameof(TareasJuego));
 
             Guid procesoId = Guid.NewGuid();
             var cancelacion = new CancellationTokenSource();
@@ -105,10 +104,10 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Cancela el elemento solicitado.
+        /// Cancela un proceso.
         /// </summary>
-        /// <param name="procesoId">El valor de proceso id.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <param name="procesoId">Id del proceso.</param>
+        /// <returns>True si ok, false si no.</returns>
         public bool Cancelar(Guid procesoId)
         {
             if (!cancelaciones.TryGetValue(
@@ -123,7 +122,7 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Cancela todos.
+        /// Cancela todo.
         /// </summary>
         public void CancelarTodos()
         {
@@ -135,11 +134,11 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Intenta obtener resultado.
+        /// Lee un resultado por id.
         /// </summary>
-        /// <param name="procesoId">El valor de proceso id.</param>
-        /// <param name="resultado">El valor de resultado.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <param name="procesoId">Id del proceso.</param>
+        /// <param name="resultado">Resultado final.</param>
+        /// <returns>True si ok, false si no.</returns>
         public bool IntentarObtenerResultado(
             Guid procesoId,
             out ResultadoProcesoConcurrente resultado)
@@ -150,10 +149,10 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Intenta obtener resultado.
+        /// Lee un resultado.
         /// </summary>
-        /// <param name="resultado">El valor de resultado.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <param name="resultado">Resultado final.</param>
+        /// <returns>True si ok, false si no.</returns>
         public bool IntentarObtenerResultado(
             out ResultadoProcesoConcurrente resultado)
         {
@@ -180,7 +179,7 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Obtiene procesos activos.
+        /// Procesos activos.
         /// </summary>
         public int ProcesosActivos
         {
@@ -188,7 +187,7 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Obtiene resultados pendientes.
+        /// Resultados pendientes.
         /// </summary>
         public int ResultadosPendientes
         {
@@ -196,7 +195,7 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
         }
 
         /// <summary>
-        /// Ejecuta la operación dispose.
+        /// Libera recursos.
         /// </summary>
         public void Dispose()
         {

@@ -28,10 +28,10 @@ public class TodasOperacionesConcurrentesTests
         estado.EstablecerPartida(partida);
 
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.FromMilliseconds(100));
@@ -45,8 +45,8 @@ public class TodasOperacionesConcurrentesTests
                     Destino = new CoordenadaRequest
                     {
                         // Destino independiente de las zonas usadas por
-                        // construcción y recolección. Esta prueba valida
-                        // convivencia concurrente, no colisión intencional.
+                        // construccion y recoleccion. Esta prueba valida
+                        // convivencia concurrente, no colision intencional.
                         X = 5,
                         Y = 0
                     }
@@ -152,7 +152,7 @@ public class TodasOperacionesConcurrentesTests
 
 
     private static void AssertResultado(
-        ServicioAccionesConcurrentes servicio,
+        MotorAcciones servicio,
         Guid id,
         string nombre)
     {

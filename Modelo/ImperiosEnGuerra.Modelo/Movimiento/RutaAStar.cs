@@ -6,9 +6,9 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Movimiento
 {
     /// <summary>
-    /// Representa buscador ruta a star dentro del modelo del juego.
+    /// Busca rutas A* en el mapa del juego.
     /// </summary>
-    public sealed class BuscadorRutaAStar
+    public sealed class RutaAStar
     {
         private static readonly (int X, int Y)[] Direcciones =
         {
@@ -19,12 +19,12 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         };
 
         /// <summary>
-        /// Busca el elemento solicitado.
+        /// Busca ruta.
         /// </summary>
-        /// <param name="mapa">El valor de mapa.</param>
-        /// <param name="origen">El valor de origen.</param>
-        /// <param name="destino">El valor de destino.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="mapa">Mapa actual.</param>
+        /// <param name="origen">Punto inicial.</param>
+        /// <param name="destino">Punto final.</param>
+        /// <returns>Resultado.</returns>
         public ResultadoRuta Buscar(
             Mapa mapa,
             Coordenada origen,
@@ -38,13 +38,13 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         }
 
         /// <summary>
-        /// Busca el elemento solicitado.
+        /// Busca ruta con bloqueos.
         /// </summary>
-        /// <param name="mapa">El valor de mapa.</param>
-        /// <param name="origen">El valor de origen.</param>
-        /// <param name="destino">El valor de destino.</param>
-        /// <param name="bloqueosAdicionales">El valor de bloqueos adicionales.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="mapa">Mapa actual.</param>
+        /// <param name="origen">Punto inicial.</param>
+        /// <param name="destino">Punto final.</param>
+        /// <param name="bloqueosAdicionales">Casillas extra a evitar.</param>
+        /// <returns>Resultado.</returns>
         public ResultadoRuta Buscar(
             Mapa mapa,
             Coordenada origen,

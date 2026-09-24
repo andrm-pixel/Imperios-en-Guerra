@@ -28,10 +28,10 @@ public class CicloRecoleccionTests
         estado.EstablecerPartida(partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.Zero);
@@ -88,10 +88,10 @@ public class CicloRecoleccionTests
         estado.EstablecerPartida(partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.Zero);

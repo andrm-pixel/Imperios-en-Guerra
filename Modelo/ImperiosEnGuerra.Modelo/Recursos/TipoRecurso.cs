@@ -1,7 +1,7 @@
 namespace ImperiosEnGuerra.Modelo.Recursos
 {
     /// <summary>
-    /// Identifica los recursos económicos y físicos del juego.
+    /// Identifica los recursos economicos y fisicos del juego.
     /// </summary>
     public enum TipoRecurso
     {
@@ -18,7 +18,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// </summary>
         Comida,
         /// <summary>
-        /// Recurso de piedra para construcción.
+        /// Recurso de piedra para construccion.
         /// </summary>
         Piedra,
         /// <summary>

@@ -8,7 +8,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
     /// <summary>
-    /// Aplica daño real de combate en el Modelo con estadísticas por tipo.
+    /// Aplica dano real de combate en el Modelo con estadisticas por tipo.
     /// El objetivo puede ser una unidad enemiga o un edificio enemigo.
     /// Unidades del prototipo: Aldeano, Soldado y Arquero.
     /// Valores del prototipo: Soldado 25/alc.1,
@@ -22,7 +22,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
         /// <param name="solicitud">El valor de solicitud.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             SolicitudAtaque solicitud)
@@ -45,7 +45,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 
             if (atacante == null)
                 return ResultadoAccion.Fallido(
-                    "No existe la unidad atacante humana indicada.");
+                    "La unidad atacante no existe o fue destruida.");
 
             if (!atacante.Disponible &&
                 atacante.OrdenActiva != TipoAccionJuego.Atacar)
@@ -148,8 +148,8 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// <summary>
         /// Verifica la victoria humana: Castillo Y todas las unidades enemigas destruidas.
         /// </summary>
-        /// <param name="partida">Partida que se evalúa.</param>
-        /// <returns>true si la máquina perdió su centro y sus unidades.</returns>
+        /// <param name="partida">Partida que se evalua.</param>
+        /// <returns>true si la maquina perdio su centro y sus unidades.</returns>
         public static bool EsVictoriaHumana(Partida partida)
         {
             if (partida == null)
@@ -166,17 +166,17 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         }
 
         /// <summary>
-        /// Ejecuta la operación es victoria maquina.
+        /// Ejecuta la operacion es victoria maquina.
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public static bool EsVictoriaMaquina(Partida partida)
         {
             if (partida == null)
                 return false;
 
             // El humano puede reconstruir su centro con un aldeano si
-            // sobrevive alguien; la máquina solo gana arrasando todo.
+            // sobrevive alguien; la maquina solo gana arrasando todo.
             return partida.JugadorHumano.Unidades.Count == 0;
         }
 

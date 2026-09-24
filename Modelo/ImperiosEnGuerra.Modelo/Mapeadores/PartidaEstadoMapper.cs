@@ -13,10 +13,10 @@ namespace ImperiosEnGuerra.Modelo.Mapeadores;
 public static class PartidaEstadoMapper
 {
     /// <summary>
-    /// Ejecuta la operación convertir.
+    /// Ejecuta la operacion convertir.
     /// </summary>
     /// <param name="partida">El valor de partida.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <returns>Resultado de la operacion.</returns>
     public static EstadoPartidaResponse Convertir(Partida partida)
     {
         if (partida == null) throw new ArgumentNullException(nameof(partida));

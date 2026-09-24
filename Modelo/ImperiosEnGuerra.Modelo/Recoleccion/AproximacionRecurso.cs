@@ -11,11 +11,9 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Recoleccion
 {
     /// <summary>
-    /// Busca una casilla transitable adyacente a un recurso. Cuando varias
-    /// opciones son casi equivalentes, distribuye Aldeanos en lados distintos
-    /// para reducir colisiones entre workers concurrentes.
+    /// Busca casilla libre junto al recurso y reparte aldeanos.
     /// </summary>
-    public sealed class PlanificadorAproximacionRecurso
+    public sealed class AproximacionRecurso
     {
         private static readonly (int X, int Y)[] Direcciones =
         {
@@ -25,22 +23,22 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             (0, -1)
         };
 
-        private readonly PlanificadorMovimiento planificadorMovimiento;
+        private readonly RutaMovimiento planificadorMovimiento;
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorAproximacionRecurso.
+        /// Crea con ruta base.
         /// </summary>
-        public PlanificadorAproximacionRecurso()
-            : this(new PlanificadorMovimiento())
+        public AproximacionRecurso()
+            : this(new RutaMovimiento())
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorAproximacionRecurso.
+        /// Crea con ruta dada.
         /// </summary>
-        /// <param name="planificadorMovimiento">El valor de planificador movimiento.</param>
-        public PlanificadorAproximacionRecurso(
-            PlanificadorMovimiento planificadorMovimiento)
+        /// <param name="planificadorMovimiento">Ruta a usar.</param>
+        public AproximacionRecurso(
+            RutaMovimiento planificadorMovimiento)
         {
             this.planificadorMovimiento =
                 planificadorMovimiento
@@ -49,12 +47,12 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         }
 
         /// <summary>
-        /// Ejecuta la operación preparar.
+        /// Prepara la aproximacion.
         /// </summary>
-        /// <param name="partida">El valor de partida.</param>
-        /// <param name="solicitud">El valor de solicitud.</param>
-        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="partida">Partida actual.</param>
+        /// <param name="solicitud">Solicitud de recoleccion.</param>
+        /// <param name="permitirOrdenMovimientoActiva">True si admite orden mover activa.</param>
+        /// <returns>Resultado.</returns>
         public ResultadoAproximacionRecurso Preparar(
             Partida partida,
             SolicitudRecoleccion solicitud,
@@ -88,7 +86,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             if (aldeano == null)
             {
                 return ResultadoAproximacionRecurso.Fallido(
-                    "No existe un Aldeano humano con ese ID.");
+                    "El Aldeano humano no existe o fue destruido.");
             }
 
             if (!aldeano.Disponible &&
@@ -192,24 +190,12 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                     true);
             }
 
-            int inicio =
-                PreferenciaCasillaInteraccion
-                    .ObtenerIndiceInicial(
-                        partida,
-                        aldeano.Id,
-                        Direcciones.Length);
-
-            // Camino más corto primero; la preferencia rotativa solo
-            // desempata para no alargar rutas hacia el recurso.
+            // Ruta mas corta primero; el indice rompe empates.
             var elegido =
                 candidatos
                     .OrderBy(
                         c => c.Plan.Pasos.Count)
-                    .ThenBy(
-                        c =>
-                            (c.Indice - inicio +
-                             Direcciones.Length) %
-                            Direcciones.Length)
+                    .ThenBy(c => c.Indice)
                     .First();
 
             return ResultadoAproximacionRecurso.Exitoso(

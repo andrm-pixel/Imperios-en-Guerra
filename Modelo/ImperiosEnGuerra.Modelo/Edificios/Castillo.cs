@@ -73,11 +73,11 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Ejecuta la operación encolar entrenamiento.
+        /// Ejecuta la operacion encolar entrenamiento.
         /// </summary>
         /// <param name="tipoUnidad">El valor de tipo unidad.</param>
         /// <param name="puntoReunion">El valor de punto reunion.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public EntrenamientoPendiente EncolarEntrenamiento(
             string tipoUnidad,
             Coordenada puntoReunion = null)
@@ -97,10 +97,10 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Ejecuta la operación es primero.
+        /// Ejecuta la operacion es primero.
         /// </summary>
         /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool EsPrimero(
             Guid entrenamientoId)
         {
@@ -113,11 +113,11 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Ejecuta la operación avanzar entrenamiento.
+        /// Ejecuta la operacion avanzar entrenamiento.
         /// </summary>
         /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
         /// <param name="incremento">El valor de incremento.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoProgresoEntrenamiento AvanzarEntrenamiento(
             Guid entrenamientoId,
             int incremento)
@@ -145,7 +145,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// Completa entrenamiento.
         /// </summary>
         /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool CompletarEntrenamiento(
             Guid entrenamientoId)
         {
@@ -167,7 +167,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// Cancela entrenamiento.
         /// </summary>
         /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool CancelarEntrenamiento(
             Guid entrenamientoId)
         {
@@ -183,12 +183,12 @@ namespace ImperiosEnGuerra.Modelo.Edificios
             }
         }
 
-        // Compatibilidad con llamadas históricas.
+        // Compatibilidad con llamadas historicas.
         /// <summary>
         /// Inicia entrenamiento.
         /// </summary>
         /// <param name="tipoUnidad">El valor de tipo unidad.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <returns>true si la operacion tuvo exito; false en caso contrario.</returns>
         public bool IniciarEntrenamiento(
             string tipoUnidad)
         {

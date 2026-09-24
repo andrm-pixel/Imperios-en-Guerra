@@ -5,7 +5,7 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Movimiento
 {
     /// <summary>
-    /// Resultado inmutable de preparar una orden de movimiento sin modificar todavía la posición.
+    /// Resultado inmutable de preparar una orden de movimiento sin modificar todavia la posicion.
     /// </summary>
     public sealed class ResultadoPlanMovimiento
     {
@@ -44,7 +44,7 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         /// Crea un resultado exitoso el elemento solicitado.
         /// </summary>
         /// <param name="pasos">El valor de pasos.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoPlanMovimiento Exitoso(
             IEnumerable<Coordenada> pasos)
         {
@@ -61,7 +61,7 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         /// Crea un resultado fallido el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoPlanMovimiento Fallido(
             string mensaje)
         {

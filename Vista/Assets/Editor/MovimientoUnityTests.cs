@@ -8,10 +8,10 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>Pruebas de preparación y vista del movimiento.</summary>
+/// <summary>Pruebas de preparacion y vista del movimiento.</summary>
 public class MovimientoUnityTests
 {
-    /// <summary>Raíz de los objetos de prueba de movimiento.</summary>
+    /// <summary>Raiz de los objetos de prueba de movimiento.</summary>
     private GameObject raiz;
     private ControladorSeleccion seleccion;
     private ControladorAcciones acciones;
@@ -23,7 +23,7 @@ public class MovimientoUnityTests
     private Text mensaje;
     private const string IdModelo = "11111111-1111-1111-1111-111111111111";
 
-    /// <summary>Crea la escena mínima para probar el movimiento.</summary>
+    /// <summary>Crea la escena minima para probar el movimiento.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -99,7 +99,7 @@ public class MovimientoUnityTests
         Assert.That(seleccion.SeleccionActual, Is.SameAs(unidad));
     }
 
-    /// <summary>Verifica que cambiar selección cancela el movimiento.</summary>
+    /// <summary>Verifica que cambiar seleccion cancela el movimiento.</summary>
     [Test]
     public void CambioSeleccion_CancelaSinEnviar()
     {
@@ -211,7 +211,7 @@ public class MovimientoUnityTests
     }
 
     [TestCase(8f, 10f, 4, 5)]
-    /// <summary>Verifica la conversión mundo a casilla.</summary>
+    /// <summary>Verifica la conversion mundo a casilla.</summary>
     [TestCase(0f, 0f, 0, 0)]
     public void CasillaVacia_SeConvierteSinEntidad(float mundoX, float mundoY, int esperadoX, int esperadoY)
     {
@@ -285,15 +285,15 @@ public class MovimientoUnityTests
         Assert.That(mensaje.text, Is.EqualTo("Movimiento cancelado."));
     }
 
-    /// <summary>Lee un campo privado por reflexión.</summary>
+    /// <summary>Lee un campo privado por reflexion.</summary>
     private static object LeerCampo(object objeto, string nombre) => objeto.GetType()
         .GetField(nombre, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(objeto);
 
-    /// <summary>Asigna un campo privado por reflexión.</summary>
+    /// <summary>Asigna un campo privado por reflexion.</summary>
     private static void Campo(object objeto, string nombre, object valor) => objeto.GetType()
         .GetField(nombre, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objeto, valor);
 
-    /// <summary>Asigna una propiedad automática por reflexión.</summary>
+    /// <summary>Asigna una propiedad automatica por reflexion.</summary>
     private static void CampoAutomatico(
         object objeto,
         string nombre,
@@ -307,7 +307,7 @@ public class MovimientoUnityTests
             .SetValue(objeto, valor);
     }
 
-    /// <summary>Invoca un método privado por reflexión.</summary>
+    /// <summary>Invoca un metodo privado por reflexion.</summary>
     private static void Invocar(object objeto, string nombre, params object[] argumentos) => objeto.GetType()
         .GetMethod(nombre, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(objeto, argumentos);
 }

@@ -17,7 +17,7 @@ public static class Fase2VistaConfigurator
 {
     /// <summary>Ruta de la escena de muestra a configurar.</summary>
     private const string RutaEscena = "Assets/Scenes/SampleScene.unity";
-    /// <summary>Carpeta de gráficos Tiny Swords.</summary>
+    /// <summary>Carpeta de graficos Tiny Swords.</summary>
     private const string RutaArte = "Assets/Art/TinySwords/";
     /// <summary>Contenido temporal de la prueba visual.</summary>
     private static GameObject contenidoPrueba;
@@ -66,7 +66,7 @@ public static class Fase2VistaConfigurator
         if (generado != null)
         {
             contenidoPrueba = generado.gameObject;
-            // La representación de prueba no debe persistir al guardar la escena.
+            // La representacion de prueba no debe persistir al guardar la escena.
             foreach (Transform elemento in contenidoPrueba.GetComponentsInChildren<Transform>(true))
             {
                 elemento.gameObject.hideFlags |= HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
@@ -100,7 +100,7 @@ public static class Fase2VistaConfigurator
         };
     }
 
-    /// <summary>Limpia la prueba al salir del modo edición.</summary>
+    /// <summary>Limpia la prueba al salir del modo edicion.</summary>
     private static void AlCambiarModoPrueba(PlayModeStateChange estado)
     {
         if (estado == PlayModeStateChange.ExitingEditMode)
@@ -132,7 +132,7 @@ public static class Fase2VistaConfigurator
         Dictionary<string, Sprite> sprites;
         try
         {
-            // Validar todos los gráficos antes de cambiar la escena.
+            // Validar todos los graficos antes de cambiar la escena.
             sprites = CargarSprites();
         }
         catch (InvalidOperationException ex)
@@ -235,7 +235,7 @@ public static class Fase2VistaConfigurator
     {
         var sprites = new Dictionary<string, Sprite>
         {
-            // Baldosa central de césped: rectángulo (64, 256, 64, 64) en el atlas local.
+            // Baldosa central de cesped: rectangulo (64, 256, 64, 64) en el atlas local.
             { "suelo", CargarMultiple("Terrain/Tileset/Tilemap_color1.png", "Tilemap_color1_9") },
             { "oro", CargarSingle("Terrain/Resources/Gold/Gold Stones/Gold Stone 1.png") },
             { "madera", CargarMultiple("Terrain/Resources/Wood/Trees/Tree1.png") },
@@ -271,7 +271,7 @@ public static class Fase2VistaConfigurator
         return sprite;
     }
 
-    /// <summary>Carga un sub-sprite de una textura múltiple.</summary>
+    /// <summary>Carga un sub-sprite de una textura multiple.</summary>
     private static Sprite CargarMultiple(string rutaRelativa, string nombre = null)
     {
         string ruta = ValidarArchivo(rutaRelativa);
@@ -290,7 +290,7 @@ public static class Fase2VistaConfigurator
         return sprite;
     }
 
-    /// <summary>Verifica que exista el gráfico Tiny Swords.</summary>
+    /// <summary>Verifica que exista el grafico Tiny Swords.</summary>
     private static string ValidarArchivo(string rutaRelativa)
     {
         string ruta = RutaArte + rutaRelativa;

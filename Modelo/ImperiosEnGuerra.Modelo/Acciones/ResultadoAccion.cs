@@ -1,6 +1,6 @@
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
-    /// <summary>Resultado de una acción, independiente del transporte y de Unity.</summary>
+    /// <summary>Resultado de una accion, independiente del transporte y de Unity.</summary>
     public class ResultadoAccion
     {
         /// <summary>
@@ -22,7 +22,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// Crea un resultado exitoso el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAccion Exitoso(string mensaje)
         {
             return new ResultadoAccion(true, mensaje);
@@ -32,7 +32,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// Crea un resultado fallido el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoAccion Fallido(string mensaje)
         {
             return new ResultadoAccion(false, mensaje);

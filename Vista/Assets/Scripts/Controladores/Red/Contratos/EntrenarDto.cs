@@ -10,7 +10,7 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public CoordenadaDto edificioOrigen;
         /// <summary>Tipo de unidad solicitada (Aldeano, Guerrero, etc.).</summary>
         public string tipoUnidad;
-        /// <summary>Casilla de referencia donde aparecerá la unidad.</summary>
+        /// <summary>Casilla de referencia donde aparecera la unidad.</summary>
         public CoordenadaDto destino;
     }
 }

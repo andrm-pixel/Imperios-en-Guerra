@@ -38,9 +38,9 @@ namespace ImperiosEnGuerra.Controladores.Red
 
     /// <summary>Indica si hay un movimiento en curso.</summary>
     public bool MovimientoEnCurso { get; private set; }
-    /// <summary>Indica si hay una recolección en curso.</summary>
+    /// <summary>Indica si hay una recoleccion en curso.</summary>
     public bool RecoleccionEnCurso { get; private set; }
-    /// <summary>Indica si hay una construcción en curso.</summary>
+    /// <summary>Indica si hay una construccion en curso.</summary>
     public bool ConstruccionEnCurso { get; private set; }
     /// <summary>Indica si hay un entrenamiento en curso.</summary>
     public bool EntrenamientoEnCurso { get; private set; }
@@ -69,7 +69,7 @@ namespace ImperiosEnGuerra.Controladores.Red
             procesosPorUnidad[claveUnidad] = procesoId;
     }
 
-    /// <summary>Elimina la asociación proceso-unidad.</summary>
+    /// <summary>Elimina la asociacion proceso-unidad.</summary>
     private void OlvidarProceso(string claveUnidad)
     {
         if (!string.IsNullOrWhiteSpace(claveUnidad))
@@ -177,7 +177,7 @@ namespace ImperiosEnGuerra.Controladores.Red
             string.IsNullOrWhiteSpace(mensaje) ? "Progreso cargado." : mensaje);
     }
 
-/// <summary>Indica si alguna acción concurrente sigue activa.</summary>
+/// <summary>Indica si alguna accion concurrente sigue activa.</summary>
 public bool AccionEnCurso =>
     MovimientoEnCurso ||
     RecoleccionEnCurso ||
@@ -189,11 +189,11 @@ public bool AccionEnCurso =>
 public bool PuedeIniciarMovimiento =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
-/// <summary>Indica si se puede iniciar una recolección.</summary>
+/// <summary>Indica si se puede iniciar una recoleccion.</summary>
 public bool PuedeIniciarRecoleccion =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
-/// <summary>Indica si se puede iniciar una construcción.</summary>
+/// <summary>Indica si se puede iniciar una construccion.</summary>
 public bool PuedeIniciarConstruccion =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
@@ -205,13 +205,13 @@ public bool PuedeIniciarEntrenamiento =>
 public bool PuedeIniciarAtaque =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
-        /// <summary>Indica si la API interna está lista.</summary>
+        /// <summary>Indica si la API interna esta lista.</summary>
         private bool ApiInternaDisponible
         {
             get { return apiInterna != null && apiInterna.EstaDisponible; }
         }
 
-        /// <summary>Lanza error si la API interna no está disponible.</summary>
+        /// <summary>Lanza error si la API interna no esta disponible.</summary>
         private void ExigirApiInterna()
         {
             if (ApiInternaDisponible)
@@ -291,7 +291,7 @@ public bool PuedeIniciarAtaque =>
             }));
         }
 
-        /// <summary>Solicita la recolección de un aldeano.</summary>
+        /// <summary>Solicita la recoleccion de un aldeano.</summary>
         public void IniciarRecoleccion(string aldeanoId, int x, int y)
         {
             if (!PuedeIniciarRecoleccion)
@@ -313,7 +313,7 @@ public bool PuedeIniciarAtaque =>
             }));
         }
 
-        /// <summary>Solicita la construcción de un edificio.</summary>
+        /// <summary>Solicita la construccion de un edificio.</summary>
         public void Construir(
         string aldeanoId,
         string tipoEdificio,
@@ -410,8 +410,8 @@ public bool PuedeIniciarAtaque =>
         }
 
         /// <summary>
-        /// Ordena a todo el ejército atacar sin detener entrenamiento,
-        /// recolección ni construcción (cada unidad pelea en su worker).
+        /// Ordena a todo el ejercito atacar sin detener entrenamiento,
+        /// recoleccion ni construccion (cada unidad pelea en su worker).
         /// Solo modo interno.
         /// </summary>
         public void IniciarBatalla()
@@ -435,7 +435,7 @@ public bool PuedeIniciarAtaque =>
 
         private IEnumerator EjecutarBatallaInterna()
         {
-            IReadOnlyList<NucleoBatalla.ProcesoBatalla> ordenes = null;
+            System.Collections.Generic.IReadOnlyList<MotorAcciones.ProcesoBatalla> ordenes = null;
 
             try
             {
@@ -524,7 +524,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Ejecuta una recolección con la API interna.</summary>
+        /// <summary>Ejecuta una recoleccion con la API interna.</summary>
         private IEnumerator EjecutarRecoleccionInterna(string aldeanoId, int x, int y)
         {
             recoleccionesActivas++;
@@ -554,7 +554,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Ejecuta una construcción con la API interna.</summary>
+        /// <summary>Ejecuta una construccion con la API interna.</summary>
         private IEnumerator EjecutarConstruccionInterna(string aldeanoId, string tipoEdificio, int x, int y)
         {
             construccionesActivas++;
@@ -792,7 +792,7 @@ public bool PuedeIniciarAtaque =>
             AtaqueEnCurso = false;
         }
 
-        /// <summary>Envía un movimiento a la API externa.</summary>
+        /// <summary>Envia un movimiento a la API externa.</summary>
         private IEnumerator EnviarMovimiento(MoverUnidadDto movimiento)
         {
             movimientosActivos++;
@@ -973,7 +973,7 @@ public bool PuedeIniciarAtaque =>
                 "Seguimiento concurrente detenido porque el controlador dejó de estar activo.");
         }
 
-        /// <summary>Refresca la posición durante el movimiento externo.</summary>
+        /// <summary>Refresca la posicion durante el movimiento externo.</summary>
         private IEnumerator ActualizarMovimientoEnCurso(
             string unidadId)
         {
@@ -1101,7 +1101,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Envía una recolección a la API externa.</summary>
+        /// <summary>Envia una recoleccion a la API externa.</summary>
         private IEnumerator EnviarRecoleccion(RecolectarDto recoleccion)
         {
             recoleccionesActivas++;
@@ -1160,14 +1160,14 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Consulta el worker de recolección hasta completarlo.</summary>
+        /// <summary>Consulta el worker de recoleccion hasta completarlo.</summary>
         private IEnumerator EsperarResultadoRecoleccion(
             string procesoId,
             string unidadId)
         {
             const float intervaloConsulta = 0.1f;
-            // La recolección orgánica incluye desplazamiento y varios ciclos
-            // de carga, por lo que puede superar el límite anterior de 15 s.
+            // La recoleccion organica incluye desplazamiento y varios ciclos
+            // de carga, por lo que puede superar el limite anterior de 15 s.
             while (isActiveAndEnabled)
             {
                 using UnityWebRequest request =
@@ -1193,9 +1193,9 @@ public bool PuedeIniciarAtaque =>
                     string.IsNullOrWhiteSpace(
                         request.downloadHandler.text))
                 {
-                    // La recolección también contiene una fase de movimiento.
+                    // La recoleccion tambien contiene una fase de movimiento.
                     // Consumimos snapshots intermedios para que Unity represente
-                    // cada paso en vez de saltar a la posición final.
+                    // cada paso en vez de saltar a la posicion final.
                     yield return ActualizarRecoleccionEnCurso(
                         unidadId);
 
@@ -1282,7 +1282,7 @@ public bool PuedeIniciarAtaque =>
                 "Seguimiento concurrente detenido porque el controlador dejó de estar activo.");
         }
 
-        /// <summary>Refresca posición y recursos durante la recolección.</summary>
+        /// <summary>Refresca posicion y recursos durante la recoleccion.</summary>
         private IEnumerator ActualizarRecoleccionEnCurso(
             string unidadId)
         {
@@ -1350,7 +1350,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Envía una construcción a la API externa.</summary>
+        /// <summary>Envia una construccion a la API externa.</summary>
         private IEnumerator EnviarConstruccion(
             ConstruirDto construccion)
         {
@@ -1416,7 +1416,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Consulta el worker de construcción hasta completarlo.</summary>
+        /// <summary>Consulta el worker de construccion hasta completarlo.</summary>
         private IEnumerator EsperarResultadoConstruccion(
             string procesoId)
         {
@@ -1539,7 +1539,7 @@ public bool PuedeIniciarAtaque =>
         }
         
 
-        /// <summary>Envía un entrenamiento a la API externa.</summary>
+        /// <summary>Envia un entrenamiento a la API externa.</summary>
         private IEnumerator EnviarEntrenamiento(
             EntrenarDto entrenamiento)
         {
@@ -1776,7 +1776,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Envía un ataque a la API externa.</summary>
+        /// <summary>Envia un ataque a la API externa.</summary>
         private IEnumerator EnviarAtaque(
             AtaqueDto ataque)
         {
@@ -1850,13 +1850,13 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Sincroniza la vista tras fallo o cancelación.</summary>
+        /// <summary>Sincroniza la vista tras fallo o cancelacion.</summary>
         private IEnumerator SincronizarEstadoDespuesDeProceso()
         {
             // Los workers limpian OrdenActiva/Estado en sus bloques finally.
-            // Esta sincronización evita que Unity conserve una copia visual
-            // antigua (por ejemplo Estado=Moviendo) después de un fallo,
-            // cancelación o rechazo del Modelo.
+            // Esta sincronizacion evita que Unity conserve una copia visual
+            // antigua (por ejemplo Estado=Moviendo) despues de un fallo,
+            // cancelacion o rechazo del Modelo.
             yield return ObtenerPartidaActiva(
                 "",
                 "",
@@ -1882,7 +1882,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Elige el mensaje de error más descriptivo.</summary>
+        /// <summary>Elige el mensaje de error mas descriptivo.</summary>
         private static string MensajeError(
             ResultadoAccionDto resultado,
             string alternativa)
@@ -1973,7 +1973,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Distingue errores técnicos de rechazos del Modelo.</summary>
+        /// <summary>Distingue errores tecnicos de rechazos del Modelo.</summary>
         private static bool EsErrorTecnico(
             string mensaje)
         {
@@ -1994,7 +1994,7 @@ public bool PuedeIniciarAtaque =>
                 mensaje.Contains("VistaPartida no está configurada");
         }
 
-        /// <summary>Localiza la API interna y comprueba la conexión.</summary>
+        /// <summary>Localiza la API interna y comprueba la conexion.</summary>
         private void Start()
         {
             if (!usarApiExterna && apiInterna == null)
@@ -2202,10 +2202,10 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
-        /// <summary>Construye el DTO de la partida de demostración.</summary>
+        /// <summary>Construye el DTO de la partida de demostracion.</summary>
         private IniciarPartidaDto CrearPartidaPrueba()
         {
-            // Misma disposición única del Modelo para que ambas vías
+            // Misma disposicion unica del Modelo para que ambas vias
             // (interna y externa) jueguen el mismo mapa 15x15.
             System.Collections.Generic.List<RecursoInicialDto> recursosHumano =
                 new System.Collections.Generic.List<RecursoInicialDto>();
@@ -2213,7 +2213,7 @@ public bool PuedeIniciarAtaque =>
                 new System.Collections.Generic.List<RecursoInicialDto>();
 
             foreach (ImperiosEnGuerra.Modelo.Recursos.Recurso recurso in
-                ImperiosEnGuerra.Modelo.Core.DisposicionInicial.RecursosHumano())
+                ImperiosEnGuerra.Modelo.Core.InicializadorPartida.RecursosHumano())
             {
                 recursosHumano.Add(new RecursoInicialDto(
                     recurso.Tipo.ToString(),
@@ -2222,7 +2222,7 @@ public bool PuedeIniciarAtaque =>
             }
 
             foreach (ImperiosEnGuerra.Modelo.Recursos.Recurso recurso in
-                ImperiosEnGuerra.Modelo.Core.DisposicionInicial.RecursosMaquina())
+                ImperiosEnGuerra.Modelo.Core.InicializadorPartida.RecursosMaquina())
             {
                 recursosMaquina.Add(new RecursoInicialDto(
                     recurso.Tipo.ToString(),
@@ -2235,16 +2235,16 @@ public bool PuedeIniciarAtaque =>
                 nombreHumano = "Griegos",
                 nombreMaquina = "Troya",
 
-                anchoMapa = ImperiosEnGuerra.Modelo.Core.DisposicionInicial.AnchoMapa,
-                altoMapa = ImperiosEnGuerra.Modelo.Core.DisposicionInicial.AltoMapa,
+                anchoMapa = ImperiosEnGuerra.Modelo.Core.InicializadorPartida.AnchoMapa,
+                altoMapa = ImperiosEnGuerra.Modelo.Core.InicializadorPartida.AltoMapa,
 
                 centroHumano = new CoordenadaDto(
-                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroHumano.X,
-                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroHumano.Y),
+                    ImperiosEnGuerra.Modelo.Core.InicializadorPartida.CentroHumano.X,
+                    ImperiosEnGuerra.Modelo.Core.InicializadorPartida.CentroHumano.Y),
 
                 centroMaquina = new CoordenadaDto(
-                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroMaquina.X,
-                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroMaquina.Y),
+                    ImperiosEnGuerra.Modelo.Core.InicializadorPartida.CentroMaquina.X,
+                    ImperiosEnGuerra.Modelo.Core.InicializadorPartida.CentroMaquina.Y),
 
                 recursosHumano = recursosHumano.ToArray(),
                 recursosMaquina = recursosMaquina.ToArray()

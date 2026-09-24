@@ -26,10 +26,10 @@ public class ColaEntrenamientoTests
             partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.FromMilliseconds(20));
@@ -74,10 +74,10 @@ public class ColaEntrenamientoTests
             partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.FromMilliseconds(100));

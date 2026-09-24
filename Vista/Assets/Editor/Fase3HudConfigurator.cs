@@ -11,7 +11,7 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>Prepara únicamente los objetos de interfaz y sus referencias en el Editor.</summary>
+/// <summary>Prepara unicamente los objetos de interfaz y sus referencias en el Editor.</summary>
 public static class Fase3HudConfigurator
 {
     private const string RutaEscena = "Assets/Scenes/SampleScene.unity";
@@ -65,13 +65,13 @@ public static class Fase3HudConfigurator
             SceneManager.MoveGameObjectToScene(raiz, escena);
             Undo.RegisterCreatedObjectUndo(raiz, "Crear HUD");
         }
-        // El propio HudPartida es el Canvas raíz de toda su UI.
+        // El propio HudPartida es el Canvas raiz de toda su UI.
         RectTransform rectRaiz = Componente<RectTransform>(raiz);
         if (rectRaiz.parent != null)
         {
             Undo.SetTransformParent(rectRaiz, null, "Colocar HUD en la raíz de la escena");
         }
-        // Unity controla el RectTransform del Canvas Overlay raíz.
+        // Unity controla el RectTransform del Canvas Overlay raiz.
         raiz.SetActive(true);
         Canvas canvas = Componente<Canvas>(raiz);
         canvas.enabled = true;
@@ -81,7 +81,7 @@ public static class Fase3HudConfigurator
         escalador.enabled = true;
         escalador.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         escalador.referenceResolution = new Vector2(1280, 720);
-        // Conserva al menos el espacio lógico de referencia en ambas dimensiones.
+        // Conserva al menos el espacio logico de referencia en ambas dimensiones.
         escalador.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
         Canvas.ForceUpdateCanvases();
         Componente<GraphicRaycaster>(raiz).enabled = true;
@@ -114,7 +114,7 @@ public static class Fase3HudConfigurator
         for (int i = 0; i < acciones.Length; i++)
         {
             string accion = acciones[i];
-            // Cinco botones de 64x42: margen 16 y separación 7 dentro de los 380 px.
+            // Cinco botones de 64x42: margen 16 y separacion 7 dentro de los 380 px.
             float x = 16 + i * 71;
             RectTransform rect = Rect(panel, accion, Vector2.zero, Vector2.zero,
                 Vector2.zero, new Vector2(x, 16), new Vector2(x + 64, 58));
@@ -272,7 +272,7 @@ public static class Fase3HudConfigurator
     private static T Componente<T>(GameObject objeto) where T : Component
     {
         // Unity puede devolver un objeto que compara igual a null en el Editor.
-        // ?? no utiliza esa comparación y puede omitir la creación del componente.
+        // ?? no utiliza esa comparacion y puede omitir la creacion del componente.
         T componente = objeto.GetComponent<T>();
         if (componente == null)
         {
@@ -305,7 +305,7 @@ public static class Fase3HudConfigurator
         rect.anchorMin = minimo;
         rect.anchorMax = maximo;
         rect.pivot = pivote;
-        // Reiniciar también la representación posición/tamaño de los objetos reutilizados.
+        // Reiniciar tambien la representacion posicion/tamano de los objetos reutilizados.
         // Los offsets finales determinan ambos valores sin depender del estado anterior.
         rect.anchoredPosition = Vector2.zero;
         rect.sizeDelta = Vector2.zero;

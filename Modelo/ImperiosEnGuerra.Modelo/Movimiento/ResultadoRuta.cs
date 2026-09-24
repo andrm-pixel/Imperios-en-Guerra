@@ -36,10 +36,10 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         }
 
         /// <summary>
-        /// Ejecuta la operación exitosa.
+        /// Ejecuta la operacion exitosa.
         /// </summary>
         /// <param name="pasos">El valor de pasos.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoRuta Exitosa(
             IEnumerable<Coordenada> pasos)
         {
@@ -54,9 +54,9 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         }
 
         /// <summary>
-        /// Ejecuta la operación imposible.
+        /// Ejecuta la operacion imposible.
         /// </summary>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoRuta Imposible()
         {
             return new ResultadoRuta(

@@ -44,7 +44,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// Incrementa el saldo del tipo indicado en una cantidad no negativa.
         /// </summary>
         /// <param name="tipo">Tipo de recurso que se incrementa.</param>
-        /// <param name="cantidad">Cantidad que se añade; puede ser cero.</param>
+        /// <param name="cantidad">Cantidad que se anade; puede ser cero.</param>
         /// <exception cref="ArgumentOutOfRangeException">La cantidad es negativa.</exception>
         /// <exception cref="KeyNotFoundException">El tipo no corresponde a una clave registrada.</exception>
         public void Agregar(TipoRecurso tipo, int cantidad)
@@ -88,7 +88,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// </summary>
         /// <param name="tipo">Tipo de recurso que se consulta.</param>
         /// <param name="cantidad">Cantidad requerida.</param>
-        /// <returns>true si se realizó el descuento, incluido un gasto de cero; false si la cantidad es negativa o falta saldo.</returns>
+        /// <returns>true si se realizo el descuento, incluido un gasto de cero; false si la cantidad es negativa o falta saldo.</returns>
         /// <exception cref="KeyNotFoundException">La cantidad es no negativa y el tipo no corresponde a una clave registrada.</exception>
         public bool IntentarGastar(TipoRecurso tipo, int cantidad)
         {
@@ -109,7 +109,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             }
         }
         /// <summary>
-        /// Descuenta un costo completo bajo un único lock para impedir doble gasto.
+        /// Descuenta un costo completo bajo un unico lock para impedir doble gasto.
         /// </summary>
         public bool IntentarGastar(
             CostoRecursos costo)
@@ -140,8 +140,8 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         }
 
         /// <summary>
-        /// Reintegra un costo previamente reservado. Se usa por la política
-        /// de cancelación de la Etapa 4.5: reembolso completo si la orden no termina.
+        /// Reintegra un costo previamente reservado. Se usa por la politica
+        /// de cancelacion de la Etapa 4.5: reembolso completo si la orden no termina.
         /// </summary>
         public void Reintegrar(
             CostoRecursos costo)

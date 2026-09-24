@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ImperiosEnGuerra.Vistas
 {
-    /// <summary>Categoría visual de una entidad seleccionable.</summary>
+    /// <summary>Categoria visual de una entidad seleccionable.</summary>
     public enum CategoriaEntidadVisual
     {
         /// <summary>Unidad militar o aldeano.</summary>
@@ -13,23 +13,23 @@ namespace ImperiosEnGuerra.Vistas
         Recurso
     }
 
-    /// <summary>Metadatos y resaltado de una representación, sin reglas del juego.</summary>
+    /// <summary>Metadatos y resaltado de una representacion, sin reglas del juego.</summary>
     [RequireComponent(typeof(SpriteRenderer))]
     public class EntidadSeleccionableVista : MonoBehaviour
     {
-        /// <summary>Categoría de la entidad representada.</summary>
+        /// <summary>Categoria de la entidad representada.</summary>
         public CategoriaEntidadVisual Categoria { get; private set; }
-        /// <summary>Identificador lógico del Modelo.</summary>
+        /// <summary>Identificador logico del Modelo.</summary>
         public string IdLogico { get; private set; }
-        /// <summary>Tipo lógico (Aldeano, Oro, Castillo...).</summary>
+        /// <summary>Tipo logico (Aldeano, Oro, Castillo...).</summary>
         public string TipoLogico { get; private set; }
-        /// <summary>Propietario (Humano, Maquina o vacío).</summary>
+        /// <summary>Propietario (Humano, Maquina o vacio).</summary>
         public string Propietario { get; private set; }
-        /// <summary>Columna lógica de la entidad.</summary>
+        /// <summary>Columna logica de la entidad.</summary>
         public int X { get; private set; }
-        /// <summary>Fila lógica de la entidad.</summary>
+        /// <summary>Fila logica de la entidad.</summary>
         public int Y { get; private set; }
-        /// <summary>Estado lógico de la unidad.</summary>
+        /// <summary>Estado logico de la unidad.</summary>
         public string EstadoLogico { get; private set; }
         /// <summary>Orden activa de la unidad.</summary>
         public string OrdenActiva { get; private set; }
@@ -37,7 +37,7 @@ namespace ImperiosEnGuerra.Vistas
         /// <summary>Renderizador asociado a la entidad.</summary>
         public SpriteRenderer Renderer { get; private set; }
 
-        /// <summary>Color original antes del resaltado de selección.</summary>
+        /// <summary>Color original antes del resaltado de seleccion.</summary>
         private Color colorOriginal;
         /// <summary>Indica si la entidad muestra el resaltado.</summary>
         private bool seleccionada;
@@ -66,7 +66,7 @@ namespace ImperiosEnGuerra.Vistas
             string propietario,
             int x,
             int y,
-            /// <summary>Configura todos los datos lógicos de la entidad.</summary>
+            /// <summary>Configura todos los datos logicos de la entidad.</summary>
             string estadoLogico = "",
             string ordenActiva = "")
         {
@@ -86,7 +86,7 @@ namespace ImperiosEnGuerra.Vistas
             colorOriginal = Renderer.color;
         }
 
-        /// <summary>Actualiza posición, estado y orden sin mover el sprite.</summary>
+        /// <summary>Actualiza posicion, estado y orden sin mover el sprite.</summary>
         public void ActualizarDatosLogicos(
             int x,
             int y,

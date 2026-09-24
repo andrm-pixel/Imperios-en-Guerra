@@ -11,11 +11,9 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Recoleccion
 {
     /// <summary>
-    /// Selecciona un Castillo humano accesible y distribuye Aldeanos
-    /// entre sus casillas adyacentes para evitar que todos compitan por el
-    /// mismo punto de depósito.
+    /// Busca castillo libre y reparte aldeanos entre sus lados.
     /// </summary>
-    public sealed class PlanificadorAproximacionDeposito
+    public sealed class AproximacionDeposito
     {
         private static readonly (int X, int Y)[] Direcciones =
         {
@@ -25,22 +23,22 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             (0, -1)
         };
 
-        private readonly PlanificadorMovimiento planificadorMovimiento;
+        private readonly RutaMovimiento planificadorMovimiento;
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorAproximacionDeposito.
+        /// Crea con ruta base.
         /// </summary>
-        public PlanificadorAproximacionDeposito()
-            : this(new PlanificadorMovimiento())
+        public AproximacionDeposito()
+            : this(new RutaMovimiento())
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorAproximacionDeposito.
+        /// Crea con ruta dada.
         /// </summary>
-        /// <param name="planificadorMovimiento">El valor de planificador movimiento.</param>
-        public PlanificadorAproximacionDeposito(
-            PlanificadorMovimiento planificadorMovimiento)
+        /// <param name="planificadorMovimiento">Ruta a usar.</param>
+        public AproximacionDeposito(
+            RutaMovimiento planificadorMovimiento)
         {
             this.planificadorMovimiento =
                 planificadorMovimiento
@@ -49,12 +47,12 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         }
 
         /// <summary>
-        /// Ejecuta la operación preparar.
+        /// Prepara la aproximacion.
         /// </summary>
-        /// <param name="partida">El valor de partida.</param>
-        /// <param name="aldeanoId">El valor de aldeano id.</param>
-        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="partida">Partida actual.</param>
+        /// <param name="aldeanoId">Id del aldeano.</param>
+        /// <param name="permitirOrdenMovimientoActiva">True si admite orden mover activa.</param>
+        /// <returns>Resultado.</returns>
         public ResultadoAproximacionDeposito Preparar(
             Partida partida,
             Guid aldeanoId,
@@ -75,7 +73,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             if (aldeano == null)
             {
                 return ResultadoAproximacionDeposito.Fallido(
-                    "No existe un Aldeano humano con ese ID.");
+                    "El Aldeano humano no existe o fue destruido.");
             }
 
             if (!aldeano.Disponible &&
@@ -159,24 +157,12 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                     true);
             }
 
-            int inicio =
-                PreferenciaCasillaInteraccion
-                    .ObtenerIndiceInicial(
-                        partida,
-                        aldeano.Id,
-                        Direcciones.Length);
-
-            // Camino más corto primero; la preferencia rotativa solo
-            // desempata para no alargar rutas hacia el depósito.
+            // Ruta mas corta primero; el indice rompe empates.
             var elegido =
                 candidatos
                     .OrderBy(
                         c => c.Plan.Pasos.Count)
-                    .ThenBy(
-                        c =>
-                            (c.Indice - inicio +
-                             Direcciones.Length) %
-                            Direcciones.Length)
+                    .ThenBy(c => c.Indice)
                     .First();
 
             return ResultadoAproximacionDeposito.Exitoso(

@@ -1,7 +1,7 @@
 namespace ImperiosEnGuerra.Modelo.Unidades
 {
     /// <summary>
-    /// Estado lógico autoritativo de una unidad durante una orden de gameplay.
+    /// Estado logico autoritativo de una unidad durante una orden de gameplay.
     /// </summary>
     public enum EstadoUnidad
     {

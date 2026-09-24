@@ -8,15 +8,15 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
-/// <summary>Pruebas de DisposicionInicial: verifica mapa 15x15 jugable.</summary>
-public class DisposicionInicialTests
+/// <summary>Pruebas de InicializadorPartida: verifica mapa 15x15 jugable.</summary>
+public class InicializadorPartidaTests
 {
-    // Caso MapaQuince: verifica dimensiones de la guía.
+    // Caso MapaQuince: verifica dimensiones de la guia.
     [Test]
     public void MapaQuincePorQuince()
     {
-        Assert.That(DisposicionInicial.AnchoMapa, Is.EqualTo(15));
-        Assert.That(DisposicionInicial.AltoMapa, Is.EqualTo(15));
+        Assert.That(InicializadorPartida.AnchoMapa, Is.EqualTo(15));
+        Assert.That(InicializadorPartida.AltoMapa, Is.EqualTo(15));
     }
 
     // Caso SinTraslapes: verifica nodos y centros sin colisiones.
@@ -25,19 +25,19 @@ public class DisposicionInicialTests
     {
         var ocupadas = new HashSet<(int, int)>
         {
-            (DisposicionInicial.CentroHumano.X, DisposicionInicial.CentroHumano.Y),
-            (DisposicionInicial.CentroMaquina.X, DisposicionInicial.CentroMaquina.Y)
+            (InicializadorPartida.CentroHumano.X, InicializadorPartida.CentroHumano.Y),
+            (InicializadorPartida.CentroMaquina.X, InicializadorPartida.CentroMaquina.Y)
         };
 
-        foreach (Recurso recurso in DisposicionInicial.RecursosHumano()
-            .Concat(DisposicionInicial.RecursosMaquina()))
+        foreach (Recurso recurso in InicializadorPartida.RecursosHumano()
+            .Concat(InicializadorPartida.RecursosMaquina()))
         {
             var clave = (recurso.Coordenada.X, recurso.Coordenada.Y);
 
             Assert.That(
-                DisposicionInicial.AnchoMapa > recurso.Coordenada.X &&
+                InicializadorPartida.AnchoMapa > recurso.Coordenada.X &&
                 recurso.Coordenada.X >= 0 &&
-                DisposicionInicial.AltoMapa > recurso.Coordenada.Y &&
+                InicializadorPartida.AltoMapa > recurso.Coordenada.Y &&
                 recurso.Coordenada.Y >= 0,
                 "Nodo fuera del mapa: " + recurso.Tipo + " " + clave);
 
@@ -51,25 +51,25 @@ public class DisposicionInicialTests
     public void TodoNodoAlcanzableDesdeSuBase()
     {
         var mapa = new Mapa(
-            DisposicionInicial.AnchoMapa,
-            DisposicionInicial.AltoMapa);
+            InicializadorPartida.AnchoMapa,
+            InicializadorPartida.AltoMapa);
 
         var partida = new InicializadorPartida().Crear(
             "Jugador",
             mapa,
-            DisposicionInicial.CentroHumano,
-            new List<Recurso>(DisposicionInicial.RecursosHumano()),
+            InicializadorPartida.CentroHumano,
+            new List<Recurso>(InicializadorPartida.RecursosHumano()),
             "CPU",
             mapa,
-            DisposicionInicial.CentroMaquina,
-            new List<Recurso>(DisposicionInicial.RecursosMaquina()));
+            InicializadorPartida.CentroMaquina,
+            new List<Recurso>(InicializadorPartida.RecursosMaquina()));
 
-        var buscador = new BuscadorRutaAStar();
+        var buscador = new RutaAStar();
 
         foreach (var lado in new[]
         {
-            (partida.JugadorHumano, DisposicionInicial.RecursosHumano()),
-            (partida.JugadorMaquina, DisposicionInicial.RecursosMaquina())
+            (partida.JugadorHumano, InicializadorPartida.RecursosHumano()),
+            (partida.JugadorMaquina, InicializadorPartida.RecursosMaquina())
         })
         {
             foreach (Unidad aldeano in lado.Item1.Unidades.OfType<Aldeano>())

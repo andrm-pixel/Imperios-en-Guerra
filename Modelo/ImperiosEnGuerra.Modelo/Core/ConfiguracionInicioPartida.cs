@@ -4,8 +4,8 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Core
 {
     /// <summary>
-    /// Balance inicial propio del prototipo académico.
-    /// La guía exige mapa, recursos y Castillo, pero no fija estos valores.
+    /// Balance inicial propio del prototipo academico.
+    /// La guia exige mapa, recursos y Castillo, pero no fija estos valores.
     /// </summary>
     public sealed class ConfiguracionInicioPartida
     {

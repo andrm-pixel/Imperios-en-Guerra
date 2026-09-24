@@ -21,9 +21,9 @@ public class ConstruccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.Zero);
@@ -66,9 +66,9 @@ public class ConstruccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.FromSeconds(10));
@@ -114,9 +114,9 @@ public class ConstruccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.FromMilliseconds(100));
@@ -133,7 +133,7 @@ public class ConstruccionConcurrenteTests
         // puede detectar inmediatamente que la casilla ya fue reservada y
         // finalizar antes de que el hilo de prueba lea el contador. Lo que
         // importa para esta prueba es que se hayan lanzado dos procesos
-        // independientes y que el estado final preserve una sola construcción.
+        // independientes y que el estado final preserve una sola construccion.
         Assert.That(
             procesoA.Id,
             Is.Not.EqualTo(procesoB.Id));
@@ -194,10 +194,10 @@ public class ConstruccionConcurrenteTests
             estado.EstablecerPartida(partida);
 
             using var gestor =
-                new GestorProcesosConcurrentes();
+                new TareasJuego();
 
             var servicio =
-                new ServicioAccionesConcurrentes(
+                new MotorAcciones(
                     estado,
                     gestor,
                     TimeSpan.FromMilliseconds(5));

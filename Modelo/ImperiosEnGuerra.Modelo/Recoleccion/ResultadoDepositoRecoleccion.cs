@@ -41,7 +41,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// </summary>
         /// <param name="cantidad">El valor de cantidad.</param>
         /// <param name="tipo">El valor de tipo.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoDepositoRecoleccion Exitoso(
             int cantidad,
             TipoRecurso tipo)
@@ -57,7 +57,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// Crea un resultado fallido el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoDepositoRecoleccion Fallido(
             string mensaje)
         {

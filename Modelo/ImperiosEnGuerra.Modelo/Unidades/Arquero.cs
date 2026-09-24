@@ -3,14 +3,14 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Unidades
 {
     /// <summary>
-    /// Representa la especialización Arquero con la posición y disponibilidad heredadas.
+    /// Representa la especializacion Arquero con la posicion y disponibilidad heredadas.
     /// </summary>
     public class Arquero : UnidadMilitar
     {
        /// <summary>
-       /// Inicializa la unidad delegando la posición y la disponibilidad inicial en su clase base.
+       /// Inicializa la unidad delegando la posicion y la disponibilidad inicial en su clase base.
        /// </summary>
-       /// <param name="coordenada">Posición lógica inicial, conservada sin validación.</param>
+       /// <param name="coordenada">Posicion logica inicial, conservada sin validacion.</param>
        public Arquero(Coordenada coordenada)
        : base(coordenada, 1.10d, 90, 15, 4)
         {

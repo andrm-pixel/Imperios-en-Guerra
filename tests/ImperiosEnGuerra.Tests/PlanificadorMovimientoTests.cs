@@ -10,12 +10,12 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Tests;
 
 /// <summary>Pruebas de Planificador Movimiento: verifica planificador movimiento.</summary>
-public class PlanificadorMovimientoTests
+public class RutaMovimientoTests
 {
     private Mapa mapa;
     private Partida partida;
     private Aldeano unidad;
-    private PlanificadorMovimiento planificador;
+    private RutaMovimiento planificador;
 
     [SetUp]
     public void Preparar()
@@ -42,7 +42,7 @@ public class PlanificadorMovimientoTests
             .AgregarUnidad(unidad);
 
         planificador =
-            new PlanificadorMovimiento();
+            new RutaMovimiento();
     }
 
     // Caso Edificio Intermedio: verifica se rodea.

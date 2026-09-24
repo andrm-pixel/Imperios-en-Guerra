@@ -12,6 +12,74 @@ namespace ImperiosEnGuerra.Modelo.Core
     /// </summary>
     public class InicializadorPartida
     {
+        /// <summary>Tamano del mapa de la guia.</summary>
+        public const int AnchoMapa = 15;
+        /// <summary>Tamano del mapa de la guia.</summary>
+        public const int AltoMapa = 15;
+
+        /// <summary>Centro humano al este.</summary>
+        public static readonly Coordenada CentroHumano = new Coordenada(13, 7);
+        /// <summary>Centro maquina al oeste.</summary>
+        public static readonly Coordenada CentroMaquina = new Coordenada(1, 7);
+
+        /// <summary>Nodos humanos espaciados sin muros.</summary>
+        public static IReadOnlyList<Recurso> RecursosHumano()
+        {
+            return new List<Recurso>
+            {
+                new Recurso(TipoRecurso.Oro, new Coordenada(10, 6)),
+                new Recurso(TipoRecurso.Oro, new Coordenada(14, 8)),
+                new Recurso(TipoRecurso.Oro, new Coordenada(12, 12)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(12, 6)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(8, 8)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(14, 10)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(10, 12)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(8, 12)),
+                new Recurso(TipoRecurso.Comida, new Coordenada(10, 8)),
+                new Recurso(TipoRecurso.Comida, new Coordenada(14, 12)),
+                new Recurso(TipoRecurso.Comida, new Coordenada(8, 10)),
+                new Recurso(TipoRecurso.Piedra, new Coordenada(12, 8)),
+                new Recurso(TipoRecurso.Piedra, new Coordenada(10, 10)),
+                new Recurso(TipoRecurso.Piedra, new Coordenada(14, 4)),
+                new Recurso(TipoRecurso.Hierro, new Coordenada(12, 10)),
+                new Recurso(TipoRecurso.Hierro, new Coordenada(8, 6))
+            };
+        }
+
+        /// <summary>Nodos maquina espaciados sin muros.</summary>
+        public static IReadOnlyList<Recurso> RecursosMaquina()
+        {
+            return new List<Recurso>
+            {
+                new Recurso(TipoRecurso.Oro, new Coordenada(4, 6)),
+                new Recurso(TipoRecurso.Oro, new Coordenada(0, 8)),
+                new Recurso(TipoRecurso.Oro, new Coordenada(2, 12)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(2, 6)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(6, 8)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(0, 10)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(4, 12)),
+                new Recurso(TipoRecurso.Madera, new Coordenada(6, 12)),
+                new Recurso(TipoRecurso.Comida, new Coordenada(4, 8)),
+                new Recurso(TipoRecurso.Comida, new Coordenada(0, 12)),
+                new Recurso(TipoRecurso.Comida, new Coordenada(6, 10)),
+                new Recurso(TipoRecurso.Piedra, new Coordenada(2, 8)),
+                new Recurso(TipoRecurso.Piedra, new Coordenada(4, 10)),
+                new Recurso(TipoRecurso.Piedra, new Coordenada(0, 4)),
+                new Recurso(TipoRecurso.Hierro, new Coordenada(2, 10)),
+                new Recurso(TipoRecurso.Hierro, new Coordenada(6, 6))
+            };
+        }
+
+        /// <summary>Guarnicion inicial junto a la base maquina.</summary>
+        public static IReadOnlyList<Coordenada> GuarnicionMaquina()
+        {
+            return new List<Coordenada>
+            {
+                new Coordenada(4, 7),
+                new Coordenada(3, 9)
+            };
+        }
+
         private readonly ConfiguracionInicioPartida configuracionInicio;
 
         /// <summary>
@@ -35,7 +103,7 @@ namespace ImperiosEnGuerra.Modelo.Core
         }
 
         /// <summary>
-        /// Crea ambos participantes con Castillo, nodos físicos, saldo inicial
+        /// Crea ambos participantes con Castillo, nodos fisicos, saldo inicial
         /// y Aldeanos iniciales colocados de forma determinista en casillas libres.
         /// </summary>
         public Partida Crear(

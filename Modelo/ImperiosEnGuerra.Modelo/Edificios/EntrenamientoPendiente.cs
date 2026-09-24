@@ -48,10 +48,10 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Ejecuta la operación avanzar.
+        /// Ejecuta la operacion avanzar.
         /// </summary>
         /// <param name="incremento">El valor de incremento.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public int Avanzar(
             int incremento)
         {

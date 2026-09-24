@@ -17,7 +17,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// <param name="partida">El valor de partida.</param>
         /// <param name="unidadId">El valor de unidad id.</param>
         /// <param name="siguiente">El valor de siguiente.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             Guid unidadId,
@@ -41,7 +41,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 
             if (unidad == null)
                 return ResultadoAccion.Fallido(
-                    "No existe una unidad humana con ese ID.");
+                    "La unidad humana no existe o fue destruida.");
 
             if (unidad.OrdenActiva != TipoAccionJuego.Mover)
             {

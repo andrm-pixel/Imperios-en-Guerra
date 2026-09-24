@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ImperiosEnGuerra.Modelo.Recursos
 {
     /// <summary>
-    /// Configuración lógica de cantidad recolectada por ciclo según el tipo de recurso.
+    /// Configuracion logica de cantidad recolectada por ciclo segun el tipo de recurso.
     /// </summary>
     public sealed class ConfiguracionRecoleccion
     {
@@ -60,7 +60,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// Obtiene tasa.
         /// </summary>
         /// <param name="tipo">El valor de tipo.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public int ObtenerTasa(
             TipoRecurso tipo)
         {

@@ -3,7 +3,7 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Recoleccion
 {
     /// <summary>
-    /// Resultado de un ciclo lógico de extracción desde un nodo hacia la carga del Aldeano.
+    /// Resultado de un ciclo logico de extraccion desde un nodo hacia la carga del Aldeano.
     /// </summary>
     public sealed class ResultadoPasoRecoleccion
     {
@@ -68,7 +68,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// <param name="capacidadCarga">El valor de capacidad carga.</param>
         /// <param name="recursoAgotado">El valor de recurso agotado.</param>
         /// <param name="tipoRecurso">El valor de tipo recurso.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoPasoRecoleccion Exitoso(
             int cantidadExtraida,
             int cargaActual,
@@ -91,7 +91,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// Crea un resultado fallido el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoPasoRecoleccion Fallido(
             string mensaje)
         {

@@ -27,10 +27,10 @@ public class MovimientoProgresivoConcurrenteTests
             partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.FromMilliseconds(120));
@@ -117,10 +117,10 @@ public class MovimientoProgresivoConcurrenteTests
             partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.FromMilliseconds(150));

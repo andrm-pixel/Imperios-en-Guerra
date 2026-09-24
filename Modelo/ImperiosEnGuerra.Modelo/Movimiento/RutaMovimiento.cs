@@ -8,26 +8,26 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Movimiento
 {
     /// <summary>
-    /// Valida una solicitud y calcula su ruta lógica sin cambiar la posición de la unidad.
+    /// Valida la solicitud y calcula la ruta sin mover la unidad.
     /// </summary>
-    public sealed class PlanificadorMovimiento
+    public sealed class RutaMovimiento
     {
-        private readonly BuscadorRutaAStar buscador;
+        private readonly RutaAStar buscador;
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorMovimiento.
+        /// Crea ruta con buscador base.
         /// </summary>
-        public PlanificadorMovimiento()
-            : this(new BuscadorRutaAStar())
+        public RutaMovimiento()
+            : this(new RutaAStar())
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorMovimiento.
+        /// Crea ruta con buscador dado.
         /// </summary>
-        /// <param name="buscador">El valor de buscador.</param>
-        public PlanificadorMovimiento(
-            BuscadorRutaAStar buscador)
+        /// <param name="buscador">Buscador de ruta.</param>
+        public RutaMovimiento(
+            RutaAStar buscador)
         {
             this.buscador =
                 buscador
@@ -36,12 +36,12 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
         }
 
         /// <summary>
-        /// Ejecuta la operación preparar.
+        /// Prepara la ruta.
         /// </summary>
-        /// <param name="partida">El valor de partida.</param>
-        /// <param name="solicitud">El valor de solicitud.</param>
-        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="partida">Partida actual.</param>
+        /// <param name="solicitud">Solicitud de mover.</param>
+        /// <param name="permitirOrdenMovimientoActiva">True si admite orden mover activa.</param>
+        /// <returns>Resultado.</returns>
         public ResultadoPlanMovimiento Preparar(
             Partida partida,
             SolicitudMovimiento solicitud,
@@ -69,7 +69,7 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
 
             if (unidad == null)
                 return ResultadoPlanMovimiento.Fallido(
-                    "No existe una unidad humana con ese ID.");
+                    "La unidad humana no existe o fue destruida.");
 
             if (!unidad.Disponible &&
                 !(permitirOrdenMovimientoActiva &&

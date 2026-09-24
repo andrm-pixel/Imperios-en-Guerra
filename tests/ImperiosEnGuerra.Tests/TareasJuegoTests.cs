@@ -10,13 +10,13 @@ using NUnit.Framework;
 namespace ImperiosEnGuerra.Tests
 {
     /// <summary>Pruebas de Gestor Procesos Concurrentes: verifica gestor procesos concurrentes.</summary>
-    public class GestorProcesosConcurrentesTests
+    public class TareasJuegoTests
     {
         // Caso Dos Procesos: verifica pueden estar activos al mismo tiempo.
         [Test]
         public async Task DosProcesos_PuedenEstarActivosAlMismoTiempo()
         {
-            using var gestor = new GestorProcesosConcurrentes();
+            using var gestor = new TareasJuego();
             using var ambosIniciados = new CountdownEvent(2);
             using var liberar = new ManualResetEventSlim(false);
 
@@ -65,7 +65,7 @@ namespace ImperiosEnGuerra.Tests
         [Test]
         public async Task Cancelar_InterrumpeProcesoConCancellationToken()
         {
-            using var gestor = new GestorProcesosConcurrentes();
+            using var gestor = new TareasJuego();
             using var iniciado = new ManualResetEventSlim(false);
 
             ProcesoConcurrente proceso = gestor.Iniciar(
@@ -107,7 +107,7 @@ namespace ImperiosEnGuerra.Tests
         [Test]
         public async Task CancelarTodos_CancelaProcesosActivos()
         {
-            using var gestor = new GestorProcesosConcurrentes();
+            using var gestor = new TareasJuego();
             using var iniciados = new CountdownEvent(2);
 
             ProcesoConcurrente primero = gestor.Iniciar(
@@ -158,7 +158,7 @@ namespace ImperiosEnGuerra.Tests
         [Test]
         public async Task Resultado_SePublicaEnConcurrentQueueConIdDeWorker()
         {
-            using var gestor = new GestorProcesosConcurrentes();
+            using var gestor = new TareasJuego();
             int hiloLlamador = Thread.CurrentThread.ManagedThreadId;
 
             ProcesoConcurrente proceso = gestor.Iniciar(
@@ -187,7 +187,7 @@ namespace ImperiosEnGuerra.Tests
         [Test]
         public async Task ResultadoPorId_NoConsumeResultadoDeOtroProceso()
         {
-            using var gestor = new GestorProcesosConcurrentes();
+            using var gestor = new TareasJuego();
 
             ProcesoConcurrente primero = gestor.Iniciar(
                 "primero",
@@ -236,7 +236,7 @@ namespace ImperiosEnGuerra.Tests
         [Test]
         public async Task ExcepcionDelWorker_SeConvierteEnResultadoFallido()
         {
-            using var gestor = new GestorProcesosConcurrentes();
+            using var gestor = new TareasJuego();
 
             ProcesoConcurrente proceso = gestor.Iniciar(
                 "fallido",
@@ -263,7 +263,7 @@ namespace ImperiosEnGuerra.Tests
         [Test]
         public void ServiciosConcurrencia_NoReferenciaUnityEngine()
         {
-            string[] referencias = typeof(GestorProcesosConcurrentes)
+            string[] referencias = typeof(TareasJuego)
                 .Assembly
                 .GetReferencedAssemblies()
                 .Select(assembly => assembly.Name ?? string.Empty)
@@ -278,7 +278,7 @@ namespace ImperiosEnGuerra.Tests
         }
 
         private static List<ResultadoProcesoConcurrente> ExtraerResultados(
-            GestorProcesosConcurrentes gestor)
+            TareasJuego gestor)
         {
             var resultados = new List<ResultadoProcesoConcurrente>();
 

@@ -10,10 +10,10 @@ namespace ImperiosEnGuerra.Modelo.Mapeadores;
 public static class PartidaRequestMapper
 {
     /// <summary>
-    /// Ejecuta la operación convertir coordenada.
+    /// Ejecuta la operacion convertir coordenada.
     /// </summary>
     /// <param name="request">El valor de request.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <returns>Resultado de la operacion.</returns>
     public static Coordenada ConvertirCoordenada(CoordenadaRequest? request)
     {
         if (request == null)
@@ -25,10 +25,10 @@ public static class PartidaRequestMapper
     }
 
     /// <summary>
-    /// Ejecuta la operación convertir recursos.
+    /// Ejecuta la operacion convertir recursos.
     /// </summary>
     /// <param name="recursos">El valor de recursos.</param>
-    /// <returns>Resultado de la operación.</returns>
+    /// <returns>Resultado de la operacion.</returns>
     public static List<Recurso> ConvertirRecursos(
         List<RecursoInicialRequest>? recursos)
     {

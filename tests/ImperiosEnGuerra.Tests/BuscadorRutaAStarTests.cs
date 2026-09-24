@@ -6,16 +6,16 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Tests;
 
 /// <summary>Pruebas de Buscador Ruta A Star: verifica buscador ruta a star.</summary>
-public class BuscadorRutaAStarTests
+public class RutaAStarTests
 {
-    private BuscadorRutaAStar buscador;
+    private RutaAStar buscador;
     private Mapa mapa;
 
     [SetUp]
     public void Preparar()
     {
         buscador =
-            new BuscadorRutaAStar();
+            new RutaAStar();
 
         mapa =
             new Mapa(6, 6);

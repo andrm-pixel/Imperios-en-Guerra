@@ -2,7 +2,7 @@ using System;
 
 namespace ImperiosEnGuerra.Controladores.Red.Contratos
 {
-    /// <summary>Instantánea completa de la partida recibida de la API.</summary>
+    /// <summary>Instantanea completa de la partida recibida de la API.</summary>
     [Serializable]
     public class EstadoPartidaDto
     {
@@ -12,13 +12,13 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public MapaEstadoDto mapa;
         /// <summary>Datos del jugador humano.</summary>
         public JugadorEstadoDto jugadorHumano;
-        /// <summary>Datos del jugador máquina.</summary>
+        /// <summary>Datos del jugador maquina.</summary>
         public JugadorEstadoDto jugadorMaquina;
         /// <summary>Costos de edificios y unidades.</summary>
         public EconomiaEstadoDto economia;
     }
 
-    /// <summary>Costos de construcción y entrenamiento vigentes.</summary>
+    /// <summary>Costos de construccion y entrenamiento vigentes.</summary>
     [Serializable]
     public class EconomiaEstadoDto
     {
@@ -72,7 +72,7 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public RecursosJugadorEstadoDto recursos;
         /// <summary>Edificios construidos del jugador.</summary>
         public EdificioEstadoDto[] edificios;
-        /// <summary>Obras de construcción en curso.</summary>
+        /// <summary>Obras de construccion en curso.</summary>
         public ObraConstruccionEstadoDto[] obrasConstruccion;
         /// <summary>Unidades vivas del jugador.</summary>
         public UnidadEstadoDto[] unidades;
@@ -100,9 +100,9 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
     {
         /// <summary>Tipo de recurso.</summary>
         public string tipo;
-        /// <summary>Posición lógica del recurso.</summary>
+        /// <summary>Posicion logica del recurso.</summary>
         public CoordenadaEstadoDto coordenada;
-        /// <summary>Cantidad aún recolectable.</summary>
+        /// <summary>Cantidad aun recolectable.</summary>
         public int cantidadRestante;
     }
 
@@ -110,11 +110,11 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
     [Serializable]
     public class EdificioEstadoDto
     {
-        /// <summary>Identificador lógico del edificio.</summary>
+        /// <summary>Identificador logico del edificio.</summary>
         public string id;
         /// <summary>Tipo de edificio.</summary>
         public string tipo;
-        /// <summary>Posición lógica del edificio.</summary>
+        /// <summary>Posicion logica del edificio.</summary>
         public CoordenadaEstadoDto coordenada;
         /// <summary>Unidades en cola de entrenamiento.</summary>
         public EntrenamientoEstadoDto[] colaEntrenamiento;
@@ -132,39 +132,39 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public int progreso;
     }
 
-    /// <summary>Obra de construcción en curso con su progreso.</summary>
+    /// <summary>Obra de construccion en curso con su progreso.</summary>
     [Serializable]
     public class ObraConstruccionEstadoDto
     {
         /// <summary>Identificador de la obra.</summary>
         public string id;
-        /// <summary>Tipo de edificio en construcción.</summary>
+        /// <summary>Tipo de edificio en construccion.</summary>
         public string tipo;
-        /// <summary>Posición lógica de la obra.</summary>
+        /// <summary>Posicion logica de la obra.</summary>
         public CoordenadaEstadoDto coordenada;
         /// <summary>Progreso porcentual de la obra.</summary>
         public int progreso;
     }
 
-    /// <summary>Unidad con su posición, estado y carga actual.</summary>
+    /// <summary>Unidad con su posicion, estado y carga actual.</summary>
     [Serializable]
     public class UnidadEstadoDto
     {
-        /// <summary>Identificador lógico de la unidad.</summary>
+        /// <summary>Identificador logico de la unidad.</summary>
         public string id;
         /// <summary>Tipo de unidad.</summary>
         public string tipo;
-        /// <summary>Posición lógica actual.</summary>
+        /// <summary>Posicion logica actual.</summary>
         public CoordenadaEstadoDto coordenada;
-        /// <summary>Indica si acepta nuevas órdenes.</summary>
+        /// <summary>Indica si acepta nuevas ordenes.</summary>
         public bool disponible;
 
-        /// <summary>Estado lógico (Reposo, Moviendo, etc.).</summary>
+        /// <summary>Estado logico (Reposo, Moviendo, etc.).</summary>
         public string estado;
         /// <summary>Orden activa que ejecuta la unidad.</summary>
         public string ordenActiva;
 
-        /// <summary>Capacidad máxima de carga del aldeano.</summary>
+        /// <summary>Capacidad maxima de carga del aldeano.</summary>
         public int capacidadCarga;
         /// <summary>Carga transportada actualmente.</summary>
         public int cargaActual;
@@ -172,13 +172,13 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public string tipoCarga;
 }
 
-    /// <summary>Coordenada lógica del estado de partida.</summary>
+    /// <summary>Coordenada logica del estado de partida.</summary>
     [Serializable]
     public class CoordenadaEstadoDto
     {
-        /// <summary>Columna lógica en el mapa.</summary>
+        /// <summary>Columna logica en el mapa.</summary>
         public int x;
-        /// <summary>Fila lógica en el mapa.</summary>
+        /// <summary>Fila logica en el mapa.</summary>
         public int y;
     }
 }

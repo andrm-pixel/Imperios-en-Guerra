@@ -4,7 +4,7 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Edificios
 {
     /// <summary>
-    /// Estado lógico de una construcción todavía no terminada.
+    /// Estado logico de una construccion todavia no terminada.
     /// </summary>
     public sealed class ObraConstruccion
     {
@@ -67,10 +67,10 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Ejecuta la operación avanzar.
+        /// Ejecuta la operacion avanzar.
         /// </summary>
         /// <param name="incremento">El valor de incremento.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public int Avanzar(
             int incremento)
         {

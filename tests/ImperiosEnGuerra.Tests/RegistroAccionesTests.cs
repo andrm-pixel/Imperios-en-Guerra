@@ -103,13 +103,14 @@ public class RegistroAccionesTests
         string log = File.ReadAllText(
             Path.Combine(directorioTemporal, "log_partida.txt"));
 
-        Assert.That(log, Does.Contain("PARTIDA|EXITO|"));
-        Assert.That(log, Does.Contain("MOVER|EXITO|"));
-        Assert.That(log, Does.Contain("RECOLECTAR|EXITO|"));
-        Assert.That(log, Does.Contain("CONSTRUIR|EXITO|"));
-        Assert.That(log, Does.Contain("ENTRENAR|EXITO|"));
-        Assert.That(log, Does.Contain("ATACAR|EXITO|"));
-        Assert.That(log, Does.Contain("ATACAR|RECHAZADO|"));
+        Assert.That(log, Does.Contain("Turno:"));
+        Assert.That(log, Does.Contain("Accion: Partida"));
+        Assert.That(log, Does.Contain("Accion: Movimiento"));
+        Assert.That(log, Does.Contain("Accion: Recoleccion"));
+        Assert.That(log, Does.Contain("Accion: Construccion"));
+        Assert.That(log, Does.Contain("Accion: Entrenamiento"));
+        Assert.That(log, Does.Contain("Accion: Ataque"));
+        Assert.That(log, Does.Contain("Resultado:"));
         Assert.That(log, Does.Contain(rechazo.Mensaje));
     }
 

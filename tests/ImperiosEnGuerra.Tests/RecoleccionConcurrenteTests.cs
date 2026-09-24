@@ -21,9 +21,9 @@ public class RecoleccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.Zero);
@@ -97,9 +97,9 @@ public class RecoleccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.FromSeconds(10));
@@ -139,13 +139,12 @@ public class RecoleccionConcurrenteTests
             partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
-                new ServicioOrdenesUnidad(),
                 TimeSpan.Zero,
                 TimeSpan.FromMilliseconds(30),
                 TimeSpan.Zero,
@@ -234,10 +233,10 @@ public class RecoleccionConcurrenteTests
             partida);
 
         using var gestor =
-            new GestorProcesosConcurrentes();
+            new TareasJuego();
 
         var servicio =
-            new ServicioAccionesConcurrentes(
+            new MotorAcciones(
                 estado,
                 gestor,
                 TimeSpan.Zero);
@@ -287,9 +286,9 @@ public class RecoleccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.Zero);
@@ -385,8 +384,8 @@ public class RecoleccionConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partidaDoble);
 
-        using var gestor = new GestorProcesosConcurrentes();
-        var servicio = new ServicioAccionesConcurrentes(
+        using var gestor = new TareasJuego();
+        var servicio = new MotorAcciones(
             estado, gestor, TimeSpan.Zero);
 
         ProcesoConcurrente proceso =
@@ -402,7 +401,7 @@ public class RecoleccionConcurrenteTests
             Is.True);
 
         // Al agotarse el nodo el aldeano se detiene y queda libre junto
-        // a él; el segundo nodo queda intacto hasta nueva orden.
+        // a el; el segundo nodo queda intacto hasta nueva orden.
         Assert.That(resultado.Resultado, Is.Not.Null);
         Assert.That(resultado.Resultado.Exito, Is.True);
         Assert.That(

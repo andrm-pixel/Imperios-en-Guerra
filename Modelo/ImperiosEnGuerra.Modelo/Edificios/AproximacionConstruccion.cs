@@ -10,11 +10,9 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Edificios
 {
     /// <summary>
-    /// Calcula una ruta hasta una casilla libre adyacente a una obra. Las
-    /// preferencias por unidad reducen colisiones cuando varios workers
-    /// circulan cerca de la misma zona.
+    /// Busca casilla libre junto a la obra para el aldeano.
     /// </summary>
-    public sealed class PlanificadorAproximacionConstruccion
+    public sealed class AproximacionConstruccion
     {
         private static readonly (int X, int Y)[] Direcciones =
         {
@@ -24,22 +22,22 @@ namespace ImperiosEnGuerra.Modelo.Edificios
             (0, -1)
         };
 
-        private readonly PlanificadorMovimiento planificadorMovimiento;
+        private readonly RutaMovimiento planificadorMovimiento;
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorAproximacionConstruccion.
+        /// Crea con ruta base.
         /// </summary>
-        public PlanificadorAproximacionConstruccion()
-            : this(new PlanificadorMovimiento())
+        public AproximacionConstruccion()
+            : this(new RutaMovimiento())
         {
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de PlanificadorAproximacionConstruccion.
+        /// Crea con ruta dada.
         /// </summary>
-        /// <param name="planificadorMovimiento">El valor de planificador movimiento.</param>
-        public PlanificadorAproximacionConstruccion(
-            PlanificadorMovimiento planificadorMovimiento)
+        /// <param name="planificadorMovimiento">Ruta a usar.</param>
+        public AproximacionConstruccion(
+            RutaMovimiento planificadorMovimiento)
         {
             this.planificadorMovimiento =
                 planificadorMovimiento
@@ -48,13 +46,13 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Ejecuta la operación preparar.
+        /// Prepara la aproximacion.
         /// </summary>
-        /// <param name="partida">El valor de partida.</param>
-        /// <param name="aldeanoId">El valor de aldeano id.</param>
-        /// <param name="obra">El valor de obra.</param>
-        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <param name="partida">Partida actual.</param>
+        /// <param name="aldeanoId">Id del aldeano.</param>
+        /// <param name="obra">Punto de la obra.</param>
+        /// <param name="permitirOrdenMovimientoActiva">True si admite orden mover activa.</param>
+        /// <returns>Resultado.</returns>
         public ResultadoAproximacionConstruccion Preparar(
             Partida partida,
             Guid aldeanoId,
@@ -76,7 +74,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
             if (aldeano == null)
             {
                 return ResultadoAproximacionConstruccion.Fallido(
-                    "No existe un Aldeano humano con ese ID.");
+                    "El Aldeano humano no existe o fue destruido.");
             }
 
             if (!aldeano.Disponible &&
@@ -148,24 +146,12 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                     true);
             }
 
-            int inicio =
-                PreferenciaCasillaInteraccion
-                    .ObtenerIndiceInicial(
-                        partida,
-                        aldeano.Id,
-                        Direcciones.Length);
-
-            // Camino más corto primero; la preferencia rotativa solo
-            // desempata para no alargar rutas hacia la obra.
+            // Ruta mas corta primero; el indice rompe empates.
             var elegido =
                 candidatos
                     .OrderBy(
                         c => c.Plan.Pasos.Count)
-                    .ThenBy(
-                        c =>
-                            (c.Indice - inicio +
-                             Direcciones.Length) %
-                            Direcciones.Length)
+                    .ThenBy(c => c.Indice)
                     .First();
 
             return ResultadoAproximacionConstruccion.Exitoso(

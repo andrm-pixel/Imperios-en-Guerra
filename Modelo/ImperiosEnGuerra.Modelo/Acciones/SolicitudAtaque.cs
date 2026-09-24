@@ -2,7 +2,7 @@ using System;
 
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
-    /// <summary>Identifica atacante y objetivo mediante IDs estables; la operación valida la intención.</summary>
+    /// <summary>Identifica atacante y objetivo mediante IDs estables; la operacion valida la intencion.</summary>
     public sealed class SolicitudAtaque : SolicitudAccion
     {
         /// <summary>

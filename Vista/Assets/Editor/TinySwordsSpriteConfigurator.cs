@@ -10,11 +10,11 @@ using UnityEngine;
 
 /// <summary>
 /// Herramienta exclusiva del Editor de Unity para configurar
-/// automáticamente los sprites de Tiny Swords utilizados
+/// automaticamente los sprites de Tiny Swords utilizados
 /// por Imperios en Guerra.
 ///
-/// No contiene lógica del juego.
-/// Solo prepara recursos gráficos de la Vista.
+/// No contiene logica del juego.
+/// Solo prepara recursos graficos de la Vista.
 /// </summary>
 public static class TinySwordsSpriteConfigurator
 {
@@ -33,13 +33,13 @@ public static class TinySwordsSpriteConfigurator
     private const int MaximoTamanoTextura = 4096;
 
     // =========================================================
-    // MENÚ
+    // MENU
     // =========================================================
 
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar unidades"
     )]
-    /// <summary>Configura los sprites de unidades desde el menú.</summary>
+    /// <summary>Configura los sprites de unidades desde el menu.</summary>
     public static void ConfigurarUnidades()
     {
         ProcesarUnidades();
@@ -48,7 +48,7 @@ public static class TinySwordsSpriteConfigurator
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar recursos"
     )]
-    /// <summary>Configura los sprites de recursos desde el menú.</summary>
+    /// <summary>Configura los sprites de recursos desde el menu.</summary>
     public static void ConfigurarRecursos()
     {
         ProcesarRecursos();
@@ -57,7 +57,7 @@ public static class TinySwordsSpriteConfigurator
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar edificios"
     )]
-    /// <summary>Configura los sprites de edificios desde el menú.</summary>
+    /// <summary>Configura los sprites de edificios desde el menu.</summary>
     public static void ConfigurarEdificios()
     {
         ProcesarEdificios();
@@ -202,7 +202,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
-    /// <summary>Devuelve el tamaño de celda según la altura.</summary>
+    /// <summary>Devuelve el tamano de celda segun la altura.</summary>
     private static int ObtenerTamanoCeldaUnidad(
         int alto)
     {
@@ -488,10 +488,10 @@ public static class TinySwordsSpriteConfigurator
     }
 
     // =========================================================
-    // ÁRBOLES Y TOCONES
+    // ARBOLES Y TOCONES
     // =========================================================
 
-    /// <summary>Configura árboles y tocones.</summary>
+    /// <summary>Configura arboles y tocones.</summary>
     private static bool ConfigurarArbolOTocon(
         TextureImporter importer,
         string ruta,
@@ -723,10 +723,10 @@ public static class TinySwordsSpriteConfigurator
     }
 
     // =========================================================
-    // CONFIGURACIÓN COMÚN
+    // CONFIGURACION COMUN
     // =========================================================
 
-    /// <summary>Aplica importación como sprite único.</summary>
+    /// <summary>Aplica importacion como sprite unico.</summary>
     private static void ConfigurarSpriteIndividual(
         TextureImporter importer,
         string ruta)
@@ -744,7 +744,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
-    /// <summary>Aplica importación y corte en frames.</summary>
+    /// <summary>Aplica importacion y corte en frames.</summary>
     private static void ConfigurarSpriteMultiple(
         TextureImporter importer,
         string ruta,
@@ -783,7 +783,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
-    /// <summary>Aplica píxeles, filtro y compresión comunes.</summary>
+    /// <summary>Aplica pixeles, filtro y compresion comunes.</summary>
     private static void ConfigurarImportacionComun(
         TextureImporter importer,
         SpriteImportMode modo)
@@ -842,7 +842,7 @@ public static class TinySwordsSpriteConfigurator
     // CORTE DE SPRITES
     // =========================================================
 
-    /// <summary>Define los rectángulos de corte de la animación.</summary>
+    /// <summary>Define los rectangulos de corte de la animacion.</summary>
     private static void ConfigurarCortes(
         TextureImporter importer,
         string ruta,

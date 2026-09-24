@@ -8,22 +8,22 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>Pruebas de preparación y validación del ataque.</summary>
+/// <summary>Pruebas de preparacion y validacion del ataque.</summary>
 public class AtaqueUnityTests
 {
-    /// <summary>Raíz de los objetos de prueba de ataque.</summary>
+    /// <summary>Raiz de los objetos de prueba de ataque.</summary>
     private GameObject raiz;
-    /// <summary>Selección usada en la prueba de ataque.</summary>
+    /// <summary>Seleccion usada en la prueba de ataque.</summary>
     private ControladorSeleccion seleccion;
     /// <summary>Acciones bajo prueba de ataque.</summary>
     private ControladorAcciones acciones;
-    /// <summary>Conexión observada en la prueba de ataque.</summary>
+    /// <summary>Conexion observada en la prueba de ataque.</summary>
     private ControladorConexionApi conexion;
     /// <summary>Unidad atacante de la prueba.</summary>
     private EntidadSeleccionableVista atacante;
-    /// <summary>Objetivo enemigo válido de la prueba.</summary>
+    /// <summary>Objetivo enemigo valido de la prueba.</summary>
     private EntidadSeleccionableVista objetivoEnemigo;
-    /// <summary>Objetivo propio inválido de la prueba.</summary>
+    /// <summary>Objetivo propio invalido de la prueba.</summary>
     private EntidadSeleccionableVista objetivoPropio;
     /// <summary>Texto del HUD observado en la prueba.</summary>
     private Text mensaje;
@@ -34,7 +34,7 @@ public class AtaqueUnityTests
     private const string IdObjetivo =
         "55555555-5555-5555-5555-555555555555";
 
-    /// <summary>Crea la escena mínima para probar el ataque.</summary>
+    /// <summary>Crea la escena minima para probar el ataque.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -165,7 +165,7 @@ public class AtaqueUnityTests
             Is.Null);
     }
 
-    /// <summary>Verifica que el enemigo es objetivo válido.</summary>
+    /// <summary>Verifica que el enemigo es objetivo valido.</summary>
     [Test]
     public void ObjetivoMaquina_EsValido()
     {
@@ -204,7 +204,7 @@ public class AtaqueUnityTests
             Is.False);
     }
 
-    /// <summary>Verifica que cancelar limpia la intención.</summary>
+    /// <summary>Verifica que cancelar limpia la intencion.</summary>
     [Test]
     public void CancelarAtaque_LimpiaIntencion()
     {
@@ -232,7 +232,7 @@ public class AtaqueUnityTests
             Is.EqualTo("Ataque cancelado."));
     }
 
-    /// <summary>Verifica que cambiar selección cancela el ataque.</summary>
+    /// <summary>Verifica que cambiar seleccion cancela el ataque.</summary>
     [Test]
     public void CambioSeleccion_CancelaAtaqueSinRomperHud()
     {
@@ -310,7 +310,7 @@ public class AtaqueUnityTests
         return entidad;
     }
 
-    /// <summary>Invoca la validación privada de objetivo.</summary>
+    /// <summary>Invoca la validacion privada de objetivo.</summary>
     private static bool EsObjetivoValido(
         EntidadSeleccionableVista objetivo)
     {
@@ -324,7 +324,7 @@ public class AtaqueUnityTests
                 new object[] { objetivo });
     }
 
-    /// <summary>Lee un campo privado por reflexión.</summary>
+    /// <summary>Lee un campo privado por reflexion.</summary>
     private static object LeerCampo(
         object objeto,
         string nombre)
@@ -337,7 +337,7 @@ public class AtaqueUnityTests
             .GetValue(objeto);
     }
 
-    /// <summary>Asigna un campo privado por reflexión.</summary>
+    /// <summary>Asigna un campo privado por reflexion.</summary>
     private static void Campo(
         object objeto,
         string nombre,
@@ -351,7 +351,7 @@ public class AtaqueUnityTests
             .SetValue(objeto, valor);
     }
 
-    /// <summary>Invoca un método privado por reflexión.</summary>
+    /// <summary>Invoca un metodo privado por reflexion.</summary>
     private static void Invocar(
         object objeto,
         string nombre,

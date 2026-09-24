@@ -8,7 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>Pruebas de construcción y entrenamiento.</summary>
+/// <summary>Pruebas de construccion y entrenamiento.</summary>
 public class ConstruccionEntrenamientoUnityTests
 {
     private GameObject raiz;
@@ -19,7 +19,7 @@ public class ConstruccionEntrenamientoUnityTests
     /// <summary>HUD observado en la prueba.</summary>
     private VistaHud hud;
 
-    /// <summary>Aldeano usado en la prueba de construcción.</summary>
+    /// <summary>Aldeano usado en la prueba de construccion.</summary>
     private EntidadSeleccionableVista aldeano;
     /// <summary>Edificio usado en la prueba de entrenamiento.</summary>
     private EntidadSeleccionableVista castillo;
@@ -31,7 +31,7 @@ public class ConstruccionEntrenamientoUnityTests
     private const string IdAldeano =
         "33333333-3333-3333-3333-333333333333";
 
-    /// <summary>Crea la escena mínima de construcción y entrenamiento.</summary>
+    /// <summary>Crea la escena minima de construccion y entrenamiento.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -146,7 +146,7 @@ public class ConstruccionEntrenamientoUnityTests
         Object.DestroyImmediate(raiz);
     }
 
-    /// <summary>Verifica que el aldeano prepara la construcción.</summary>
+    /// <summary>Verifica que el aldeano prepara la construccion.</summary>
     [Test]
     public void AldeanoHumano_PreparaConstruccion()
     {
@@ -286,7 +286,7 @@ public class ConstruccionEntrenamientoUnityTests
                 "Selecciona una casilla de referencia para Arquero."));
     }
 
-    /// <summary>Verifica que el centro máquina no entrena.</summary>
+    /// <summary>Verifica que el centro maquina no entrena.</summary>
     [Test]
     public void CastilloMaquina_NoPreparaEntrenamiento()
     {
@@ -371,7 +371,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.True);
     }
 
-    /// <summary>Verifica que cancelar limpia la construcción.</summary>
+    /// <summary>Verifica que cancelar limpia la construccion.</summary>
     [Test]
     public void CancelarConstruccion_LimpiaIntencion()
     {
@@ -404,7 +404,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.EqualTo("Construcción cancelada."));
     }
 
-    /// <summary>Verifica el JSON del contrato de construcción.</summary>
+    /// <summary>Verifica el JSON del contrato de construccion.</summary>
     [Test]
     public void DtoConstruccion_UsaContratoEsperado()
     {
@@ -426,7 +426,7 @@ public class ConstruccionEntrenamientoUnityTests
                 "\"destino\":{\"x\":4,\"y\":5}}"));
     }
 
-    /// <summary>Verifica los DTOs concurrentes de construcción.</summary>
+    /// <summary>Verifica los DTOs concurrentes de construccion.</summary>
     [Test]
     public void DtoConcurrente_ConstruccionConservaContrato()
     {

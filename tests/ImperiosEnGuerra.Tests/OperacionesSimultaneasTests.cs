@@ -21,9 +21,9 @@ public class OperacionesSimultaneasTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.FromMilliseconds(150));

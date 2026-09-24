@@ -11,7 +11,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
     public abstract class UnidadMilitar : Unidad
     {
         /// <summary>
-        /// Inicializa la base militar delegando posición y estadísticas.
+        /// Inicializa la base militar delegando posicion y estadisticas.
         /// </summary>
         protected UnidadMilitar(
             Coordenada coordenada,
@@ -21,7 +21,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         }
 
         /// <summary>
-        /// Inicializa la base militar con estadísticas de combate.
+        /// Inicializa la base militar con estadisticas de combate.
         /// </summary>
         protected UnidadMilitar(
             Coordenada coordenada,

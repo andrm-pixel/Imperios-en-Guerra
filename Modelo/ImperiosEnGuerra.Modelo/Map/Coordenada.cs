@@ -1,21 +1,21 @@
 namespace ImperiosEnGuerra.Modelo.Map
 {
     /// <summary>
-    /// Representa una posición lógica mediante dos componentes enteros de solo lectura.
+    /// Representa una posicion logica mediante dos componentes enteros de solo lectura.
     /// </summary>
     public class Coordenada
     {
         /// <summary>
-        /// Componente horizontal de la posición lógica.
+        /// Componente horizontal de la posicion logica.
         /// </summary>
         public int X { get; }
         /// <summary>
-        /// Componente vertical de la posición lógica.
+        /// Componente vertical de la posicion logica.
         /// </summary>
         public int Y { get; }
 
         /// <summary>
-        /// Conserva las componentes recibidas sin comprobar límites de un mapa.
+        /// Conserva las componentes recibidas sin comprobar limites de un mapa.
         /// </summary>
         /// <param name="x">Componente horizontal.</param>
         /// <param name="y">Componente vertical.</param>

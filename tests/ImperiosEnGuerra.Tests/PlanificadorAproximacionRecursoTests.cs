@@ -9,13 +9,13 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Tests;
 
 /// <summary>Pruebas de Planificador Aproximacion Recurso: verifica planificador aproximacion recurso.</summary>
-public class PlanificadorAproximacionRecursoTests
+public class AproximacionRecursoTests
 {
     private Mapa mapa;
     private Partida partida;
     private Aldeano aldeano;
     private Recurso recurso;
-    private PlanificadorAproximacionRecurso planificador;
+    private AproximacionRecurso planificador;
 
     [SetUp]
     public void Preparar()
@@ -56,7 +56,7 @@ public class PlanificadorAproximacionRecursoTests
             Is.True);
 
         planificador =
-            new PlanificadorAproximacionRecurso();
+            new AproximacionRecurso();
     }
 
     // Caso Aldeano Lejano: verifica elige casilla adyacente sin entrar al recurso.
@@ -225,8 +225,8 @@ public class PlanificadorAproximacionRecursoTests
             segundoPlan.Exito,
             Is.True);
 
-        // Ambos deben quedar junto al recurso por el camino más corto;
-        // si comparten casilla, el replan en tiempo de ejecución los separa.
+        // Ambos deben quedar junto al recurso por el camino mas corto;
+        // si comparten casilla, el replan en tiempo de ejecucion los separa.
         Assert.That(
             Distancia(
                 primero.PuntoInteraccion,

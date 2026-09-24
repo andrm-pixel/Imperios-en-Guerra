@@ -15,13 +15,13 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
         /// <param name="solicitud">El valor de solicitud.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             SolicitudMovimiento solicitud)
         {
             ResultadoPlanMovimiento plan =
-                new PlanificadorMovimiento()
+                new RutaMovimiento()
                     .Preparar(
                         partida,
                         solicitud);

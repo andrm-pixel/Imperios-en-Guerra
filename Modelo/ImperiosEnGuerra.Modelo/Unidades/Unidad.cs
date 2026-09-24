@@ -5,7 +5,7 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Unidades
 {
     /// <summary>
-    /// Base de las unidades del Modelo, con identidad estable, posición lógica y estado de gameplay.
+    /// Base de las unidades del Modelo, con identidad estable, posicion logica y estado de gameplay.
     /// </summary>
     public abstract class Unidad
     {
@@ -15,7 +15,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         public Guid Id { get; }
 
         /// <summary>
-        /// Posición lógica de la unidad; las clases derivadas pueden actualizarla.
+        /// Posicion logica de la unidad; las clases derivadas pueden actualizarla.
         /// </summary>
         public Coordenada Coordenada { get; protected set; }
 
@@ -26,18 +26,18 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         public bool Disponible { get; protected set; }
 
         /// <summary>
-        /// Velocidad lógica expresada como multiplicador de casillas por unidad de tiempo.
+        /// Velocidad logica expresada como multiplicador de casillas por unidad de tiempo.
         /// Un valor mayor hace que el intervalo entre pasos sea menor.
         /// </summary>
         public double VelocidadMovimiento { get; }
 
         /// <summary>
-        /// Estado lógico autoritativo de la unidad.
+        /// Estado logico autoritativo de la unidad.
         /// </summary>
         public EstadoUnidad Estado { get; private set; }
 
         /// <summary>
-        /// Tipo de orden activa. Es null cuando la unidad está Idle.
+        /// Tipo de orden activa. Es null cuando la unidad esta Idle.
         /// </summary>
         public TipoAccionJuego? OrdenActiva { get; private set; }
 
@@ -47,26 +47,26 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         public int Vida { get; private set; }
 
         /// <summary>
-        /// Vida máxima de la unidad; sirve para restaurar partidas guardadas.
+        /// Vida maxima de la unidad; sirve para restaurar partidas guardadas.
         /// </summary>
         public int VidaMaxima { get; }
 
         /// <summary>
-        /// Daño que inflige cada ataque exitoso.
+        /// Dano que inflige cada ataque exitoso.
         /// </summary>
         public int PuntosAtaque { get; }
 
         /// <summary>
-        /// Alcance máximo en distancia Manhattan para atacar.
+        /// Alcance maximo en distancia Manhattan para atacar.
         /// </summary>
         public int AlcanceAtaque { get; }
 
         private readonly object sincronizacionVida = new object();
 
         /// <summary>
-        /// Inicializa una unidad con un identificador único, disponible, sin orden y en estado Idle.
+        /// Inicializa una unidad con un identificador unico, disponible, sin orden y en estado Idle.
         /// </summary>
-        /// <param name="coordenada">Posición lógica inicial.</param>
+        /// <param name="coordenada">Posicion logica inicial.</param>
         protected Unidad(
             Coordenada coordenada,
             double velocidadMovimiento = 1d,
@@ -136,7 +136,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         }
 
         /// <summary>
-        /// Aplica daño a la unidad de forma sincronizada. Devuelve true si la unidad queda destruida.
+        /// Aplica dano a la unidad de forma sincronizada. Devuelve true si la unidad queda destruida.
         /// </summary>
         public bool RecibirDano(int dano)
         {
@@ -190,7 +190,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         }
 
         /// <summary>
-        /// Reemplaza explícitamente una orden activa por otra compatible.
+        /// Reemplaza explicitamente una orden activa por otra compatible.
         /// Si la nueva orden no corresponde a un estado de unidad, no modifica el estado actual.
         /// </summary>
         public bool IntentarReemplazarOrden(TipoAccionJuego tipo)
@@ -237,7 +237,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             Disponible = false;
         }
 
-        /// <summary>Actualiza la posición desde la operación de movimiento del Modelo, después de validarla.</summary>
+        /// <summary>Actualiza la posicion desde la operacion de movimiento del Modelo, despues de validarla.</summary>
         internal void EstablecerDestino(Coordenada destino)
         {
             Coordenada = destino;

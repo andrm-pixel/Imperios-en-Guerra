@@ -9,8 +9,8 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
     /// <summary>
-    /// Extrae un único ciclo de recurso hacia la carga del Aldeano.
-    /// No modifica el saldo económico del jugador.
+    /// Extrae un unico ciclo de recurso hacia la carga del Aldeano.
+    /// No modifica el saldo economico del jugador.
     /// </summary>
     public sealed class OperacionPasoRecoleccion
     {
@@ -21,7 +21,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// <param name="aldeanoId">El valor de aldeano id.</param>
         /// <param name="objetivo">El valor de objetivo.</param>
         /// <param name="tasa">El valor de tasa.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoPasoRecoleccion Ejecutar(
             Partida partida,
             Guid aldeanoId,
@@ -49,7 +49,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             if (aldeano == null)
             {
                 return ResultadoPasoRecoleccion.Fallido(
-                    "No existe un Aldeano humano con ese ID.");
+                    "El Aldeano humano no existe o fue destruido.");
             }
 
             if (aldeano.OrdenActiva !=

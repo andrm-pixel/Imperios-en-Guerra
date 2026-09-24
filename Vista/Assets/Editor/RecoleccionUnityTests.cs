@@ -8,7 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>Pruebas de preparación y captura de recolección.</summary>
+/// <summary>Pruebas de preparacion y captura de recoleccion.</summary>
 public class RecoleccionUnityTests
 {
     private GameObject raiz;
@@ -16,14 +16,14 @@ public class RecoleccionUnityTests
     private ControladorAcciones acciones;
     private ControladorConexionApi conexion;
     private VistaPartida vista;
-    /// <summary>Aldeano usado en la prueba de recolección.</summary>
+    /// <summary>Aldeano usado en la prueba de recoleccion.</summary>
     private EntidadSeleccionableVista aldeano;
     private Text mensaje;
 
     private const string IdAldeano =
         "22222222-2222-2222-2222-222222222222";
 
-    /// <summary>Crea la escena mínima para probar la recolección.</summary>
+    /// <summary>Crea la escena minima para probar la recoleccion.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -77,7 +77,7 @@ public class RecoleccionUnityTests
         Invocar(seleccion, "Seleccionar", aldeano);
     }
 
-    /// <summary>Destruye la escena de prueba de recolección.</summary>
+    /// <summary>Destruye la escena de prueba de recoleccion.</summary>
     [TearDown]
     public void Limpiar()
     {
@@ -87,7 +87,7 @@ public class RecoleccionUnityTests
         Object.DestroyImmediate(raiz);
     }
 
-    /// <summary>Verifica que el aldeano prepara la recolección.</summary>
+    /// <summary>Verifica que el aldeano prepara la recoleccion.</summary>
     [Test]
     public void AldeanoHumano_PreparaRecoleccion()
     {
@@ -125,7 +125,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
-    /// <summary>Verifica que se elige el recurso más cercano.</summary>
+    /// <summary>Verifica que se elige el recurso mas cercano.</summary>
     [Test]
     public void CapturaRecurso_EntreCollidersSuperpuestos_UsaElMasCercano()
     {
@@ -219,7 +219,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
-    /// <summary>Verifica que el aldeano máquina no recolecta.</summary>
+    /// <summary>Verifica que el aldeano maquina no recolecta.</summary>
     [Test]
     public void AldeanoMaquina_NoPreparaRecoleccion()
     {
@@ -271,7 +271,7 @@ public class RecoleccionUnityTests
             Does.Contain("identidad"));
     }
 
-    /// <summary>Verifica que cancelar limpia la intención.</summary>
+    /// <summary>Verifica que cancelar limpia la intencion.</summary>
     [Test]
     public void CancelarRecoleccion_LimpiaIntencion()
     {
@@ -309,7 +309,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
-    /// <summary>Verifica el JSON del contrato de recolección.</summary>
+    /// <summary>Verifica el JSON del contrato de recoleccion.</summary>
     [Test]
     public void DtoRecoleccion_UsaIdYCoordenada()
     {
@@ -330,7 +330,7 @@ public class RecoleccionUnityTests
                 "\",\"objetivo\":{\"x\":4,\"y\":5}}"));
     }
 
-    /// <summary>Verifica los DTOs concurrentes de recolección.</summary>
+    /// <summary>Verifica los DTOs concurrentes de recoleccion.</summary>
     [Test]
     public void DtoConcurrente_RecoleccionConservaContrato()
     {
@@ -418,7 +418,7 @@ public class RecoleccionUnityTests
             Is.True);
     }
 
-    /// <summary>Verifica que cambiar selección cancela.</summary>
+    /// <summary>Verifica que cambiar seleccion cancela.</summary>
     [Test]
     public void CambioSeleccion_CancelaRecoleccion()
     {
@@ -491,7 +491,7 @@ public class RecoleccionUnityTests
         return entidad;
     }
 
-    /// <summary>Invoca un método privado y devuelve su valor.</summary>
+    /// <summary>Invoca un metodo privado y devuelve su valor.</summary>
     private static object InvocarConRetorno(
         object objeto,
         string nombre,

@@ -22,9 +22,9 @@ public class EntrenamientoConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.Zero);
@@ -80,9 +80,9 @@ public class EntrenamientoConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.FromSeconds(10));
@@ -126,9 +126,9 @@ public class EntrenamientoConcurrenteTests
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
 
-        using var gestor = new GestorProcesosConcurrentes();
+        using var gestor = new TareasJuego();
 
-        var servicio = new ServicioAccionesConcurrentes(
+        var servicio = new MotorAcciones(
             estado,
             gestor,
             TimeSpan.Zero);

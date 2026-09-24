@@ -17,13 +17,13 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
 {
     /// <summary>
     /// API interna del juego. Vive en el Controlador como puente.
-    /// No crea Thread/Task: toda la concurrencia está en el Modelo.
+    /// No crea Thread/Task: toda la concurrencia esta en el Modelo.
     /// Sin este componente el juego no funciona (los controladores lo exigen).
     /// Reemplaza al proceso externo por terminal (localhost:5086).
     /// </summary>
     public class ApiInternaJuego : MonoBehaviour
     {
-        /// <summary>Instancia única persistente de la API interna.</summary>
+        /// <summary>Instancia unica persistente de la API interna.</summary>
         public static ApiInternaJuego Instancia { get; private set; }
 
         /// <summary>Servicio de archivos para la partida interna.</summary>
@@ -31,16 +31,14 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
         /// <summary>Servicio del Modelo con la partida activa.</summary>
         private EstadoPartidaService estadoPartida;
         /// <summary>Gestor de workers del Modelo.</summary>
-        private GestorProcesosConcurrentes gestorProcesos;
-        /// <summary>Servicio de órdenes de unidad del Modelo.</summary>
-        private ServicioOrdenesUnidad servicioOrdenes;
+        private TareasJuego gestorProcesos;
         /// <summary>Fachada de acciones concurrentes del Modelo.</summary>
-        private ServicioAccionesConcurrentes accionesConcurrentes;
+        private MotorAcciones accionesConcurrentes;
 
         /// <summary>Indica si la API interna tiene partida activa.</summary>
         public bool EstaDisponible { get; private set; }
 
-        /// <summary>Crea la instancia única e inicializa el núcleo.</summary>
+        /// <summary>Crea la instancia unica e inicializa el nucleo.</summary>
         private void Awake()
         {
             if (Instancia != null && Instancia != this)
@@ -75,12 +73,10 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
 
                 servicioArchivos = new ServicioArchivos(baseDatos);
                 estadoPartida = new EstadoPartidaService(servicioArchivos);
-                gestorProcesos = new GestorProcesosConcurrentes();
-                servicioOrdenes = new ServicioOrdenesUnidad();
-                accionesConcurrentes = new ServicioAccionesConcurrentes(
+                gestorProcesos = new TareasJuego();
+                accionesConcurrentes = new MotorAcciones(
                     estadoPartida,
-                    gestorProcesos,
-                    servicioOrdenes);
+                    gestorProcesos);
 
                 IniciarPartidaPruebaInterna();
                 EstaDisponible = estadoPartida.HayPartidaActiva();
@@ -92,30 +88,30 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             }
         }
 
-        /// <summary>Genera el mapa y los recursos de demostración.</summary>
+        /// <summary>Genera el mapa y los recursos de demostracion.</summary>
         private void IniciarPartidaPruebaInterna()
         {
             var mapa = new Mapa(
-                DisposicionInicial.AnchoMapa,
-                DisposicionInicial.AltoMapa);
+                InicializadorPartida.AnchoMapa,
+                InicializadorPartida.AltoMapa);
             var inicializador = new InicializadorPartida();
 
             Partida partida = inicializador.Crear(
                 "Griegos",
                 mapa,
-                DisposicionInicial.CentroHumano,
-                new List<Recurso>(DisposicionInicial.RecursosHumano()),
+                InicializadorPartida.CentroHumano,
+                new List<Recurso>(InicializadorPartida.RecursosHumano()),
                 "Troya",
                 mapa,
-                DisposicionInicial.CentroMaquina,
-                new List<Recurso>(DisposicionInicial.RecursosMaquina()));
+                InicializadorPartida.CentroMaquina,
+                new List<Recurso>(InicializadorPartida.RecursosMaquina()));
 
             servicioArchivos.GuardarConfiguracionInicial(partida);
             estadoPartida.EstablecerPartida(partida);
 
-            // Guarnición inicial de la máquina: patrulla su base y caza
+            // Guarnicion inicial de la maquina: patrulla su base y caza
             // humanos en un radio de 7 casillas.
-            foreach (Coordenada posicion in DisposicionInicial.GuarnicionMaquina())
+            foreach (Coordenada posicion in InicializadorPartida.GuarnicionMaquina())
             {
                 if ((posicion.X + posicion.Y) % 2 == 0)
                     estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
@@ -150,7 +146,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
-        /// <summary>Inicia la recolección concurrente de un aldeano.</summary>
+        /// <summary>Inicia la recoleccion concurrente de un aldeano.</summary>
         public Guid IniciarRecoleccion(string aldeanoId, int x, int y)
         {
             ExigirDisponible();
@@ -162,7 +158,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
-        /// <summary>Inicia la construcción concurrente de un aldeano.</summary>
+        /// <summary>Inicia la construccion concurrente de un aldeano.</summary>
         public Guid IniciarConstruccion(string aldeanoId, string tipoEdificio, int x, int y)
         {
             ExigirDisponible();
@@ -200,16 +196,14 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
-        public IReadOnlyList<NucleoBatalla.ProcesoBatalla> IniciarBatalla()
+        public IReadOnlyList<MotorAcciones.ProcesoBatalla> IniciarBatalla()
         {
             ExigirDisponible();
 
-            return NucleoBatalla.IniciarBatalla(
-                estadoPartida,
-                accionesConcurrentes);
+            return accionesConcurrentes.IniciarBatalla();
         }
 
-        /// <summary>Lee el resultado de un proceso si ya terminó.</summary>
+        /// <summary>Lee el resultado de un proceso si ya termino.</summary>
         public bool IntentarObtenerResultado(Guid procesoId, out ContratosUnity.ResultadoProcesoDto dto)
         {
             dto = null;
@@ -288,7 +282,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return ReglasAcciones.PermiteAtacar(propietario, categoria, tipo, orden);
         }
 
-        /// <summary>Consulta si la entidad es objetivo válido.</summary>
+        /// <summary>Consulta si la entidad es objetivo valido.</summary>
         public bool EsObjetivoAtaqueValido(string categoria, string propietario, string id)
         {
             return ReglasAcciones.EsObjetivoAtaqueValido(categoria, propietario, id);
@@ -300,7 +294,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             get { return ReglasAcciones.TipoCastillo; }
         }
 
-        /// <summary>Lanza error si la API interna no está lista.</summary>
+        /// <summary>Lanza error si la API interna no esta lista.</summary>
         private void ExigirDisponible()
         {
             if (!EstaDisponible || estadoPartida == null || accionesConcurrentes == null)

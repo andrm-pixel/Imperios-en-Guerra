@@ -5,7 +5,7 @@ using UnityDto = ImperiosEnGuerra.Controladores.Red.Contratos;
 namespace ImperiosEnGuerra.Controladores.ApiInterna
 {
     /// <summary>
-    /// Traduce la respuesta del Modelo a DTOs de Unity (campos públicos).
+    /// Traduce la respuesta del Modelo a DTOs de Unity (campos publicos).
     /// Solo mapeo, sin reglas ni hilos.
     /// </summary>
     public static class AdaptadorEstadoPartida

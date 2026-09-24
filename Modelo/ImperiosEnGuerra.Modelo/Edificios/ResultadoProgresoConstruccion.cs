@@ -39,7 +39,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// </summary>
         /// <param name="progreso">El valor de progreso.</param>
         /// <param name="terminada">El valor de terminada.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoProgresoConstruccion Exitoso(
             int progreso,
             bool terminada)
@@ -57,7 +57,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         /// Crea un resultado fallido el elemento solicitado.
         /// </summary>
         /// <param name="mensaje">El valor de mensaje.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public static ResultadoProgresoConstruccion Fallido(
             string mensaje)
         {

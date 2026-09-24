@@ -5,7 +5,7 @@ using ImperiosEnGuerra.Modelo.Recursos;
 namespace ImperiosEnGuerra.Modelo.Map
 {
     /// <summary>
-    /// Administra una cuadrícula de casillas y los recursos físicos colocados en ella.
+    /// Administra una cuadricula de casillas y los recursos fisicos colocados en ella.
     /// </summary>
     public class Mapa
     {
@@ -13,16 +13,16 @@ namespace ImperiosEnGuerra.Modelo.Map
         private readonly List<Recurso> recursos;
 
         /// <summary>
-        /// Número de columnas de la cuadrícula.
+        /// Numero de columnas de la cuadricula.
         /// </summary>
         public int Ancho { get; }
         /// <summary>
-        /// Número de filas de la cuadrícula.
+        /// Numero de filas de la cuadricula.
         /// </summary>
         public int Alto { get; }
 
         /// <summary>
-        /// Vista de solo lectura de los recursos físicos colocados, actualizada con la colección interna.
+        /// Vista de solo lectura de los recursos fisicos colocados, actualizada con la coleccion interna.
         /// </summary>
         public IReadOnlyList<Recurso> Recursos
         {
@@ -30,10 +30,10 @@ namespace ImperiosEnGuerra.Modelo.Map
         }
 
         /// <summary>
-        /// Crea una cuadrícula de casillas transitables y desocupadas, sin recursos físicos.
+        /// Crea una cuadricula de casillas transitables y desocupadas, sin recursos fisicos.
         /// </summary>
-        /// <param name="ancho">Número de columnas, mayor que cero.</param>
-        /// <param name="alto">Número de filas, mayor que cero.</param>
+        /// <param name="ancho">Numero de columnas, mayor que cero.</param>
+        /// <param name="alto">Numero de filas, mayor que cero.</param>
         /// <exception cref="ArgumentOutOfRangeException">El ancho o el alto es menor o igual que cero.</exception>
         public Mapa(int ancho, int alto)
         {
@@ -66,11 +66,11 @@ namespace ImperiosEnGuerra.Modelo.Map
         }
 
         /// <summary>
-        /// Consulta una casilla por sus índices sin modificar el mapa.
+        /// Consulta una casilla por sus indices sin modificar el mapa.
         /// </summary>
-        /// <param name="x">Índice horizontal desde cero.</param>
-        /// <param name="y">Índice vertical desde cero.</param>
-        /// <returns>La casilla existente, o null si algún índice queda fuera del mapa.</returns>
+        /// <param name="x">Indice horizontal desde cero.</param>
+        /// <param name="y">Indice vertical desde cero.</param>
+        /// <returns>La casilla existente, o null si algun indice queda fuera del mapa.</returns>
         public Casilla ObtenerCasilla(int x, int y)
         {
             if (x < 0 || x >= Ancho || y < 0 || y >= Alto)
@@ -82,10 +82,10 @@ namespace ImperiosEnGuerra.Modelo.Map
         }
 
         /// <summary>
-        /// Comprueba que ambas componentes estén entre cero incluido y la dimensión correspondiente excluida.
+        /// Comprueba que ambas componentes esten entre cero incluido y la dimension correspondiente excluida.
         /// </summary>
-        /// <param name="coordenada">Posición que se consulta.</param>
-        /// <returns>true si está dentro del mapa; false si es nula o está fuera.</returns>
+        /// <param name="coordenada">Posicion que se consulta.</param>
+        /// <returns>true si esta dentro del mapa; false si es nula o esta fuera.</returns>
         public bool EstaDentroDeLimites(Coordenada coordenada)
         {
             if (coordenada == null)
@@ -98,10 +98,10 @@ namespace ImperiosEnGuerra.Modelo.Map
         }
 
         /// <summary>
-        /// Consulta si existe una casilla libre y sin recurso físico en la posición, sin evaluar la transitabilidad.
+        /// Consulta si existe una casilla libre y sin recurso fisico en la posicion, sin evaluar la transitabilidad.
         /// </summary>
-        /// <param name="coordenada">Posición que se consulta.</param>
-        /// <returns>true si está disponible; false si es nula, está fuera, ocupada o contiene un recurso.</returns>
+        /// <param name="coordenada">Posicion que se consulta.</param>
+        /// <returns>true si esta disponible; false si es nula, esta fuera, ocupada o contiene un recurso.</returns>
         public bool PuedeColocar(Coordenada coordenada)
         {
             if (!EstaDentroDeLimites(coordenada))
@@ -117,8 +117,8 @@ namespace ImperiosEnGuerra.Modelo.Map
         /// <summary>
         /// Busca un recurso comparando los valores X e Y de su coordenada.
         /// </summary>
-        /// <param name="coordenada">Posición lógica que se consulta.</param>
-        /// <returns>El recurso encontrado, o null si la posición es nula, está fuera del mapa o no contiene recurso.</returns>
+        /// <param name="coordenada">Posicion logica que se consulta.</param>
+        /// <returns>El recurso encontrado, o null si la posicion es nula, esta fuera del mapa o no contiene recurso.</returns>
         public Recurso ObtenerRecursoEn(Coordenada coordenada)
         {
             if (!EstaDentroDeLimites(coordenada))
@@ -139,10 +139,10 @@ namespace ImperiosEnGuerra.Modelo.Map
         }
 
         /// <summary>
-        /// Añade un recurso si su posición está disponible; no cambia la marca de ocupación de la casilla.
+        /// Anade un recurso si su posicion esta disponible; no cambia la marca de ocupacion de la casilla.
         /// </summary>
-        /// <param name="recurso">Recurso físico que se intenta colocar.</param>
-        /// <returns>true si se añadió; false si es nulo o su posición no está disponible.</returns>
+        /// <param name="recurso">Recurso fisico que se intenta colocar.</param>
+        /// <returns>true si se anadio; false si es nulo o su posicion no esta disponible.</returns>
         public bool ColocarRecurso(Recurso recurso)
         {
             if (recurso == null)

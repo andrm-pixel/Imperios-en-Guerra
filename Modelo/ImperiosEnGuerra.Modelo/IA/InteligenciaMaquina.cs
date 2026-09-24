@@ -12,8 +12,8 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.IA
 {
     /// <summary>
-    /// Cerebro de la máquina. Vive en el Modelo y se ejecuta desde un worker
-    /// del GestorProcesosConcurrentes cada pocos segundos.
+    /// Cerebro de la maquina. Vive en el Modelo y se ejecuta desde un worker
+    /// del TareasJuego cada pocos segundos.
     /// Cada turno: sus soldados cazan humanos en un radio de 7 casillas
     /// (caminan hasta el alcance y golpean); si no hay objetivo cerca,
     /// regresan junto a su Castillo. Sin hilos propios.
@@ -27,7 +27,7 @@ namespace ImperiosEnGuerra.Modelo.IA
         /// Ejecuta turno.
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
-        /// <returns>Resultado de la operación.</returns>
+        /// <returns>Resultado de la operacion.</returns>
         public ResultadoAccion EjecutarTurno(Partida partida)
         {
             if (partida == null)
@@ -247,7 +247,7 @@ namespace ImperiosEnGuerra.Modelo.IA
             StringBuilder bitacora)
         {
             Mapa mapa = partida.JugadorMaquina.Mapa;
-            var buscador = new BuscadorRutaAStar();
+            var buscador = new RutaAStar();
 
             List<Coordenada> bloqueos = ObtenerBloqueos(partida, soldado);
             IReadOnlyList<Coordenada> mejoresPasos = null;
@@ -332,7 +332,7 @@ namespace ImperiosEnGuerra.Modelo.IA
             StringBuilder bitacora)
         {
             Mapa mapa = partida.JugadorMaquina.Mapa;
-            var buscador = new BuscadorRutaAStar();
+            var buscador = new RutaAStar();
 
             List<Coordenada> bloqueos = ObtenerBloqueos(partida, soldado);
             IReadOnlyList<Coordenada> mejoresPasos = null;

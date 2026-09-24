@@ -8,9 +8,9 @@ namespace ImperiosEnGuerra.Vistas
     /// <summary>Representa los datos recibidos de la API sin modificar el estado del juego.</summary>
     public class VistaPartida : MonoBehaviour
     {
-        /// <summary>Cámara que encuadra el mapa generado.</summary>
+        /// <summary>Camara que encuadra el mapa generado.</summary>
         [SerializeField] private Camera camara;
-        /// <summary>Separación en mundo entre casillas lógicas.</summary>
+        /// <summary>Separacion en mundo entre casillas logicas.</summary>
         [SerializeField, Min(0.1f)] private float espacioCasilla = 2f;
         /// <summary>Escala aplicada a los sprites de recurso.</summary>
         [SerializeField, Min(0.01f)] private float escalaRecursos = 0.75f;
@@ -32,7 +32,7 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Sprite hierro;
         /// <summary>Sprite del centro urbano humano.</summary>
         [SerializeField] private Sprite centroHumano;
-        /// <summary>Sprite del centro urbano máquina.</summary>
+        /// <summary>Sprite del centro urbano maquina.</summary>
         [SerializeField] private Sprite centroMaquina;
         /// <summary>Sprite del aldeano humano.</summary>
         [SerializeField] private Sprite aldeanoHumano;
@@ -40,14 +40,14 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Sprite soldadoHumano;
         /// <summary>Sprite del arquero humano.</summary>
         [SerializeField] private Sprite arqueroHumano;
-        /// <summary>Sprite del aldeano máquina.</summary>
+        /// <summary>Sprite del aldeano maquina.</summary>
         [SerializeField] private Sprite aldeanoMaquina;
-        /// <summary>Sprite del soldado máquina.</summary>
+        /// <summary>Sprite del soldado maquina.</summary>
         [SerializeField] private Sprite soldadoMaquina;
-        /// <summary>Sprite del arquero máquina.</summary>
+        /// <summary>Sprite del arquero maquina.</summary>
         [SerializeField] private Sprite arqueroMaquina;
 
-        /// <summary>Raíz de los objetos generados para la partida.</summary>
+        /// <summary>Raiz de los objetos generados para la partida.</summary>
         private GameObject contenidoGenerado;
         /// <summary>Ancho del mapa actualmente representado.</summary>
         private int anchoVisual;
@@ -55,7 +55,7 @@ namespace ImperiosEnGuerra.Vistas
         private int altoVisual;
 
         [SerializeField, Min(0.1f)]
-        /// <summary>Velocidad de interpolación del movimiento visual.</summary>
+        /// <summary>Velocidad de interpolacion del movimiento visual.</summary>
         private float velocidadMovimientoVisual = 4f;
 
         /// <summary>Movimiento visual pendiente hacia un destino.</summary>
@@ -63,7 +63,7 @@ namespace ImperiosEnGuerra.Vistas
         {
             /// <summary>Entidad que se desplaza en la vista.</summary>
             public EntidadSeleccionableVista Entidad;
-            /// <summary>Posición de mundo destino del desplazamiento.</summary>
+            /// <summary>Posicion de mundo destino del desplazamiento.</summary>
             public Vector3 Destino;
         }
 
@@ -109,7 +109,7 @@ namespace ImperiosEnGuerra.Vistas
 
         /// <summary>
         /// Aplica un snapshot sin destruir la escena generada. Esto conserva
-        /// la selección y permite que varias órdenes concurrentes actualicen
+        /// la seleccion y permite que varias ordenes concurrentes actualicen
         /// unidades/obras sin interrumpir al jugador.
         /// </summary>
         public void Sincronizar(EstadoPartidaDto estado)
@@ -164,7 +164,7 @@ namespace ImperiosEnGuerra.Vistas
                 unidades);
         }
 
-        /// <summary>Muestra u oculta recursos según su cantidad restante.</summary>
+        /// <summary>Muestra u oculta recursos segun su cantidad restante.</summary>
         private void SincronizarRecursos(
             RecursoEstadoDto[] recursos)
         {
@@ -319,7 +319,7 @@ namespace ImperiosEnGuerra.Vistas
 
         /// <summary>
         /// Retira los visuales destruidos en el Modelo para que el mapa
-        /// refleje bajas de combate. Solo presentación, sin reglas.
+        /// refleje bajas de combate. Solo presentacion, sin reglas.
         /// </summary>
         private void EliminarEntidadesDestruidas(
             CategoriaEntidadVisual categoria,
@@ -409,7 +409,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
-        /// <summary>Crea o desplaza las unidades según el estado.</summary>
+        /// <summary>Crea o desplaza las unidades segun el estado.</summary>
         private void SincronizarUnidades(
             UnidadEstadoDto[] datos,
             bool humano,
@@ -494,7 +494,7 @@ namespace ImperiosEnGuerra.Vistas
                 datos.Select(unidad => unidad != null ? unidad.id : null));
         }
 
-        /// <summary>Busca una entidad visual por identidad y posición.</summary>
+        /// <summary>Busca una entidad visual por identidad y posicion.</summary>
         private EntidadSeleccionableVista BuscarEntidad(
             CategoriaEntidadVisual categoria,
             string id,
@@ -537,7 +537,7 @@ namespace ImperiosEnGuerra.Vistas
             return null;
         }
 
-        /// <summary>Devuelve el sprite según tipo y bando.</summary>
+        /// <summary>Devuelve el sprite segun tipo y bando.</summary>
         private Sprite ObtenerSpriteUnidad(
             string tipo,
             bool humano)
@@ -605,7 +605,7 @@ namespace ImperiosEnGuerra.Vistas
                 return;
             }
 
-            // Destroy se completa al final del frame: ocultar antes evita superposición.
+            // Destroy se completa al final del frame: ocultar antes evita superposicion.
             contenidoGenerado.SetActive(false);
             if (Application.isPlaying)
             {
@@ -635,7 +635,7 @@ namespace ImperiosEnGuerra.Vistas
                 return;
             }
 
-            // Cubrir la casilla completa mantiene el terreno continuo al variar la separación.
+            // Cubrir la casilla completa mantiene el terreno continuo al variar la separacion.
             Vector3 escalaSuelo = new Vector3(
                 espacioCasilla * suelo.pixelsPerUnit / suelo.rect.width,
                 espacioCasilla * suelo.pixelsPerUnit / suelo.rect.height, 1f);
@@ -844,13 +844,13 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
-        /// <summary>Convierte una casilla lógica a posición de mundo.</summary>
+        /// <summary>Convierte una casilla logica a posicion de mundo.</summary>
         private Vector3 PosicionVisual(float x, float y)
         {
             return new Vector3(x * espacioCasilla, y * espacioCasilla, 0f);
         }
 
-        /// <summary>Actualiza los datos lógicos y encola el desplazamiento visual.</summary>
+        /// <summary>Actualiza los datos logicos y encola el desplazamiento visual.</summary>
         public bool ActualizarMovimientoUnidad(
             string unidadId,
             int x,
@@ -953,7 +953,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
-        /// <summary>Convierte una posición de mundo a casilla lógica.</summary>
+        /// <summary>Convierte una posicion de mundo a casilla logica.</summary>
         public bool TryObtenerCoordenadaLogica(Vector3 posicionMundo, out int x, out int y)
         {
             x = 0;
@@ -966,7 +966,7 @@ namespace ImperiosEnGuerra.Vistas
             float columna = posicionMundo.x / espacioCasilla;
             float fila = posicionMundo.y / espacioCasilla;
             // Casillas centradas en enteros: borde inferior incluido, superior excluido.
-            // Esta comparación también rechaza NaN e infinitos sin convertirlos a int.
+            // Esta comparacion tambien rechaza NaN e infinitos sin convertirlos a int.
             if (!(columna >= -0.5f && columna < anchoVisual - 0.5f &&
                   fila >= -0.5f && fila < altoVisual - 0.5f))
             {
@@ -978,7 +978,7 @@ namespace ImperiosEnGuerra.Vistas
             return true;
         }
 
-        /// <summary>Añade selección y colisionador al objeto creado.</summary>
+        /// <summary>Anade seleccion y colisionador al objeto creado.</summary>
         private void ConfigurarSeleccionable(
             GameObject objeto,
             CategoriaEntidadVisual categoria,
@@ -1012,7 +1012,7 @@ namespace ImperiosEnGuerra.Vistas
             collider.offset = entidad.Renderer.sprite.bounds.center;
         }
 
-        /// <summary>Crea un objeto con sprite, posición y orden de dibujo.</summary>
+        /// <summary>Crea un objeto con sprite, posicion y orden de dibujo.</summary>
         private GameObject CrearSprite(
             string nombre, Sprite sprite, int x, int y, int orden, Transform contenedor, Vector3 escala)
         {
@@ -1032,7 +1032,7 @@ namespace ImperiosEnGuerra.Vistas
             return objeto;
         }
 
-        /// <summary>Encuadra la cámara al tamaño del mapa.</summary>
+        /// <summary>Encuadra la camara al tamano del mapa.</summary>
         private void AjustarCamara(MapaEstadoDto mapa)
         {
             if (camara == null)
@@ -1041,7 +1041,7 @@ namespace ImperiosEnGuerra.Vistas
                 return;
             }
 
-            // La interfaz flota sobre el mapa como en el diseño original.
+            // La interfaz flota sobre el mapa como en el diseno original.
             camara.rect = new Rect(0f, 0f, 1f, 1f);
 
             camara.orthographic = true;
@@ -1049,7 +1049,7 @@ namespace ImperiosEnGuerra.Vistas
                 + new Vector3(0f, 0f, -10f);
             camara.transform.rotation = Quaternion.identity;
             // El aspecto ya descuenta la franja lateral: el mapa se ajusta
-            // al alto o al ancho visible, el que resulte más restrictivo.
+            // al alto o al ancho visible, el que resulte mas restrictivo.
             float aspecto = Mathf.Max(camara.aspect, 0.01f);
             camara.orthographicSize = Mathf.Max(
                 mapa.alto * espacioCasilla / 2f,
