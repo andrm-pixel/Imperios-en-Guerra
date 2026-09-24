@@ -95,64 +95,35 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
         /// <summary>Genera el mapa y los recursos de demostración.</summary>
         private void IniciarPartidaPruebaInterna()
         {
-            var mapa = new Mapa(15, 15);
+            var mapa = new Mapa(
+                DisposicionInicial.AnchoMapa,
+                DisposicionInicial.AltoMapa);
             var inicializador = new InicializadorPartida();
 
             Partida partida = inicializador.Crear(
                 "Jugador",
                 mapa,
-                new Coordenada(13, 7),
-                new List<Recurso>
-                {
-                    new Recurso(TipoRecurso.Oro, new Coordenada(11, 6)),
-                    new Recurso(TipoRecurso.Oro, new Coordenada(13, 9)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(10, 7)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(12, 9)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(11, 8)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(9, 7)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(12, 5)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(10, 9)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(9, 9)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(12, 11)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(14, 6)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(10, 5)),
-                    new Recurso(TipoRecurso.Oro, new Coordenada(14, 9)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(14, 8)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(9, 5)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(11, 10))
-                },
+                DisposicionInicial.CentroHumano,
+                new List<Recurso>(DisposicionInicial.RecursosHumano()),
                 "CPU",
                 mapa,
-                new Coordenada(1, 7),
-                new List<Recurso>
-                {
-                    new Recurso(TipoRecurso.Oro, new Coordenada(3, 6)),
-                    new Recurso(TipoRecurso.Oro, new Coordenada(1, 9)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(4, 7)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(2, 9)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(3, 8)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(5, 7)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(2, 5)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(4, 9)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(5, 5)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(1, 5)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(0, 6)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(4, 5)),
-                    new Recurso(TipoRecurso.Oro, new Coordenada(2, 7)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(0, 8)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(5, 9)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(3, 4))
-                });
+                DisposicionInicial.CentroMaquina,
+                new List<Recurso>(DisposicionInicial.RecursosMaquina()));
 
             servicioArchivos.GuardarConfiguracionInicial(partida);
             estadoPartida.EstablecerPartida(partida);
 
             // Guarnición inicial de la máquina: patrulla su base y caza
             // humanos en un radio de 7 casillas.
-            estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
-                new Soldado(new Coordenada(3, 7)));
-            estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
-                new Arquero(new Coordenada(2, 6)));
+            foreach (Coordenada posicion in DisposicionInicial.GuarnicionMaquina())
+            {
+                if ((posicion.X + posicion.Y) % 2 == 0)
+                    estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
+                        new Soldado(posicion));
+                else
+                    estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
+                        new Arquero(posicion));
+            }
 
             accionesConcurrentes.IniciarIA();
         }

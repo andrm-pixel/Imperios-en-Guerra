@@ -2208,59 +2208,49 @@ public bool PuedeIniciarAtaque =>
         /// <summary>Construye el DTO de la partida de demostración.</summary>
         private IniciarPartidaDto CrearPartidaPrueba()
         {
+            // Misma disposición única del Modelo para que ambas vías
+            // (interna y externa) jueguen el mismo mapa 15x15.
+            System.Collections.Generic.List<RecursoInicialDto> recursosHumano =
+                new System.Collections.Generic.List<RecursoInicialDto>();
+            System.Collections.Generic.List<RecursoInicialDto> recursosMaquina =
+                new System.Collections.Generic.List<RecursoInicialDto>();
+
+            foreach (ImperiosEnGuerra.Modelo.Recursos.Recurso recurso in
+                ImperiosEnGuerra.Modelo.Core.DisposicionInicial.RecursosHumano())
+            {
+                recursosHumano.Add(new RecursoInicialDto(
+                    recurso.Tipo.ToString(),
+                    recurso.Coordenada.X,
+                    recurso.Coordenada.Y));
+            }
+
+            foreach (ImperiosEnGuerra.Modelo.Recursos.Recurso recurso in
+                ImperiosEnGuerra.Modelo.Core.DisposicionInicial.RecursosMaquina())
+            {
+                recursosMaquina.Add(new RecursoInicialDto(
+                    recurso.Tipo.ToString(),
+                    recurso.Coordenada.X,
+                    recurso.Coordenada.Y));
+            }
+
             return new IniciarPartidaDto
             {
                 nombreHumano = "Jugador",
                 nombreMaquina = "CPU",
 
-                anchoMapa = 15,
-                altoMapa = 15,
+                anchoMapa = ImperiosEnGuerra.Modelo.Core.DisposicionInicial.AnchoMapa,
+                altoMapa = ImperiosEnGuerra.Modelo.Core.DisposicionInicial.AltoMapa,
 
-                centroHumano =
-                    new CoordenadaDto(13, 7),
+                centroHumano = new CoordenadaDto(
+                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroHumano.X,
+                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroHumano.Y),
 
-                centroMaquina =
-                    new CoordenadaDto(1, 7),
+                centroMaquina = new CoordenadaDto(
+                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroMaquina.X,
+                    ImperiosEnGuerra.Modelo.Core.DisposicionInicial.CentroMaquina.Y),
 
-                recursosHumano = new[]
-                {
-                    new RecursoInicialDto("Oro", 11, 6),
-                    new RecursoInicialDto("Oro", 13, 9),
-                    new RecursoInicialDto("Madera", 10, 7),
-                    new RecursoInicialDto("Madera", 12, 9),
-                    new RecursoInicialDto("Comida", 11, 8),
-                    new RecursoInicialDto("Comida", 9, 7),
-                    new RecursoInicialDto("Piedra", 12, 5),
-                    new RecursoInicialDto("Piedra", 10, 9),
-                    new RecursoInicialDto("Hierro", 9, 9),
-                    new RecursoInicialDto("Hierro", 12, 11),
-                    new RecursoInicialDto("Madera", 14, 6),
-                    new RecursoInicialDto("Madera", 10, 5),
-                    new RecursoInicialDto("Oro", 14, 9),
-                    new RecursoInicialDto("Comida", 14, 8),
-                    new RecursoInicialDto("Piedra", 9, 5),
-                    new RecursoInicialDto("Hierro", 11, 10)
-                },
-
-                recursosMaquina = new[]
-                {
-                    new RecursoInicialDto("Oro", 3, 6),
-                    new RecursoInicialDto("Oro", 1, 9),
-                    new RecursoInicialDto("Madera", 4, 7),
-                    new RecursoInicialDto("Madera", 2, 9),
-                    new RecursoInicialDto("Comida", 3, 8),
-                    new RecursoInicialDto("Comida", 5, 7),
-                    new RecursoInicialDto("Piedra", 2, 5),
-                    new RecursoInicialDto("Piedra", 4, 9),
-                    new RecursoInicialDto("Hierro", 5, 5),
-                    new RecursoInicialDto("Hierro", 1, 5),
-                    new RecursoInicialDto("Madera", 0, 6),
-                    new RecursoInicialDto("Madera", 4, 5),
-                    new RecursoInicialDto("Oro", 2, 7),
-                    new RecursoInicialDto("Comida", 0, 8),
-                    new RecursoInicialDto("Piedra", 5, 9),
-                    new RecursoInicialDto("Hierro", 3, 4)
-                }
+                recursosHumano = recursosHumano.ToArray(),
+                recursosMaquina = recursosMaquina.ToArray()
             };
         }
     }
