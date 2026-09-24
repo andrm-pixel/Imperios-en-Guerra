@@ -2217,32 +2217,12 @@ public bool PuedeIniciarAtaque =>
                 altoMapa = 15,
 
                 centroHumano =
-                    new CoordenadaDto(1, 7),
-
-                centroMaquina =
                     new CoordenadaDto(13, 7),
 
-                recursosHumano = new[]
-                {
-                    new RecursoInicialDto("Oro", 3, 6),
-                    new RecursoInicialDto("Oro", 1, 9),
-                    new RecursoInicialDto("Madera", 4, 7),
-                    new RecursoInicialDto("Madera", 2, 9),
-                    new RecursoInicialDto("Comida", 3, 8),
-                    new RecursoInicialDto("Comida", 5, 7),
-                    new RecursoInicialDto("Piedra", 2, 5),
-                    new RecursoInicialDto("Piedra", 4, 9),
-                    new RecursoInicialDto("Hierro", 5, 5),
-                    new RecursoInicialDto("Hierro", 1, 5),
-                    new RecursoInicialDto("Madera", 0, 6),
-                    new RecursoInicialDto("Madera", 4, 5),
-                    new RecursoInicialDto("Oro", 2, 7),
-                    new RecursoInicialDto("Comida", 0, 8),
-                    new RecursoInicialDto("Piedra", 5, 9),
-                    new RecursoInicialDto("Hierro", 3, 4)
-                },
+                centroMaquina =
+                    new CoordenadaDto(1, 7),
 
-                recursosMaquina = new[]
+                recursosHumano = new[]
                 {
                     new RecursoInicialDto("Oro", 11, 6),
                     new RecursoInicialDto("Oro", 13, 9),
@@ -2260,6 +2240,26 @@ public bool PuedeIniciarAtaque =>
                     new RecursoInicialDto("Comida", 14, 8),
                     new RecursoInicialDto("Piedra", 9, 5),
                     new RecursoInicialDto("Hierro", 11, 10)
+                },
+
+                recursosMaquina = new[]
+                {
+                    new RecursoInicialDto("Oro", 3, 6),
+                    new RecursoInicialDto("Oro", 1, 9),
+                    new RecursoInicialDto("Madera", 4, 7),
+                    new RecursoInicialDto("Madera", 2, 9),
+                    new RecursoInicialDto("Comida", 3, 8),
+                    new RecursoInicialDto("Comida", 5, 7),
+                    new RecursoInicialDto("Piedra", 2, 5),
+                    new RecursoInicialDto("Piedra", 4, 9),
+                    new RecursoInicialDto("Hierro", 5, 5),
+                    new RecursoInicialDto("Hierro", 1, 5),
+                    new RecursoInicialDto("Madera", 0, 6),
+                    new RecursoInicialDto("Madera", 4, 5),
+                    new RecursoInicialDto("Oro", 2, 7),
+                    new RecursoInicialDto("Comida", 0, 8),
+                    new RecursoInicialDto("Piedra", 5, 9),
+                    new RecursoInicialDto("Hierro", 3, 4)
                 }
             };
         }
