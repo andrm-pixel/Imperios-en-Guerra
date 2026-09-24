@@ -131,7 +131,7 @@ namespace ImperiosEnGuerra.Vistas
             recursos.text = texto;
         }
 
-        /// <summary>Muestra los datos de la entidad seleccionada.</summary>
+        /// <summary>Muestra los datos de la entidad seleccionada en una línea.</summary>
         public void MostrarSeleccion(EntidadSeleccionableVista entidad)
         {
             if (seleccion == null)
@@ -144,9 +144,7 @@ namespace ImperiosEnGuerra.Vistas
             }
 
             string texto =
-                $"{entidad.TipoLogico}\n" +
-                $"Propietario: {entidad.Propietario}\n" +
-                $"Coordenada: ({entidad.X},{entidad.Y})";
+                $"{entidad.TipoLogico} {entidad.Propietario} ({entidad.X},{entidad.Y})";
 
             if (entidad.Categoria == CategoriaEntidadVisual.Unidad)
             {
@@ -160,13 +158,11 @@ namespace ImperiosEnGuerra.Vistas
                         ? "Ninguna"
                         : entidad.OrdenActiva;
 
-                texto +=
-                    $"\nEstado: {estado}" +
-                    $"\nOrden: {orden}";
+                texto += $" · {estado}/{orden}";
             }
 
             if (entidad.Propietario == "Maquina")
-                texto += " — Enemigo";
+                texto += " · Enemigo";
 
             seleccion.text = texto;
         }
