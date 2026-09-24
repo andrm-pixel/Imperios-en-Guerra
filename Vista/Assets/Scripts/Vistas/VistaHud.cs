@@ -43,6 +43,40 @@ namespace ImperiosEnGuerra.Vistas
         private void Awake()
         {
             HudDisposicion.Aplicar(this);
+            AsegurarBatalla();
+        }
+
+        /// <summary>Crea el boton Batalla si la escena vieja no lo trae.</summary>
+        private void AsegurarBatalla()
+        {
+            if (batalla != null || transform == null)
+                return;
+
+            Transform atacar = HudDisposicion.Buscar(transform.root, "Atacar");
+
+            if (atacar == null || atacar.parent == null)
+                return;
+
+            GameObject clon = Instantiate(atacar.gameObject, atacar.parent);
+            clon.name = "Batalla";
+
+            RectTransform rect = clon.GetComponent<RectTransform>();
+
+            if (rect != null)
+            {
+                rect.anchorMin = new Vector2(0f, 0f);
+                rect.anchorMax = new Vector2(0f, 0f);
+                rect.anchoredPosition = new Vector2(411f, 16f);
+                rect.sizeDelta = new Vector2(72f, 46f);
+                rect.pivot = new Vector2(0f, 0f);
+            }
+
+            Text etiqueta = clon.GetComponentInChildren<Text>();
+
+            if (etiqueta != null)
+                etiqueta.text = "¡Batalla!";
+
+            batalla = clon.GetComponent<Button>();
         }
 
         /// <summary>Suscribe los botones a sus solicitudes de accion.</summary>

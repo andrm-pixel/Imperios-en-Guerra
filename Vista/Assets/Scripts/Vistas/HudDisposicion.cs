@@ -12,10 +12,14 @@ namespace ImperiosEnGuerra.Vistas
         /// <summary>Aplica la disposicion canonica a los hijos del panel.</summary>
         public static void Aplicar(Component hud)
         {
-            if (hud == null || hud.transform == null || hud.transform.parent == null)
+            if (hud == null || hud.transform == null)
                 return;
 
-            Transform raiz = hud.transform.parent;
+            // Desde la raiz para no depender del padre exacto.
+            Transform raiz = hud.transform.root;
+
+            if (raiz == null)
+                return;
 
             Colocar(raiz, "Recursos", 0f, 1f, 1f, 1f, 0f, -8f, -16f, 36f, 0.5f, 1f);
             Colocar(raiz, "Seleccion", 0f, 1f, 1f, 1f, 0f, -48f, -32f, 65f, 0.5f, 1f);
@@ -58,7 +62,7 @@ namespace ImperiosEnGuerra.Vistas
             rect.pivot = new Vector2(pivoteX, pivoteY);
         }
 
-        private static Transform Buscar(Transform raiz, string nombre)
+        internal static Transform Buscar(Transform raiz, string nombre)
         {
             foreach (Transform hijo in raiz)
             {
