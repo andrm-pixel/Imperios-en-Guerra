@@ -123,7 +123,7 @@ namespace ImperiosEnGuerra.Vistas
             }
 
             string texto =
-                $"{entidad.TipoLogico} {entidad.Propietario} ({entidad.X},{entidad.Y})";
+                $"{entidad.TipoLogico} {NombreReino(entidad.Propietario)} ({entidad.X},{entidad.Y})";
 
             if (entidad.Categoria == CategoriaEntidadVisual.Unidad)
             {
@@ -144,6 +144,18 @@ namespace ImperiosEnGuerra.Vistas
                 texto += " · Enemigo";
 
             seleccion.text = texto;
+        }
+
+        /// <summary>Nombre del reino para mostrar (Griegos vs Troya).</summary>
+        private static string NombreReino(string propietario)
+        {
+            if (propietario == "Humano")
+                return "Griego";
+
+            if (propietario == "Maquina")
+                return "Troya";
+
+            return propietario;
         }
 
         /// <summary>Muestra u oculta el selector de tipo de unidad.</summary>

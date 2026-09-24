@@ -2232,8 +2232,8 @@ public bool PuedeIniciarAtaque =>
 
             return new IniciarPartidaDto
             {
-                nombreHumano = "Jugador",
-                nombreMaquina = "CPU",
+                nombreHumano = "Griegos",
+                nombreMaquina = "Troya",
 
                 anchoMapa = ImperiosEnGuerra.Modelo.Core.DisposicionInicial.AnchoMapa,
                 altoMapa = ImperiosEnGuerra.Modelo.Core.DisposicionInicial.AltoMapa,

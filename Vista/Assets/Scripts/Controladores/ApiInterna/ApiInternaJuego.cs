@@ -101,11 +101,11 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             var inicializador = new InicializadorPartida();
 
             Partida partida = inicializador.Crear(
-                "Jugador",
+                "Griegos",
                 mapa,
                 DisposicionInicial.CentroHumano,
                 new List<Recurso>(DisposicionInicial.RecursosHumano()),
-                "CPU",
+                "Troya",
                 mapa,
                 DisposicionInicial.CentroMaquina,
                 new List<Recurso>(DisposicionInicial.RecursosMaquina()));
