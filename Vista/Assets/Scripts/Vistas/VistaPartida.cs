@@ -1041,20 +1041,21 @@ namespace ImperiosEnGuerra.Vistas
                 return;
             }
 
-            // Franja inferior reservada a la interfaz (botones, selección y
-            // mensajes) para que ningún panel tape el mapa.
-            const float reservaInferior = 0.13f;
-            camara.rect = new Rect(0f, reservaInferior, 1f, 1f - reservaInferior);
+            // Franja lateral izquierda reservada a la interfaz (recursos,
+            // botones, selección y mensajes) para que ningún panel tape el mapa.
+            const float margenIzquierdo = 0.18f;
+            camara.rect = new Rect(margenIzquierdo, 0f, 1f - margenIzquierdo, 1f);
 
             camara.orthographic = true;
             camara.transform.position = PosicionVisual((mapa.ancho - 1) / 2f, (mapa.alto - 1) / 2f)
                 + new Vector3(0f, 0f, -10f);
             camara.transform.rotation = Quaternion.identity;
+            // El aspecto ya descuenta la franja lateral: el mapa se ajusta
+            // al alto o al ancho visible, el que resulte más restrictivo.
             float aspecto = Mathf.Max(camara.aspect, 0.01f);
-            float altoVista = Mathf.Max(camara.rect.height, 0.01f);
-            camara.orthographicSize = (Mathf.Max(
+            camara.orthographicSize = Mathf.Max(
                 mapa.alto * espacioCasilla / 2f,
-                mapa.ancho * espacioCasilla / (2f * aspecto)) + espacioCasilla) / altoVista;
+                mapa.ancho * espacioCasilla / (2f * aspecto)) + espacioCasilla;
         }
     }
 }
