@@ -89,34 +89,34 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             Partida partida = inicializador.Crear(
                 "Jugador",
                 mapa,
-                new Coordenada(1, 1),
+                new Coordenada(1, 7),
                 new List<Recurso>
                 {
-                    new Recurso(TipoRecurso.Oro, new Coordenada(5, 2)),
-                    new Recurso(TipoRecurso.Oro, new Coordenada(1, 7)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(6, 1)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(2, 6)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(4, 4)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(7, 3)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(3, 7)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(6, 5)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(2, 3)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(5, 6))
+                    new Recurso(TipoRecurso.Oro, new Coordenada(3, 6)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(1, 9)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(4, 7)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(2, 9)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(3, 8)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(5, 7)),
+                    new Recurso(TipoRecurso.Piedra, new Coordenada(2, 5)),
+                    new Recurso(TipoRecurso.Piedra, new Coordenada(4, 9)),
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(5, 5)),
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(1, 5))
                 },
                 "CPU",
                 mapa,
-                new Coordenada(13, 13),
+                new Coordenada(13, 7),
                 new List<Recurso>
                 {
-                    new Recurso(TipoRecurso.Oro, new Coordenada(9, 12)),
-                    new Recurso(TipoRecurso.Oro, new Coordenada(13, 7)),
-                    new Recurso(TipoRecurso.Madera, new Coordenada(8, 13)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(11, 6)),
+                    new Recurso(TipoRecurso.Oro, new Coordenada(13, 9)),
+                    new Recurso(TipoRecurso.Madera, new Coordenada(10, 7)),
                     new Recurso(TipoRecurso.Madera, new Coordenada(12, 9)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(10, 11)),
-                    new Recurso(TipoRecurso.Comida, new Coordenada(7, 10)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(11, 8)),
-                    new Recurso(TipoRecurso.Piedra, new Coordenada(8, 10)),
-                    new Recurso(TipoRecurso.Hierro, new Coordenada(10, 13)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(11, 8)),
+                    new Recurso(TipoRecurso.Comida, new Coordenada(9, 7)),
+                    new Recurso(TipoRecurso.Piedra, new Coordenada(12, 5)),
+                    new Recurso(TipoRecurso.Piedra, new Coordenada(10, 9)),
+                    new Recurso(TipoRecurso.Hierro, new Coordenada(9, 9)),
                     new Recurso(TipoRecurso.Hierro, new Coordenada(12, 11))
                 });
 
