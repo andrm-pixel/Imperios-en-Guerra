@@ -17,7 +17,7 @@ public class AtaqueConcurrenteTests
     {
         Partida partida = CrearPartida(
             out Guerrero atacante,
-            out Arquero objetivo);
+            out Lancero objetivo);
 
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
@@ -61,7 +61,7 @@ public class AtaqueConcurrenteTests
     {
         Partida partida = CrearPartida(
             out Guerrero atacante,
-            out Arquero objetivo);
+            out Lancero objetivo);
 
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
@@ -118,7 +118,7 @@ public class AtaqueConcurrenteTests
             "Máquina", TipoJugador.Maquina, mapa, new RecursosJugador());
 
         var atacanteLejos = new Guerrero(new Coordenada(1, 1));
-        var objetivoLejos = new Arquero(new Coordenada(4, 4));
+        var objetivoLejos = new Lancero(new Coordenada(4, 4));
         humano.AgregarUnidad(atacanteLejos);
         maquina.AgregarUnidad(objetivoLejos);
 
@@ -158,7 +158,7 @@ public class AtaqueConcurrenteTests
 
     private static Partida CrearPartida(
         out Guerrero atacante,
-        out Arquero objetivo)
+        out Lancero objetivo)
     {
         var mapa = new Mapa(6, 6);
 
@@ -183,7 +183,7 @@ public class AtaqueConcurrenteTests
 
 
         objetivo =
-            new Arquero(
+            new Lancero(
                 new Coordenada(2, 1));
 
 

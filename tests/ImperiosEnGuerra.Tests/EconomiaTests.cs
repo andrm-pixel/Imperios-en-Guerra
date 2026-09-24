@@ -109,6 +109,7 @@ public class EconomiaTests
         {
             { "Aldeano", (0, 10, 0, 0) },
             { "Guerrero", (5, 15, 0, 5) },
+            { "Lancero", (8, 15, 5, 0) },
             { "Arquero", (10, 10, 0, 8) }
         };
 

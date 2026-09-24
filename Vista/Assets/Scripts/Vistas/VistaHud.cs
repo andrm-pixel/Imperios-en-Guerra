@@ -31,6 +31,8 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Button entrenarAldeano;
         /// <summary>Botón para entrenar un Guerrero.</summary>
         [SerializeField] private Button entrenarGuerrero;
+        /// <summary>Botón para entrenar un Lancero.</summary>
+        [SerializeField] private Button entrenarLancero;
         /// <summary>Botón para entrenar un Arquero.</summary>
         [SerializeField] private Button entrenarArquero;
 
@@ -54,6 +56,9 @@ namespace ImperiosEnGuerra.Vistas
             if (entrenarGuerrero != null)
                 entrenarGuerrero.onClick.AddListener(SolicitarEntrenarGuerrero);
 
+            if (entrenarLancero != null)
+                entrenarLancero.onClick.AddListener(SolicitarEntrenarLancero);
+
             if (entrenarArquero != null)
                 entrenarArquero.onClick.AddListener(SolicitarEntrenarArquero);
         }
@@ -73,6 +78,9 @@ namespace ImperiosEnGuerra.Vistas
 
             if (entrenarGuerrero != null)
                 entrenarGuerrero.onClick.RemoveListener(SolicitarEntrenarGuerrero);
+
+            if (entrenarLancero != null)
+                entrenarLancero.onClick.RemoveListener(SolicitarEntrenarLancero);
 
             if (entrenarArquero != null)
                 entrenarArquero.onClick.RemoveListener(SolicitarEntrenarArquero);
@@ -97,6 +105,9 @@ namespace ImperiosEnGuerra.Vistas
         /// <summary>Notifica la elección del tipo Guerrero.</summary>
         private void SolicitarEntrenarGuerrero() =>
             TipoUnidadSolicitado?.Invoke("Guerrero");
+        /// <summary>Notifica la elección del tipo Lancero.</summary>
+        private void SolicitarEntrenarLancero() =>
+            TipoUnidadSolicitado?.Invoke("Lancero");
         /// <summary>Notifica la elección del tipo Arquero.</summary>
         private void SolicitarEntrenarArquero() =>
             TipoUnidadSolicitado?.Invoke("Arquero");

@@ -22,6 +22,19 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(guerrero.Disponible, Is.True);
         }
 
+        // Caso Lancero: verifica es soldado y conserva coordenada.
+        [Test]
+        public void Lancero_EsSoldadoYConservaCoordenada()
+        {
+            Coordenada coordenada = new Coordenada(2, 3);
+
+            Lancero lancero = new Lancero(coordenada);
+
+            Assert.That(lancero, Is.InstanceOf<Soldado>());
+            Assert.That(lancero.Coordenada, Is.SameAs(coordenada));
+            Assert.That(lancero.Disponible, Is.True);
+        }
+
         // Caso Arquero: verifica es soldado y conserva coordenada.
         [Test]
         public void Arquero_EsSoldadoYConservaCoordenada()
@@ -71,6 +84,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             {
                 new Aldeano(new Coordenada(0, 0)),
                 new Guerrero(new Coordenada(0, 0)),
+                new Lancero(new Coordenada(0, 0)),
                 new Arquero(new Coordenada(0, 0))
             };
 
@@ -89,21 +103,25 @@ namespace ImperiosEnGuerra.Tests.Editor
             var aldeano =
                 new Aldeano(new Coordenada(0, 0));
 
+            var lancero =
+                new Lancero(new Coordenada(0, 0));
+
             var arquero =
                 new Arquero(new Coordenada(0, 0));
 
-            var guerrero =
-                new Guerrero(new Coordenada(0, 0));
-
             Assert.That(
-                arquero.VelocidadMovimiento,
+                lancero.VelocidadMovimiento,
                 Is.GreaterThan(
                     aldeano.VelocidadMovimiento));
 
             Assert.That(
                 aldeano.VelocidadMovimiento,
                 Is.EqualTo(
-                    guerrero.VelocidadMovimiento));
+                    new Guerrero(new Coordenada(0, 0)).VelocidadMovimiento));
+
+            Assert.That(
+                arquero.VelocidadMovimiento,
+                Is.GreaterThan(0d));
         }
 
         // Caso Aldeano: verifica inicia sin carga y con capacidad.

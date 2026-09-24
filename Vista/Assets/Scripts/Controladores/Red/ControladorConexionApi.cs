@@ -1868,6 +1868,9 @@ public bool PuedeIniciarAtaque =>
                 case "Guerrero":
                     costo = economiaActual.guerrero;
                     break;
+                case "Lancero":
+                    costo = economiaActual.lancero;
+                    break;
                 case "Arquero":
                     costo = economiaActual.arquero;
                     break;

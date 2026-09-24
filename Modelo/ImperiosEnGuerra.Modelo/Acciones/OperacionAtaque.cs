@@ -10,8 +10,8 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// <summary>
     /// Aplica daño real de combate en el Modelo con estadísticas por tipo.
     /// El objetivo puede ser una unidad enemiga o un edificio enemigo.
-    /// Unidades del prototipo: Aldeano, Guerrero y Arquero.
-    /// Valores del prototipo: Guerrero 25/alc.1,
+    /// Unidades del prototipo: Aldeano, Guerrero, Lancero y Arquero.
+    /// Valores del prototipo: Guerrero 25/alc.1, Lancero 20/alc.2,
     /// Arquero 15/alc.4. Lo destruido se retira y libera
     /// su casilla. Victoria: sin Centro Urbano o sin unidades enemigas.
     /// </summary>

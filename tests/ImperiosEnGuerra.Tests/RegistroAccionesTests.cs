@@ -40,7 +40,7 @@ public class RegistroAccionesTests
     {
         var archivos = new ServicioArchivos(directorioTemporal);
         var servicio = new EstadoPartidaService(archivos);
-        Partida partida = CrearPartida(out Aldeano aldeano, out Guerrero guerrero, out Arquero enemigo);
+        Partida partida = CrearPartida(out Aldeano aldeano, out Guerrero guerrero, out Lancero enemigo);
 
         servicio.EstablecerPartida(partida);
 
@@ -145,7 +145,7 @@ public class RegistroAccionesTests
     private static Partida CrearPartida(
         out Aldeano aldeano,
         out Guerrero guerrero,
-        out Arquero enemigo)
+        out Lancero enemigo)
     {
         var mapa = new Mapa(10, 10);
 
@@ -185,7 +185,7 @@ public class RegistroAccionesTests
 
         aldeano = new Aldeano(new Coordenada(1, 1));
         guerrero = new Guerrero(new Coordenada(2, 1));
-        enemigo = new Arquero(new Coordenada(4, 3));
+        enemigo = new Lancero(new Coordenada(4, 3));
 
         humano.AgregarUnidad(aldeano);
         humano.AgregarUnidad(guerrero);

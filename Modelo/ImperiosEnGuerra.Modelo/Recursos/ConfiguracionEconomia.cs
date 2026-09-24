@@ -41,6 +41,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 {
                     { nameof(Aldeano), new CostoRecursos(0, 0, 10) },
                     { nameof(Guerrero), new CostoRecursos(5, 0, 15, 0, 5) },
+                    { nameof(Lancero), new CostoRecursos(8, 0, 15, 5) },
                     { nameof(Arquero), new CostoRecursos(10, 0, 10, 0, 8) }
                 };
         }

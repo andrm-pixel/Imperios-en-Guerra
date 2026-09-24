@@ -135,7 +135,7 @@ public class EntrenamientoConcurrenteTests
 
         ProcesoConcurrente primero =
             servicio.IniciarEntrenamiento(
-                CrearRequest("Guerrero", 3, 3));
+                CrearRequest("Lancero", 3, 3));
 
         ProcesoConcurrente segundo =
             servicio.IniciarEntrenamiento(

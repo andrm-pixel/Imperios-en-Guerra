@@ -84,7 +84,7 @@ public static class Fase2VistaConfigurator
     /// <summary>Crea un jugador de prueba con cinco unidades.</summary>
     private static JugadorEstadoDto CrearJugadorPrueba(string tipo, int y)
     {
-        string[] tipos = { "Aldeano", "Guerrero", "Arquero" };
+        string[] tipos = { "Aldeano", "Guerrero", "Lancero", "Arquero" };
         return new JugadorEstadoDto
         {
             nombre = tipo,

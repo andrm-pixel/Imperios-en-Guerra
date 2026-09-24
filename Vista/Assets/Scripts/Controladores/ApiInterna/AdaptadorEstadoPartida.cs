@@ -98,6 +98,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                 centroUrbano = ConvertirCosto(economia.CentroUrbano),
                 aldeano = ConvertirCosto(economia.Aldeano),
                 guerrero = ConvertirCosto(economia.Guerrero),
+                lancero = ConvertirCosto(economia.Lancero),
                 arquero = ConvertirCosto(economia.Arquero)
             };
         }

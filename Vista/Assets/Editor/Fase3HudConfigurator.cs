@@ -147,6 +147,7 @@ public static class Fase3HudConfigurator
         {
             "Aldeano",
             "Guerrero",
+            "Lancero",
             "Arquero"
         };
 
@@ -154,6 +155,7 @@ public static class Fase3HudConfigurator
         {
             "entrenarAldeano",
             "entrenarGuerrero",
+            "entrenarLancero",
             "entrenarArquero"
         };
 

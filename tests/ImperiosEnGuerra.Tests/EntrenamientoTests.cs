@@ -175,7 +175,7 @@ public class EntrenamientoTests
                 partida,
                 new SolicitudEntrenamiento(
                     new Coordenada(1, 1),
-                    "Arquero",
+                    "Lancero",
                     new Coordenada(2, 2)));
 
         Assert.That(resultado.Exito, Is.False);

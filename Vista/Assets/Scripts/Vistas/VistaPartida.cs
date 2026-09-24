@@ -38,12 +38,16 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Sprite aldeanoHumano;
         /// <summary>Sprite del guerrero humano.</summary>
         [SerializeField] private Sprite guerreroHumano;
+        /// <summary>Sprite del lancero humano.</summary>
+        [SerializeField] private Sprite lanceroHumano;
         /// <summary>Sprite del arquero humano.</summary>
         [SerializeField] private Sprite arqueroHumano;
         /// <summary>Sprite del aldeano máquina.</summary>
         [SerializeField] private Sprite aldeanoMaquina;
         /// <summary>Sprite del guerrero máquina.</summary>
         [SerializeField] private Sprite guerreroMaquina;
+        /// <summary>Sprite del lancero máquina.</summary>
+        [SerializeField] private Sprite lanceroMaquina;
         /// <summary>Sprite del arquero máquina.</summary>
         [SerializeField] private Sprite arqueroMaquina;
 
@@ -552,6 +556,10 @@ namespace ImperiosEnGuerra.Vistas
                     return humano
                         ? guerreroHumano
                         : guerreroMaquina;
+                case "Lancero":
+                    return humano
+                        ? lanceroHumano
+                        : lanceroMaquina;
                 case "Arquero":
                     return humano
                         ? arqueroHumano
@@ -823,6 +831,7 @@ namespace ImperiosEnGuerra.Vistas
                 {
                     case "Aldeano": sprite = humano ? aldeanoHumano : aldeanoMaquina; break;
                     case "Guerrero": sprite = humano ? guerreroHumano : guerreroMaquina; break;
+                    case "Lancero": sprite = humano ? lanceroHumano : lanceroMaquina; break;
                     case "Arquero": sprite = humano ? arqueroHumano : arqueroMaquina; break;
                     default:
                         Debug.LogWarning($"Tipo de unidad desconocido: {unidad.tipo}", this);
