@@ -47,7 +47,9 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                 {
                     oro = jugador.Recursos.Oro,
                     madera = jugador.Recursos.Madera,
-                    comida = jugador.Recursos.Comida
+                    comida = jugador.Recursos.Comida,
+                    piedra = jugador.Recursos.Piedra,
+                    hierro = jugador.Recursos.Hierro
                 },
                 edificios = jugador.Edificios.Select(e => new UnityDto.EdificioEstadoDto
                 {
@@ -104,7 +106,9 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             {
                 oro = costo.Oro,
                 madera = costo.Madera,
-                comida = costo.Comida
+                comida = costo.Comida,
+                piedra = costo.Piedra,
+                hierro = costo.Hierro
             };
         }
     }

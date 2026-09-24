@@ -16,6 +16,14 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         /// <summary>
         /// Recurso de comida.
         /// </summary>
-        Comida
+        Comida,
+        /// <summary>
+        /// Recurso de piedra para construcción.
+        /// </summary>
+        Piedra,
+        /// <summary>
+        /// Recurso de hierro para tropas.
+        /// </summary>
+        Hierro
     }
 }

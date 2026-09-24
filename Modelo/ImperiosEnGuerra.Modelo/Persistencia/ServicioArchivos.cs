@@ -98,6 +98,8 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
             AgregarRecursoAlmacenado(texto, jugador, TipoRecurso.Oro);
             AgregarRecursoAlmacenado(texto, jugador, TipoRecurso.Madera);
             AgregarRecursoAlmacenado(texto, jugador, TipoRecurso.Comida);
+            AgregarRecursoAlmacenado(texto, jugador, TipoRecurso.Piedra);
+            AgregarRecursoAlmacenado(texto, jugador, TipoRecurso.Hierro);
 
             texto.Append("Edificios:\n");
             foreach (var edificio in jugador.Edificios

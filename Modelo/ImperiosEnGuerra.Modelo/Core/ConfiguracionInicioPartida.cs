@@ -13,17 +13,23 @@ namespace ImperiosEnGuerra.Modelo.Core
         public const int OroInicialPredeterminado = 0;
         public const int MaderaInicialPredeterminada = 20;
         public const int ComidaInicialPredeterminada = 30;
+        public const int PiedraInicialPredeterminada = 0;
+        public const int HierroInicialPredeterminado = 0;
 
         public int AldeanosIniciales { get; }
         public int OroInicial { get; }
         public int MaderaInicial { get; }
         public int ComidaInicial { get; }
+        public int PiedraInicial { get; }
+        public int HierroInicial { get; }
 
         public ConfiguracionInicioPartida(
             int aldeanosIniciales = AldeanosInicialesPredeterminados,
             int oroInicial = OroInicialPredeterminado,
             int maderaInicial = MaderaInicialPredeterminada,
-            int comidaInicial = ComidaInicialPredeterminada)
+            int comidaInicial = ComidaInicialPredeterminada,
+            int piedraInicial = PiedraInicialPredeterminada,
+            int hierroInicial = HierroInicialPredeterminado)
         {
             if (aldeanosIniciales <= 0)
                 throw new ArgumentOutOfRangeException(nameof(aldeanosIniciales));
@@ -33,11 +39,17 @@ namespace ImperiosEnGuerra.Modelo.Core
                 throw new ArgumentOutOfRangeException(nameof(maderaInicial));
             if (comidaInicial < 0)
                 throw new ArgumentOutOfRangeException(nameof(comidaInicial));
+            if (piedraInicial < 0)
+                throw new ArgumentOutOfRangeException(nameof(piedraInicial));
+            if (hierroInicial < 0)
+                throw new ArgumentOutOfRangeException(nameof(hierroInicial));
 
             AldeanosIniciales = aldeanosIniciales;
             OroInicial = oroInicial;
             MaderaInicial = maderaInicial;
             ComidaInicial = comidaInicial;
+            PiedraInicial = piedraInicial;
+            HierroInicial = hierroInicial;
         }
 
         public void AplicarSaldoInicial(
@@ -49,6 +61,8 @@ namespace ImperiosEnGuerra.Modelo.Core
             recursos.Agregar(TipoRecurso.Oro, OroInicial);
             recursos.Agregar(TipoRecurso.Madera, MaderaInicial);
             recursos.Agregar(TipoRecurso.Comida, ComidaInicial);
+            recursos.Agregar(TipoRecurso.Piedra, PiedraInicial);
+            recursos.Agregar(TipoRecurso.Hierro, HierroInicial);
         }
     }
 }

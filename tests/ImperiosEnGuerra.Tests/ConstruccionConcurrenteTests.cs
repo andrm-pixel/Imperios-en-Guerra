@@ -253,6 +253,8 @@ public class ConstruccionConcurrenteTests
         humano.Recursos.Agregar(TipoRecurso.Oro, 500);
         humano.Recursos.Agregar(TipoRecurso.Madera, 500);
         humano.Recursos.Agregar(TipoRecurso.Comida, 500);
+        humano.Recursos.Agregar(TipoRecurso.Piedra, 500);
+        humano.Recursos.Agregar(TipoRecurso.Hierro, 500);
 
         primero = new Aldeano(
             new Coordenada(1, 1));

@@ -8,7 +8,8 @@ namespace ImperiosEnGuerra.Modelo.Recursos
     /// <summary>
     /// Balance económico propio del prototipo académico.
     /// Comida sostiene crecimiento y ejército; Madera se reserva a construcción;
-    /// Oro financia tropas y expansión.
+    /// Oro financia tropas y expansión; Piedra refuerza construcción;
+    /// Hierro arma a las tropas avanzadas.
     /// </summary>
     public sealed class ConfiguracionEconomia
     {
@@ -26,7 +27,8 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                         new CostoRecursos(
                             oro: 20,
                             madera: 50,
-                            comida: 0)
+                            comida: 0,
+                            piedra: 20)
                     }
                 };
 
@@ -35,10 +37,10 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                     StringComparer.OrdinalIgnoreCase)
                 {
                     { nameof(Aldeano), new CostoRecursos(0, 0, 10) },
-                    { nameof(Guerrero), new CostoRecursos(5, 0, 15) },
-                    { nameof(Lancero), new CostoRecursos(8, 0, 15) },
-                    { nameof(Arquero), new CostoRecursos(10, 0, 10) },
-                    { nameof(Monje), new CostoRecursos(20, 0, 10) }
+                    { nameof(Guerrero), new CostoRecursos(5, 0, 15, 0, 5) },
+                    { nameof(Lancero), new CostoRecursos(8, 0, 15, 5) },
+                    { nameof(Arquero), new CostoRecursos(10, 0, 10, 0, 8) },
+                    { nameof(Monje), new CostoRecursos(20, 0, 10, 0, 10) }
                 };
         }
 

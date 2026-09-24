@@ -537,15 +537,15 @@ public bool PuedeIniciarAtaque =>
                 if (vistaHud != null && recursos != null)
                 {
                     if (unidad != null)
-                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, unidad.tipoCarga, unidad.cargaActual);
+                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, recursos.piedra, recursos.hierro, unidad.tipoCarga, unidad.cargaActual);
                     else
-                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida);
+                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, recursos.piedra, recursos.hierro);
                 }
                 yield break;
             }
             var recursosSolo = estado?.jugadorHumano?.recursos;
             if (vistaHud != null && recursosSolo != null)
-                vistaHud.MostrarRecursos(recursosSolo.oro, recursosSolo.madera, recursosSolo.comida);
+                vistaHud.MostrarRecursos(recursosSolo.oro, recursosSolo.madera, recursosSolo.comida, recursosSolo.piedra, recursosSolo.hierro);
         }
 
         private IEnumerator SincronizarEstadoInterno(string mensaje = "")
@@ -583,7 +583,7 @@ public bool PuedeIniciarAtaque =>
                 var recursos = estado.jugadorHumano.recursos;
                 if (recursos != null)
                 {
-                    vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida);
+                    vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, recursos.piedra, recursos.hierro);
                     if (!string.IsNullOrEmpty(mensaje))
                         vistaHud.MostrarMensaje(mensaje);
                 }
@@ -1149,7 +1149,9 @@ public bool PuedeIniciarAtaque =>
                 vistaHud.MostrarRecursos(
                     recursos.oro,
                     recursos.madera,
-                    recursos.comida);
+                    recursos.comida,
+                    recursos.piedra,
+                    recursos.hierro);
 
             }
         }
@@ -1569,7 +1571,9 @@ public bool PuedeIniciarAtaque =>
                 vistaHud.MostrarRecursos(
                     recursos.oro,
                     recursos.madera,
-                    recursos.comida);
+                    recursos.comida,
+                    recursos.piedra,
+                    recursos.hierro);
             }
         }
 
@@ -1737,7 +1741,9 @@ public bool PuedeIniciarAtaque =>
 
             return $"Costo: Oro {costo.oro}, " +
                    $"Madera {costo.madera}, " +
-                   $"Comida {costo.comida}.";
+                   $"Comida {costo.comida}, " +
+                   $"Piedra {costo.piedra}, " +
+                   $"Hierro {costo.hierro}.";
         }
 
         private void MostrarError(string mensaje)
@@ -1971,7 +1977,9 @@ public bool PuedeIniciarAtaque =>
                     vistaHud.MostrarRecursos(
                         recursos.oro,
                         recursos.madera,
-                        recursos.comida);
+                        recursos.comida,
+                        recursos.piedra,
+                        recursos.hierro);
 
                     if (mostrarMensaje)
                     {
@@ -1995,33 +2003,41 @@ public bool PuedeIniciarAtaque =>
                 nombreHumano = "Jugador",
                 nombreMaquina = "CPU",
 
-                anchoMapa = 10,
-                altoMapa = 10,
+                anchoMapa = 15,
+                altoMapa = 15,
 
                 centroHumano =
                     new CoordenadaDto(1, 1),
 
                 centroMaquina =
-                    new CoordenadaDto(8, 8),
+                    new CoordenadaDto(13, 13),
 
                 recursosHumano = new[]
                 {
-                    new RecursoInicialDto("Oro", 4, 2),
-                    new RecursoInicialDto("Oro", 1, 5),
-                    new RecursoInicialDto("Madera", 5, 1),
-                    new RecursoInicialDto("Madera", 2, 4),
-                    new RecursoInicialDto("Comida", 3, 3),
-                    new RecursoInicialDto("Comida", 6, 2)
+                    new RecursoInicialDto("Oro", 5, 2),
+                    new RecursoInicialDto("Oro", 1, 7),
+                    new RecursoInicialDto("Madera", 6, 1),
+                    new RecursoInicialDto("Madera", 2, 6),
+                    new RecursoInicialDto("Comida", 4, 4),
+                    new RecursoInicialDto("Comida", 7, 3),
+                    new RecursoInicialDto("Piedra", 3, 7),
+                    new RecursoInicialDto("Piedra", 6, 5),
+                    new RecursoInicialDto("Hierro", 2, 3),
+                    new RecursoInicialDto("Hierro", 5, 6)
                 },
 
                 recursosMaquina = new[]
                 {
-                    new RecursoInicialDto("Oro", 5, 7),
-                    new RecursoInicialDto("Oro", 8, 4),
-                    new RecursoInicialDto("Madera", 4, 8),
-                    new RecursoInicialDto("Madera", 7, 5),
-                    new RecursoInicialDto("Comida", 6, 6),
-                    new RecursoInicialDto("Comida", 3, 7)
+                    new RecursoInicialDto("Oro", 9, 12),
+                    new RecursoInicialDto("Oro", 13, 7),
+                    new RecursoInicialDto("Madera", 8, 13),
+                    new RecursoInicialDto("Madera", 12, 9),
+                    new RecursoInicialDto("Comida", 10, 11),
+                    new RecursoInicialDto("Comida", 7, 10),
+                    new RecursoInicialDto("Piedra", 11, 8),
+                    new RecursoInicialDto("Piedra", 8, 10),
+                    new RecursoInicialDto("Hierro", 10, 13),
+                    new RecursoInicialDto("Hierro", 12, 11)
                 }
             };
         }

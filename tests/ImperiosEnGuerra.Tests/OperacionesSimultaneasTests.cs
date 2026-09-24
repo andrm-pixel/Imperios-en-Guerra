@@ -118,6 +118,8 @@ public class OperacionesSimultaneasTests
         humano.Recursos.Agregar(TipoRecurso.Oro, 500);
         humano.Recursos.Agregar(TipoRecurso.Madera, 500);
         humano.Recursos.Agregar(TipoRecurso.Comida, 500);
+        humano.Recursos.Agregar(TipoRecurso.Piedra, 500);
+        humano.Recursos.Agregar(TipoRecurso.Hierro, 500);
 
         aldeano = new Aldeano(
             new Coordenada(0, 0));

@@ -17,6 +17,8 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Sprite oro;
         [SerializeField] private Sprite madera;
         [SerializeField] private Sprite comida;
+        [SerializeField] private Sprite piedra;
+        [SerializeField] private Sprite hierro;
         [SerializeField] private Sprite centroHumano;
         [SerializeField] private Sprite centroMaquina;
         [SerializeField] private Sprite aldeanoHumano;
@@ -612,7 +614,23 @@ namespace ImperiosEnGuerra.Vistas
             {
                 for (int y = 0; y < mapa.alto; y++)
                 {
-                    CrearSprite($"Suelo_{x}_{y}", suelo, x, y, 0, contenedor, escalaSuelo);
+                    GameObject baldosa =
+                        CrearSprite($"Suelo_{x}_{y}", suelo, x, y, 0, contenedor, escalaSuelo);
+
+                    if (baldosa != null)
+                    {
+                        SpriteRenderer fondo =
+                            baldosa.GetComponent<SpriteRenderer>();
+
+                        if (fondo != null)
+                        {
+                            float brillo =
+                                0.92f + ((x * 7 + y * 13) % 5) * 0.02f;
+
+                            fondo.color =
+                                new Color(brillo, brillo, brillo, 1f);
+                        }
+                    }
                 }
             }
         }
@@ -633,11 +651,20 @@ namespace ImperiosEnGuerra.Vistas
                 }
 
                 Sprite sprite;
+                Color tinte = Color.white;
                 switch (recurso.tipo)
                 {
                     case "Oro": sprite = oro; break;
                     case "Madera": sprite = madera; break;
                     case "Comida": sprite = comida; break;
+                    case "Piedra":
+                        sprite = piedra != null ? piedra : oro;
+                        tinte = new Color(0.72f, 0.72f, 0.78f, 1f);
+                        break;
+                    case "Hierro":
+                        sprite = hierro != null ? hierro : oro;
+                        tinte = new Color(0.55f, 0.42f, 0.34f, 1f);
+                        break;
                     default:
                         Debug.LogWarning($"Tipo de recurso desconocido: {recurso.tipo}", this);
                         continue;
@@ -646,6 +673,16 @@ namespace ImperiosEnGuerra.Vistas
                 GameObject objeto = CrearSprite($"Recurso_{recurso.tipo}_{recurso.coordenada.x}_{recurso.coordenada.y}",
                     sprite, recurso.coordenada.x, recurso.coordenada.y, 10, contenedor,
                     Vector3.one * escalaRecursos);
+
+                if (objeto != null && tinte != Color.white)
+                {
+                    SpriteRenderer dibujo =
+                        objeto.GetComponent<SpriteRenderer>();
+
+                    if (dibujo != null)
+                        dibujo.color = tinte;
+                }
+
                 ConfigurarSeleccionable(objeto, CategoriaEntidadVisual.Recurso,
                     recurso.tipo, string.Empty, recurso.coordenada);
             }

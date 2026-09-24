@@ -24,6 +24,8 @@ public sealed class CostoEstadoResponse
     public int Oro { get; set; }
     public int Madera { get; set; }
     public int Comida { get; set; }
+    public int Piedra { get; set; }
+    public int Hierro { get; set; }
 }
 
 public sealed class MapaEstadoResponse
@@ -48,6 +50,8 @@ public sealed class RecursosJugadorEstadoResponse
     public int Oro { get; set; }
     public int Madera { get; set; }
     public int Comida { get; set; }
+    public int Piedra { get; set; }
+    public int Hierro { get; set; }
 }
 
 public sealed class RecursoEstadoResponse

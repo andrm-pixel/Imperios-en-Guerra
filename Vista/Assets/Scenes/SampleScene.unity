@@ -1611,6 +1611,8 @@ MonoBehaviour:
   oro: {fileID: 21300000, guid: 8f173b2662bb70e4586439951d9eb0eb, type: 3}
   madera: {fileID: 6215267202064938543, guid: 9f32a191d39ed4c43bf6746af6dfe202, type: 3}
   comida: {fileID: -6879290243380990860, guid: 819ba0a34662da140a2170b91b7bad97, type: 3}
+  piedra: {fileID: 21300000, guid: 291c2aa1713b1b3439117bbbb41928ee, type: 3}
+  hierro: {fileID: 21300000, guid: 72eb854234432ce4e879e615b6e4cbd5, type: 3}
   centroHumano: {fileID: 21300000, guid: fab36cafddc278f4dba30f8ecbd5a27a, type: 3}
   centroMaquina: {fileID: 21300000, guid: 534ebd0e6aeb4b84fbd7eed77201d54e, type: 3}
   aldeanoHumano: {fileID: -5948806968594788206, guid: 3dbcc06a4c3a3154b89787c9aff4f24d, type: 3}

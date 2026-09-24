@@ -52,6 +52,8 @@ public class EntrenamientoTests
         partida.JugadorHumano.Recursos.Agregar(TipoRecurso.Oro, 100);
         partida.JugadorHumano.Recursos.Agregar(TipoRecurso.Madera, 100);
         partida.JugadorHumano.Recursos.Agregar(TipoRecurso.Comida, 100);
+        partida.JugadorHumano.Recursos.Agregar(TipoRecurso.Piedra, 100);
+        partida.JugadorHumano.Recursos.Agregar(TipoRecurso.Hierro, 100);
 
         operacion = new OperacionEntrenamiento();
     }

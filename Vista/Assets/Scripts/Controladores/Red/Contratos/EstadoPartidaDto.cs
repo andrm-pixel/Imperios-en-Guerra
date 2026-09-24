@@ -29,6 +29,8 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public int oro;
         public int madera;
         public int comida;
+        public int piedra;
+        public int hierro;
     }
 
     [Serializable]
@@ -56,6 +58,8 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public int oro;
         public int madera;
         public int comida;
+        public int piedra;
+        public int hierro;
     }
 
     [Serializable]

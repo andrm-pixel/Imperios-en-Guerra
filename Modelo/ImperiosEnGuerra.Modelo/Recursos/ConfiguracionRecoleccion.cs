@@ -13,7 +13,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         public ConfiguracionRecoleccion(
             int tasaOro = 5,
             int tasaMadera = 5,
-            int tasaComida = 5)
+            int tasaComida = 5,
+            int tasaPiedra = 5,
+            int tasaHierro = 5)
         {
             ValidarTasa(
                 tasaOro,
@@ -27,12 +29,22 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 tasaComida,
                 nameof(tasaComida));
 
+            ValidarTasa(
+                tasaPiedra,
+                nameof(tasaPiedra));
+
+            ValidarTasa(
+                tasaHierro,
+                nameof(tasaHierro));
+
             tasas =
                 new Dictionary<TipoRecurso, int>
                 {
                     { TipoRecurso.Oro, tasaOro },
                     { TipoRecurso.Madera, tasaMadera },
-                    { TipoRecurso.Comida, tasaComida }
+                    { TipoRecurso.Comida, tasaComida },
+                    { TipoRecurso.Piedra, tasaPiedra },
+                    { TipoRecurso.Hierro, tasaHierro }
                 };
         }
 

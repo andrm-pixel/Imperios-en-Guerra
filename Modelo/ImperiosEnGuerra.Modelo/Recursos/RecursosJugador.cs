@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ImperiosEnGuerra.Modelo.Recursos
 {
     /// <summary>
-    /// Administra los saldos de oro, madera y comida de un participante.
+    /// Administra los saldos de oro, madera, comida, piedra y hierro de un participante.
     /// </summary>
     public class RecursosJugador
     {
@@ -12,7 +12,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         private readonly object sincronizacion = new object();
 
         /// <summary>
-        /// Inicializa los saldos de oro, madera y comida en cero.
+        /// Inicializa todos los saldos en cero.
         /// </summary>
         public RecursosJugador()
         {
@@ -20,7 +20,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             {
                 { TipoRecurso.Oro, 0 },
                 { TipoRecurso.Madera, 0 },
-                { TipoRecurso.Comida, 0 }
+                { TipoRecurso.Comida, 0 },
+                { TipoRecurso.Piedra, 0 },
+                { TipoRecurso.Hierro, 0 }
             };
         }
 
@@ -121,7 +123,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             {
                 if (cantidades[TipoRecurso.Oro] < costo.Oro ||
                     cantidades[TipoRecurso.Madera] < costo.Madera ||
-                    cantidades[TipoRecurso.Comida] < costo.Comida)
+                    cantidades[TipoRecurso.Comida] < costo.Comida ||
+                    cantidades[TipoRecurso.Piedra] < costo.Piedra ||
+                    cantidades[TipoRecurso.Hierro] < costo.Hierro)
                 {
                     return false;
                 }
@@ -129,6 +133,8 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 cantidades[TipoRecurso.Oro] -= costo.Oro;
                 cantidades[TipoRecurso.Madera] -= costo.Madera;
                 cantidades[TipoRecurso.Comida] -= costo.Comida;
+                cantidades[TipoRecurso.Piedra] -= costo.Piedra;
+                cantidades[TipoRecurso.Hierro] -= costo.Hierro;
                 return true;
             }
         }
@@ -151,6 +157,8 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 cantidades[TipoRecurso.Oro] += costo.Oro;
                 cantidades[TipoRecurso.Madera] += costo.Madera;
                 cantidades[TipoRecurso.Comida] += costo.Comida;
+                cantidades[TipoRecurso.Piedra] += costo.Piedra;
+                cantidades[TipoRecurso.Hierro] += costo.Hierro;
             }
         }
 

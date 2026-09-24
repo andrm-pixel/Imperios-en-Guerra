@@ -82,7 +82,9 @@ public static class PartidaEstadoMapper
         {
             Oro = costo.Oro,
             Madera = costo.Madera,
-            Comida = costo.Comida
+            Comida = costo.Comida,
+            Piedra = costo.Piedra,
+            Hierro = costo.Hierro
         };
     }
 
@@ -96,7 +98,9 @@ public static class PartidaEstadoMapper
             {
                 Oro = jugador.Recursos.ObtenerCantidad(TipoRecurso.Oro),
                 Madera = jugador.Recursos.ObtenerCantidad(TipoRecurso.Madera),
-                Comida = jugador.Recursos.ObtenerCantidad(TipoRecurso.Comida)
+                Comida = jugador.Recursos.ObtenerCantidad(TipoRecurso.Comida),
+                Piedra = jugador.Recursos.ObtenerCantidad(TipoRecurso.Piedra),
+                Hierro = jugador.Recursos.ObtenerCantidad(TipoRecurso.Hierro)
             },
             Edificios = jugador.Edificios.Select(edificio => new EdificioEstadoResponse
             {

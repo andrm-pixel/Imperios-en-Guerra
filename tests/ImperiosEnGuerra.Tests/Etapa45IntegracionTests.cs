@@ -38,6 +38,10 @@ public class Etapa45IntegracionTests
             TipoRecurso.Madera, new Coordenada(4, 2), 40));
         mapa.ColocarRecurso(new Recurso(
             TipoRecurso.Comida, new Coordenada(4, 3), 30));
+        mapa.ColocarRecurso(new Recurso(
+            TipoRecurso.Piedra, new Coordenada(4, 4), 40));
+        mapa.ColocarRecurso(new Recurso(
+            TipoRecurso.Hierro, new Coordenada(4, 5), 40));
 
         var partida = new Partida(humano, maquina);
         var estado = new EstadoPartidaService();
@@ -47,7 +51,7 @@ public class Etapa45IntegracionTests
         var servicio = new ServicioAccionesConcurrentes(
             estado, gestor, TimeSpan.Zero);
 
-        foreach ((int x, int y) in new[] { (4, 1), (4, 2), (4, 3) })
+        foreach ((int x, int y) in new[] { (4, 1), (4, 2), (4, 3), (4, 4), (4, 5) })
         {
             ProcesoConcurrente recoleccion =
                 servicio.IniciarRecoleccion(
@@ -135,6 +139,8 @@ public class Etapa45IntegracionTests
 
         humano.Recursos.Agregar(TipoRecurso.Oro, 100);
         humano.Recursos.Agregar(TipoRecurso.Madera, 100);
+        humano.Recursos.Agregar(TipoRecurso.Piedra, 100);
+        humano.Recursos.Agregar(TipoRecurso.Hierro, 100);
 
         var aldeano = new Aldeano(new Coordenada(1, 1));
         humano.AgregarUnidad(aldeano);
