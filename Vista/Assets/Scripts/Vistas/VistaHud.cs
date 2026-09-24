@@ -39,6 +39,12 @@ namespace ImperiosEnGuerra.Vistas
         /// <summary>Se emite al elegir un tipo de unidad a entrenar.</summary>
         public event Action<string> TipoUnidadSolicitado;
 
+        /// <summary>Fija el HUD por codigo al despertar.</summary>
+        private void Awake()
+        {
+            HudDisposicion.Aplicar(this);
+        }
+
         /// <summary>Suscribe los botones a sus solicitudes de accion.</summary>
         private void OnEnable()
         {
@@ -176,10 +182,14 @@ namespace ImperiosEnGuerra.Vistas
             if (atacar != null) atacar.gameObject.SetActive(puedeAtacar);
         }
 
-        /// <summary>Muestra un mensaje informativo o de error.</summary>
+        /// <summary>Muestra un mensaje informativo o de error (maximo 110 caracteres).</summary>
         public void MostrarMensaje(string texto, bool error = false)
         {
             if (mensaje == null) return;
+
+            if (!string.IsNullOrEmpty(texto) && texto.Length > 110)
+                texto = texto.Substring(0, 107) + "...";
+
             mensaje.text = texto;
             mensaje.color = error ? new Color(1f, 0.55f, 0.55f) : Color.white;
         }
