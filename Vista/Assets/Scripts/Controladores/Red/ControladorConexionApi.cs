@@ -721,10 +721,7 @@ public bool PuedeIniciarAtaque =>
                 var recursos = estado?.jugadorHumano?.recursos;
                 if (vistaHud != null && recursos != null)
                 {
-                    if (unidad != null)
-                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, recursos.piedra, recursos.hierro, unidad.tipoCarga, unidad.cargaActual);
-                    else
-                        vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, recursos.piedra, recursos.hierro);
+                    vistaHud.MostrarRecursos(recursos.oro, recursos.madera, recursos.comida, recursos.piedra, recursos.hierro);
                 }
                 yield break;
             }

@@ -101,18 +101,13 @@ namespace ImperiosEnGuerra.Vistas
         private void SolicitarEntrenarArquero() =>
             TipoUnidadSolicitado?.Invoke("Arquero");
         /// <summary>Muestra los recursos y la carga en camino en el HUD.</summary>
-        public void MostrarRecursos(int oro, int madera, int comida, int piedra = 0, int hierro = 0, string tipoCarga = null, int cargaActual = 0)
+        public void MostrarRecursos(int oro, int madera, int comida, int piedra = 0, int hierro = 0)
         {
             if (recursos == null)
                 return;
 
-            string texto =
+            recursos.text =
                 $"Oro: {oro} | Madera: {madera} | Comida: {comida} | Piedra: {piedra} | Hierro: {hierro}";
-
-            if (!string.IsNullOrWhiteSpace(tipoCarga) && cargaActual > 0)
-                texto += $" (+{cargaActual} {tipoCarga} en camino)";
-
-            recursos.text = texto;
         }
 
         /// <summary>Muestra los datos de la entidad seleccionada en una línea.</summary>
