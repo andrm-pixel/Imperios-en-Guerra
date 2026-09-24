@@ -16,6 +16,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         private readonly Dictionary<string, CostoRecursos> costosEdificios;
         private readonly Dictionary<string, CostoRecursos> costosUnidades;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de ConfiguracionEconomia.
+        /// </summary>
         public ConfiguracionEconomia()
         {
             costosEdificios =
@@ -44,6 +47,12 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 };
         }
 
+        /// <summary>
+        /// Intenta obtener costo edificio.
+        /// </summary>
+        /// <param name="tipoEdificio">El valor de tipo edificio.</param>
+        /// <param name="costo">El valor de costo.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool IntentarObtenerCostoEdificio(
             string tipoEdificio,
             out CostoRecursos costo)
@@ -59,6 +68,12 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 out costo);
         }
 
+        /// <summary>
+        /// Intenta obtener costo unidad.
+        /// </summary>
+        /// <param name="tipoUnidad">El valor de tipo unidad.</param>
+        /// <param name="costo">El valor de costo.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool IntentarObtenerCostoUnidad(
             string tipoUnidad,
             out CostoRecursos costo)

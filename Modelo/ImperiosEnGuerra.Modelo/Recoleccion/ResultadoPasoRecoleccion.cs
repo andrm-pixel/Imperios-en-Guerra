@@ -7,13 +7,37 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
     /// </summary>
     public sealed class ResultadoPasoRecoleccion
     {
+        /// <summary>
+        /// Obtiene exito.
+        /// </summary>
         public bool Exito { get; }
+        /// <summary>
+        /// Obtiene mensaje.
+        /// </summary>
         public string Mensaje { get; }
+        /// <summary>
+        /// Obtiene cantidad extraida.
+        /// </summary>
         public int CantidadExtraida { get; }
+        /// <summary>
+        /// Obtiene carga actual.
+        /// </summary>
         public int CargaActual { get; }
+        /// <summary>
+        /// Obtiene capacidad carga.
+        /// </summary>
         public int CapacidadCarga { get; }
+        /// <summary>
+        /// Obtiene capacidad completa.
+        /// </summary>
         public bool CapacidadCompleta { get; }
+        /// <summary>
+        /// Obtiene recurso agotado.
+        /// </summary>
         public bool RecursoAgotado { get; }
+        /// <summary>
+        /// Obtiene tipo recurso.
+        /// </summary>
         public TipoRecurso? TipoRecurso { get; }
 
         private ResultadoPasoRecoleccion(
@@ -36,6 +60,15 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             TipoRecurso = tipoRecurso;
         }
 
+        /// <summary>
+        /// Crea un resultado exitoso el elemento solicitado.
+        /// </summary>
+        /// <param name="cantidadExtraida">El valor de cantidad extraida.</param>
+        /// <param name="cargaActual">El valor de carga actual.</param>
+        /// <param name="capacidadCarga">El valor de capacidad carga.</param>
+        /// <param name="recursoAgotado">El valor de recurso agotado.</param>
+        /// <param name="tipoRecurso">El valor de tipo recurso.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoPasoRecoleccion Exitoso(
             int cantidadExtraida,
             int cargaActual,
@@ -54,6 +87,11 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                 tipoRecurso);
         }
 
+        /// <summary>
+        /// Crea un resultado fallido el elemento solicitado.
+        /// </summary>
+        /// <param name="mensaje">El valor de mensaje.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoPasoRecoleccion Fallido(
             string mensaje)
         {

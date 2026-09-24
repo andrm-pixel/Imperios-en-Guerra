@@ -13,6 +13,9 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Modelo.Servicios;
 
+/// <summary>
+/// Representa servicio acciones concurrentes dentro del modelo del juego.
+/// </summary>
 public sealed class ServicioAccionesConcurrentes
 {
     private readonly EstadoPartidaService estadoPartida;
@@ -40,6 +43,12 @@ public sealed class ServicioAccionesConcurrentes
     // Entrenamiento:   5 segundos
     // Ataque:          1 segundo
     //
+    /// <summary>
+    /// Inicializa una nueva instancia de ServicioAccionesConcurrentes.
+    /// </summary>
+    /// <param name="estadoPartida">El valor de estado partida.</param>
+    /// <param name="gestorProcesos">El valor de gestor procesos.</param>
+    /// <param name="servicioOrdenes">El valor de servicio ordenes.</param>
     public ServicioAccionesConcurrentes(
         EstadoPartidaService estadoPartida,
         GestorProcesosConcurrentes gestorProcesos,
@@ -71,6 +80,12 @@ public sealed class ServicioAccionesConcurrentes
     // Así las pruebas no tienen que esperar los tiempos reales
     // del prototipo.
     //
+    /// <summary>
+    /// Inicializa una nueva instancia de ServicioAccionesConcurrentes.
+    /// </summary>
+    /// <param name="estadoPartida">El valor de estado partida.</param>
+    /// <param name="gestorProcesos">El valor de gestor procesos.</param>
+    /// <param name="retardoDemostracion">El valor de retardo demostracion.</param>
     public ServicioAccionesConcurrentes(
         EstadoPartidaService estadoPartida,
         GestorProcesosConcurrentes gestorProcesos,
@@ -95,6 +110,17 @@ public sealed class ServicioAccionesConcurrentes
     // Centraliza la configuración y validación de dependencias
     // y retardos.
     //
+    /// <summary>
+    /// Inicializa una nueva instancia de ServicioAccionesConcurrentes.
+    /// </summary>
+    /// <param name="estadoPartida">El valor de estado partida.</param>
+    /// <param name="gestorProcesos">El valor de gestor procesos.</param>
+    /// <param name="servicioOrdenes">El valor de servicio ordenes.</param>
+    /// <param name="retardoMovimiento">El valor de retardo movimiento.</param>
+    /// <param name="retardoRecoleccion">El valor de retardo recoleccion.</param>
+    /// <param name="retardoConstruccion">El valor de retardo construccion.</param>
+    /// <param name="retardoEntrenamiento">El valor de retardo entrenamiento.</param>
+    /// <param name="retardoAtaque">El valor de retardo ataque.</param>
     public ServicioAccionesConcurrentes(
         EstadoPartidaService estadoPartida,
         GestorProcesosConcurrentes gestorProcesos,
@@ -157,6 +183,11 @@ public sealed class ServicioAccionesConcurrentes
     // MOVIMIENTO
     // ============================================================
 
+    /// <summary>
+    /// Inicia movimiento.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ProcesoConcurrente IniciarMovimiento(
         MoverUnidadRequest? request)
     {
@@ -299,6 +330,11 @@ public sealed class ServicioAccionesConcurrentes
     // RECOLECCIÓN
     // ============================================================
 
+    /// <summary>
+    /// Inicia recoleccion.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ProcesoConcurrente IniciarRecoleccion(
         RecolectarRequest? request)
     {
@@ -671,6 +707,11 @@ public sealed class ServicioAccionesConcurrentes
     // CONSTRUCCIÓN
     // ============================================================
 
+    /// <summary>
+    /// Inicia construccion.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ProcesoConcurrente IniciarConstruccion(
         ConstruirRequest? request)
     {
@@ -844,6 +885,11 @@ public sealed class ServicioAccionesConcurrentes
     // ENTRENAMIENTO
     // ============================================================
 
+    /// <summary>
+    /// Inicia entrenamiento.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ProcesoConcurrente IniciarEntrenamiento(
         EntrenarRequest? request)
     {
@@ -974,6 +1020,11 @@ public sealed class ServicioAccionesConcurrentes
     // ATAQUE
     // ============================================================
 
+    /// <summary>
+    /// Inicia ataque.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ProcesoConcurrente IniciarAtaque(
         AtacarRequest? request)
     {
@@ -1133,6 +1184,10 @@ public sealed class ServicioAccionesConcurrentes
     // un worker del gestor como cualquier otra acción concurrente.
     //
 
+    /// <summary>
+    /// Inicia ia.
+    /// </summary>
+    /// <returns>Resultado de la operación.</returns>
     public ProcesoConcurrente IniciarIA()
     {
         return gestorProcesos.Iniciar(
@@ -1166,6 +1221,11 @@ public sealed class ServicioAccionesConcurrentes
     // CANCELACIÓN
     // ============================================================
 
+    /// <summary>
+    /// Cancela el elemento solicitado.
+    /// </summary>
+    /// <param name="procesoId">El valor de proceso id.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool Cancelar(
         Guid procesoId)
     {
@@ -1174,6 +1234,9 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
+    /// <summary>
+    /// Cancela todos.
+    /// </summary>
     public void CancelarTodos()
     {
         gestorProcesos.CancelarTodos();
@@ -1184,6 +1247,12 @@ public sealed class ServicioAccionesConcurrentes
     // RESULTADOS DE LOS PROCESOS
     // ============================================================
 
+    /// <summary>
+    /// Intenta obtener resultado.
+    /// </summary>
+    /// <param name="procesoId">El valor de proceso id.</param>
+    /// <param name="resultado">El valor de resultado.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool IntentarObtenerResultado(
         Guid procesoId,
         out ResultadoProcesoConcurrente resultado)
@@ -1194,6 +1263,11 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
+    /// <summary>
+    /// Intenta obtener resultado.
+    /// </summary>
+    /// <param name="resultado">El valor de resultado.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool IntentarObtenerResultado(
         out ResultadoProcesoConcurrente resultado)
     {
@@ -1202,6 +1276,9 @@ public sealed class ServicioAccionesConcurrentes
     }
 
 
+    /// <summary>
+    /// Obtiene procesos activos.
+    /// </summary>
     public int ProcesosActivos =>
         gestorProcesos.ProcesosActivos;
 

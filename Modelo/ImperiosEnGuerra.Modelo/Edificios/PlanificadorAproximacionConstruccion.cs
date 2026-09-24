@@ -26,11 +26,18 @@ namespace ImperiosEnGuerra.Modelo.Edificios
 
         private readonly PlanificadorMovimiento planificadorMovimiento;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de PlanificadorAproximacionConstruccion.
+        /// </summary>
         public PlanificadorAproximacionConstruccion()
             : this(new PlanificadorMovimiento())
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de PlanificadorAproximacionConstruccion.
+        /// </summary>
+        /// <param name="planificadorMovimiento">El valor de planificador movimiento.</param>
         public PlanificadorAproximacionConstruccion(
             PlanificadorMovimiento planificadorMovimiento)
         {
@@ -40,6 +47,14 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                     nameof(planificadorMovimiento));
         }
 
+        /// <summary>
+        /// Ejecuta la operación preparar.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="aldeanoId">El valor de aldeano id.</param>
+        /// <param name="obra">El valor de obra.</param>
+        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoAproximacionConstruccion Preparar(
             Partida partida,
             Guid aldeanoId,

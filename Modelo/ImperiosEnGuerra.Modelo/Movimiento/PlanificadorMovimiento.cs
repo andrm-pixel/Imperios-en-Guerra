@@ -14,11 +14,18 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
     {
         private readonly BuscadorRutaAStar buscador;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de PlanificadorMovimiento.
+        /// </summary>
         public PlanificadorMovimiento()
             : this(new BuscadorRutaAStar())
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de PlanificadorMovimiento.
+        /// </summary>
+        /// <param name="buscador">El valor de buscador.</param>
         public PlanificadorMovimiento(
             BuscadorRutaAStar buscador)
         {
@@ -28,6 +35,13 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
                     nameof(buscador));
         }
 
+        /// <summary>
+        /// Ejecuta la operación preparar.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="solicitud">El valor de solicitud.</param>
+        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoPlanMovimiento Preparar(
             Partida partida,
             SolicitudMovimiento solicitud,

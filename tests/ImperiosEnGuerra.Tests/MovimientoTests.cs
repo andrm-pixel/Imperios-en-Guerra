@@ -10,6 +10,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Movimiento: verifica movimiento.</summary>
 public class MovimientoTests
 {
     private Partida partida;
@@ -29,6 +30,7 @@ public class MovimientoTests
         operacion = new OperacionMovimiento();
     }
 
+    // Caso Movimiento Valido: verifica actualiza coordenada conserva identidad y disponibilidad.
     [TestCase(4, 5)]
     [TestCase(0, 0)]
     [TestCase(5, 5)]
@@ -49,6 +51,7 @@ public class MovimientoTests
         Assert.That(mapa.ObtenerCasilla(x, y).EstaOcupada, Is.False);
     }
 
+    // Caso Movimiento Invalido: verifica no modifica coordenada ni mapa.
     [TestCase("inexistente")]
     [TestCase("maquina")]
     [TestCase("no disponible")]
@@ -95,6 +98,7 @@ public class MovimientoTests
         Assert.That(CapturarOcupacion(), Is.EqualTo(ocupacion));
     }
 
+    // Caso Fuera De Limites: verifica no mueve.
     [TestCase(-1, 0)]
     [TestCase(0, -1)]
     [TestCase(6, 0)]
@@ -108,6 +112,7 @@ public class MovimientoTests
         Assert.That(unidad.Coordenada, Is.SameAs(origen));
     }
 
+    // Caso Sin Partida O Solicitud: verifica devuelve fallo.
     [Test]
     public void SinPartidaOSolicitud_DevuelveFallo()
     {
@@ -117,6 +122,7 @@ public class MovimientoTests
             Is.EqualTo("No hay una partida activa."));
     }
 
+    // Caso Transporte: verifica id invalido - no mueve.
     [TestCase(null)]
     [TestCase("")]
     [TestCase("no-es-guid")]
@@ -130,6 +136,7 @@ public class MovimientoTests
         Assert.That(unidad.Coordenada, Is.SameAs(origen));
     }
 
+    // Caso Transporte: verifica destino o solicitud nulos - no mueve.
     [Test]
     public void Transporte_DestinoOSolicitudNulos_NoMueve()
     {
@@ -142,6 +149,7 @@ public class MovimientoTests
         Assert.That(unidad.Coordenada, Is.SameAs(origen));
     }
 
+    // Caso Servicio Y Mapper: verifica reflejan nueva coordenada e identidad.
     [Test]
     public void ServicioYMapper_ReflejanNuevaCoordenadaEIdentidad()
     {
@@ -158,6 +166,7 @@ public class MovimientoTests
         Assert.That(mapeada.Id, Is.EqualTo(unidad.Id.ToString("D")));
     }
 
+    // Caso Segundo Movimiento: verifica libera posicion logica anterior.
     [Test]
     public void SegundoMovimiento_LiberaPosicionLogicaAnterior()
     {
@@ -168,6 +177,7 @@ public class MovimientoTests
         Assert.That(operacion.Ejecutar(partida, new SolicitudMovimiento(otra.Id, new Coordenada(1, 1))).Exito, Is.True);
     }
 
+    // Caso Origen Marcado: verifica no libera ocupacion ajena.
     [Test]
     public void OrigenMarcado_NoLiberaOcupacionAjena()
     {
@@ -176,6 +186,7 @@ public class MovimientoTests
         Assert.That(mapa.ObtenerCasilla(1, 1).EstaOcupada, Is.True);
     }
 
+    // Caso Entidades En Otro Mapa: verifica no bloquean destino.
     [Test]
     public void EntidadesEnOtroMapa_NoBloqueanDestino()
     {

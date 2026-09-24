@@ -5,6 +5,9 @@ using ImperiosEnGuerra.Modelo.Map;
 
 namespace ImperiosEnGuerra.Modelo.Movimiento
 {
+    /// <summary>
+    /// Representa buscador ruta a star dentro del modelo del juego.
+    /// </summary>
     public sealed class BuscadorRutaAStar
     {
         private static readonly (int X, int Y)[] Direcciones =
@@ -15,6 +18,13 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
             (0, -1)
         };
 
+        /// <summary>
+        /// Busca el elemento solicitado.
+        /// </summary>
+        /// <param name="mapa">El valor de mapa.</param>
+        /// <param name="origen">El valor de origen.</param>
+        /// <param name="destino">El valor de destino.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoRuta Buscar(
             Mapa mapa,
             Coordenada origen,
@@ -27,6 +37,14 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
                 Array.Empty<Coordenada>());
         }
 
+        /// <summary>
+        /// Busca el elemento solicitado.
+        /// </summary>
+        /// <param name="mapa">El valor de mapa.</param>
+        /// <param name="origen">El valor de origen.</param>
+        /// <param name="destino">El valor de destino.</param>
+        /// <param name="bloqueosAdicionales">El valor de bloqueos adicionales.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoRuta Buscar(
             Mapa mapa,
             Coordenada origen,

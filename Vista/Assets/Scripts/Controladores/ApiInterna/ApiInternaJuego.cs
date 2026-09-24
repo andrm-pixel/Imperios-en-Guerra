@@ -23,16 +23,24 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
     /// </summary>
     public class ApiInternaJuego : MonoBehaviour
     {
+        /// <summary>Instancia única persistente de la API interna.</summary>
         public static ApiInternaJuego Instancia { get; private set; }
 
+        /// <summary>Servicio de archivos para la partida interna.</summary>
         private ServicioArchivos servicioArchivos;
+        /// <summary>Servicio del Modelo con la partida activa.</summary>
         private EstadoPartidaService estadoPartida;
+        /// <summary>Gestor de workers del Modelo.</summary>
         private GestorProcesosConcurrentes gestorProcesos;
+        /// <summary>Servicio de órdenes de unidad del Modelo.</summary>
         private ServicioOrdenesUnidad servicioOrdenes;
+        /// <summary>Fachada de acciones concurrentes del Modelo.</summary>
         private ServicioAccionesConcurrentes accionesConcurrentes;
 
+        /// <summary>Indica si la API interna tiene partida activa.</summary>
         public bool EstaDisponible { get; private set; }
 
+        /// <summary>Crea la instancia única e inicializa el núcleo.</summary>
         private void Awake()
         {
             if (Instancia != null && Instancia != this)
@@ -46,6 +54,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             InicializarNucleo();
         }
 
+        /// <summary>Libera los workers y limpia la instancia.</summary>
         private void OnDestroy()
         {
             if (Instancia == this)
@@ -55,6 +64,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             }
         }
 
+        /// <summary>Crea los servicios y la partida de prueba interna.</summary>
         private void InicializarNucleo()
         {
             try
@@ -82,6 +92,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             }
         }
 
+        /// <summary>Genera el mapa y los recursos de demostración.</summary>
         private void IniciarPartidaPruebaInterna()
         {
             var mapa = new Mapa(15, 15);
@@ -146,6 +157,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             accionesConcurrentes.IniciarIA();
         }
 
+        /// <summary>Devuelve el estado actual como DTO de Unity.</summary>
         public ContratosUnity.EstadoPartidaDto ObtenerEstado()
         {
             ExigirDisponible();
@@ -155,6 +167,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return AdaptadorEstadoPartida.Convertir(respuesta);
         }
 
+        /// <summary>Inicia el movimiento concurrente de una unidad.</summary>
         public Guid IniciarMovimiento(string unidadId, int x, int y)
         {
             ExigirDisponible();
@@ -166,6 +179,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
+        /// <summary>Inicia la recolección concurrente de un aldeano.</summary>
         public Guid IniciarRecoleccion(string aldeanoId, int x, int y)
         {
             ExigirDisponible();
@@ -177,6 +191,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
+        /// <summary>Inicia la construcción concurrente de un aldeano.</summary>
         public Guid IniciarConstruccion(string aldeanoId, string tipoEdificio, int x, int y)
         {
             ExigirDisponible();
@@ -189,6 +204,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
+        /// <summary>Inicia el entrenamiento concurrente en un edificio.</summary>
         public Guid IniciarEntrenamiento(int edificioX, int edificioY, string tipoUnidad, int destinoX, int destinoY)
         {
             ExigirDisponible();
@@ -201,6 +217,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
+        /// <summary>Inicia el ataque concurrente a un objetivo.</summary>
         public Guid IniciarAtaque(string atacanteId, string objetivoId)
         {
             ExigirDisponible();
@@ -212,6 +229,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return proceso.Id;
         }
 
+        /// <summary>Lee el resultado de un proceso si ya terminó.</summary>
         public bool IntentarObtenerResultado(Guid procesoId, out ContratosUnity.ResultadoProcesoDto dto)
         {
             dto = null;
@@ -231,47 +249,56 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return true;
         }
 
+        /// <summary>Cancela un proceso concurrente en curso.</summary>
         public bool CancelarProceso(Guid procesoId)
         {
             ExigirDisponible();
             return accionesConcurrentes.Cancelar(procesoId);
         }
 
+        /// <summary>Consulta si la unidad puede recibir orden de mover.</summary>
         public bool PermiteMover(string propietario, string categoria, string ordenActiva)
         {
             return ReglasAcciones.PermiteMover(propietario, categoria, ordenActiva);
         }
 
+        /// <summary>Consulta si el aldeano puede recolectar.</summary>
         public bool PermiteRecolectar(string propietario, string categoria, string tipo, string orden)
         {
             return ReglasAcciones.PermiteRecolectar(propietario, categoria, tipo, orden);
         }
 
+        /// <summary>Consulta si el aldeano puede construir.</summary>
         public bool PermiteConstruir(string propietario, string categoria, string tipo, string orden)
         {
             return ReglasAcciones.PermiteConstruir(propietario, categoria, tipo, orden);
         }
 
+        /// <summary>Consulta si el edificio puede entrenar.</summary>
         public bool PermiteEntrenar(string propietario, string categoria, string tipo)
         {
             return ReglasAcciones.PermiteEntrenar(propietario, categoria, tipo);
         }
 
+        /// <summary>Consulta si la unidad puede atacar.</summary>
         public bool PermiteAtacar(string propietario, string categoria, string tipo, string orden)
         {
             return ReglasAcciones.PermiteAtacar(propietario, categoria, tipo, orden);
         }
 
+        /// <summary>Consulta si la entidad es objetivo válido.</summary>
         public bool EsObjetivoAtaqueValido(string categoria, string propietario, string id)
         {
             return ReglasAcciones.EsObjetivoAtaqueValido(categoria, propietario, id);
         }
 
+        /// <summary>Nombre del tipo Centro Urbano del Modelo.</summary>
         public string TipoCentroUrbano
         {
             get { return ReglasAcciones.TipoCentroUrbano; }
         }
 
+        /// <summary>Lanza error si la API interna no está lista.</summary>
         private void ExigirDisponible()
         {
             if (!EstaDisponible || estadoPartida == null || accionesConcurrentes == null)

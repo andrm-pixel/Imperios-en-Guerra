@@ -5,8 +5,10 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Estado Unidad: verifica estado unidad.</summary>
     public class EstadoUnidadTests
     {
+        // Caso Unidad Nueva: verifica inicia idle y sin orden.
         [Test]
         public void UnidadNueva_IniciaIdleYSinOrden()
         {
@@ -17,6 +19,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(unidad.Disponible, Is.True);
         }
 
+        // Caso Orden Valida: verifica cambia estado.
         [TestCase(TipoAccionJuego.Mover, EstadoUnidad.Moviendo)]
         [TestCase(TipoAccionJuego.Recolectar, EstadoUnidad.Recolectando)]
         [TestCase(TipoAccionJuego.Construir, EstadoUnidad.Construyendo)]
@@ -34,6 +37,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(unidad.Disponible, Is.False);
         }
 
+        // Caso Segunda Orden Sin Reemplazo: verifica es rechazada.
         [Test]
         public void SegundaOrdenSinReemplazo_EsRechazada()
         {
@@ -47,6 +51,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(unidad.Estado, Is.EqualTo(EstadoUnidad.Moviendo));
         }
 
+        // Caso Cancelar Orden: verifica vuelve a idle.
         [Test]
         public void CancelarOrden_VuelveAIdle()
         {
@@ -60,6 +65,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(unidad.Disponible, Is.True);
         }
 
+        // Caso Reemplazar Orden: verifica no deja estado huerfano.
         [Test]
         public void ReemplazarOrden_NoDejaEstadoHuerfano()
         {
@@ -81,6 +87,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(unidad.Disponible, Is.True);
         }
 
+        // Caso Orden Sin Estado Definido: verifica es rechazada.
         [TestCase(TipoAccionJuego.Entrenar)]
         public void OrdenSinEstadoDefinido_EsRechazada(TipoAccionJuego orden)
         {

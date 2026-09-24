@@ -9,6 +9,7 @@ using ImperiosEnGuerra.Modelo.Persistencia;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Servicio Archivos: verifica servicio archivos.</summary>
     public class ServicioArchivosTests
     {
         private string directorioTemporal;
@@ -30,6 +31,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             }
         }
 
+        // Caso Constructor: verifica rechaza directorio invalido.
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
@@ -38,6 +40,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.Throws<ArgumentException>(() => new ServicioArchivos(directorio));
         }
 
+        // Caso Constructor: verifica crea directorio sin crear archivos.
         [Test]
         public void Constructor_CreaDirectorioSinCrearArchivos()
         {
@@ -53,6 +56,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(Directory.GetFiles(directorio), Is.Empty);
         }
 
+        // Caso Guardar Configuracion: verifica crea archivo y reemplaza contenido.
         [Test]
         public void GuardarConfiguracion_CreaArchivoYReemplazaContenido()
         {
@@ -70,6 +74,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(File.ReadAllText(ruta), Is.EqualTo("Nueva"));
         }
 
+        // Caso Guardar Configuracion: verifica rechaza null sin crear archivo.
         [Test]
         public void GuardarConfiguracion_RechazaNullSinCrearArchivo()
         {
@@ -78,6 +83,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(File.Exists(Ruta("configuracion.txt")), Is.False);
         }
 
+        // Caso Registrar Evento: verifica crea archivo y conserva eventos en orden.
         [Test]
         public void RegistrarEvento_CreaArchivoYConservaEventosEnOrden()
         {
@@ -95,6 +101,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 "Primer evento" + Environment.NewLine + "Segundo evento" + Environment.NewLine));
         }
 
+        // Caso Registrar Evento: verifica rechaza null sin crear archivo.
         [Test]
         public void RegistrarEvento_RechazaNullSinCrearArchivo()
         {
@@ -103,6 +110,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(File.Exists(Ruta("log_partida.txt")), Is.False);
         }
 
+        // Caso Guardar Resultado Final: verifica crea archivo y reemplaza contenido.
         [Test]
         public void GuardarResultadoFinal_CreaArchivoYReemplazaContenido()
         {
@@ -120,6 +128,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(File.ReadAllText(ruta), Is.EqualTo("Final"));
         }
 
+        // Caso Guardar Resultado Final: verifica rechaza null sin crear archivo.
         [Test]
         public void GuardarResultadoFinal_RechazaNullSinCrearArchivo()
         {
@@ -128,6 +137,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(File.Exists(Ruta("resultado_final.txt")), Is.False);
         }
 
+        // Caso Guardar Configuracion Inicial: verifica rechaza partida null.
         [Test]
         public void GuardarConfiguracionInicial_RechazaPartidaNull()
         {
@@ -136,6 +146,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(File.Exists(Ruta("configuracion.txt")), Is.False);
         }
 
+        // Caso Guardar Configuracion Inicial: verifica incluye ambos jugadores y sobrescribe.
         [Test]
         public void GuardarConfiguracionInicial_IncluyeAmbosJugadoresYSobrescribe()
         {

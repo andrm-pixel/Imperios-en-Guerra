@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Movimiento Progresivo Concurrente: verifica movimiento progresivo concurrente.</summary>
 public class MovimientoProgresivoConcurrenteTests
 {
+    // Caso Movimiento Concurrente: verifica avanza por pasos y mantiene estado moviendo.
     [Test]
     public async Task MovimientoConcurrente_AvanzaPorPasosYMantieneEstadoMoviendo()
     {
@@ -100,6 +102,7 @@ public class MovimientoProgresivoConcurrenteTests
             Is.Null);
     }
 
+    // Caso Cancelar Despues Del Primer Paso: verifica detiene movimiento y vuelve a idle.
     [Test]
     public async Task CancelarDespuesDelPrimerPaso_DetieneMovimientoYVuelveAIdle()
     {

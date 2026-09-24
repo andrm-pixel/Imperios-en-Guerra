@@ -6,6 +6,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Operacion Paso Recoleccion: verifica operacion paso recoleccion.</summary>
 public class OperacionPasoRecoleccionTests
 {
     private Mapa mapa;
@@ -58,6 +59,7 @@ public class OperacionPasoRecoleccionTests
             new OperacionPasoRecoleccion();
     }
 
+    // Caso Paso Valido: verifica aumenta carga pero no saldo.
     [Test]
     public void PasoValido_AumentaCargaPeroNoSaldo()
     {
@@ -96,6 +98,7 @@ public class OperacionPasoRecoleccionTests
             Is.EqualTo(saldoInicial));
     }
 
+    // Caso Varios Pasos: verifica respetan capacidad.
     [Test]
     public void VariosPasos_RespetanCapacidad()
     {
@@ -129,6 +132,7 @@ public class OperacionPasoRecoleccionTests
             Is.EqualTo(5));
     }
 
+    // Caso Aldeano No Adyacente: verifica falla.
     [Test]
     public void AldeanoNoAdyacente_Falla()
     {

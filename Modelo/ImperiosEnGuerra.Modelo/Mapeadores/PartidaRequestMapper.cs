@@ -4,8 +4,16 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Modelo.Mapeadores;
 
+/// <summary>
+/// Representa partida request mapper dentro del modelo del juego.
+/// </summary>
 public static class PartidaRequestMapper
 {
+    /// <summary>
+    /// Ejecuta la operación convertir coordenada.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public static Coordenada ConvertirCoordenada(CoordenadaRequest? request)
     {
         if (request == null)
@@ -16,6 +24,11 @@ public static class PartidaRequestMapper
         return new Coordenada(request.X, request.Y);
     }
 
+    /// <summary>
+    /// Ejecuta la operación convertir recursos.
+    /// </summary>
+    /// <param name="recursos">El valor de recursos.</param>
+    /// <returns>Resultado de la operación.</returns>
     public static List<Recurso> ConvertirRecursos(
         List<RecursoInicialRequest>? recursos)
     {

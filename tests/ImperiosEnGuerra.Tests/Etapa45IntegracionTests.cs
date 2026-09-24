@@ -10,8 +10,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Etapa45 Integracion: verifica etapa45 integracion.</summary>
 public class Etapa45IntegracionTests
 {
+    // Caso Economia Ganada Por Recoleccion: verifica permite construir y entrenar.
     [Test]
     public async Task EconomiaGanadaPorRecoleccion_PermiteConstruirYEntrenar()
     {
@@ -128,6 +130,7 @@ public class Etapa45IntegracionTests
         Assert.That(humano.Recursos.ObtenerCantidad(TipoRecurso.Comida), Is.GreaterThanOrEqualTo(0));
     }
 
+    // Caso Cancelar Construccion: verifica reembolsa costo y libera reserva.
     [Test]
     public async Task CancelarConstruccion_ReembolsaCostoYLiberaReserva()
     {
@@ -182,6 +185,7 @@ public class Etapa45IntegracionTests
             Is.Empty);
     }
 
+    // Caso Servicio Sin Recursos: verifica rechaza construir y entrenar con costo visible.
     [Test]
     public void ServicioSinRecursos_RechazaConstruirYEntrenarConCostoVisible()
     {

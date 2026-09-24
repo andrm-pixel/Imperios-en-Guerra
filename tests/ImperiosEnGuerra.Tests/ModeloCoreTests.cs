@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Modelo Core: verifica modelo core.</summary>
     public class ModeloCoreTests
     {
+        // Caso Jugador: verifica constructor valido - conserva datos.
         [TestCase(TipoJugador.Humano)]
         [TestCase(TipoJugador.Maquina)]
         public void Jugador_ConstructorValido_ConservaDatos(TipoJugador tipo)
@@ -25,6 +27,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(jugador.Recursos, Is.SameAs(recursos));
         }
 
+        // Caso Jugador: verifica rechaza nombre invalido.
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
@@ -34,6 +37,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 nombre, TipoJugador.Humano, new Mapa(5, 4), new RecursosJugador()));
         }
 
+        // Caso Jugador: verifica rechaza mapa null.
         [Test]
         public void Jugador_RechazaMapaNull()
         {
@@ -41,6 +45,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 "Humano", TipoJugador.Humano, null, new RecursosJugador()));
         }
 
+        // Caso Jugador: verifica rechaza recursos null.
         [Test]
         public void Jugador_RechazaRecursosNull()
         {
@@ -48,6 +53,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 "Humano", TipoJugador.Humano, new Mapa(5, 4), null));
         }
 
+        // Caso Jugador: verifica agrega y elimina edificio.
         [Test]
         public void Jugador_AgregaYEliminaEdificio()
         {
@@ -63,6 +69,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(jugador.Edificios, Is.Empty);
         }
 
+        // Caso Jugador: verifica edificio null - no modifica coleccion.
         [Test]
         public void Jugador_EdificioNull_NoModificaColeccion()
         {
@@ -76,6 +83,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(jugador.Edificios[0], Is.SameAs(centro));
         }
 
+        // Caso Jugador: verifica agrega y elimina aldeano.
         [Test]
         public void Jugador_AgregaYEliminaAldeano()
         {
@@ -91,6 +99,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(jugador.Unidades, Is.Empty);
         }
 
+        // Caso Jugador: verifica unidad null - no modifica coleccion.
         [Test]
         public void Jugador_UnidadNull_NoModificaColeccion()
         {
@@ -104,6 +113,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(jugador.Unidades[0], Is.SameAs(aldeano));
         }
 
+        // Caso Partida: verifica acepta humano y maquina.
         [Test]
         public void Partida_AceptaHumanoYMaquina()
         {
@@ -115,6 +125,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(partida.JugadorMaquina, Is.SameAs(maquina));
         }
 
+        // Caso Partida: verifica rechaza humano null.
         [Test]
         public void Partida_RechazaHumanoNull()
         {
@@ -122,6 +133,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 new Partida(null, CrearJugador(TipoJugador.Maquina)));
         }
 
+        // Caso Partida: verifica rechaza maquina null.
         [Test]
         public void Partida_RechazaMaquinaNull()
         {
@@ -129,6 +141,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 new Partida(CrearJugador(TipoJugador.Humano), null));
         }
 
+        // Caso Partida: verifica rechaza tipos incorrectos.
         [TestCase(TipoJugador.Maquina, TipoJugador.Maquina)]
         [TestCase(TipoJugador.Humano, TipoJugador.Humano)]
         public void Partida_RechazaTiposIncorrectos(TipoJugador primero, TipoJugador segundo)
@@ -137,6 +150,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 new Partida(CrearJugador(primero), CrearJugador(segundo)));
         }
 
+        // Caso Inicializador: verifica crea estado inicial de ambos jugadores.
         [Test]
         public void Inicializador_CreaEstadoInicialDeAmbosJugadores()
         {
@@ -160,6 +174,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.Not.SameAs(partida.JugadorMaquina.Recursos));
         }
 
+        // Caso Inicializador: verifica inicio es jugable sin crear recursos de la nada.
         [Test]
         public void Inicializador_InicioEsJugableSinCrearRecursosDeLaNada()
         {
@@ -214,6 +229,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.GreaterThanOrEqualTo(costoAldeano.Comida));
         }
 
+        // Caso Inicializador: verifica rechaza datos invalidos de cualquier jugador.
         [TestCase("mapa null")]
         [TestCase("centro null")]
         [TestCase("lista null")]
@@ -292,6 +308,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             }
         }
 
+        // Caso Inicializador: verifica error en maquina - no modifica mapa humano.
         [Test]
         public void Inicializador_ErrorEnMaquina_NoModificaMapaHumano()
         {

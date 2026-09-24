@@ -11,6 +11,9 @@ namespace ImperiosEnGuerra.Modelo.Edificios
     {
         private readonly Dictionary<string, double> factores;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de ConfiguracionEntrenamiento.
+        /// </summary>
         public ConfiguracionEntrenamiento()
         {
             factores =
@@ -25,6 +28,12 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                 };
         }
 
+        /// <summary>
+        /// Intenta obtener factor.
+        /// </summary>
+        /// <param name="tipoUnidad">El valor de tipo unidad.</param>
+        /// <param name="factor">El valor de factor.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool IntentarObtenerFactor(
             string tipoUnidad,
             out double factor)

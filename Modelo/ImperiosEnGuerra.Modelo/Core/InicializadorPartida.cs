@@ -14,11 +14,18 @@ namespace ImperiosEnGuerra.Modelo.Core
     {
         private readonly ConfiguracionInicioPartida configuracionInicio;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de InicializadorPartida.
+        /// </summary>
         public InicializadorPartida()
             : this(new ConfiguracionInicioPartida())
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de InicializadorPartida.
+        /// </summary>
+        /// <param name="configuracionInicio">El valor de configuracion inicio.</param>
         public InicializadorPartida(
             ConfiguracionInicioPartida configuracionInicio)
         {

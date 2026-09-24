@@ -10,6 +10,9 @@ namespace ImperiosEnGuerra.Modelo.Unidades
     /// </summary>
     public class Aldeano : Unidad
     {
+        /// <summary>
+        /// Representa el campo capacidad carga predeterminada.
+        /// </summary>
         public const int CapacidadCargaPredeterminada = 10;
 
         private readonly object sincronizacionCarga =
@@ -18,8 +21,14 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         private int cargaActual;
         private TipoRecurso? tipoCarga;
 
+        /// <summary>
+        /// Obtiene capacidad carga.
+        /// </summary>
         public int CapacidadCarga { get; }
 
+        /// <summary>
+        /// Obtiene carga actual.
+        /// </summary>
         public int CargaActual
         {
             get
@@ -31,6 +40,9 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             }
         }
 
+        /// <summary>
+        /// Obtiene tipo carga.
+        /// </summary>
         public TipoRecurso? TipoCarga
         {
             get
@@ -42,6 +54,9 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             }
         }
 
+        /// <summary>
+        /// Obtiene capacidad disponible.
+        /// </summary>
         public int CapacidadDisponible
         {
             get
@@ -53,6 +68,10 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             }
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de Aldeano.
+        /// </summary>
+        /// <param name="coordenada">El valor de coordenada.</param>
         public Aldeano(
             Coordenada coordenada)
             : this(
@@ -61,6 +80,11 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de Aldeano.
+        /// </summary>
+        /// <param name="coordenada">El valor de coordenada.</param>
+        /// <param name="capacidadCarga">El valor de capacidad carga.</param>
         public Aldeano(
             Coordenada coordenada,
             int capacidadCarga)

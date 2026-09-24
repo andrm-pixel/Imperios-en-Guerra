@@ -2,8 +2,10 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Economia: verifica economia.</summary>
 public class EconomiaTests
 {
+    // Caso Gasto Compuesto: verifica es atomico.
     [Test]
     public void GastoCompuesto_EsAtomico()
     {
@@ -30,6 +32,7 @@ public class EconomiaTests
             Is.Zero);
     }
 
+    // Caso Gasto Compuesto: verifica insuficiente - no descuenta nada.
     [Test]
     public void GastoCompuesto_Insuficiente_NoDescuentaNada()
     {
@@ -54,6 +57,7 @@ public class EconomiaTests
             Is.EqualTo(10));
     }
 
+    // Caso Dos Gastos Concurrentes: verifica con saldo para uno - solo uno gana.
     [Test]
     public async Task DosGastosConcurrentes_ConSaldoParaUno_SoloUnoGana()
     {
@@ -82,6 +86,7 @@ public class EconomiaTests
             Is.Zero);
     }
 
+    // Caso Configuracion Economia: verifica usa madera solo para construccion.
     [Test]
     public void ConfiguracionEconomia_UsaMaderaSoloParaConstruccion()
     {

@@ -1,10 +1,25 @@
 namespace ImperiosEnGuerra.Modelo.Edificios
 {
+    /// <summary>
+    /// Representa resultado progreso construccion dentro del modelo del juego.
+    /// </summary>
     public sealed class ResultadoProgresoConstruccion
     {
+        /// <summary>
+        /// Obtiene exito.
+        /// </summary>
         public bool Exito { get; }
+        /// <summary>
+        /// Obtiene mensaje.
+        /// </summary>
         public string Mensaje { get; }
+        /// <summary>
+        /// Obtiene progreso.
+        /// </summary>
         public int Progreso { get; }
+        /// <summary>
+        /// Obtiene terminada.
+        /// </summary>
         public bool Terminada { get; }
 
         private ResultadoProgresoConstruccion(
@@ -19,6 +34,12 @@ namespace ImperiosEnGuerra.Modelo.Edificios
             Terminada = terminada;
         }
 
+        /// <summary>
+        /// Crea un resultado exitoso el elemento solicitado.
+        /// </summary>
+        /// <param name="progreso">El valor de progreso.</param>
+        /// <param name="terminada">El valor de terminada.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoProgresoConstruccion Exitoso(
             int progreso,
             bool terminada)
@@ -32,6 +53,11 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                 terminada);
         }
 
+        /// <summary>
+        /// Crea un resultado fallido el elemento solicitado.
+        /// </summary>
+        /// <param name="mensaje">El valor de mensaje.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoProgresoConstruccion Fallido(
             string mensaje)
         {

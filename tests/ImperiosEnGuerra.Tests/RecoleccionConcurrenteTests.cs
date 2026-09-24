@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Recoleccion Concurrente: verifica recoleccion concurrente.</summary>
 public class RecoleccionConcurrenteTests
 {
+    // Caso Recoleccion Concurrente: verifica publica resultado desde worker.
     [Test]
     public async Task RecoleccionConcurrente_PublicaResultadoDesdeWorker()
     {
@@ -86,6 +88,7 @@ public class RecoleccionConcurrenteTests
             Is.Zero);
     }
 
+    // Caso Cancelar Recoleccion: verifica antes de aplicar - devuelve cancelado.
     [Test]
     public async Task CancelarRecoleccion_AntesDeAplicar_DevuelveCancelado()
     {
@@ -121,6 +124,7 @@ public class RecoleccionConcurrenteTests
             Is.EqualTo(EstadoProcesoConcurrente.Cancelado));
     }
 
+    // Caso Cancelar Tras Primer Ciclo: verifica conserva carga parcial y vuelve idle.
     [Test]
     public async Task CancelarTrasPrimerCiclo_ConservaCargaParcialYVuelveIdle()
     {
@@ -203,6 +207,7 @@ public class RecoleccionConcurrenteTests
             Is.Null);
     }
 
+    // Caso Carga Conservada: verifica en siguiente orden se deposita antes de continuar.
     [Test]
     public async Task CargaConservada_EnSiguienteOrdenSeDepositaAntesDeContinuar()
     {
@@ -273,6 +278,7 @@ public class RecoleccionConcurrenteTests
             Is.Zero);
     }
 
+    // Caso Recoleccion Invalida: verifica conserva rechazo del modelo.
     [Test]
     public async Task RecoleccionInvalida_ConservaRechazoDelModelo()
     {
@@ -346,6 +352,7 @@ public class RecoleccionConcurrenteTests
         return new Partida(humano, maquina);
     }
 
+    // Caso Nodo Agotado: verifica aldeano se detiene en espera.
     [Test]
     public async Task NodoAgotado_AldeanoSeDetieneEnEspera()
     {

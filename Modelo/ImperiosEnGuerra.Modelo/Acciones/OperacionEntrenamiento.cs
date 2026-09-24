@@ -7,8 +7,17 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
+    /// <summary>
+    /// Representa operacion entrenamiento dentro del modelo del juego.
+    /// </summary>
     public sealed class OperacionEntrenamiento
     {
+        /// <summary>
+        /// Ejecuta el elemento solicitado.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="solicitud">El valor de solicitud.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             SolicitudEntrenamiento solicitud)

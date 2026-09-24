@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Todas Operaciones Concurrentes: verifica todas operaciones concurrentes.</summary>
 public class TodasOperacionesConcurrentesTests
 {
+    // Caso Todas Las Operaciones: verifica pueden ejecutarse concurrentemente.
     [Test]
     public async Task TodasLasOperaciones_PuedenEjecutarseConcurrentemente()
     {

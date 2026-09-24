@@ -3,10 +3,22 @@ using ImperiosEnGuerra.Modelo.Acciones;
 
 namespace ImperiosEnGuerra.Modelo.Concurrencia
 {
+    /// <summary>
+    /// Define los valores del tipo estado proceso concurrente.
+    /// </summary>
     public enum EstadoProcesoConcurrente
     {
+        /// <summary>
+        /// Representa el valor completado.
+        /// </summary>
         Completado,
+        /// <summary>
+        /// Representa el valor cancelado.
+        /// </summary>
         Cancelado,
+        /// <summary>
+        /// Representa el valor fallido.
+        /// </summary>
         Fallido
     }
 
@@ -16,11 +28,29 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
     /// </summary>
     public sealed class ResultadoProcesoConcurrente
     {
+        /// <summary>
+        /// Obtiene proceso id.
+        /// </summary>
         public Guid ProcesoId { get; }
+        /// <summary>
+        /// Obtiene nombre.
+        /// </summary>
         public string Nombre { get; }
+        /// <summary>
+        /// Obtiene estado.
+        /// </summary>
         public EstadoProcesoConcurrente Estado { get; }
+        /// <summary>
+        /// Obtiene hilo trabajo id.
+        /// </summary>
         public int HiloTrabajoId { get; }
+        /// <summary>
+        /// Obtiene resultado.
+        /// </summary>
         public ResultadoAccion? Resultado { get; }
+        /// <summary>
+        /// Obtiene error tecnico.
+        /// </summary>
         public string? ErrorTecnico { get; }
 
         private ResultadoProcesoConcurrente(

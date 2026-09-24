@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Ciclo Recoleccion: verifica ciclo recoleccion.</summary>
 public class CicloRecoleccionTests
 {
+    // Caso Ciclo Completo: verifica agota nodo y deposita todo.
     [Test]
     public async Task CicloCompleto_AgotaNodoYDepositaTodo()
     {
@@ -70,6 +72,7 @@ public class CicloRecoleccionTests
             Is.EqualTo(EstadoUnidad.Idle));
     }
 
+    // Caso Dos Aldeanos: verifica mismo nodo - no duplican saldo.
     [Test]
     public async Task DosAldeanos_MismoNodo_NoDuplicanSaldo()
     {

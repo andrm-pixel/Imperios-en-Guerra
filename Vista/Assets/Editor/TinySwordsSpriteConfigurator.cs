@@ -39,6 +39,7 @@ public static class TinySwordsSpriteConfigurator
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar unidades"
     )]
+    /// <summary>Configura los sprites de unidades desde el menú.</summary>
     public static void ConfigurarUnidades()
     {
         ProcesarUnidades();
@@ -47,6 +48,7 @@ public static class TinySwordsSpriteConfigurator
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar recursos"
     )]
+    /// <summary>Configura los sprites de recursos desde el menú.</summary>
     public static void ConfigurarRecursos()
     {
         ProcesarRecursos();
@@ -55,6 +57,7 @@ public static class TinySwordsSpriteConfigurator
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar edificios"
     )]
+    /// <summary>Configura los sprites de edificios desde el menú.</summary>
     public static void ConfigurarEdificios()
     {
         ProcesarEdificios();
@@ -63,6 +66,7 @@ public static class TinySwordsSpriteConfigurator
     [MenuItem(
         "Tools/Imperios en Guerra/Tiny Swords/Configurar todo"
     )]
+    /// <summary>Configura unidades, recursos y edificios.</summary>
     public static void ConfigurarTodo()
     {
         Debug.Log(
@@ -82,6 +86,7 @@ public static class TinySwordsSpriteConfigurator
     // UNIDADES
     // =========================================================
 
+    /// <summary>Recorre y configura las texturas de unidades.</summary>
     private static void ProcesarUnidades()
     {
         string[] guids = AssetDatabase.FindAssets(
@@ -197,6 +202,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
+    /// <summary>Devuelve el tamaño de celda según la altura.</summary>
     private static int ObtenerTamanoCeldaUnidad(
         int alto)
     {
@@ -219,6 +225,7 @@ public static class TinySwordsSpriteConfigurator
     // RECURSOS
     // =========================================================
 
+    /// <summary>Recorre y configura las texturas de recursos.</summary>
     private static void ProcesarRecursos()
     {
         string[] guids = AssetDatabase.FindAssets(
@@ -324,6 +331,7 @@ public static class TinySwordsSpriteConfigurator
     // ORO
     // =========================================================
 
+    /// <summary>Configura los sprites de oro y su brillo.</summary>
     private static bool ConfigurarOro(
         TextureImporter importer,
         string ruta,
@@ -391,6 +399,7 @@ public static class TinySwordsSpriteConfigurator
     // OVEJAS
     // =========================================================
 
+    /// <summary>Configura los sprites de oveja.</summary>
     private static bool ConfigurarOveja(
         TextureImporter importer,
         string ruta,
@@ -482,6 +491,7 @@ public static class TinySwordsSpriteConfigurator
     // ÁRBOLES Y TOCONES
     // =========================================================
 
+    /// <summary>Configura árboles y tocones.</summary>
     private static bool ConfigurarArbolOTocon(
         TextureImporter importer,
         string ruta,
@@ -579,6 +589,7 @@ public static class TinySwordsSpriteConfigurator
     // EDIFICIOS
     // =========================================================
 
+    /// <summary>Recorre y configura las texturas de edificios.</summary>
     private static void ProcesarEdificios()
     {
         string[] guids = AssetDatabase.FindAssets(
@@ -673,6 +684,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
+    /// <summary>Verifica dimensiones conocidas de edificios.</summary>
     private static bool EsEdificioConocido(
         int ancho,
         int alto)
@@ -714,6 +726,7 @@ public static class TinySwordsSpriteConfigurator
     // CONFIGURACIÓN COMÚN
     // =========================================================
 
+    /// <summary>Aplica importación como sprite único.</summary>
     private static void ConfigurarSpriteIndividual(
         TextureImporter importer,
         string ruta)
@@ -731,6 +744,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
+    /// <summary>Aplica importación y corte en frames.</summary>
     private static void ConfigurarSpriteMultiple(
         TextureImporter importer,
         string ruta,
@@ -769,6 +783,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
+    /// <summary>Aplica píxeles, filtro y compresión comunes.</summary>
     private static void ConfigurarImportacionComun(
         TextureImporter importer,
         SpriteImportMode modo)
@@ -827,6 +842,7 @@ public static class TinySwordsSpriteConfigurator
     // CORTE DE SPRITES
     // =========================================================
 
+    /// <summary>Define los rectángulos de corte de la animación.</summary>
     private static void ConfigurarCortes(
         TextureImporter importer,
         string ruta,
@@ -950,6 +966,7 @@ public static class TinySwordsSpriteConfigurator
     // UTILIDADES
     // =========================================================
 
+    /// <summary>Obtiene el importer de una textura.</summary>
     private static TextureImporter ObtenerImporter(
         string ruta)
     {
@@ -969,6 +986,7 @@ public static class TinySwordsSpriteConfigurator
         return importer;
     }
 
+    /// <summary>Verifica si la ruta es un PNG.</summary>
     private static bool EsPng(
         string ruta)
     {
@@ -978,6 +996,7 @@ public static class TinySwordsSpriteConfigurator
         );
     }
 
+    /// <summary>Calcula el progreso para la barra del Editor.</summary>
     private static float CalcularProgreso(
         int indice,
         int total)
@@ -990,6 +1009,7 @@ public static class TinySwordsSpriteConfigurator
         return (float)indice / total;
     }
 
+    /// <summary>Limpia la barra y guarda los assets.</summary>
     private static void FinalizarProcesamiento()
     {
         EditorUtility.ClearProgressBar();

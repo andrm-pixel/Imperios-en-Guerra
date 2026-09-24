@@ -10,8 +10,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Entrenamiento Concurrente: verifica entrenamiento concurrente.</summary>
 public class EntrenamientoConcurrenteTests
 {
+    // Caso Entrenamiento Concurrente: verifica crea unidad desde worker.
     [Test]
     public async Task EntrenamientoConcurrente_CreaUnidadDesdeWorker()
     {
@@ -69,6 +71,7 @@ public class EntrenamientoConcurrenteTests
             Is.True);
     }
 
+    // Caso Cancelar Entrenamiento: verifica antes de aplicar - no crea unidad.
     [Test]
     public async Task CancelarEntrenamiento_AntesDeAplicar_NoCreaUnidad()
     {
@@ -114,6 +117,7 @@ public class EntrenamientoConcurrenteTests
             Is.False);
     }
 
+    // Caso Dos Entrenamientos: verifica se encolan y ambos usan spawn seguro.
     [Test]
     public async Task DosEntrenamientos_SeEncolanYAmbosUsanSpawnSeguro()
     {

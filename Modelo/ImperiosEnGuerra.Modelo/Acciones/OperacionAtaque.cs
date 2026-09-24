@@ -16,6 +16,12 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// </summary>
     public sealed class OperacionAtaque
     {
+        /// <summary>
+        /// Ejecuta el elemento solicitado.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="solicitud">El valor de solicitud.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             SolicitudAtaque solicitud)
@@ -138,6 +144,11 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 $"{nombreObjetivo} enemigo destruido.");
         }
 
+        /// <summary>
+        /// Ejecuta la operación es victoria humana.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public static bool EsVictoriaHumana(Partida partida)
         {
             if (partida == null)
@@ -153,6 +164,11 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             return sinCentro || sinUnidades;
         }
 
+        /// <summary>
+        /// Ejecuta la operación es victoria maquina.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public static bool EsVictoriaMaquina(Partida partida)
         {
             if (partida == null)

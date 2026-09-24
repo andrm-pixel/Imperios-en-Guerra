@@ -6,8 +6,10 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Modelo Map Recursos: verifica modelo map recursos.</summary>
     public class ModeloMapRecursosTests
     {
+        // Caso Casilla: verifica inicia libre - y controla ocupacion y liberacion.
         [Test]
         public void Casilla_IniciaLibre_YControlaOcupacionYLiberacion()
         {
@@ -25,6 +27,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(casilla.Ocupar(), Is.True);
         }
 
+        // Caso Casilla: verifica cambiar transitabilidad - actualiza valor.
         [TestCase(true, false)]
         [TestCase(false, true)]
         public void Casilla_CambiarTransitabilidad_ActualizaValor(bool inicial, bool nuevo)
@@ -34,6 +37,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(casilla.EsTransitable, Is.EqualTo(nuevo));
         }
 
+        // Caso Mapa: verifica constructor - rechaza ancho no positivo.
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(int.MinValue)]
@@ -42,6 +46,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.Throws<ArgumentOutOfRangeException>(() => new Mapa(ancho, 3));
         }
 
+        // Caso Mapa: verifica constructor - rechaza alto no positivo.
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(int.MinValue)]
@@ -50,6 +55,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.Throws<ArgumentOutOfRangeException>(() => new Mapa(4, alto));
         }
 
+        // Caso Mapa: verifica obtener casilla - devuelve casilla de la posicion.
         [TestCase(0, 0)]
         [TestCase(3, 2)]
         [TestCase(2, 1)]
@@ -64,6 +70,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.ObtenerCasilla(x, y), Is.SameAs(casilla));
         }
 
+        // Caso Mapa: verifica obtener casilla - fuera de limites devuelve null.
         [TestCase(-1, 0)]
         [TestCase(0, -1)]
         [TestCase(4, 0)]
@@ -73,6 +80,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(new Mapa(4, 3).ObtenerCasilla(x, y), Is.Null);
         }
 
+        // Caso Mapa: verifica esta dentro de limites - valida bordes.
         [TestCase(0, 0, true)]
         [TestCase(3, 0, true)]
         [TestCase(0, 2, true)]
@@ -87,6 +95,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.EstaDentroDeLimites(new Coordenada(x, y)), Is.EqualTo(esperado));
         }
 
+        // Caso Mapa: verifica coordenada null - no es valida.
         [Test]
         public void Mapa_CoordenadaNull_NoEsValida()
         {
@@ -96,6 +105,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.ObtenerRecursoEn(null), Is.Null);
         }
 
+        // Caso Mapa: verifica puede colocar - depende de la ocupacion.
         [Test]
         public void Mapa_PuedeColocar_DependeDeLaOcupacion()
         {
@@ -109,6 +119,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.PuedeColocar(coordenada), Is.True);
         }
 
+        // Caso Mapa: verifica colocar recurso - valido lo registra y bloquea colocacion.
         [Test]
         public void Mapa_ColocarRecurso_ValidoLoRegistraYBloqueaColocacion()
         {
@@ -121,6 +132,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.PuedeColocar(new Coordenada(1, 1)), Is.False);
         }
 
+        // Caso Mapa: verifica colocar recurso - rechaza null.
         [Test]
         public void Mapa_ColocarRecurso_RechazaNull()
         {
@@ -129,6 +141,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.Recursos, Is.Empty);
         }
 
+        // Caso Mapa: verifica colocar recurso - rechaza fuera de limites.
         [TestCase(-1, 0)]
         [TestCase(0, -1)]
         [TestCase(4, 0)]
@@ -144,6 +157,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.ObtenerRecursoEn(coordenada), Is.Null);
         }
 
+        // Caso Mapa: verifica colocar recurso - rechaza casilla ocupada.
         [Test]
         public void Mapa_ColocarRecurso_RechazaCasillaOcupada()
         {
@@ -156,6 +170,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.ObtenerCasilla(1, 1).EstaOcupada, Is.True);
         }
 
+        // Caso Mapa: verifica colocar recurso - rechaza coordenada repetida.
         [Test]
         public void Mapa_ColocarRecurso_RechazaCoordenadaRepetida()
         {
@@ -169,6 +184,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.ObtenerRecursoEn(new Coordenada(1, 1)), Is.SameAs(original));
         }
 
+        // Caso Mapa: verifica obtener recurso en - busca por valores de coordenada.
         [Test]
         public void Mapa_ObtenerRecursoEn_BuscaPorValoresDeCoordenada()
         {
@@ -183,6 +199,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(mapa.ObtenerRecursoEn(new Coordenada(2, 1)), Is.Null);
         }
 
+        // Caso Recursos Jugador: verifica inicia en cero - y agregar acumula.
         [TestCase(TipoRecurso.Oro)]
         [TestCase(TipoRecurso.Madera)]
         [TestCase(TipoRecurso.Comida)]
@@ -196,6 +213,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(recursos.ObtenerCantidad(tipo), Is.EqualTo(15));
         }
 
+        // Caso Recursos Jugador: verifica agregar negativo - lanza sin modificar saldo.
         [Test]
         public void RecursosJugador_AgregarNegativo_LanzaSinModificarSaldo()
         {
@@ -205,6 +223,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(recursos.ObtenerCantidad(TipoRecurso.Oro), Is.EqualTo(10));
         }
 
+        // Caso Recursos Jugador: verifica puede pagar - consulta sin modificar saldo.
         [TestCase(0, true)]
         [TestCase(5, true)]
         [TestCase(10, true)]
@@ -219,6 +238,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(recursos.ObtenerCantidad(TipoRecurso.Oro), Is.EqualTo(10));
         }
 
+        // Caso Recursos Jugador: verifica intentar gastar - valida resultado y saldo.
         [TestCase(0, true, 10)]
         [TestCase(4, true, 6)]
         [TestCase(10, true, 0)]
@@ -234,6 +254,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(recursos.ObtenerCantidad(TipoRecurso.Oro), Is.EqualTo(saldoEsperado));
         }
 
+        // Caso Recursos Jugador: verifica agregar concurrente - no pierde actualizaciones.
         [Test]
         public async Task RecursosJugador_AgregarConcurrente_NoPierdeActualizaciones()
         {
@@ -264,6 +285,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.EqualTo(cantidadTareas * incrementosPorTarea));
         }
 
+        // Caso Recursos Jugador: verifica gasto concurrente - no permite saldo negativo.
         [Test]
         public async Task RecursosJugador_GastoConcurrente_NoPermiteSaldoNegativo()
         {
@@ -311,6 +333,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.Zero);
         }
 
+        // Caso Recurso: verifica conserva tipo y coordenada.
         [TestCase(TipoRecurso.Oro)]
         [TestCase(TipoRecurso.Madera)]
         [TestCase(TipoRecurso.Comida)]
@@ -322,6 +345,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(recurso.Coordenada, Is.SameAs(coordenada));
         }
 
+        // Caso Recurso: verifica inicia con cantidad predeterminada.
         [Test]
         public void Recurso_IniciaConCantidadPredeterminada()
         {
@@ -340,6 +364,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.False);
         }
 
+        // Caso Recurso: verifica extraer - no supera cantidad disponible.
         [Test]
         public void Recurso_Extraer_NoSuperaCantidadDisponible()
         {
@@ -366,6 +391,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.True);
         }
 
+        // Caso Recurso: verifica extraccion concurrente - no duplica cantidad.
         [Test]
         public async Task Recurso_ExtraccionConcurrente_NoDuplicaCantidad()
         {
@@ -411,6 +437,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.Zero);
         }
 
+        // Caso Recurso: verifica cantidad inicial no positiva - lanza.
         [TestCase(0)]
         [TestCase(-1)]
         public void Recurso_CantidadInicialNoPositiva_Lanza(
@@ -424,6 +451,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                         cantidad));
         }
 
+        // Caso Recurso: verifica rechaza coordenada null.
         [Test]
         public void Recurso_RechazaCoordenadaNull()
         {

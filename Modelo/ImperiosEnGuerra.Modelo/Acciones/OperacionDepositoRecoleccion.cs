@@ -14,6 +14,13 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// </summary>
     public sealed class OperacionDepositoRecoleccion
     {
+        /// <summary>
+        /// Ejecuta el elemento solicitado.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="aldeanoId">El valor de aldeano id.</param>
+        /// <param name="centroUrbano">El valor de centro urbano.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoDepositoRecoleccion Ejecutar(
             Partida partida,
             Guid aldeanoId,

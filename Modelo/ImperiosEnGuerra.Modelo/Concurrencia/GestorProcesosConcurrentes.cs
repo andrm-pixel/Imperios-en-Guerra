@@ -25,6 +25,12 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
 
         private int cerrado;
 
+        /// <summary>
+        /// Inicia el elemento solicitado.
+        /// </summary>
+        /// <param name="nombre">El valor de nombre.</param>
+        /// <param name="trabajo">El valor de trabajo.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ProcesoConcurrente Iniciar(
             string nombre,
             Func<CancellationToken, ResultadoAccion> trabajo)
@@ -98,6 +104,11 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
                 finalizacion);
         }
 
+        /// <summary>
+        /// Cancela el elemento solicitado.
+        /// </summary>
+        /// <param name="procesoId">El valor de proceso id.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool Cancelar(Guid procesoId)
         {
             if (!cancelaciones.TryGetValue(
@@ -111,6 +122,9 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
             return true;
         }
 
+        /// <summary>
+        /// Cancela todos.
+        /// </summary>
         public void CancelarTodos()
         {
             foreach (CancellationTokenSource cancelacion
@@ -120,6 +134,12 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
             }
         }
 
+        /// <summary>
+        /// Intenta obtener resultado.
+        /// </summary>
+        /// <param name="procesoId">El valor de proceso id.</param>
+        /// <param name="resultado">El valor de resultado.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool IntentarObtenerResultado(
             Guid procesoId,
             out ResultadoProcesoConcurrente resultado)
@@ -129,6 +149,11 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
                 out resultado);
         }
 
+        /// <summary>
+        /// Intenta obtener resultado.
+        /// </summary>
+        /// <param name="resultado">El valor de resultado.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool IntentarObtenerResultado(
             out ResultadoProcesoConcurrente resultado)
         {
@@ -154,16 +179,25 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
             resultados.Enqueue(resultado);
         }
 
+        /// <summary>
+        /// Obtiene procesos activos.
+        /// </summary>
         public int ProcesosActivos
         {
             get { return cancelaciones.Count; }
         }
 
+        /// <summary>
+        /// Obtiene resultados pendientes.
+        /// </summary>
         public int ResultadosPendientes
         {
             get { return resultadosPorId.Count; }
         }
 
+        /// <summary>
+        /// Ejecuta la operación dispose.
+        /// </summary>
         public void Dispose()
         {
             if (Interlocked.Exchange(ref cerrado, 1) != 0)

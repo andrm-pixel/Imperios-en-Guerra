@@ -10,23 +10,36 @@ namespace ImperiosEnGuerra.Controladores
     /// <summary>Coordina la selección local; no envía órdenes de gameplay.</summary>
     public class ControladorSeleccion : MonoBehaviour
     {
+        /// <summary>Cámara usada para convertir el clic a mundo.</summary>
         [SerializeField] private Camera camara;
+        /// <summary>Vista consultada para coordenadas y entidades.</summary>
         [SerializeField] private VistaPartida vistaPartida;
 
+        /// <summary>Entidad actualmente seleccionada.</summary>
         public EntidadSeleccionableVista SeleccionActual { get; private set; }
+        /// <summary>Identificador de la unidad seleccionada, si la hay.</summary>
         public string IdUnidadSeleccionada =>
             SeleccionActual != null && SeleccionActual.Categoria == CategoriaEntidadVisual.Unidad
                 ? SeleccionActual.IdLogico
                 : string.Empty;
+        /// <summary>Avisa cuando cambia la entidad seleccionada.</summary>
         public event System.Action<EntidadSeleccionableVista> SeleccionCambio;
+        /// <summary>Indica si se espera una casilla destino.</summary>
         public bool CapturandoDestino { get; private set; }
+        /// <summary>Indica si el destino debe ser un recurso.</summary>
         public bool CapturandoRecurso { get; private set; }
+        /// <summary>Indica si se espera una entidad objetivo.</summary>
         public bool CapturandoObjetivoEntidad { get; private set; }
+        /// <summary>Se emite al elegir una casilla destino válida.</summary>
         public event System.Action<int, int> DestinoSeleccionado;
+        /// <summary>Se emite al elegir una entidad objetivo.</summary>
         public event System.Action<EntidadSeleccionableVista> ObjetivoEntidadSeleccionado;
+        /// <summary>Se emite al cancelar la captura en curso.</summary>
         public event System.Action CapturaCancelada;
+        /// <summary>Vista suscrita para limpiar la selección.</summary>
         private VistaPartida vistaSuscrita;
 
+        /// <summary>Inicia la espera de una casilla destino.</summary>
         public void IniciarCapturaDestino()
         {
             CapturandoObjetivoEntidad = false;
@@ -34,6 +47,7 @@ namespace ImperiosEnGuerra.Controladores
             CapturandoDestino = true;
         }
 
+        /// <summary>Inicia la espera de un recurso como destino.</summary>
         public void IniciarCapturaRecurso()
         {
             CapturandoObjetivoEntidad = false;
@@ -41,12 +55,14 @@ namespace ImperiosEnGuerra.Controladores
             CapturandoDestino = true;
         }
 
+        /// <summary>Termina la espera de casilla destino.</summary>
         public void FinalizarCapturaDestino()
         {
             CapturandoDestino = false;
             CapturandoRecurso = false;
         }
 
+        /// <summary>Inicia la espera de una entidad objetivo.</summary>
         public void IniciarCapturaObjetivoEntidad()
         {
             CapturandoDestino = false;
@@ -54,9 +70,11 @@ namespace ImperiosEnGuerra.Controladores
             CapturandoObjetivoEntidad = true;
         }
 
+        /// <summary>Termina la espera de entidad objetivo.</summary>
         public void FinalizarCapturaObjetivoEntidad() =>
             CapturandoObjetivoEntidad = false;
 
+        /// <summary>Cancela la captura y notifica la cancelación.</summary>
         private void CancelarCapturaDestino()
         {
             CapturandoDestino = false;
@@ -65,6 +83,7 @@ namespace ImperiosEnGuerra.Controladores
             CapturaCancelada?.Invoke();
         }
 
+        /// <summary>Suscribe la limpieza de selección a la vista.</summary>
         private void OnEnable()
         {
             vistaSuscrita = vistaPartida;
@@ -78,6 +97,7 @@ namespace ImperiosEnGuerra.Controladores
             }
         }
 
+        /// <summary>Cancela suscripciones y limpia la selección.</summary>
         private void OnDisable()
         {
             if (vistaSuscrita != null)
@@ -90,6 +110,7 @@ namespace ImperiosEnGuerra.Controladores
             FinalizarCapturaObjetivoEntidad();
         }
 
+        /// <summary>Gestiona Escape y clics de selección o destino.</summary>
         private void Update()
         {
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -168,6 +189,7 @@ namespace ImperiosEnGuerra.Controladores
             Seleccionar(candidata);
         }
 
+        /// <summary>Busca el recurso más cercano al punto indicado.</summary>
         private EntidadSeleccionableVista ObtenerRecursoEn(
             Vector3 mundo)
         {
@@ -208,6 +230,7 @@ namespace ImperiosEnGuerra.Controladores
             return candidata;
         }
 
+        /// <summary>Busca la entidad visible bajo el punto indicado.</summary>
         private EntidadSeleccionableVista ObtenerEntidadEn(Vector3 mundo)
         {
             Physics2D.SyncTransforms();
@@ -235,6 +258,7 @@ namespace ImperiosEnGuerra.Controladores
             return candidata;
         }
 
+        /// <summary>Aplica la nueva selección y notifica el cambio.</summary>
         private void Seleccionar(EntidadSeleccionableVista entidad)
         {
             if (SeleccionActual == entidad)
@@ -253,6 +277,7 @@ namespace ImperiosEnGuerra.Controladores
             SeleccionCambio?.Invoke(SeleccionActual);
         }
 
+        /// <summary>Quita el resaltado y deja la selección vacía.</summary>
         public void LimpiarSeleccion()
         {
             if (SeleccionActual != null)

@@ -12,13 +12,18 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>Configura la VistaPartida inicial desde el Editor.</summary>
 public static class Fase2VistaConfigurator
 {
+    /// <summary>Ruta de la escena de muestra a configurar.</summary>
     private const string RutaEscena = "Assets/Scenes/SampleScene.unity";
+    /// <summary>Carpeta de gráficos Tiny Swords.</summary>
     private const string RutaArte = "Assets/Art/TinySwords/";
+    /// <summary>Contenido temporal de la prueba visual.</summary>
     private static GameObject contenidoPrueba;
 
     [MenuItem("Tools/Imperios en Guerra/Fase 2/Probar unidades visuales")]
+    /// <summary>Dibuja unidades de prueba sin consultar la API.</summary>
     public static void ProbarUnidadesVisuales()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -76,6 +81,7 @@ public static class Fase2VistaConfigurator
         Debug.Log("Prueba visual temporal: cinco unidades humanas en y=1 y cinco de máquina en y=8. No se consultó la API.");
     }
 
+    /// <summary>Crea un jugador de prueba con cinco unidades.</summary>
     private static JugadorEstadoDto CrearJugadorPrueba(string tipo, int y)
     {
         string[] tipos = { "Aldeano", "Guerrero", "Lancero", "Arquero", "Monje" };
@@ -94,6 +100,7 @@ public static class Fase2VistaConfigurator
         };
     }
 
+    /// <summary>Limpia la prueba al salir del modo edición.</summary>
     private static void AlCambiarModoPrueba(PlayModeStateChange estado)
     {
         if (estado == PlayModeStateChange.ExitingEditMode)
@@ -102,6 +109,7 @@ public static class Fase2VistaConfigurator
         }
     }
 
+    /// <summary>Elimina el contenido de la prueba visual.</summary>
     private static void LimpiarPruebaVisual()
     {
         if (contenidoPrueba != null)
@@ -112,6 +120,7 @@ public static class Fase2VistaConfigurator
     }
 
     [MenuItem("Tools/Imperios en Guerra/Fase 2/Configurar vista inicial")]
+    /// <summary>Crea VistaPartida y asigna sprites y referencias.</summary>
     public static void Configurar()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -212,6 +221,7 @@ public static class Fase2VistaConfigurator
         Debug.Log("Vista inicial configurada. Inicie la API en http://localhost:5086 y ejecute Play.");
     }
 
+    /// <summary>Busca un objeto por nombre en la escena.</summary>
     private static GameObject BuscarObjeto(Scene escena, string nombre)
     {
         return escena.GetRootGameObjects()
@@ -220,6 +230,7 @@ public static class Fase2VistaConfigurator
             .FirstOrDefault(objeto => objeto.name == nombre);
     }
 
+    /// <summary>Carga y valida todos los sprites necesarios.</summary>
     private static Dictionary<string, Sprite> CargarSprites()
     {
         var sprites = new Dictionary<string, Sprite>
@@ -238,6 +249,7 @@ public static class Fase2VistaConfigurator
         return sprites;
     }
 
+    /// <summary>Carga los sprites de un bando de unidades.</summary>
     private static void CargarUnidades(
         Dictionary<string, Sprite> sprites, string color, string jugador)
     {
@@ -249,6 +261,7 @@ public static class Fase2VistaConfigurator
         sprites.Add("monje" + jugador, CargarMultiple(ruta + "Monk/Idle.png"));
     }
 
+    /// <summary>Carga un sprite individual del atlas.</summary>
     private static Sprite CargarSingle(string rutaRelativa)
     {
         string ruta = ValidarArchivo(rutaRelativa);
@@ -260,6 +273,7 @@ public static class Fase2VistaConfigurator
         return sprite;
     }
 
+    /// <summary>Carga un sub-sprite de una textura múltiple.</summary>
     private static Sprite CargarMultiple(string rutaRelativa, string nombre = null)
     {
         string ruta = ValidarArchivo(rutaRelativa);
@@ -278,6 +292,7 @@ public static class Fase2VistaConfigurator
         return sprite;
     }
 
+    /// <summary>Verifica que exista el gráfico Tiny Swords.</summary>
     private static string ValidarArchivo(string rutaRelativa)
     {
         string ruta = RutaArte + rutaRelativa;

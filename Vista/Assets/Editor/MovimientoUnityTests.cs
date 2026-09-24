@@ -8,17 +8,22 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>Pruebas de preparación y vista del movimiento.</summary>
 public class MovimientoUnityTests
 {
+    /// <summary>Raíz de los objetos de prueba de movimiento.</summary>
     private GameObject raiz;
     private ControladorSeleccion seleccion;
     private ControladorAcciones acciones;
     private ControladorConexionApi conexion;
+    /// <summary>Vista observada en la prueba de movimiento.</summary>
     private VistaPartida vista;
+    /// <summary>Unidad usada en la prueba de movimiento.</summary>
     private EntidadSeleccionableVista unidad;
     private Text mensaje;
     private const string IdModelo = "11111111-1111-1111-1111-111111111111";
 
+    /// <summary>Crea la escena mínima para probar el movimiento.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -49,6 +54,7 @@ public class MovimientoUnityTests
         Invocar(seleccion, "Seleccionar", unidad);
     }
 
+    /// <summary>Destruye la escena de prueba de movimiento.</summary>
     [TearDown]
     public void Limpiar()
     {
@@ -60,6 +66,7 @@ public class MovimientoUnityTests
     [TestCase(CategoriaEntidadVisual.Edificio, "Humano", IdModelo)]
     [TestCase(CategoriaEntidadVisual.Recurso, "Humano", IdModelo)]
     [TestCase(CategoriaEntidadVisual.Unidad, "Maquina", IdModelo)]
+    /// <summary>Verifica que lo inapropiado no prepara movimiento.</summary>
     [TestCase(CategoriaEntidadVisual.Unidad, "Humano", "")]
     public void SeleccionInapropiada_NoPreparaMovimiento(CategoriaEntidadVisual categoria, string propietario, string id)
     {
@@ -69,6 +76,7 @@ public class MovimientoUnityTests
         Assert.That(conexion.MovimientoEnCurso, Is.False);
     }
 
+    /// <summary>Verifica que preparar conserva el id sin mover.</summary>
     [Test]
     public void Preparar_ConservaIdSinEnviarNiMover()
     {
@@ -81,6 +89,7 @@ public class MovimientoUnityTests
         Assert.That(unidad.transform.position, Is.EqualTo(posicion));
     }
 
+    /// <summary>Verifica que Escape cancela sin deseleccionar.</summary>
     [Test]
     public void CancelacionUsadaPorEscape_LimpiaIntencionSinEnviarNiDeseleccionar()
     {
@@ -90,6 +99,7 @@ public class MovimientoUnityTests
         Assert.That(seleccion.SeleccionActual, Is.SameAs(unidad));
     }
 
+    /// <summary>Verifica que cambiar selección cancela el movimiento.</summary>
     [Test]
     public void CambioSeleccion_CancelaSinEnviar()
     {
@@ -98,6 +108,7 @@ public class MovimientoUnityTests
         ComprobarCancelacion();
     }
 
+    /// <summary>Verifica que destruir la unidad cancela.</summary>
     [Test]
     public void UnidadDesaparece_CancelaSinEnviar()
     {
@@ -107,6 +118,7 @@ public class MovimientoUnityTests
         ComprobarCancelacion();
     }
 
+    /// <summary>Verifica que no se duplica orden activa.</summary>
     [Test]
     public void UnidadConOrdenActiva_NoAceptaSegundaOrdenSimultanea()
     {
@@ -130,6 +142,7 @@ public class MovimientoUnityTests
             Does.Contain("entidad humana apropiada"));
     }
 
+    /// <summary>Verifica que el curso no bloquea preparar.</summary>
     [Test]
     public void MovimientoEnCurso_NoBloqueaPrepararOtraOrden()
     {
@@ -152,6 +165,7 @@ public class MovimientoUnityTests
             Is.EqualTo("Selecciona una casilla destino."));
     }
 
+    /// <summary>Verifica el JSON del contrato de movimiento.</summary>
     [Test]
     public void Dto_UsaIdSeleccionadoYNombresDelContrato()
     {
@@ -165,6 +179,7 @@ public class MovimientoUnityTests
             Is.EqualTo("{\"unidadId\":\"" + IdModelo + "\",\"destino\":{\"x\":4,\"y\":5}}"));
     }
 
+    /// <summary>Verifica los DTOs concurrentes de movimiento.</summary>
     [Test]
     public void DtoConcurrente_LeeInicioYResultadoDelWorker()
     {
@@ -196,6 +211,7 @@ public class MovimientoUnityTests
     }
 
     [TestCase(8f, 10f, 4, 5)]
+    /// <summary>Verifica la conversión mundo a casilla.</summary>
     [TestCase(0f, 0f, 0, 0)]
     public void CasillaVacia_SeConvierteSinEntidad(float mundoX, float mundoY, int esperadoX, int esperadoY)
     {
@@ -206,6 +222,7 @@ public class MovimientoUnityTests
         Assert.That(y, Is.EqualTo(esperadoY));
     }
 
+    /// <summary>Verifica que la vista no teletransporta.</summary>
     [Test]
     public void VistaMovimiento_ActualizaDatosSinTeletransportarSprite()
     {
@@ -245,6 +262,7 @@ public class MovimientoUnityTests
             Is.EqualTo(posicionInicial));
     }
 
+    /// <summary>Verifica que un id desconocido no mueve.</summary>
     [Test]
     public void VistaMovimiento_IdDesconocido_NoCreaMovimiento()
     {
@@ -258,6 +276,7 @@ public class MovimientoUnityTests
             Is.False);
     }
 
+    /// <summary>Comprueba el estado tras cancelar el movimiento.</summary>
     private void ComprobarCancelacion()
     {
         Assert.That(seleccion.CapturandoDestino, Is.False);
@@ -266,12 +285,15 @@ public class MovimientoUnityTests
         Assert.That(mensaje.text, Is.EqualTo("Movimiento cancelado."));
     }
 
+    /// <summary>Lee un campo privado por reflexión.</summary>
     private static object LeerCampo(object objeto, string nombre) => objeto.GetType()
         .GetField(nombre, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(objeto);
 
+    /// <summary>Asigna un campo privado por reflexión.</summary>
     private static void Campo(object objeto, string nombre, object valor) => objeto.GetType()
         .GetField(nombre, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objeto, valor);
 
+    /// <summary>Asigna una propiedad automática por reflexión.</summary>
     private static void CampoAutomatico(
         object objeto,
         string nombre,
@@ -285,6 +307,7 @@ public class MovimientoUnityTests
             .SetValue(objeto, valor);
     }
 
+    /// <summary>Invoca un método privado por reflexión.</summary>
     private static void Invocar(object objeto, string nombre, params object[] argumentos) => objeto.GetType()
         .GetMethod(nombre, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(objeto, argumentos);
 }

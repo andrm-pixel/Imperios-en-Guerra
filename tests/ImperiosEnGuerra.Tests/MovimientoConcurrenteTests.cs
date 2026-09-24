@@ -8,8 +8,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Movimiento Concurrente: verifica movimiento concurrente.</summary>
 public class MovimientoConcurrenteTests
 {
+    // Caso Movimiento Concurrente: verifica ejecuta en worker y publica resultado.
     [Test]
     public async Task MovimientoConcurrente_EjecutaEnWorkerYPublicaResultado()
     {
@@ -44,6 +46,7 @@ public class MovimientoConcurrenteTests
         Assert.That(unidad.Coordenada.Y, Is.EqualTo(5));
     }
 
+    // Caso Cancelar Movimiento: verifica antes de aplicar - no modifica modelo.
     [Test]
     public async Task CancelarMovimiento_AntesDeAplicar_NoModificaModelo()
     {
@@ -79,6 +82,7 @@ public class MovimientoConcurrenteTests
         Assert.That(unidad.Coordenada, Is.SameAs(origen));
     }
 
+    // Caso Solicitud Invalida: verifica se completa con resultado logico rechazado.
     [Test]
     public async Task SolicitudInvalida_SeCompletaConResultadoLogicoRechazado()
     {

@@ -10,6 +10,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
     /// </summary>
     public static class AdaptadorEstadoPartida
     {
+        /// <summary>Convierte la respuesta del Modelo al DTO de Unity.</summary>
         public static UnityDto.EstadoPartidaDto Convertir(ModeloContratos.EstadoPartidaResponse respuesta)
         {
             return new UnityDto.EstadoPartidaDto
@@ -22,6 +23,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             };
         }
 
+        /// <summary>Mapea el mapa del Modelo al DTO de Unity.</summary>
         private static UnityDto.MapaEstadoDto ConvertirMapa(ModeloContratos.MapaEstadoResponse mapa)
         {
             return new UnityDto.MapaEstadoDto
@@ -37,6 +39,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             };
         }
 
+        /// <summary>Mapea un jugador del Modelo al DTO de Unity.</summary>
         private static UnityDto.JugadorEstadoDto ConvertirJugador(ModeloContratos.JugadorEstadoResponse jugador)
         {
             return new UnityDto.JugadorEstadoDto
@@ -87,6 +90,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             };
         }
 
+        /// <summary>Mapea los costos del Modelo al DTO de Unity.</summary>
         private static UnityDto.EconomiaEstadoDto ConvertirEconomia(ModeloContratos.EconomiaEstadoResponse economia)
         {
             return new UnityDto.EconomiaEstadoDto
@@ -100,6 +104,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             };
         }
 
+        /// <summary>Mapea un costo del Modelo al DTO de Unity.</summary>
         private static UnityDto.CostoEstadoDto ConvertirCosto(ModeloContratos.CostoEstadoResponse costo)
         {
             return new UnityDto.CostoEstadoDto

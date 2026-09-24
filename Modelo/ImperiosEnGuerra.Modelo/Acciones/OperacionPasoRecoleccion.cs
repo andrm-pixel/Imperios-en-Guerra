@@ -14,6 +14,14 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// </summary>
     public sealed class OperacionPasoRecoleccion
     {
+        /// <summary>
+        /// Ejecuta el elemento solicitado.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="aldeanoId">El valor de aldeano id.</param>
+        /// <param name="objetivo">El valor de objetivo.</param>
+        /// <param name="tasa">El valor de tasa.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoPasoRecoleccion Ejecutar(
             Partida partida,
             Guid aldeanoId,

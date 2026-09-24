@@ -7,47 +7,67 @@ using UnityEngine.Networking;
 
 namespace ImperiosEnGuerra.Controladores.Red
 {
+    /// <summary>Puente entre la Vista Unity y la API interna o externa.</summary>
     public class ControladorConexionApi : MonoBehaviour
     {
         [SerializeField]
+        /// <summary>URL base de la API externa de partida.</summary>
         private string urlBaseApi = "http://localhost:5086";
 
         [SerializeField]
+        /// <summary>Vista que dibuja el estado de la partida.</summary>
         private VistaPartida vistaPartida;
 
         [SerializeField]
+        /// <summary>HUD para recursos, mensajes y opciones.</summary>
         private VistaHud vistaHud;
 
         [Header("API interna (sin terminal)")]
         [SerializeField]
+        /// <summary>API interna usada sin terminal externa.</summary>
         private ApiInterna.ApiInternaJuego apiInterna;
 
         [SerializeField]
+        /// <summary>Usa la API HTTP externa en vez de la interna.</summary>
         private bool usarApiExterna = false;
 
+        /// <summary>Costos vigentes para describir precios.</summary>
         private EconomiaEstadoDto economiaActual;
 
+    /// <summary>Indica si hay un movimiento en curso.</summary>
     public bool MovimientoEnCurso { get; private set; }
+    /// <summary>Indica si hay una recolección en curso.</summary>
     public bool RecoleccionEnCurso { get; private set; }
+    /// <summary>Indica si hay una construcción en curso.</summary>
     public bool ConstruccionEnCurso { get; private set; }
+    /// <summary>Indica si hay un entrenamiento en curso.</summary>
     public bool EntrenamientoEnCurso { get; private set; }
+    /// <summary>Indica si hay un ataque en curso.</summary>
     public bool AtaqueEnCurso { get; private set; }
 
+    /// <summary>Contador de movimientos concurrentes activos.</summary>
     private int movimientosActivos;
+    /// <summary>Contador de recolecciones concurrentes activas.</summary>
     private int recoleccionesActivas;
+    /// <summary>Contador de construcciones concurrentes activas.</summary>
     private int construccionesActivas;
+    /// <summary>Contador de entrenamientos concurrentes activos.</summary>
     private int entrenamientosActivos;
+    /// <summary>Contador de ataques concurrentes activos.</summary>
     private int ataquesActivos;
 
+    /// <summary>Procesos activos por identificador de unidad.</summary>
     private readonly System.Collections.Generic.Dictionary<string, System.Guid> procesosPorUnidad =
         new System.Collections.Generic.Dictionary<string, System.Guid>();
 
+    /// <summary>Asocia un proceso a su unidad.</summary>
     private void RegistrarProceso(string claveUnidad, System.Guid procesoId)
     {
         if (!string.IsNullOrWhiteSpace(claveUnidad))
             procesosPorUnidad[claveUnidad] = procesoId;
     }
 
+    /// <summary>Elimina la asociación proceso-unidad.</summary>
     private void OlvidarProceso(string claveUnidad)
     {
         if (!string.IsNullOrWhiteSpace(claveUnidad))
@@ -97,6 +117,7 @@ namespace ImperiosEnGuerra.Controladores.Red
         }
     }
 
+/// <summary>Indica si alguna acción concurrente sigue activa.</summary>
 public bool AccionEnCurso =>
     MovimientoEnCurso ||
     RecoleccionEnCurso ||
@@ -104,26 +125,33 @@ public bool AccionEnCurso =>
     EntrenamientoEnCurso ||
     AtaqueEnCurso;
 
+/// <summary>Indica si se puede iniciar un movimiento.</summary>
 public bool PuedeIniciarMovimiento =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
+/// <summary>Indica si se puede iniciar una recolección.</summary>
 public bool PuedeIniciarRecoleccion =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
+/// <summary>Indica si se puede iniciar una construcción.</summary>
 public bool PuedeIniciarConstruccion =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
+/// <summary>Indica si se puede iniciar un entrenamiento.</summary>
 public bool PuedeIniciarEntrenamiento =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
+/// <summary>Indica si se puede iniciar un ataque.</summary>
 public bool PuedeIniciarAtaque =>
     usarApiExterna ? isActiveAndEnabled : ApiInternaDisponible;
 
+        /// <summary>Indica si la API interna está lista.</summary>
         private bool ApiInternaDisponible
         {
             get { return apiInterna != null && apiInterna.EstaDisponible; }
         }
 
+        /// <summary>Lanza error si la API interna no está disponible.</summary>
         private void ExigirApiInterna()
         {
             if (ApiInternaDisponible)
@@ -181,6 +209,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Solicita el movimiento de una unidad.</summary>
         public void MoverUnidad(string unidadId, int x, int y)
         {
             if (!PuedeIniciarMovimiento)
@@ -202,6 +231,7 @@ public bool PuedeIniciarAtaque =>
             }));
         }
 
+        /// <summary>Solicita la recolección de un aldeano.</summary>
         public void IniciarRecoleccion(string aldeanoId, int x, int y)
         {
             if (!PuedeIniciarRecoleccion)
@@ -223,6 +253,7 @@ public bool PuedeIniciarAtaque =>
             }));
         }
 
+        /// <summary>Solicita la construcción de un edificio.</summary>
         public void Construir(
         string aldeanoId,
         string tipoEdificio,
@@ -252,6 +283,7 @@ public bool PuedeIniciarAtaque =>
                 }));
     }
 
+        /// <summary>Solicita el entrenamiento de una unidad.</summary>
         public void Entrenar(
             int edificioX,
             int edificioY,
@@ -290,6 +322,7 @@ public bool PuedeIniciarAtaque =>
                     }));
         }
 
+        /// <summary>Solicita un ataque a un objetivo.</summary>
         public void Atacar(
             string atacanteId,
             string objetivoId)
@@ -316,6 +349,7 @@ public bool PuedeIniciarAtaque =>
                     }));
         }
 
+        /// <summary>Ejecuta un movimiento con la API interna.</summary>
         private IEnumerator EjecutarMovimientoInterno(string unidadId, int x, int y)
         {
             movimientosActivos++;
@@ -345,6 +379,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Ejecuta una recolección con la API interna.</summary>
         private IEnumerator EjecutarRecoleccionInterna(string aldeanoId, int x, int y)
         {
             recoleccionesActivas++;
@@ -374,6 +409,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Ejecuta una construcción con la API interna.</summary>
         private IEnumerator EjecutarConstruccionInterna(string aldeanoId, string tipoEdificio, int x, int y)
         {
             construccionesActivas++;
@@ -403,6 +439,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Ejecuta un entrenamiento con la API interna.</summary>
         private IEnumerator EjecutarEntrenamientoInterno(int edificioX, int edificioY, string tipoUnidad, int destinoX, int destinoY)
         {
             entrenamientosActivos++;
@@ -429,6 +466,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Ejecuta un ataque con la API interna.</summary>
         private IEnumerator EjecutarAtaqueInterno(string atacanteId, string objetivoId)
         {
             ataquesActivos++;
@@ -458,6 +496,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Espera el resultado interno y sincroniza la vista.</summary>
         private IEnumerator EsperarProcesoInterno(System.Guid procesoId, string unidadId, string nombre)
         {
             const float intervalo = 0.1f;
@@ -516,6 +555,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Refresca la unidad y los recursos durante el proceso.</summary>
         private IEnumerator ActualizarSnapshotInterno(string unidadId)
         {
             EstadoPartidaDto estado = null;
@@ -548,6 +588,7 @@ public bool PuedeIniciarAtaque =>
                 vistaHud.MostrarRecursos(recursosSolo.oro, recursosSolo.madera, recursosSolo.comida, recursosSolo.piedra, recursosSolo.hierro);
         }
 
+        /// <summary>Obtiene el estado interno y lo aplica a la vista.</summary>
         private IEnumerator SincronizarEstadoInterno(string mensaje = "")
         {
             EstadoPartidaDto estado = null;
@@ -564,6 +605,7 @@ public bool PuedeIniciarAtaque =>
             AplicarEstado(estado, mensaje);
         }
 
+        /// <summary>Valida y dibuja un estado en vista y HUD.</summary>
         private void AplicarEstado(EstadoPartidaDto estado, string mensaje)
         {
             if (estado?.mapa == null || estado.mapa.ancho <= 0 || estado.jugadorHumano == null || estado.jugadorMaquina == null)
@@ -590,6 +632,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Detiene corrutinas y reinicia los contadores.</summary>
         private void OnDisable()
         {
             StopAllCoroutines();
@@ -607,6 +650,7 @@ public bool PuedeIniciarAtaque =>
             AtaqueEnCurso = false;
         }
 
+        /// <summary>Envía un movimiento a la API externa.</summary>
         private IEnumerator EnviarMovimiento(MoverUnidadDto movimiento)
         {
             movimientosActivos++;
@@ -667,6 +711,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Consulta el worker de movimiento hasta completarlo.</summary>
         private IEnumerator EsperarResultadoMovimiento(
             string procesoId,
             string unidadId)
@@ -786,6 +831,7 @@ public bool PuedeIniciarAtaque =>
                 "Seguimiento concurrente detenido porque el controlador dejó de estar activo.");
         }
 
+        /// <summary>Refresca la posición durante el movimiento externo.</summary>
         private IEnumerator ActualizarMovimientoEnCurso(
             string unidadId)
         {
@@ -848,6 +894,7 @@ public bool PuedeIniciarAtaque =>
                 unidad.ordenActiva);
         }
 
+        /// <summary>Busca una unidad humana por identificador.</summary>
         private static UnidadEstadoDto BuscarUnidadHumana(
             EstadoPartidaDto estado,
             string unidadId)
@@ -872,6 +919,7 @@ public bool PuedeIniciarAtaque =>
             return null;
         }
 
+        /// <summary>Lee el inicio de proceso desde JSON.</summary>
         private static ProcesoIniciadoDto LeerProcesoIniciado(
             string json)
         {
@@ -891,6 +939,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Lee el resultado concurrente desde JSON.</summary>
         private static ResultadoProcesoDto LeerResultadoProceso(
             string json)
         {
@@ -910,6 +959,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Envía una recolección a la API externa.</summary>
         private IEnumerator EnviarRecoleccion(RecolectarDto recoleccion)
         {
             recoleccionesActivas++;
@@ -968,6 +1018,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Consulta el worker de recolección hasta completarlo.</summary>
         private IEnumerator EsperarResultadoRecoleccion(
             string procesoId,
             string unidadId)
@@ -1089,6 +1140,7 @@ public bool PuedeIniciarAtaque =>
                 "Seguimiento concurrente detenido porque el controlador dejó de estar activo.");
         }
 
+        /// <summary>Refresca posición y recursos durante la recolección.</summary>
         private IEnumerator ActualizarRecoleccionEnCurso(
             string unidadId)
         {
@@ -1156,6 +1208,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Envía una construcción a la API externa.</summary>
         private IEnumerator EnviarConstruccion(
             ConstruirDto construccion)
         {
@@ -1221,6 +1274,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Consulta el worker de construcción hasta completarlo.</summary>
         private IEnumerator EsperarResultadoConstruccion(
             string procesoId)
         {
@@ -1343,6 +1397,7 @@ public bool PuedeIniciarAtaque =>
         }
         
 
+        /// <summary>Envía un entrenamiento a la API externa.</summary>
         private IEnumerator EnviarEntrenamiento(
             EntrenarDto entrenamiento)
         {
@@ -1409,6 +1464,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Consulta el worker de entrenamiento hasta completarlo.</summary>
         private IEnumerator EsperarResultadoEntrenamiento(
             string procesoId,
             CoordenadaDto edificioOrigen)
@@ -1529,6 +1585,7 @@ public bool PuedeIniciarAtaque =>
                 "Seguimiento concurrente detenido porque el controlador dejó de estar activo.");
         }
 
+        /// <summary>Refresca los recursos durante el entrenamiento.</summary>
         private IEnumerator ActualizarEntrenamientoEnCurso(
             CoordenadaDto edificioOrigen)
         {
@@ -1577,6 +1634,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Envía un ataque a la API externa.</summary>
         private IEnumerator EnviarAtaque(
             AtaqueDto ataque)
         {
@@ -1650,6 +1708,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Sincroniza la vista tras fallo o cancelación.</summary>
         private IEnumerator SincronizarEstadoDespuesDeProceso()
         {
             // Los workers limpian OrdenActiva/Estado en sus bloques finally.
@@ -1662,6 +1721,7 @@ public bool PuedeIniciarAtaque =>
                 false);
         }
 
+        /// <summary>Lee un resultado simple desde JSON.</summary>
         private static ResultadoAccionDto LeerResultado(string json)
         {
             if (string.IsNullOrWhiteSpace(json))
@@ -1680,6 +1740,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Elige el mensaje de error más descriptivo.</summary>
         private static string MensajeError(
             ResultadoAccionDto resultado,
             string alternativa)
@@ -1693,12 +1754,14 @@ public bool PuedeIniciarAtaque =>
             return alternativa;
         }
 
+        /// <summary>Describe el costo del centro urbano.</summary>
         public string DescribirCostoConstruccion()
         {
             return DescribirCosto(
                 economiaActual?.centroUrbano);
         }
 
+        /// <summary>Describe el costo de un tipo de unidad.</summary>
         public string DescribirCostoUnidad(
             string tipoUnidad)
         {
@@ -1733,6 +1796,7 @@ public bool PuedeIniciarAtaque =>
                 costo);
         }
 
+        /// <summary>Formatea un costo en texto legible.</summary>
         private static string DescribirCosto(
             CostoEstadoDto costo)
         {
@@ -1746,6 +1810,7 @@ public bool PuedeIniciarAtaque =>
                    $"Hierro {costo.hierro}.";
         }
 
+        /// <summary>Registra el error y lo muestra en el HUD.</summary>
         private void MostrarError(string mensaje)
         {
             bool tecnico =
@@ -1772,6 +1837,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Distingue errores técnicos de rechazos del Modelo.</summary>
         private static bool EsErrorTecnico(
             string mensaje)
         {
@@ -1792,6 +1858,7 @@ public bool PuedeIniciarAtaque =>
                 mensaje.Contains("VistaPartida no está configurada");
         }
 
+        /// <summary>Localiza la API interna y comprueba la conexión.</summary>
         private void Start()
         {
             if (!usarApiExterna && apiInterna == null)
@@ -1806,6 +1873,7 @@ public bool PuedeIniciarAtaque =>
             StartCoroutine(ComprobarConexion());
         }
 
+        /// <summary>Verifica la API y carga la partida inicial.</summary>
         private IEnumerator ComprobarConexion()
         {
             if (!usarApiExterna)
@@ -1845,6 +1913,7 @@ public bool PuedeIniciarAtaque =>
             yield return ObtenerPartidaActiva();
         }
 
+        /// <summary>Crea la partida de prueba en la API externa.</summary>
         private IEnumerator IniciarPartidaPrueba()
         {
             IniciarPartidaDto partida =
@@ -1891,6 +1960,7 @@ public bool PuedeIniciarAtaque =>
                 $"{request.downloadHandler.text}");
         }
 
+        /// <summary>Descarga la partida y actualiza vista y HUD.</summary>
         private IEnumerator ObtenerPartidaActiva(
             string mensajeExito = "Partida recibida correctamente.",
             string contextoError = "",
@@ -1996,6 +2066,7 @@ public bool PuedeIniciarAtaque =>
             }
         }
 
+        /// <summary>Construye el DTO de la partida de demostración.</summary>
         private IniciarPartidaDto CrearPartidaPrueba()
         {
             return new IniciarPartidaDto

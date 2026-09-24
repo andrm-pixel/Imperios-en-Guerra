@@ -9,6 +9,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Ataque: verifica ataque.</summary>
 public class AtaqueTests
 {
     private Partida partida;
@@ -42,6 +43,7 @@ public class AtaqueTests
         operacion = new OperacionAtaque();
     }
 
+    // Caso Ataque Valido: verifica aplica dano real.
     [Test]
     public void AtaqueValido_AplicaDanoReal()
     {
@@ -61,6 +63,7 @@ public class AtaqueTests
         Assert.That(objetivo.Vida, Is.EqualTo(75));
     }
 
+    // Caso Objetivo Fuera De Alcance: verifica falla.
     [Test]
     public void ObjetivoFueraDeAlcance_Falla()
     {
@@ -78,6 +81,7 @@ public class AtaqueTests
         Assert.That(lejano.Vida, Is.EqualTo(100));
     }
 
+    // Caso Cuatro Impactos: verifica destruyen lancero y declaran victoria.
     [Test]
     public void CuatroImpactos_DestruyenLanceroYDeclaranVictoria()
     {
@@ -98,6 +102,7 @@ public class AtaqueTests
         Assert.That(ultimo.Mensaje, Does.Contain("¡Victoria!"));
     }
 
+    // Caso Atacante Maquina: verifica no es controlable.
     [Test]
     public void AtacanteMaquina_NoEsControlable()
     {
@@ -111,6 +116,7 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("máquina"));
     }
 
+    // Caso Aldeano: verifica no puede atacar.
     [Test]
     public void Aldeano_NoPuedeAtacar()
     {
@@ -127,6 +133,7 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("militar"));
     }
 
+    // Caso Atacante No Disponible: verifica falla.
     [Test]
     public void AtacanteNoDisponible_Falla()
     {
@@ -142,6 +149,7 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("disponible"));
     }
 
+    // Caso Ataque A Edificio: verifica aplica dano.
     [Test]
     public void AtaqueAEdificio_AplicaDano()
     {
@@ -162,6 +170,7 @@ public class AtaqueTests
             Is.True);
     }
 
+    // Caso Destruir Centro: verifica declara victoria.
     [Test]
     public void DestruirCentro_DeclaraVictoria()
     {
@@ -187,6 +196,7 @@ public class AtaqueTests
         Assert.That(ultimo.Mensaje, Does.Contain("¡Victoria!"));
     }
 
+    // Caso Edificio Propio: verifica falla.
     [Test]
     public void EdificioPropio_Falla()
     {
@@ -203,6 +213,7 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("humano"));
     }
 
+    // Caso Objetivo Propio: verifica falla y conserva mensaje.
     [Test]
     public void ObjetivoPropio_FallaYConservaMensaje()
     {
@@ -221,6 +232,7 @@ public class AtaqueTests
             Is.EqualTo("El objetivo pertenece al jugador humano."));
     }
 
+    // Caso Atacante Inexistente: verifica falla.
     [Test]
     public void AtacanteInexistente_Falla()
     {
@@ -234,6 +246,7 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("atacante"));
     }
 
+    // Caso Objetivo Inexistente: verifica falla.
     [Test]
     public void ObjetivoInexistente_Falla()
     {
@@ -247,6 +260,7 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("objetivo"));
     }
 
+    // Caso Servicio: verifica ataque valido.
     [Test]
     public void Servicio_AtaqueValido()
     {
@@ -263,6 +277,7 @@ public class AtaqueTests
         Assert.That(servicio.ObtenerEstado(), Is.Not.Null);
     }
 
+    // Caso Servicio: verifica ids invalidos - devuelven mensaje claro.
     [Test]
     public void Servicio_IdsInvalidos_DevuelvenMensajeClaro()
     {
@@ -288,6 +303,7 @@ public class AtaqueTests
         Assert.That(objetivoInvalido.Mensaje, Does.Contain("objetivo"));
     }
 
+    // Caso Sin Partida O Solicitud: verifica devuelve fallo.
     [Test]
     public void SinPartidaOSolicitud_DevuelveFallo()
     {

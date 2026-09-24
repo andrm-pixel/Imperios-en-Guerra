@@ -3,8 +3,10 @@ using NUnit.Framework;
 
 namespace ImperiosEnGuerra.Tests
 {
+    /// <summary>Pruebas de Acciones: verifica acciones.</summary>
     public class AccionesTests
     {
+        // Caso Resultado Exitoso: verifica conserva mensaje.
         [TestCase("Acción aceptada")]
         [TestCase("")]
         public void ResultadoExitoso_ConservaMensaje(string mensaje)
@@ -14,6 +16,7 @@ namespace ImperiosEnGuerra.Tests
             Assert.That(resultado.Mensaje, Is.EqualTo(mensaje));
         }
 
+        // Caso Resultado Fallido: verifica conserva mensaje.
         [TestCase("Acción rechazada")]
         [TestCase("")]
         public void ResultadoFallido_ConservaMensaje(string mensaje)
@@ -23,6 +26,7 @@ namespace ImperiosEnGuerra.Tests
             Assert.That(resultado.Mensaje, Is.EqualTo(mensaje));
         }
 
+        // Caso Solicitud: verifica conserva tipo.
         [TestCase(TipoAccionJuego.Mover)]
         [TestCase(TipoAccionJuego.Recolectar)]
         [TestCase(TipoAccionJuego.Construir)]

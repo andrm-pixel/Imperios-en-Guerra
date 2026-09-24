@@ -10,6 +10,13 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
     /// </summary>
     internal static class PreferenciaCasillaInteraccion
     {
+        /// <summary>
+        /// Obtiene indice inicial.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="unidadId">El valor de unidad id.</param>
+        /// <param name="cantidadOpciones">El valor de cantidad opciones.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static int ObtenerIndiceInicial(
             Partida partida,
             Guid unidadId,

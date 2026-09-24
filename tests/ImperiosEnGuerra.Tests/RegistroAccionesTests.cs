@@ -12,6 +12,7 @@ using ImperiosEnGuerra.Modelo.Persistencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Registro Acciones: verifica registro acciones.</summary>
 public class RegistroAccionesTests
 {
     private string directorioTemporal;
@@ -33,6 +34,7 @@ public class RegistroAccionesTests
             Directory.Delete(directorioTemporal, true);
     }
 
+    // Caso Servicio: verifica registra acciones base y rechazo.
     [Test]
     public void Servicio_RegistraAccionesBaseYRechazo()
     {
@@ -111,6 +113,7 @@ public class RegistroAccionesTests
         Assert.That(log, Does.Contain(rechazo.Mensaje));
     }
 
+    // Caso Error De Io En Log: verifica no rompe la partida ni la accion.
     [Test]
     public void ErrorDeIoEnLog_NoRompeLaPartidaNiLaAccion()
     {

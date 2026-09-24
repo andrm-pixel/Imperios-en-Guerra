@@ -7,8 +7,10 @@ using NUnit.Framework;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Identidad Unidad Mapper: verifica identidad unidad mapper.</summary>
     public class IdentidadUnidadMapperTests
     {
+        // Caso Convertir: verifica conserva id estable originado en modelo.
         [Test]
         public void Convertir_ConservaIdEstableOriginadoEnModelo()
         {

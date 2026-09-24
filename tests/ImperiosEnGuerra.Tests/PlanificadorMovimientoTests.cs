@@ -9,6 +9,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Planificador Movimiento: verifica planificador movimiento.</summary>
 public class PlanificadorMovimientoTests
 {
     private Mapa mapa;
@@ -44,6 +45,7 @@ public class PlanificadorMovimientoTests
             new PlanificadorMovimiento();
     }
 
+    // Caso Edificio Intermedio: verifica se rodea.
     [Test]
     public void EdificioIntermedio_SeRodea()
     {
@@ -74,6 +76,7 @@ public class PlanificadorMovimientoTests
             Is.EqualTo(4));
     }
 
+    // Caso Unidad Enemiga Intermedia: verifica se rodea.
     [Test]
     public void UnidadEnemigaIntermedia_SeRodea()
     {
@@ -100,6 +103,7 @@ public class PlanificadorMovimientoTests
             Is.False);
     }
 
+    // Caso Unidad Encerrada Por Entidades: verifica ruta imposible.
     [Test]
     public void UnidadEncerradaPorEntidades_RutaImposible()
     {
@@ -135,6 +139,7 @@ public class PlanificadorMovimientoTests
             Does.Contain("ruta"));
     }
 
+    // Caso Preparar: verifica no mueve la unidad.
     [Test]
     public void Preparar_NoMueveLaUnidad()
     {

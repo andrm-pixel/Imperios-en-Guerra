@@ -8,49 +8,82 @@ namespace ImperiosEnGuerra.Vistas
     /// <summary>Representa los datos recibidos de la API sin modificar el estado del juego.</summary>
     public class VistaPartida : MonoBehaviour
     {
+        /// <summary>Cámara que encuadra el mapa generado.</summary>
         [SerializeField] private Camera camara;
+        /// <summary>Separación en mundo entre casillas lógicas.</summary>
         [SerializeField, Min(0.1f)] private float espacioCasilla = 2f;
+        /// <summary>Escala aplicada a los sprites de recurso.</summary>
         [SerializeField, Min(0.01f)] private float escalaRecursos = 0.75f;
+        /// <summary>Escala aplicada a los sprites de edificio.</summary>
         [SerializeField, Min(0.01f)] private float escalaEdificios = 0.58f;
+        /// <summary>Escala aplicada a los sprites de unidad.</summary>
         [SerializeField, Min(0.01f)] private float escalaUnidades = 0.65f;
+        /// <summary>Sprite de la baldosa de terreno.</summary>
         [SerializeField] private Sprite suelo;
+        /// <summary>Sprite del recurso oro.</summary>
         [SerializeField] private Sprite oro;
+        /// <summary>Sprite del recurso madera.</summary>
         [SerializeField] private Sprite madera;
+        /// <summary>Sprite del recurso comida.</summary>
         [SerializeField] private Sprite comida;
+        /// <summary>Sprite del recurso piedra.</summary>
         [SerializeField] private Sprite piedra;
+        /// <summary>Sprite del recurso hierro.</summary>
         [SerializeField] private Sprite hierro;
+        /// <summary>Sprite del centro urbano humano.</summary>
         [SerializeField] private Sprite centroHumano;
+        /// <summary>Sprite del centro urbano máquina.</summary>
         [SerializeField] private Sprite centroMaquina;
+        /// <summary>Sprite del aldeano humano.</summary>
         [SerializeField] private Sprite aldeanoHumano;
+        /// <summary>Sprite del guerrero humano.</summary>
         [SerializeField] private Sprite guerreroHumano;
+        /// <summary>Sprite del lancero humano.</summary>
         [SerializeField] private Sprite lanceroHumano;
+        /// <summary>Sprite del arquero humano.</summary>
         [SerializeField] private Sprite arqueroHumano;
+        /// <summary>Sprite del monje humano.</summary>
         [SerializeField] private Sprite monjeHumano;
+        /// <summary>Sprite del aldeano máquina.</summary>
         [SerializeField] private Sprite aldeanoMaquina;
+        /// <summary>Sprite del guerrero máquina.</summary>
         [SerializeField] private Sprite guerreroMaquina;
+        /// <summary>Sprite del lancero máquina.</summary>
         [SerializeField] private Sprite lanceroMaquina;
+        /// <summary>Sprite del arquero máquina.</summary>
         [SerializeField] private Sprite arqueroMaquina;
+        /// <summary>Sprite del monje máquina.</summary>
         [SerializeField] private Sprite monjeMaquina;
 
+        /// <summary>Raíz de los objetos generados para la partida.</summary>
         private GameObject contenidoGenerado;
+        /// <summary>Ancho del mapa actualmente representado.</summary>
         private int anchoVisual;
+        /// <summary>Alto del mapa actualmente representado.</summary>
         private int altoVisual;
 
         [SerializeField, Min(0.1f)]
+        /// <summary>Velocidad de interpolación del movimiento visual.</summary>
         private float velocidadMovimientoVisual = 4f;
 
+        /// <summary>Movimiento visual pendiente hacia un destino.</summary>
         private sealed class MovimientoVisualPendiente
         {
+            /// <summary>Entidad que se desplaza en la vista.</summary>
             public EntidadSeleccionableVista Entidad;
+            /// <summary>Posición de mundo destino del desplazamiento.</summary>
             public Vector3 Destino;
         }
 
         private readonly Dictionary<string, MovimientoVisualPendiente>
+            /// <summary>Movimientos visuales pendientes por identificador.</summary>
             movimientosVisuales =
                 new Dictionary<string, MovimientoVisualPendiente>();
 
+        /// <summary>Avisa antes de destruir el contenido generado.</summary>
         public event System.Action AntesDeLimpiarContenido;
 
+        /// <summary>Reconstruye toda la escena visual desde un estado.</summary>
         public void Renderizar(EstadoPartidaDto estado)
         {
             Limpiar();
@@ -139,6 +172,7 @@ namespace ImperiosEnGuerra.Vistas
                 unidades);
         }
 
+        /// <summary>Muestra u oculta recursos según su cantidad restante.</summary>
         private void SincronizarRecursos(
             RecursoEstadoDto[] recursos)
         {
@@ -173,6 +207,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Busca un recurso por tipo y coordenada.</summary>
         private static RecursoEstadoDto BuscarRecurso(
             RecursoEstadoDto[] recursos,
             string tipo,
@@ -197,6 +232,7 @@ namespace ImperiosEnGuerra.Vistas
             return null;
         }
 
+        /// <summary>Sincroniza edificios, obras y unidades de un jugador.</summary>
         private void SincronizarJugador(
             JugadorEstadoDto jugador,
             bool humano,
@@ -230,6 +266,7 @@ namespace ImperiosEnGuerra.Vistas
                 unidades);
         }
 
+        /// <summary>Crea los edificios nuevos y retira los destruidos.</summary>
         private void SincronizarEdificios(
             EdificioEstadoDto[] datos,
             bool humano,
@@ -320,6 +357,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Redibuja las obras en curso con su progreso.</summary>
         private void SincronizarObras(
             ObraConstruccionEstadoDto[] obras,
             bool humano,
@@ -379,6 +417,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Crea o desplaza las unidades según el estado.</summary>
         private void SincronizarUnidades(
             UnidadEstadoDto[] datos,
             bool humano,
@@ -463,6 +502,7 @@ namespace ImperiosEnGuerra.Vistas
                 datos.Select(unidad => unidad != null ? unidad.id : null));
         }
 
+        /// <summary>Busca una entidad visual por identidad y posición.</summary>
         private EntidadSeleccionableVista BuscarEntidad(
             CategoriaEntidadVisual categoria,
             string id,
@@ -505,6 +545,7 @@ namespace ImperiosEnGuerra.Vistas
             return null;
         }
 
+        /// <summary>Devuelve el sprite según tipo y bando.</summary>
         private Sprite ObtenerSpriteUnidad(
             string tipo,
             bool humano)
@@ -539,6 +580,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Elimina los visuales temporales de obras.</summary>
         private void LimpiarObrasVisuales(
             Transform edificios)
         {
@@ -567,6 +609,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Destruye el contenido generado y reinicia la vista.</summary>
         private void Limpiar()
         {
             AntesDeLimpiarContenido?.Invoke();
@@ -591,6 +634,7 @@ namespace ImperiosEnGuerra.Vistas
             contenidoGenerado = null;
         }
 
+        /// <summary>Crea un contenedor hijo para una capa visual.</summary>
         private Transform CrearContenedor(string nombre)
         {
             var contenedor = new GameObject(nombre);
@@ -598,6 +642,7 @@ namespace ImperiosEnGuerra.Vistas
             return contenedor.transform;
         }
 
+        /// <summary>Dibuja las baldosas de suelo del mapa.</summary>
         private void RenderizarMapa(MapaEstadoDto mapa, Transform contenedor)
         {
             if (suelo == null)
@@ -635,6 +680,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Dibuja los recursos iniciales del mapa.</summary>
         private void RenderizarRecursos(RecursoEstadoDto[] recursos, Transform contenedor)
         {
             if (recursos == null)
@@ -688,6 +734,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Dibuja edificios y unidades de un jugador.</summary>
         private void RenderizarJugador(
             JugadorEstadoDto jugador, bool humano, Transform edificios, Transform unidades)
         {
@@ -815,11 +862,13 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Convierte una casilla lógica a posición de mundo.</summary>
         private Vector3 PosicionVisual(float x, float y)
         {
             return new Vector3(x * espacioCasilla, y * espacioCasilla, 0f);
         }
 
+        /// <summary>Actualiza los datos lógicos y encola el desplazamiento visual.</summary>
         public bool ActualizarMovimientoUnidad(
             string unidadId,
             int x,
@@ -869,6 +918,7 @@ namespace ImperiosEnGuerra.Vistas
             return true;
         }
 
+        /// <summary>Avanza los desplazamientos visuales pendientes.</summary>
         private void Update()
         {
             if (movimientosVisuales.Count == 0)
@@ -921,6 +971,7 @@ namespace ImperiosEnGuerra.Vistas
             }
         }
 
+        /// <summary>Convierte una posición de mundo a casilla lógica.</summary>
         public bool TryObtenerCoordenadaLogica(Vector3 posicionMundo, out int x, out int y)
         {
             x = 0;
@@ -945,6 +996,7 @@ namespace ImperiosEnGuerra.Vistas
             return true;
         }
 
+        /// <summary>Añade selección y colisionador al objeto creado.</summary>
         private void ConfigurarSeleccionable(
             GameObject objeto,
             CategoriaEntidadVisual categoria,
@@ -978,6 +1030,7 @@ namespace ImperiosEnGuerra.Vistas
             collider.offset = entidad.Renderer.sprite.bounds.center;
         }
 
+        /// <summary>Crea un objeto con sprite, posición y orden de dibujo.</summary>
         private GameObject CrearSprite(
             string nombre, Sprite sprite, int x, int y, int orden, Transform contenedor, Vector3 escala)
         {
@@ -997,6 +1050,7 @@ namespace ImperiosEnGuerra.Vistas
             return objeto;
         }
 
+        /// <summary>Encuadra la cámara al tamaño del mapa.</summary>
         private void AjustarCamara(MapaEstadoDto mapa)
         {
             if (camara == null)

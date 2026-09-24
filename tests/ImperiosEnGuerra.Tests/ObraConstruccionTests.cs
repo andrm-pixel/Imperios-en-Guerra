@@ -8,8 +8,10 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Obra Construccion: verifica obra construccion.</summary>
 public class ObraConstruccionTests
 {
+    // Caso Iniciar Obra: verifica reserva casilla sin crear edificio terminado.
     [Test]
     public void IniciarObra_ReservaCasillaSinCrearEdificioTerminado()
     {
@@ -42,6 +44,7 @@ public class ObraConstruccionTests
             Is.True);
     }
 
+    // Caso Cancelar Obra: verifica libera casilla.
     [Test]
     public void CancelarObra_LiberaCasilla()
     {
@@ -73,6 +76,7 @@ public class ObraConstruccionTests
             Is.False);
     }
 
+    // Caso Progreso100: verifica convierte obra en centro urbano una sola vez.
     [Test]
     public void Progreso100_ConvierteObraEnCentroUrbanoUnaSolaVez()
     {

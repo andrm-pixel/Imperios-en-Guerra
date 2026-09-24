@@ -23,6 +23,11 @@ namespace ImperiosEnGuerra.Modelo.IA
         private const int RadioCaza = 7;
         private const int RadioGuardia = 2;
 
+        /// <summary>
+        /// Ejecuta turno.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoAccion EjecutarTurno(Partida partida)
         {
             if (partida == null)
@@ -89,8 +94,17 @@ namespace ImperiosEnGuerra.Modelo.IA
 
         private sealed class Objetivo
         {
+            /// <summary>
+            /// Representa el campo id.
+            /// </summary>
             public Guid Id;
+            /// <summary>
+            /// Representa el campo posicion.
+            /// </summary>
             public Coordenada Posicion;
+            /// <summary>
+            /// Representa el campo es unidad.
+            /// </summary>
             public bool EsUnidad;
         }
 

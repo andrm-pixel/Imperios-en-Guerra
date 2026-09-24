@@ -10,6 +10,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Construccion: verifica construccion.</summary>
 public class ConstruccionTests
 {
     private Partida partida;
@@ -47,6 +48,7 @@ public class ConstruccionTests
         operacion = new OperacionConstruccion();
     }
 
+    // Caso Construccion Valida: verifica crea edificio y ocupa casilla.
     [Test]
     public void ConstruccionValida_CreaEdificioYOcupaCasilla()
     {
@@ -76,6 +78,7 @@ public class ConstruccionTests
             Is.True);
     }
 
+    // Caso Coordenada Fuera Del Mapa: verifica falla.
     [Test]
     public void CoordenadaFueraDelMapa_Falla()
     {
@@ -91,6 +94,7 @@ public class ConstruccionTests
         Assert.That(resultado.Mensaje, Does.Contain("fuera"));
     }
 
+    // Caso Casilla Ocupada: verifica falla.
     [Test]
     public void CasillaOcupada_Falla()
     {
@@ -108,6 +112,7 @@ public class ConstruccionTests
         Assert.That(resultado.Mensaje, Does.Contain("disponible"));
     }
 
+    // Caso Aldeano Maquina: verifica falla.
     [Test]
     public void AldeanoMaquina_Falla()
     {
@@ -129,6 +134,7 @@ public class ConstruccionTests
         Assert.That(resultado.Mensaje, Does.Contain("máquina"));
     }
 
+    // Caso Tipo Edificio No Permitido: verifica falla.
     [Test]
     public void TipoEdificioNoPermitido_Falla()
     {
@@ -144,6 +150,7 @@ public class ConstruccionTests
         Assert.That(resultado.Mensaje, Does.Contain("permitido"));
     }
 
+    // Caso Servicio: verifica construccion valida.
     [Test]
     public void Servicio_ConstruccionValida()
     {
@@ -170,6 +177,7 @@ public class ConstruccionTests
             Is.True);
     }
 
+    // Caso Servicio: verifica id invalido - falla.
     [Test]
     public void Servicio_IdInvalido_Falla()
     {

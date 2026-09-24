@@ -9,8 +9,10 @@ using NUnit.Framework;
 
 namespace ImperiosEnGuerra.Tests
 {
+    /// <summary>Pruebas de Gestor Procesos Concurrentes: verifica gestor procesos concurrentes.</summary>
     public class GestorProcesosConcurrentesTests
     {
+        // Caso Dos Procesos: verifica pueden estar activos al mismo tiempo.
         [Test]
         public async Task DosProcesos_PuedenEstarActivosAlMismoTiempo()
         {
@@ -59,6 +61,7 @@ namespace ImperiosEnGuerra.Tests
                 Is.True);
         }
 
+        // Caso Cancelar: verifica interrumpe proceso con cancellation token.
         [Test]
         public async Task Cancelar_InterrumpeProcesoConCancellationToken()
         {
@@ -100,6 +103,7 @@ namespace ImperiosEnGuerra.Tests
             Assert.That(resultado.ProcesoId, Is.EqualTo(proceso.Id));
         }
 
+        // Caso Cancelar Todos: verifica cancela procesos activos.
         [Test]
         public async Task CancelarTodos_CancelaProcesosActivos()
         {
@@ -150,6 +154,7 @@ namespace ImperiosEnGuerra.Tests
             Assert.That(gestor.ProcesosActivos, Is.Zero);
         }
 
+        // Caso Resultado: verifica se publica en concurrent queue con id de worker.
         [Test]
         public async Task Resultado_SePublicaEnConcurrentQueueConIdDeWorker()
         {
@@ -178,6 +183,7 @@ namespace ImperiosEnGuerra.Tests
             Assert.That(resultado.HiloTrabajoId, Is.Not.EqualTo(hiloLlamador));
         }
 
+        // Caso Resultado Por Id: verifica no consume resultado de otro proceso.
         [Test]
         public async Task ResultadoPorId_NoConsumeResultadoDeOtroProceso()
         {
@@ -226,6 +232,7 @@ namespace ImperiosEnGuerra.Tests
             Assert.That(gestor.ResultadosPendientes, Is.Zero);
         }
 
+        // Caso Excepcion Del Worker: verifica se convierte en resultado fallido.
         [Test]
         public async Task ExcepcionDelWorker_SeConvierteEnResultadoFallido()
         {
@@ -252,6 +259,7 @@ namespace ImperiosEnGuerra.Tests
                 Does.Contain("fallo controlado"));
         }
 
+        // Caso Servicios Concurrencia: verifica no referencia unity engine.
         [Test]
         public void ServiciosConcurrencia_NoReferenciaUnityEngine()
         {

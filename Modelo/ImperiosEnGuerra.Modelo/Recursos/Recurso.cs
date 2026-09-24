@@ -8,6 +8,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
     /// </summary>
     public class Recurso
     {
+        /// <summary>
+        /// Representa el campo cantidad inicial predeterminada.
+        /// </summary>
         public const int CantidadInicialPredeterminada = 100;
 
         private readonly object sincronizacion =
@@ -39,6 +42,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             }
         }
 
+        /// <summary>
+        /// Obtiene agotado.
+        /// </summary>
         public bool Agotado
         {
             get
@@ -50,6 +56,11 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             }
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de Recurso.
+        /// </summary>
+        /// <param name="tipo">El valor de tipo.</param>
+        /// <param name="coordenada">El valor de coordenada.</param>
         public Recurso(
             TipoRecurso tipo,
             Coordenada coordenada)
@@ -60,6 +71,12 @@ namespace ImperiosEnGuerra.Modelo.Recursos
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de Recurso.
+        /// </summary>
+        /// <param name="tipo">El valor de tipo.</param>
+        /// <param name="coordenada">El valor de coordenada.</param>
+        /// <param name="cantidadInicial">El valor de cantidad inicial.</param>
         public Recurso(
             TipoRecurso tipo,
             Coordenada coordenada,

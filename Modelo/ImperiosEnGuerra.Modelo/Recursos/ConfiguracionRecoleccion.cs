@@ -10,6 +10,14 @@ namespace ImperiosEnGuerra.Modelo.Recursos
     {
         private readonly Dictionary<TipoRecurso, int> tasas;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de ConfiguracionRecoleccion.
+        /// </summary>
+        /// <param name="tasaOro">El valor de tasa oro.</param>
+        /// <param name="tasaMadera">El valor de tasa madera.</param>
+        /// <param name="tasaComida">El valor de tasa comida.</param>
+        /// <param name="tasaPiedra">El valor de tasa piedra.</param>
+        /// <param name="tasaHierro">El valor de tasa hierro.</param>
         public ConfiguracionRecoleccion(
             int tasaOro = 5,
             int tasaMadera = 5,
@@ -48,6 +56,11 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                 };
         }
 
+        /// <summary>
+        /// Obtiene tasa.
+        /// </summary>
+        /// <param name="tipo">El valor de tipo.</param>
+        /// <returns>Resultado de la operación.</returns>
         public int ObtenerTasa(
             TipoRecurso tipo)
         {

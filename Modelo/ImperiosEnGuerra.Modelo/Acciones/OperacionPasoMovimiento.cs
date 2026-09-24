@@ -11,6 +11,13 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// </summary>
     public sealed class OperacionPasoMovimiento
     {
+        /// <summary>
+        /// Ejecuta el elemento solicitado.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="unidadId">El valor de unidad id.</param>
+        /// <param name="siguiente">El valor de siguiente.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoAccion Ejecutar(
             Partida partida,
             Guid unidadId,

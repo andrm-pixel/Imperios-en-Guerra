@@ -27,11 +27,18 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
 
         private readonly PlanificadorMovimiento planificadorMovimiento;
 
+        /// <summary>
+        /// Inicializa una nueva instancia de PlanificadorAproximacionRecurso.
+        /// </summary>
         public PlanificadorAproximacionRecurso()
             : this(new PlanificadorMovimiento())
         {
         }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de PlanificadorAproximacionRecurso.
+        /// </summary>
+        /// <param name="planificadorMovimiento">El valor de planificador movimiento.</param>
         public PlanificadorAproximacionRecurso(
             PlanificadorMovimiento planificadorMovimiento)
         {
@@ -41,6 +48,13 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                     nameof(planificadorMovimiento));
         }
 
+        /// <summary>
+        /// Ejecuta la operación preparar.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="solicitud">El valor de solicitud.</param>
+        /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+        /// <returns>Resultado de la operación.</returns>
         public ResultadoAproximacionRecurso Preparar(
             Partida partida,
             SolicitudRecoleccion solicitud,

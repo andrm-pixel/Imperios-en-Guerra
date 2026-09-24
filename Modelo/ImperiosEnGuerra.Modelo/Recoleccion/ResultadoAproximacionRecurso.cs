@@ -13,12 +13,30 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
     {
         private readonly List<Coordenada> pasos;
 
+        /// <summary>
+        /// Obtiene exito.
+        /// </summary>
         public bool Exito { get; }
+        /// <summary>
+        /// Obtiene mensaje.
+        /// </summary>
         public string Mensaje { get; }
+        /// <summary>
+        /// Obtiene tipo recurso.
+        /// </summary>
         public TipoRecurso? TipoRecurso { get; }
+        /// <summary>
+        /// Obtiene punto interaccion.
+        /// </summary>
         public Coordenada PuntoInteraccion { get; }
+        /// <summary>
+        /// Obtiene reintentable.
+        /// </summary>
         public bool Reintentable { get; }
 
+        /// <summary>
+        /// Obtiene pasos.
+        /// </summary>
         public IReadOnlyList<Coordenada> Pasos
         {
             get { return pasos.AsReadOnly(); }
@@ -42,6 +60,13 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                 : new List<Coordenada>(pasos);
         }
 
+        /// <summary>
+        /// Crea un resultado exitoso el elemento solicitado.
+        /// </summary>
+        /// <param name="tipoRecurso">El valor de tipo recurso.</param>
+        /// <param name="puntoInteraccion">El valor de punto interaccion.</param>
+        /// <param name="pasos">El valor de pasos.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoAproximacionRecurso Exitoso(
             TipoRecurso tipoRecurso,
             Coordenada puntoInteraccion,
@@ -68,6 +93,12 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                 false);
         }
 
+        /// <summary>
+        /// Crea un resultado fallido el elemento solicitado.
+        /// </summary>
+        /// <param name="mensaje">El valor de mensaje.</param>
+        /// <param name="reintentable">El valor de reintentable.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoAproximacionRecurso Fallido(
             string mensaje,
             bool reintentable = false)

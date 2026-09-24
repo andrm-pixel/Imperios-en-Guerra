@@ -6,6 +6,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Operacion Paso Movimiento: verifica operacion paso movimiento.</summary>
 public class OperacionPasoMovimientoTests
 {
     private Mapa mapa;
@@ -41,6 +42,7 @@ public class OperacionPasoMovimientoTests
             new OperacionPasoMovimiento();
     }
 
+    // Caso Orden Movimiento Activa: verifica avanza una casilla.
     [Test]
     public void OrdenMovimientoActiva_AvanzaUnaCasilla()
     {
@@ -73,6 +75,7 @@ public class OperacionPasoMovimientoTests
                 EstadoUnidad.Moviendo));
     }
 
+    // Caso Sin Orden Movimiento: verifica no avanza.
     [Test]
     public void SinOrdenMovimiento_NoAvanza()
     {
@@ -93,6 +96,7 @@ public class OperacionPasoMovimientoTests
             Is.SameAs(origen));
     }
 
+    // Caso Paso Diagonal: verifica no avanza.
     [Test]
     public void PasoDiagonal_NoAvanza()
     {
@@ -116,6 +120,7 @@ public class OperacionPasoMovimientoTests
             Is.SameAs(origen));
     }
 
+    // Caso Paso Bloqueado Por Entidad: verifica no avanza.
     [Test]
     public void PasoBloqueadoPorEntidad_NoAvanza()
     {

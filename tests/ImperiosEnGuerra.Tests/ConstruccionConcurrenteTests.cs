@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Construccion Concurrente: verifica construccion concurrente.</summary>
 public class ConstruccionConcurrenteTests
 {
+    // Caso Construccion Concurrente: verifica crea edificio desde worker.
     [Test]
     public async Task ConstruccionConcurrente_CreaEdificioDesdeWorker()
     {
@@ -55,6 +57,7 @@ public class ConstruccionConcurrenteTests
             Is.True);
     }
 
+    // Caso Cancelar Construccion: verifica antes de aplicar - no ocupa casilla.
     [Test]
     public async Task CancelarConstruccion_AntesDeAplicar_NoOcupaCasilla()
     {
@@ -100,6 +103,7 @@ public class ConstruccionConcurrenteTests
             Is.False);
     }
 
+    // Caso Dos Construcciones: verifica misma casilla - solo una se aplica.
     [Test]
     public async Task DosConstrucciones_MismaCasilla_SoloUnaSeAplica()
     {
@@ -172,6 +176,7 @@ public class ConstruccionConcurrenteTests
             Is.True);
     }
 
+    // Caso Conflicto Construccion: verifica repetido - no duplica edificios.
     [Test]
     public async Task ConflictoConstruccion_Repetido_NoDuplicaEdificios()
     {

@@ -49,6 +49,9 @@ namespace ImperiosEnGuerra.Modelo.Core
             get { return edificios.AsReadOnly(); }
         }
 
+        /// <summary>
+        /// Obtiene obras construccion.
+        /// </summary>
         public IReadOnlyList<ObraConstruccion> ObrasConstruccion
         {
             get { return obrasConstruccion.AsReadOnly(); }
@@ -155,6 +158,10 @@ namespace ImperiosEnGuerra.Modelo.Core
 
             return edificios.Remove(edificio);
         }
+        /// <summary>
+        /// Agrega obra construccion.
+        /// </summary>
+        /// <param name="obra">El valor de obra.</param>
         public void AgregarObraConstruccion(
             ObraConstruccion obra)
         {
@@ -167,6 +174,11 @@ namespace ImperiosEnGuerra.Modelo.Core
             obrasConstruccion.Add(obra);
         }
 
+        /// <summary>
+        /// Elimina obra construccion.
+        /// </summary>
+        /// <param name="obra">El valor de obra.</param>
+        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public bool EliminarObraConstruccion(
             ObraConstruccion obra)
         {

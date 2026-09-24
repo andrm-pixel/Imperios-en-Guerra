@@ -11,9 +11,18 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
     {
         private readonly List<Coordenada> pasos;
 
+        /// <summary>
+        /// Obtiene exito.
+        /// </summary>
         public bool Exito { get; }
+        /// <summary>
+        /// Obtiene mensaje.
+        /// </summary>
         public string Mensaje { get; }
 
+        /// <summary>
+        /// Obtiene pasos.
+        /// </summary>
         public IReadOnlyList<Coordenada> Pasos
         {
             get { return pasos.AsReadOnly(); }
@@ -31,6 +40,11 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
                 : new List<Coordenada>(pasos);
         }
 
+        /// <summary>
+        /// Crea un resultado exitoso el elemento solicitado.
+        /// </summary>
+        /// <param name="pasos">El valor de pasos.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoPlanMovimiento Exitoso(
             IEnumerable<Coordenada> pasos)
         {
@@ -43,6 +57,11 @@ namespace ImperiosEnGuerra.Modelo.Movimiento
                 pasos);
         }
 
+        /// <summary>
+        /// Crea un resultado fallido el elemento solicitado.
+        /// </summary>
+        /// <param name="mensaje">El valor de mensaje.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static ResultadoPlanMovimiento Fallido(
             string mensaje)
         {

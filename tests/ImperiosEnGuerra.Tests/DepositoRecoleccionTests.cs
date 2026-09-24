@@ -7,8 +7,10 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Deposito Recoleccion: verifica deposito recoleccion.</summary>
 public class DepositoRecoleccionTests
 {
+    // Caso Deposito Valido: verifica vacia carga y aumenta saldo.
     [Test]
     public void DepositoValido_VaciaCargaYAumentaSaldo()
     {
@@ -59,6 +61,7 @@ public class DepositoRecoleccionTests
             Is.EqualTo(5));
     }
 
+    // Caso Deposito Lejano: verifica no vacia carga.
     [Test]
     public void DepositoLejano_NoVaciaCarga()
     {

@@ -15,6 +15,9 @@ using System.Linq; // para usar FirstOrDefault()
 
 namespace ImperiosEnGuerra.Modelo.Servicios;
 
+/// <summary>
+/// Representa estado partida service dentro del modelo del juego.
+/// </summary>
 public sealed class EstadoPartidaService
 {
     private readonly object sincronizacion = new();
@@ -23,16 +26,28 @@ public sealed class EstadoPartidaService
         new ConfiguracionEconomia();
     private Partida? partidaActiva;
 
+    /// <summary>
+    /// Inicializa una nueva instancia de EstadoPartidaService.
+    /// </summary>
     public EstadoPartidaService()
     {
     }
 
+    /// <summary>
+    /// Inicializa una nueva instancia de EstadoPartidaService.
+    /// </summary>
+    /// <param name="servicioArchivos">El valor de servicio archivos.</param>
     public EstadoPartidaService(ServicioArchivos servicioArchivos)
     {
         this.servicioArchivos =
             servicioArchivos ?? throw new ArgumentNullException(nameof(servicioArchivos));
     }
 
+    /// <summary>
+    /// Mueve unidad.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion MoverUnidad(MoverUnidadRequest? request)
     {
         lock (sincronizacion)
@@ -67,6 +82,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación preparar movimiento progresivo.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoPlanMovimiento PrepararMovimientoProgresivo(
         MoverUnidadRequest? request,
         bool permitirOrdenMovimientoActiva = false)
@@ -107,6 +128,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Intenta iniciar orden unidad.
+    /// </summary>
+    /// <param name="unidadId">El valor de unidad id.</param>
+    /// <param name="tipo">El valor de tipo.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool IntentarIniciarOrdenUnidad(
         Guid unidadId,
         TipoAccionJuego tipo)
@@ -126,6 +153,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Intenta reemplazar orden unidad.
+    /// </summary>
+    /// <param name="unidadId">El valor de unidad id.</param>
+    /// <param name="tipo">El valor de tipo.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool IntentarReemplazarOrdenUnidad(
         Guid unidadId,
         TipoAccionJuego tipo)
@@ -145,6 +178,10 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Completa orden unidad.
+    /// </summary>
+    /// <param name="unidadId">El valor de unidad id.</param>
     public void CompletarOrdenUnidad(
         Guid unidadId)
     {
@@ -162,6 +199,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación avanzar movimiento.
+    /// </summary>
+    /// <param name="unidadId">El valor de unidad id.</param>
+    /// <param name="siguiente">El valor de siguiente.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion AvanzarMovimiento(
         Guid unidadId,
         Coordenada siguiente)
@@ -180,6 +223,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación preparar aproximacion recurso.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAproximacionRecurso PrepararAproximacionRecurso(
         RecolectarRequest? request,
         bool permitirOrdenMovimientoActiva = false)
@@ -226,6 +275,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación preparar aproximacion deposito.
+    /// </summary>
+    /// <param name="aldeanoId">El valor de aldeano id.</param>
+    /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAproximacionDeposito PrepararAproximacionDeposito(
         Guid aldeanoId,
         bool permitirOrdenMovimientoActiva = false)
@@ -246,6 +301,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación depositar carga.
+    /// </summary>
+    /// <param name="aldeanoId">El valor de aldeano id.</param>
+    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoDepositoRecoleccion DepositarCarga(
         Guid aldeanoId,
         Coordenada centroUrbano)
@@ -266,6 +327,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación recurso existe.
+    /// </summary>
+    /// <param name="objetivo">El valor de objetivo.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool RecursoExiste(
         Coordenada objetivo)
     {
@@ -282,6 +348,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación recurso disponible.
+    /// </summary>
+    /// <param name="objetivo">El valor de objetivo.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool RecursoDisponible(
         Coordenada objetivo)
     {
@@ -302,6 +373,13 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Recolecta paso.
+    /// </summary>
+    /// <param name="aldeanoId">El valor de aldeano id.</param>
+    /// <param name="objetivo">El valor de objetivo.</param>
+    /// <param name="tasa">El valor de tasa.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoPasoRecoleccion RecolectarPaso(
         Guid aldeanoId,
         Coordenada objetivo,
@@ -324,6 +402,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Inicia recoleccion.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion IniciarRecoleccion(RecolectarRequest? request)
     {
         lock (sincronizacion)
@@ -358,6 +441,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación reservar costo construccion.
+    /// </summary>
+    /// <param name="tipoEdificio">El valor de tipo edificio.</param>
+    /// <param name="costo">El valor de costo.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion ReservarCostoConstruccion(
         string tipoEdificio,
         out CostoRecursos costo)
@@ -393,6 +482,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación reservar costo entrenamiento.
+    /// </summary>
+    /// <param name="tipoUnidad">El valor de tipo unidad.</param>
+    /// <param name="costo">El valor de costo.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion ReservarCostoEntrenamiento(
         string tipoUnidad,
         out CostoRecursos costo)
@@ -428,6 +523,10 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación reembolsar costo.
+    /// </summary>
+    /// <param name="costo">El valor de costo.</param>
     public void ReembolsarCosto(
         CostoRecursos costo)
     {
@@ -441,6 +540,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Inicia obra.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <param name="obraId">El valor de obra id.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion IniciarObra(
         ConstruirRequest? request,
         out Guid obraId)
@@ -550,6 +655,13 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación preparar aproximacion construccion.
+    /// </summary>
+    /// <param name="aldeanoId">El valor de aldeano id.</param>
+    /// <param name="obraId">El valor de obra id.</param>
+    /// <param name="permitirOrdenMovimientoActiva">El valor de permitir orden movimiento activa.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAproximacionConstruccion
         PrepararAproximacionConstruccion(
             Guid aldeanoId,
@@ -584,6 +696,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación avanzar obra.
+    /// </summary>
+    /// <param name="obraId">El valor de obra id.</param>
+    /// <param name="incremento">El valor de incremento.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoProgresoConstruccion AvanzarObra(
         Guid obraId,
         int incremento)
@@ -632,6 +750,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Cancela obra.
+    /// </summary>
+    /// <param name="obraId">El valor de obra id.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool CancelarObra(
         Guid obraId)
     {
@@ -662,6 +785,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Construye el elemento solicitado.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion Construir(ConstruirRequest? request)
     {
         lock (sincronizacion)
@@ -728,6 +856,13 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación encolar entrenamiento.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
+    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion EncolarEntrenamiento(
         EntrenarRequest? request,
         out Guid entrenamientoId,
@@ -804,6 +939,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación es turno entrenamiento.
+    /// </summary>
+    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool EsTurnoEntrenamiento(
         Coordenada centroUrbano,
         Guid entrenamientoId)
@@ -820,6 +961,13 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación avanzar entrenamiento.
+    /// </summary>
+    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
+    /// <param name="incremento">El valor de incremento.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoProgresoEntrenamiento AvanzarEntrenamiento(
         Coordenada centroUrbano,
         Guid entrenamientoId,
@@ -840,6 +988,13 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Completa entrenamiento con spawn.
+    /// </summary>
+    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
+    /// <param name="tipoUnidad">El valor de tipo unidad.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoSpawnEntrenamiento CompletarEntrenamientoConSpawn(
         Coordenada centroUrbano,
         Guid entrenamientoId,
@@ -937,6 +1092,12 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Cancela entrenamiento cola.
+    /// </summary>
+    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool CancelarEntrenamientoCola(
         Coordenada centroUrbano,
         Guid entrenamientoId)
@@ -970,6 +1131,11 @@ public sealed class EstadoPartidaService
                     e.Coordenada.Y == coordenada.Y);
     }
 
+    /// <summary>
+    /// Entrena el elemento solicitado.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion Entrenar(EntrenarRequest? request)
     {
         lock (sincronizacion)
@@ -1036,6 +1202,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ataca el elemento solicitado.
+    /// </summary>
+    /// <param name="request">El valor de request.</param>
+    /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion Atacar(AtacarRequest? request)
     {
         lock (sincronizacion)
@@ -1085,6 +1256,10 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Obtiene estado.
+    /// </summary>
+    /// <returns>Resultado de la operación.</returns>
     public EstadoPartidaResponse? ObtenerEstado()
     {
         lock (sincronizacion)
@@ -1095,6 +1270,10 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Ejecuta la operación establecer partida.
+    /// </summary>
+    /// <param name="partida">El valor de partida.</param>
     public void EstablecerPartida(Partida partida)
     {
         if (partida == null) throw new ArgumentNullException(nameof(partida));
@@ -1106,6 +1285,10 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Obtiene partida.
+    /// </summary>
+    /// <returns>Resultado de la operación.</returns>
     public Partida? ObtenerPartida()
     {
         lock (sincronizacion)
@@ -1113,6 +1296,11 @@ public sealed class EstadoPartidaService
             return partidaActiva;
         }
     }
+    /// <summary>
+    /// Obtiene unidad.
+    /// </summary>
+    /// <param name="id">El valor de id.</param>
+    /// <returns>Resultado de la operación.</returns>
     public Unidad? ObtenerUnidad(Guid id)
     {
         lock (sincronizacion)
@@ -1181,6 +1369,11 @@ public sealed class EstadoPartidaService
         }
     }
 
+    /// <summary>
+    /// Obtiene centro urbano.
+    /// </summary>
+    /// <param name="coordenada">El valor de coordenada.</param>
+    /// <returns>Resultado de la operación.</returns>
     public CentroUrbano? ObtenerCentroUrbano(Coordenada coordenada)
     {
         lock (sincronizacion)
@@ -1195,6 +1388,10 @@ public sealed class EstadoPartidaService
                     e.Coordenada.Y == coordenada.Y);
         }
     }
+    /// <summary>
+    /// Ejecuta la operación hay partida activa.
+    /// </summary>
+    /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool HayPartidaActiva()
     {
         lock (sincronizacion)

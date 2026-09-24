@@ -11,23 +11,36 @@ namespace ImperiosEnGuerra.Controladores
     /// </summary>
     public class ControladorAcciones : MonoBehaviour
     {
+        /// <summary>Selección que provee la entidad y el destino.</summary>
         [SerializeField] private ControladorSeleccion controladorSeleccion;
+        /// <summary>HUD para opciones, mensajes y selector.</summary>
         [SerializeField] private VistaHud vistaHud;
+        /// <summary>Conexión que envía las órdenes a la API.</summary>
         [SerializeField] private ControladorConexionApi conexionApi;
 
+        /// <summary>Identificador de la unidad con acción pendiente.</summary>
         private string unidadIdPendiente;
+        /// <summary>Unidad con acción pendiente de objetivo.</summary>
         private EntidadSeleccionableVista unidadPendiente;
+        /// <summary>Nombre de la acción en espera de objetivo.</summary>
         private string accionPendiente;
+        /// <summary>Edificio origen del entrenamiento pendiente.</summary>
         private EntidadSeleccionableVista edificioPendiente;
+        /// <summary>Tipo de unidad elegido para entrenar.</summary>
         private string tipoUnidadPendiente;
 
+        /// <summary>Identidad de la última entidad mostrada.</summary>
         private string ultimaEntidadMostrada;
+        /// <summary>Último estado lógico mostrado en el HUD.</summary>
         private string ultimoEstadoMostrado;
+        /// <summary>Última orden mostrada en el HUD.</summary>
         private string ultimaOrdenMostrada;
 
+        /// <summary>Indica si hay una acción esperando objetivo.</summary>
         private bool EsperandoObjetivo =>
             !string.IsNullOrEmpty(accionPendiente);
 
+        /// <summary>Suscribe selección y HUD a las acciones.</summary>
         private void OnEnable()
         {
             if (controladorSeleccion != null)
@@ -50,6 +63,7 @@ namespace ImperiosEnGuerra.Controladores
                     : controladorSeleccion.SeleccionActual);
         }
 
+        /// <summary>Cancela suscripciones y limpia la captura.</summary>
         private void OnDisable()
         {
             LimpiarCaptura();
@@ -69,6 +83,7 @@ namespace ImperiosEnGuerra.Controladores
             }
         }
 
+        /// <summary>Refresca el HUD al cambiar la selección.</summary>
         private void ActualizarSeleccion(EntidadSeleccionableVista entidad)
         {
             bool cancelar = EsperandoObjetivo;
@@ -94,6 +109,7 @@ namespace ImperiosEnGuerra.Controladores
                     : "");
         }
 
+        /// <summary>Vigila la selección y refresca el HUD si cambia.</summary>
         private void Update()
         {
             if (EsperandoObjetivo &&
@@ -109,6 +125,7 @@ namespace ImperiosEnGuerra.Controladores
             }
         }
 
+        /// <summary>Actualiza el HUD cuando cambia estado u orden.</summary>
         private void RefrescarSeleccionSiCambioEstado()
         {
             if (vistaHud == null ||
@@ -156,6 +173,7 @@ namespace ImperiosEnGuerra.Controladores
                 entidad);
         }
 
+        /// <summary>Muestra solo las acciones válidas para la entidad.</summary>
         private void ActualizarOpcionesHud(
             EntidadSeleccionableVista entidad)
         {
@@ -170,6 +188,7 @@ namespace ImperiosEnGuerra.Controladores
                 PermiteOpcion(entidad, "Atacar"));
         }
 
+        /// <summary>Guarda el estado mostrado para detectar cambios.</summary>
         private void RegistrarEstadoMostrado(
             EntidadSeleccionableVista entidad)
         {
@@ -200,6 +219,7 @@ namespace ImperiosEnGuerra.Controladores
                 entidad.OrdenActiva ?? string.Empty;
         }
 
+        /// <summary>Verifica que la selección siga válida para la acción.</summary>
         private bool ConservaSeleccion()
         {
             if (controladorSeleccion == null ||
@@ -223,6 +243,7 @@ namespace ImperiosEnGuerra.Controladores
                 PermiteOpcion(unidadPendiente, accionPendiente);
         }
 
+        /// <summary>Limpia la intención pendiente y el selector.</summary>
         private void LimpiarCaptura()
         {
             unidadIdPendiente = null;
@@ -241,6 +262,7 @@ namespace ImperiosEnGuerra.Controladores
                 vistaHud.MostrarSelectorEntrenamiento(false);
         }
 
+        /// <summary>Cancela la intención o la orden activa de la unidad.</summary>
         private void CancelarCaptura()
         {
             string accionCancelada = accionPendiente;
@@ -274,6 +296,7 @@ namespace ImperiosEnGuerra.Controladores
             }
         }
 
+        /// <summary>Envía la orden pendiente a la casilla elegida.</summary>
         private void EnviarObjetivo(int x, int y)
         {
             if (!EsperandoObjetivo)
@@ -357,6 +380,7 @@ namespace ImperiosEnGuerra.Controladores
             }
         }
 
+        /// <summary>Envía el ataque pendiente a la entidad elegida.</summary>
         private void EnviarObjetivoAtaque(EntidadSeleccionableVista objetivo)
         {
             if (accionPendiente != "Atacar")
@@ -403,6 +427,7 @@ namespace ImperiosEnGuerra.Controladores
                 objetivoId);
         }
 
+        /// <summary>Verifica con el Modelo si el objetivo es atacable.</summary>
         private static bool EsObjetivoAtaqueValido(
             EntidadSeleccionableVista objetivo)
         {
@@ -415,6 +440,7 @@ namespace ImperiosEnGuerra.Controladores
                 objetivo.IdLogico);
         }
 
+        /// <summary>Verifica si la conexión permite iniciar la acción.</summary>
         private bool PuedeIniciarAccion(string accion)
         {
             if (conexionApi == null ||
@@ -441,6 +467,7 @@ namespace ImperiosEnGuerra.Controladores
             return false;
         }
 
+        /// <summary>Consulta al Modelo si la opción aplica a la entidad.</summary>
         private static bool PermiteOpcion(
             EntidadSeleccionableVista entidad,
             string accion)
@@ -459,6 +486,7 @@ namespace ImperiosEnGuerra.Controladores
             return false;
         }
 
+        /// <summary>Prepara mover, recolectar, construir, entrenar o atacar.</summary>
         private void PrepararAccion(string accion)
         {
             if (vistaHud == null)
@@ -606,6 +634,7 @@ namespace ImperiosEnGuerra.Controladores
                 $"Intención {accion} preparada. Ejecución pendiente de una fase posterior.");
         }
 
+        /// <summary>Guarda el tipo y pide la casilla de referencia.</summary>
         private void SeleccionarTipoUnidad(string tipoUnidad)
         {
             if (accionPendiente != "Entrenar" ||
@@ -642,6 +671,7 @@ namespace ImperiosEnGuerra.Controladores
                 mensajeEntrenamiento);
         }
 
+        /// <summary>Devuelve el mensaje de cancelación según la acción.</summary>
         private static string ObtenerMensajeCancelacion(string accion)
         {
             if (accion == "Recolectar")

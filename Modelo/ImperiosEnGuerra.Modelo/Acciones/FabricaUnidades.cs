@@ -4,8 +4,17 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Modelo.Acciones
 {
+    /// <summary>
+    /// Representa fabrica unidades dentro del modelo del juego.
+    /// </summary>
     public static class FabricaUnidades
     {
+        /// <summary>
+        /// Crea el elemento solicitado.
+        /// </summary>
+        /// <param name="tipoUnidad">El valor de tipo unidad.</param>
+        /// <param name="coordenada">El valor de coordenada.</param>
+        /// <returns>Resultado de la operación.</returns>
         public static Unidad Crear(
             string tipoUnidad,
             Coordenada coordenada)

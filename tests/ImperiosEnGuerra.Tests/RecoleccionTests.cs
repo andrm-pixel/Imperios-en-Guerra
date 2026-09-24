@@ -9,6 +9,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Recoleccion: verifica recoleccion.</summary>
 public class RecoleccionTests
 {
     private Partida partida;
@@ -44,6 +45,7 @@ public class RecoleccionTests
         operacion = new OperacionRecoleccion();
     }
 
+    // Caso Aldeano Humano Y Recurso Valido: verifica prepara recoleccion.
     [Test]
     public void AldeanoHumanoYRecursoValido_PreparaRecoleccion()
     {
@@ -73,6 +75,7 @@ public class RecoleccionTests
             Is.EqualTo(oroInicial));
     }
 
+    // Caso Unidad Que No Es Aldeano: verifica falla.
     [Test]
     public void UnidadQueNoEsAldeano_Falla()
     {
@@ -89,6 +92,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("Aldeano"));
     }
 
+    // Caso Aldeano Maquina: verifica falla.
     [Test]
     public void AldeanoMaquina_Falla()
     {
@@ -105,6 +109,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("máquina"));
     }
 
+    // Caso Aldeano No Disponible: verifica falla.
     [Test]
     public void AldeanoNoDisponible_Falla()
     {
@@ -120,6 +125,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("disponible"));
     }
 
+    // Caso Id Inexistente: verifica falla.
     [Test]
     public void IdInexistente_Falla()
     {
@@ -133,6 +139,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Is.Not.Empty);
     }
 
+    // Caso Posicion Sin Recurso: verifica falla.
     [Test]
     public void PosicionSinRecurso_Falla()
     {
@@ -146,6 +153,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("recurso"));
     }
 
+    // Caso Objetivo Fuera Del Mapa: verifica falla.
     [TestCase(-1, 0)]
     [TestCase(0, -1)]
     [TestCase(6, 0)]
@@ -162,6 +170,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("fuera"));
     }
 
+    // Caso Objetivo Nulo: verifica falla.
     [Test]
     public void ObjetivoNulo_Falla()
     {
@@ -175,6 +184,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Is.Not.Empty);
     }
 
+    // Caso Tipo Recurso Invalido: verifica falla.
     [Test]
     public void TipoRecursoInvalido_Falla()
     {
@@ -193,6 +203,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("válido"));
     }
 
+    // Caso Sin Partida O Solicitud: verifica falla.
     [Test]
     public void SinPartidaOSolicitud_Falla()
     {
@@ -209,6 +220,7 @@ public class RecoleccionTests
             Is.False);
     }
 
+    // Caso Transporte: verifica id invalido - falla.
     [TestCase(null)]
     [TestCase("")]
     [TestCase("no-es-guid")]
@@ -226,6 +238,7 @@ public class RecoleccionTests
         Assert.That(resultado.Mensaje, Does.Contain("Guid"));
     }
 
+    // Caso Transporte: verifica solicitud u objetivo nulos - falla.
     [Test]
     public void Transporte_SolicitudUObjetivoNulos_Falla()
     {
@@ -243,6 +256,7 @@ public class RecoleccionTests
             Is.False);
     }
 
+    // Caso Servicio Sin Partida: verifica falla.
     [Test]
     public void ServicioSinPartida_Falla()
     {
@@ -257,6 +271,7 @@ public class RecoleccionTests
             Is.EqualTo("No hay una partida activa."));
     }
 
+    // Caso Servicio: verifica prepara recoleccion valida.
     [Test]
     public void Servicio_PreparaRecoleccionValida()
     {

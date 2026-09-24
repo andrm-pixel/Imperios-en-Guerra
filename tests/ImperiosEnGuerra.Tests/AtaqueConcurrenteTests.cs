@@ -8,8 +8,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Ataque Concurrente: verifica ataque concurrente.</summary>
 public class AtaqueConcurrenteTests
 {
+    // Caso Ataque Concurrente: verifica ejecuta en worker y publica resultado.
     [Test]
     public async Task AtaqueConcurrente_EjecutaEnWorkerYPublicaResultado()
     {
@@ -53,6 +55,7 @@ public class AtaqueConcurrenteTests
     }
 
 
+    // Caso Cancelar Ataque: verifica antes de aplicar - no modifica modelo.
     [Test]
     public async Task CancelarAtaque_AntesDeAplicar_NoModificaModelo()
     {
@@ -104,6 +107,7 @@ public class AtaqueConcurrenteTests
     }
 
 
+    // Caso Objetivo Lejos: verifica camina hasta alcance y destruye.
     [Test]
     public async Task ObjetivoLejos_CaminaHastaAlcanceYDestruye()
     {

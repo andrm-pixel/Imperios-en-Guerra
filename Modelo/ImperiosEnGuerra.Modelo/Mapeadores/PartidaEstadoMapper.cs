@@ -7,8 +7,16 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Modelo.Mapeadores;
 
+/// <summary>
+/// Representa partida estado mapper dentro del modelo del juego.
+/// </summary>
 public static class PartidaEstadoMapper
 {
+    /// <summary>
+    /// Ejecuta la operación convertir.
+    /// </summary>
+    /// <param name="partida">El valor de partida.</param>
+    /// <returns>Resultado de la operación.</returns>
     public static EstadoPartidaResponse Convertir(Partida partida)
     {
         if (partida == null) throw new ArgumentNullException(nameof(partida));

@@ -6,8 +6,10 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Unidades: verifica unidades.</summary>
     public class UnidadesTests
     {
+        // Caso Guerrero: verifica es soldado y conserva coordenada.
         [Test]
         public void Guerrero_EsSoldadoYConservaCoordenada()
         {
@@ -20,6 +22,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(guerrero.Disponible, Is.True);
         }
 
+        // Caso Lancero: verifica es soldado y conserva coordenada.
         [Test]
         public void Lancero_EsSoldadoYConservaCoordenada()
         {
@@ -32,6 +35,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(lancero.Disponible, Is.True);
         }
 
+        // Caso Arquero: verifica continua siendo soldado.
         [Test]
         public void Arquero_ContinuaSiendoSoldado()
         {
@@ -44,6 +48,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(arquero.Disponible, Is.True);
         }
 
+        // Caso Monje: verifica es unidad pero no soldado.
         [Test]
         public void Monje_EsUnidadPeroNoSoldado()
         {
@@ -57,6 +62,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(monje.Disponible, Is.True);
         }
 
+        // Caso Velocidades Movimiento: verifica son positivas.
         [Test]
         public void VelocidadesMovimiento_SonPositivas()
         {
@@ -77,6 +83,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             }
         }
 
+        // Caso Velocidad Movimiento: verifica puede variar segun tipo.
         [Test]
         public void VelocidadMovimiento_PuedeVariarSegunTipo()
         {
@@ -100,6 +107,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                     aldeano.VelocidadMovimiento));
         }
 
+        // Caso Aldeano: verifica inicia sin carga y con capacidad.
         [Test]
         public void Aldeano_IniciaSinCargaYConCapacidad()
         {
@@ -121,6 +129,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.Null);
         }
 
+        // Caso Aldeano: verifica recolectar desde - respeta capacidad.
         [Test]
         public void Aldeano_RecolectarDesde_RespetaCapacidad()
         {
@@ -155,6 +164,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.EqualTo(6));
         }
 
+        // Caso Aldeano: verifica no mezcla tipos en la misma carga.
         [Test]
         public void Aldeano_NoMezclaTiposEnLaMismaCarga()
         {
@@ -196,6 +206,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.EqualTo(10));
         }
 
+        // Caso Aldeano: verifica vaciar carga - devuelve cantidad y tipo.
         [Test]
         public void Aldeano_VaciarCarga_DevuelveCantidadYTipo()
         {
@@ -236,6 +247,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.Null);
         }
 
+        // Caso Unidades Distintas: verifica tienen ids distintos y no vacios.
         [Test]
         public void UnidadesDistintas_TienenIdsDistintosYNoVacios()
         {
@@ -247,6 +259,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(primera.Id, Is.Not.EqualTo(segunda.Id));
         }
 
+        // Caso Id: verifica permanece al cambiar coordenada.
         [Test]
         public void Id_PermaneceAlCambiarCoordenada()
         {

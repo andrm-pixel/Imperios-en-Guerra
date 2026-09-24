@@ -17,6 +17,7 @@ public static class Fase3HudConfigurator
     private const string RutaEscena = "Assets/Scenes/SampleScene.unity";
 
     [MenuItem("Tools/Imperios en Guerra/Fase 3/Configurar HUD y acciones")]
+    /// <summary>Crea el HUD y el controlador de acciones en la escena.</summary>
     public static void ConfigurarHudYAcciones()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -54,6 +55,7 @@ public static class Fase3HudConfigurator
         Debug.Log("HUD y acciones configurados y SampleScene guardada. Inicie la API y ejecute Play.");
     }
 
+    /// <summary>Construye Canvas, botones y referencias del HUD.</summary>
     public static void Configurar(Scene escena, ControladorConexionApi conexion, ControladorSeleccion seleccion)
     {
         GameObject raiz = Buscar(escena, "HudPartida");
@@ -260,6 +262,7 @@ public static class Fase3HudConfigurator
         EditorUtility.SetDirty(escalador);
     }
 
+    /// <summary>Busca un objeto por nombre en la escena.</summary>
     private static GameObject Buscar(Scene escena, string nombre)
     {
         return escena.GetRootGameObjects()
@@ -267,6 +270,7 @@ public static class Fase3HudConfigurator
             .Select(elemento => elemento.gameObject).FirstOrDefault(objeto => objeto.name == nombre);
     }
 
+    /// <summary>Obtiene o crea un componente con deshacer.</summary>
     private static T Componente<T>(GameObject objeto) where T : Component
     {
         // Unity puede devolver un objeto que compara igual a null en el Editor.
@@ -279,12 +283,14 @@ public static class Fase3HudConfigurator
         return componente;
     }
 
+    /// <summary>Busca el primer componente del tipo en la escena.</summary>
     private static T BuscarComponente<T>(Scene escena) where T : Component
     {
         return escena.GetRootGameObjects()
             .SelectMany(raiz => raiz.GetComponentsInChildren<T>(true)).FirstOrDefault();
     }
 
+    /// <summary>Crea o reutiliza un RectTransform del HUD.</summary>
     private static RectTransform Rect(Transform padre, string nombre, Vector2 minimo, Vector2 maximo,
         Vector2 pivote, Vector2 offsetMinimo, Vector2 offsetMaximo)
     {
@@ -315,6 +321,7 @@ public static class Fase3HudConfigurator
         return rect;
     }
 
+    /// <summary>Aplica el fondo semitransparente a un panel.</summary>
     private static void Fondo(RectTransform rect)
     {
         Image imagen = Componente<Image>(rect.gameObject);
@@ -324,6 +331,7 @@ public static class Fase3HudConfigurator
         EditorUtility.SetDirty(imagen);
     }
 
+    /// <summary>Crea un texto del HUD con estilo base.</summary>
     private static Text Texto(Transform padre, string nombre, string contenido, Vector2 offsetMinimo, Vector2 offsetMaximo)
     {
         RectTransform rect = Rect(padre, nombre, new Vector2(0, 1), new Vector2(1, 1),

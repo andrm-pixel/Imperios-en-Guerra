@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Inteligencia Maquina: verifica inteligencia maquina.</summary>
 public class InteligenciaMaquinaTests
 {
+    // Caso Turno: verifica golpea humano adyacente.
     [Test]
     public void Turno_GolpeaHumanoAdyacente()
     {
@@ -28,6 +30,7 @@ public class InteligenciaMaquinaTests
         Assert.That(aldeano.Vida, Is.EqualTo(25));
     }
 
+    // Caso Turno: verifica sin objetivo cercano - regresa a guardia.
     [Test]
     public void Turno_SinObjetivoCercano_RegresaAGuardia()
     {
@@ -53,6 +56,7 @@ public class InteligenciaMaquinaTests
         Assert.That(despues, Is.LessThan(antes));
     }
 
+    // Caso Turno: verifica elimina ultimo humano - declara victoria maquina.
     [Test]
     public void Turno_EliminaUltimoHumano_DeclaraVictoriaMaquina()
     {

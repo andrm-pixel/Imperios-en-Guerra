@@ -8,6 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>Pruebas de preparación y captura de recolección.</summary>
 public class RecoleccionUnityTests
 {
     private GameObject raiz;
@@ -15,12 +16,14 @@ public class RecoleccionUnityTests
     private ControladorAcciones acciones;
     private ControladorConexionApi conexion;
     private VistaPartida vista;
+    /// <summary>Aldeano usado en la prueba de recolección.</summary>
     private EntidadSeleccionableVista aldeano;
     private Text mensaje;
 
     private const string IdAldeano =
         "22222222-2222-2222-2222-222222222222";
 
+    /// <summary>Crea la escena mínima para probar la recolección.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -74,6 +77,7 @@ public class RecoleccionUnityTests
         Invocar(seleccion, "Seleccionar", aldeano);
     }
 
+    /// <summary>Destruye la escena de prueba de recolección.</summary>
     [TearDown]
     public void Limpiar()
     {
@@ -83,6 +87,7 @@ public class RecoleccionUnityTests
         Object.DestroyImmediate(raiz);
     }
 
+    /// <summary>Verifica que el aldeano prepara la recolección.</summary>
     [Test]
     public void AldeanoHumano_PreparaRecoleccion()
     {
@@ -120,6 +125,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
+    /// <summary>Verifica que se elige el recurso más cercano.</summary>
     [Test]
     public void CapturaRecurso_EntreCollidersSuperpuestos_UsaElMasCercano()
     {
@@ -181,6 +187,7 @@ public class RecoleccionUnityTests
         }
     }
 
+    /// <summary>Verifica que un no aldeano no recolecta.</summary>
     [Test]
     public void UnidadNoAldeano_NoPreparaRecoleccion()
     {
@@ -212,6 +219,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
+    /// <summary>Verifica que el aldeano máquina no recolecta.</summary>
     [Test]
     public void AldeanoMaquina_NoPreparaRecoleccion()
     {
@@ -237,6 +245,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
+    /// <summary>Verifica que sin identidad no recolecta.</summary>
     [Test]
     public void AldeanoSinIdentidad_NoPreparaRecoleccion()
     {
@@ -262,6 +271,7 @@ public class RecoleccionUnityTests
             Does.Contain("identidad"));
     }
 
+    /// <summary>Verifica que cancelar limpia la intención.</summary>
     [Test]
     public void CancelarRecoleccion_LimpiaIntencion()
     {
@@ -299,6 +309,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
+    /// <summary>Verifica el JSON del contrato de recolección.</summary>
     [Test]
     public void DtoRecoleccion_UsaIdYCoordenada()
     {
@@ -319,6 +330,7 @@ public class RecoleccionUnityTests
                 "\",\"objetivo\":{\"x\":4,\"y\":5}}"));
     }
 
+    /// <summary>Verifica los DTOs concurrentes de recolección.</summary>
     [Test]
     public void DtoConcurrente_RecoleccionConservaContrato()
     {
@@ -358,6 +370,7 @@ public class RecoleccionUnityTests
             Does.Contain("\"hiloTrabajoId\":9"));
     }
 
+    /// <summary>Verifica que el movimiento no bloquea recolectar.</summary>
     [Test]
     public void MovimientoEnCurso_NoBloqueaPrepararRecoleccion()
     {
@@ -382,6 +395,7 @@ public class RecoleccionUnityTests
             Is.EqualTo("Recolectar"));
     }
 
+    /// <summary>Verifica que el curso no bloquea otro aldeano.</summary>
     [Test]
     public void RecoleccionEnCurso_NoBloqueaPrepararOtroAldeano()
     {
@@ -404,6 +418,7 @@ public class RecoleccionUnityTests
             Is.True);
     }
 
+    /// <summary>Verifica que cambiar selección cancela.</summary>
     [Test]
     public void CambioSeleccion_CancelaRecoleccion()
     {
@@ -429,6 +444,7 @@ public class RecoleccionUnityTests
             Is.False);
     }
 
+    /// <summary>Crea un recurso visual para la prueba.</summary>
     private EntidadSeleccionableVista CrearRecursoVisual(
         string tipo,
         int x,
@@ -475,6 +491,7 @@ public class RecoleccionUnityTests
         return entidad;
     }
 
+    /// <summary>Invoca un método privado y devuelve su valor.</summary>
     private static object InvocarConRetorno(
         object objeto,
         string nombre,

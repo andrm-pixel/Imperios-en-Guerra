@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Operaciones Simultaneas: verifica operaciones simultaneas.</summary>
 public class OperacionesSimultaneasTests
 {
+    // Caso Movimiento Y Entrenamiento: verifica pueden ejecutarse simultaneamente.
     [Test]
     public async Task MovimientoYEntrenamiento_PuedenEjecutarseSimultaneamente()
     {

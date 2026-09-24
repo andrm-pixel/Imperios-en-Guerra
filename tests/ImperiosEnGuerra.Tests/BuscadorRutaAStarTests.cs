@@ -5,6 +5,7 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Buscador Ruta A Star: verifica buscador ruta a star.</summary>
 public class BuscadorRutaAStarTests
 {
     private BuscadorRutaAStar buscador;
@@ -20,6 +21,7 @@ public class BuscadorRutaAStarTests
             new Mapa(6, 6);
     }
 
+    // Caso Ruta Directa: verifica encuentra camino.
     [Test]
     public void RutaDirecta_EncuentraCamino()
     {
@@ -46,6 +48,7 @@ public class BuscadorRutaAStarTests
             Is.EqualTo(1));
     }
 
+    // Caso Origen Igual Destino: verifica ruta vacia.
     [Test]
     public void OrigenIgualDestino_RutaVacia()
     {
@@ -64,6 +67,7 @@ public class BuscadorRutaAStarTests
             Is.Empty);
     }
 
+    // Caso Obstaculo: verifica obliga a rodear.
     [Test]
     public void Obstaculo_ObligaARodear()
     {
@@ -94,6 +98,7 @@ public class BuscadorRutaAStarTests
             Is.False);
     }
 
+    // Caso Casilla Ocupada: verifica no se atraviesa.
     [Test]
     public void CasillaOcupada_NoSeAtraviesa()
     {
@@ -120,6 +125,7 @@ public class BuscadorRutaAStarTests
             Is.False);
     }
 
+    // Caso Recurso: verifica no se atraviesa.
     [Test]
     public void Recurso_NoSeAtraviesa()
     {
@@ -146,6 +152,7 @@ public class BuscadorRutaAStarTests
             Is.False);
     }
 
+    // Caso Destino Bloqueado: verifica ruta imposible.
     [Test]
     public void DestinoBloqueado_RutaImposible()
     {
@@ -169,6 +176,7 @@ public class BuscadorRutaAStarTests
             Is.Empty);
     }
 
+    // Caso Encerrado: verifica ruta imposible.
     [Test]
     public void Encerrado_RutaImposible()
     {
@@ -203,6 +211,7 @@ public class BuscadorRutaAStarTests
             Is.False);
     }
 
+    // Caso Destino Fuera Del Mapa: verifica ruta imposible.
     [TestCase(-1, 0)]
     [TestCase(0, -1)]
     [TestCase(6, 0)]

@@ -11,6 +11,12 @@ namespace ImperiosEnGuerra.Modelo.Edificios
     /// </summary>
     public sealed class BuscadorCasillaSpawn
     {
+        /// <summary>
+        /// Busca el elemento solicitado.
+        /// </summary>
+        /// <param name="partida">El valor de partida.</param>
+        /// <param name="edificio">El valor de edificio.</param>
+        /// <returns>Resultado de la operación.</returns>
         public Coordenada Buscar(
             Partida partida,
             Coordenada edificio)

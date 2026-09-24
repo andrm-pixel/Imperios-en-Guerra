@@ -9,6 +9,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Entrenamiento: verifica entrenamiento.</summary>
 public class EntrenamientoTests
 {
     private Partida partida;
@@ -58,6 +59,7 @@ public class EntrenamientoTests
         operacion = new OperacionEntrenamiento();
     }
 
+    // Caso Entrenamiento Valido: verifica crea unidad y ocupa casilla.
     [Test]
     public void EntrenamientoValido_CreaUnidadYOcupaCasilla()
     {
@@ -90,6 +92,7 @@ public class EntrenamientoTests
             Is.True);
     }
 
+    // Caso Edificio Maquina: verifica falla.
     [Test]
     public void EdificioMaquina_Falla()
     {
@@ -107,6 +110,7 @@ public class EntrenamientoTests
             Does.Contain("máquina"));
     }
 
+    // Caso Edificio Humano Inexistente: verifica falla.
     [Test]
     public void EdificioHumanoInexistente_Falla()
     {
@@ -124,6 +128,7 @@ public class EntrenamientoTests
             Does.Contain("edificio humano"));
     }
 
+    // Caso Tipo Unidad No Permitido: verifica falla.
     [Test]
     public void TipoUnidadNoPermitido_Falla()
     {
@@ -141,6 +146,7 @@ public class EntrenamientoTests
             Does.Contain("permitido"));
     }
 
+    // Caso Aparicion Fuera Del Mapa: verifica falla.
     [Test]
     public void AparicionFueraDelMapa_Falla()
     {
@@ -158,6 +164,7 @@ public class EntrenamientoTests
             Does.Contain("fuera"));
     }
 
+    // Caso Aparicion Ocupada: verifica falla.
     [Test]
     public void AparicionOcupada_Falla()
     {
@@ -177,6 +184,7 @@ public class EntrenamientoTests
             Does.Contain("disponible"));
     }
 
+    // Caso Servicio: verifica entrenamiento valido.
     [Test]
     public void Servicio_EntrenamientoValido()
     {
@@ -212,6 +220,7 @@ public class EntrenamientoTests
             Is.TypeOf<Arquero>());
     }
 
+    // Caso Servicio: verifica solicitud nula - falla.
     [Test]
     public void Servicio_SolicitudNula_Falla()
     {

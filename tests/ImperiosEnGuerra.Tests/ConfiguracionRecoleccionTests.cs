@@ -2,8 +2,10 @@ using ImperiosEnGuerra.Modelo.Recursos;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Configuracion Recoleccion: verifica configuracion recoleccion.</summary>
 public class ConfiguracionRecoleccionTests
 {
+    // Verifica tasas pueden configurarse por tipo.
     [Test]
     public void TasasPuedenConfigurarsePorTipo()
     {
@@ -29,6 +31,7 @@ public class ConfiguracionRecoleccionTests
             Is.EqualTo(4));
     }
 
+    // Caso Tasa No Positiva: verifica lanza.
     [TestCase(0, 1, 1)]
     [TestCase(1, 0, 1)]
     [TestCase(1, 1, 0)]
@@ -46,6 +49,7 @@ public class ConfiguracionRecoleccionTests
                     comida));
     }
 
+    // Caso Tipo No Configurado: verifica lanza.
     [Test]
     public void TipoNoConfigurado_Lanza()
     {

@@ -7,12 +7,35 @@ namespace ImperiosEnGuerra.Modelo.Recursos
     /// </summary>
     public sealed class CostoRecursos
     {
+        /// <summary>
+        /// Obtiene oro.
+        /// </summary>
         public int Oro { get; }
+        /// <summary>
+        /// Obtiene madera.
+        /// </summary>
         public int Madera { get; }
+        /// <summary>
+        /// Obtiene comida.
+        /// </summary>
         public int Comida { get; }
+        /// <summary>
+        /// Obtiene piedra.
+        /// </summary>
         public int Piedra { get; }
+        /// <summary>
+        /// Obtiene hierro.
+        /// </summary>
         public int Hierro { get; }
 
+        /// <summary>
+        /// Inicializa una nueva instancia de CostoRecursos.
+        /// </summary>
+        /// <param name="oro">El valor de oro.</param>
+        /// <param name="madera">El valor de madera.</param>
+        /// <param name="comida">El valor de comida.</param>
+        /// <param name="piedra">El valor de piedra.</param>
+        /// <param name="hierro">El valor de hierro.</param>
         public CostoRecursos(
             int oro,
             int madera,
@@ -38,6 +61,9 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             Hierro = hierro;
         }
 
+        /// <summary>
+        /// Obtiene es cero.
+        /// </summary>
         public bool EsCero =>
             Oro == 0 &&
             Madera == 0 &&
@@ -45,6 +71,10 @@ namespace ImperiosEnGuerra.Modelo.Recursos
             Piedra == 0 &&
             Hierro == 0;
 
+        /// <summary>
+        /// Ejecuta la operación to string.
+        /// </summary>
+        /// <returns>Resultado de la operación.</returns>
         public override string ToString()
         {
             return $"Oro {Oro}, Madera {Madera}, Comida {Comida}, Piedra {Piedra}, Hierro {Hierro}";

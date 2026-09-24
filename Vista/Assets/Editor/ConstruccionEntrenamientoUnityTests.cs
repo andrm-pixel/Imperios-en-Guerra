@@ -8,6 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>Pruebas de construcción y entrenamiento.</summary>
 public class ConstruccionEntrenamientoUnityTests
 {
     private GameObject raiz;
@@ -15,17 +16,22 @@ public class ConstruccionEntrenamientoUnityTests
     private ControladorAcciones acciones;
     private ControladorConexionApi conexion;
     private VistaPartida vista;
+    /// <summary>HUD observado en la prueba.</summary>
     private VistaHud hud;
 
+    /// <summary>Aldeano usado en la prueba de construcción.</summary>
     private EntidadSeleccionableVista aldeano;
+    /// <summary>Edificio usado en la prueba de entrenamiento.</summary>
     private EntidadSeleccionableVista centroUrbano;
 
+    /// <summary>Selector de unidad observado en la prueba.</summary>
     private GameObject selectorEntrenamiento;
     private Text mensaje;
 
     private const string IdAldeano =
         "33333333-3333-3333-3333-333333333333";
 
+    /// <summary>Crea la escena mínima de construcción y entrenamiento.</summary>
     [SetUp]
     public void Preparar()
     {
@@ -130,6 +136,7 @@ public class ConstruccionEntrenamientoUnityTests
         Invocar(acciones, "OnEnable");
     }
 
+    /// <summary>Destruye la escena de prueba.</summary>
     [TearDown]
     public void Limpiar()
     {
@@ -139,6 +146,7 @@ public class ConstruccionEntrenamientoUnityTests
         Object.DestroyImmediate(raiz);
     }
 
+    /// <summary>Verifica que el aldeano prepara la construcción.</summary>
     [Test]
     public void AldeanoHumano_PreparaConstruccion()
     {
@@ -173,6 +181,7 @@ public class ConstruccionEntrenamientoUnityTests
             Does.Contain("Centro Urbano"));
     }
 
+    /// <summary>Verifica que un no aldeano no construye.</summary>
     [Test]
     public void UnidadNoAldeano_NoPreparaConstruccion()
     {
@@ -205,6 +214,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.Null);
     }
 
+    /// <summary>Verifica que el centro muestra el selector.</summary>
     [Test]
     public void CentroUrbanoHumano_MuestraSelectorEntrenamiento()
     {
@@ -237,6 +247,7 @@ public class ConstruccionEntrenamientoUnityTests
             Does.Contain("tipo de unidad"));
     }
 
+    /// <summary>Verifica que elegir arquero pide destino.</summary>
     [Test]
     public void SeleccionarArquero_PreparaDestino()
     {
@@ -275,6 +286,7 @@ public class ConstruccionEntrenamientoUnityTests
                 "Selecciona una casilla de referencia para Arquero."));
     }
 
+    /// <summary>Verifica que el centro máquina no entrena.</summary>
     [Test]
     public void CentroUrbanoMaquina_NoPreparaEntrenamiento()
     {
@@ -311,6 +323,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.Null);
     }
 
+    /// <summary>Verifica que el curso no bloquea construir.</summary>
     [Test]
     public void ConstruccionEnCurso_NoBloqueaOtraOrdenDeConstruccion()
     {
@@ -334,6 +347,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.True);
     }
 
+    /// <summary>Verifica que el curso no bloquea encolar.</summary>
     [Test]
     public void EntrenamientoEnCurso_NoBloqueaOtraOrdenDeCola()
     {
@@ -357,6 +371,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.True);
     }
 
+    /// <summary>Verifica que cancelar limpia la construcción.</summary>
     [Test]
     public void CancelarConstruccion_LimpiaIntencion()
     {
@@ -389,6 +404,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.EqualTo("Construcción cancelada."));
     }
 
+    /// <summary>Verifica el JSON del contrato de construcción.</summary>
     [Test]
     public void DtoConstruccion_UsaContratoEsperado()
     {
@@ -410,6 +426,7 @@ public class ConstruccionEntrenamientoUnityTests
                 "\"destino\":{\"x\":4,\"y\":5}}"));
     }
 
+    /// <summary>Verifica los DTOs concurrentes de construcción.</summary>
     [Test]
     public void DtoConcurrente_ConstruccionConservaContrato()
     {
@@ -449,6 +466,7 @@ public class ConstruccionEntrenamientoUnityTests
             Does.Contain("\"hiloTrabajoId\":11"));
     }
 
+    /// <summary>Verifica el JSON del contrato de entrenamiento.</summary>
     [Test]
     public void DtoEntrenamiento_UsaContratoEsperado()
     {
@@ -469,6 +487,7 @@ public class ConstruccionEntrenamientoUnityTests
                 "\"destino\":{\"x\":3,\"y\":2}}"));
     }
 
+    /// <summary>Verifica los DTOs concurrentes de entrenamiento.</summary>
     [Test]
     public void DtoConcurrente_EntrenamientoConservaContrato()
     {

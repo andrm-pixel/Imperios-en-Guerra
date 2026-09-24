@@ -8,6 +8,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Planificador Aproximacion Recurso: verifica planificador aproximacion recurso.</summary>
 public class PlanificadorAproximacionRecursoTests
 {
     private Mapa mapa;
@@ -58,6 +59,7 @@ public class PlanificadorAproximacionRecursoTests
             new PlanificadorAproximacionRecurso();
     }
 
+    // Caso Aldeano Lejano: verifica elige casilla adyacente sin entrar al recurso.
     [Test]
     public void AldeanoLejano_EligeCasillaAdyacenteSinEntrarAlRecurso()
     {
@@ -96,6 +98,7 @@ public class PlanificadorAproximacionRecursoTests
             Is.SameAs(origen));
     }
 
+    // Caso Aldeano Ya Adyacente: verifica ruta vacia.
     [Test]
     public void AldeanoYaAdyacente_RutaVacia()
     {
@@ -156,6 +159,7 @@ public class PlanificadorAproximacionRecursoTests
             Is.EqualTo(1));
     }
 
+    // Caso Lado Mas Cercano Bloqueado: verifica elige otra casilla.
     [Test]
     public void LadoMasCercanoBloqueado_EligeOtraCasilla()
     {
@@ -187,6 +191,7 @@ public class PlanificadorAproximacionRecursoTests
             Is.EqualTo(1));
     }
 
+    // Caso Dos Aldeanos Mismo Recurso: verifica ambos encuentran casilla mas corta.
     [Test]
     public void DosAldeanosMismoRecurso_AmbosEncuentranCasillaMasCorta()
     {
@@ -235,6 +240,7 @@ public class PlanificadorAproximacionRecursoTests
             Is.EqualTo(1));
     }
 
+    // Caso Recurso Sin Casillas Adyacentes Transitables: verifica falla.
     [Test]
     public void RecursoSinCasillasAdyacentesTransitables_Falla()
     {
@@ -273,6 +279,7 @@ public class PlanificadorAproximacionRecursoTests
             Is.True);
     }
 
+    // Caso Recurso Agotado: verifica falla.
     [Test]
     public void RecursoAgotado_Falla()
     {

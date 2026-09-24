@@ -8,8 +8,17 @@ namespace ImperiosEnGuerra.Modelo.Concurrencia
     /// </summary>
     public sealed class ProcesoConcurrente
     {
+        /// <summary>
+        /// Obtiene id.
+        /// </summary>
         public Guid Id { get; }
+        /// <summary>
+        /// Obtiene nombre.
+        /// </summary>
         public string Nombre { get; }
+        /// <summary>
+        /// Obtiene finalizacion.
+        /// </summary>
         public Task Finalizacion { get; }
 
         internal ProcesoConcurrente(

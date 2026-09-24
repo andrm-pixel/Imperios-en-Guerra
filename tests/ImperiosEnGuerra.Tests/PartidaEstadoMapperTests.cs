@@ -7,8 +7,10 @@ using NUnit.Framework;
 
 namespace ImperiosEnGuerra.Tests.Editor
 {
+    /// <summary>Pruebas de Partida Estado Mapper: verifica partida estado mapper.</summary>
     public class PartidaEstadoMapperTests
     {
+        // Caso Convertir: verifica expone estado necesario para la vista.
         [Test]
         public void Convertir_ExponeEstadoNecesarioParaLaVista()
         {
@@ -83,12 +85,14 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(monjeEstado.Disponible, Is.False);
         }
 
+        // Caso Convertir: verifica partida nula - lanza excepcion.
         [Test]
         public void Convertir_PartidaNula_LanzaExcepcion()
         {
             Assert.Throws<ArgumentNullException>(() => PartidaEstadoMapper.Convertir(null));
         }
 
+        // Caso Convertir: verifica unidad sin coordenada - conserva null.
         [Test]
         public void Convertir_UnidadSinCoordenada_ConservaNull()
         {
@@ -108,6 +112,7 @@ namespace ImperiosEnGuerra.Tests.Editor
                 Is.EqualTo(ConfiguracionInicioPartida.AldeanosInicialesPredeterminados));
         }
 
+        // Caso Convertir: verifica mapas distintos - expone solo mapa humano.
         [Test]
         public void Convertir_MapasDistintos_ExponeSoloMapaHumano()
         {

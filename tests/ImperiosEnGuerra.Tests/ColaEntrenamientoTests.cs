@@ -9,8 +9,10 @@ using ImperiosEnGuerra.Modelo.Concurrencia;
 
 namespace ImperiosEnGuerra.Tests;
 
+/// <summary>Pruebas de Cola Entrenamiento: verifica cola entrenamiento.</summary>
 public class ColaEntrenamientoTests
 {
+    // Caso Dos Ordenes: verifica mismo centro - se procesan en cola.
     [Test]
     public async Task DosOrdenes_MismoCentro_SeProcesanEnCola()
     {
@@ -58,6 +60,7 @@ public class ColaEntrenamientoTests
             Is.Empty);
     }
 
+    // Caso Cancelar Orden En Cola: verifica reembolsa y no bloquea la siguiente.
     [Test]
     public async Task CancelarOrdenEnCola_ReembolsaYNoBloqueaLaSiguiente()
     {
@@ -108,6 +111,7 @@ public class ColaEntrenamientoTests
             Is.LessThan(oroInicial));
     }
 
+    // Caso Entrenamiento No Completo: verifica no crea unidad antes de tiempo.
     [Test]
     public void EntrenamientoNoCompleto_NoCreaUnidadAntesDeTiempo()
     {
@@ -159,6 +163,7 @@ public class ColaEntrenamientoTests
             Is.Empty);
     }
 
+    // Caso Sin Espacio Para Spawn: verifica devuelve fallo controlado.
     [Test]
     public void SinEspacioParaSpawn_DevuelveFalloControlado()
     {
