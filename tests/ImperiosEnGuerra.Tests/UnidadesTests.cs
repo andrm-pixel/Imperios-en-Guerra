@@ -22,17 +22,17 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(guerrero.Disponible, Is.True);
         }
 
-        // Caso Lancero: verifica es soldado y conserva coordenada.
+        // Caso Arquero: verifica es soldado y conserva coordenada.
         [Test]
-        public void Lancero_EsSoldadoYConservaCoordenada()
+        public void Arquero_EsSoldadoYConservaCoordenada()
         {
             Coordenada coordenada = new Coordenada(2, 3);
 
-            Lancero lancero = new Lancero(coordenada);
+            Arquero arquero = new Arquero(coordenada);
 
-            Assert.That(lancero, Is.InstanceOf<Soldado>());
-            Assert.That(lancero.Coordenada, Is.SameAs(coordenada));
-            Assert.That(lancero.Disponible, Is.True);
+            Assert.That(arquero, Is.InstanceOf<Soldado>());
+            Assert.That(arquero.Coordenada, Is.SameAs(coordenada));
+            Assert.That(arquero.Disponible, Is.True);
         }
 
         // Caso Arquero: verifica continua siendo soldado.
@@ -48,18 +48,19 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(arquero.Disponible, Is.True);
         }
 
-        // Caso Monje: verifica es unidad pero no soldado.
+        // Caso Guerrero: verifica tiene vida y ataque de combate.
         [Test]
-        public void Monje_EsUnidadPeroNoSoldado()
+        public void Guerrero_TieneVidaYAtaqueDeCombate()
         {
             Coordenada coordenada = new Coordenada(4, 5);
 
-            Monje monje = new Monje(coordenada);
+            Guerrero guerrero = new Guerrero(coordenada);
 
-            Assert.That(monje, Is.InstanceOf<Unidad>());
-            Assert.That(monje, Is.Not.InstanceOf<Soldado>());
-            Assert.That(monje.Coordenada, Is.SameAs(coordenada));
-            Assert.That(monje.Disponible, Is.True);
+            Assert.That(guerrero, Is.InstanceOf<Unidad>());
+            Assert.That(guerrero, Is.InstanceOf<Soldado>());
+            Assert.That(guerrero.Vida, Is.GreaterThan(0));
+            Assert.That(guerrero.PuntosAtaque, Is.GreaterThan(0));
+            Assert.That(guerrero.AlcanceAtaque, Is.GreaterThanOrEqualTo(1));
         }
 
         // Caso Velocidades Movimiento: verifica son positivas.
@@ -70,9 +71,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             {
                 new Aldeano(new Coordenada(0, 0)),
                 new Guerrero(new Coordenada(0, 0)),
-                new Lancero(new Coordenada(0, 0)),
-                new Arquero(new Coordenada(0, 0)),
-                new Monje(new Coordenada(0, 0))
+                new Arquero(new Coordenada(0, 0))
             };
 
             foreach (Unidad unidad in unidades)
@@ -90,21 +89,21 @@ namespace ImperiosEnGuerra.Tests.Editor
             var aldeano =
                 new Aldeano(new Coordenada(0, 0));
 
-            var lancero =
-                new Lancero(new Coordenada(0, 0));
+            var arquero =
+                new Arquero(new Coordenada(0, 0));
 
-            var monje =
-                new Monje(new Coordenada(0, 0));
+            var guerrero =
+                new Guerrero(new Coordenada(0, 0));
 
             Assert.That(
-                lancero.VelocidadMovimiento,
+                arquero.VelocidadMovimiento,
                 Is.GreaterThan(
                     aldeano.VelocidadMovimiento));
 
             Assert.That(
-                monje.VelocidadMovimiento,
-                Is.LessThan(
-                    aldeano.VelocidadMovimiento));
+                aldeano.VelocidadMovimiento,
+                Is.EqualTo(
+                    guerrero.VelocidadMovimiento));
         }
 
         // Caso Aldeano: verifica inicia sin carga y con capacidad.

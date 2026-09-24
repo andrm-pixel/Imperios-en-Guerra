@@ -78,13 +78,13 @@ public static class Fase2VistaConfigurator
         AssemblyReloadEvents.beforeAssemblyReload -= LimpiarPruebaVisual;
         AssemblyReloadEvents.beforeAssemblyReload += LimpiarPruebaVisual;
         SceneView.RepaintAll();
-        Debug.Log("Prueba visual temporal: cinco unidades humanas en y=1 y cinco de máquina en y=8. No se consultó la API.");
+        Debug.Log("Prueba visual temporal: tres unidades humanas en y=1 y tres de máquina en y=8. No se consultó la API.");
     }
 
     /// <summary>Crea un jugador de prueba con cinco unidades.</summary>
     private static JugadorEstadoDto CrearJugadorPrueba(string tipo, int y)
     {
-        string[] tipos = { "Aldeano", "Guerrero", "Lancero", "Arquero", "Monje" };
+        string[] tipos = { "Aldeano", "Guerrero", "Arquero" };
         return new JugadorEstadoDto
         {
             nombre = tipo,
@@ -256,9 +256,7 @@ public static class Fase2VistaConfigurator
         string ruta = "Units/" + color + "/";
         sprites.Add("aldeano" + jugador, CargarMultiple(ruta + "Pawn/Pawn_Idle.png"));
         sprites.Add("guerrero" + jugador, CargarMultiple(ruta + "Warrior/Warrior_Idle.png"));
-        sprites.Add("lancero" + jugador, CargarMultiple(ruta + "Lancer/Lancer_Idle.png"));
         sprites.Add("arquero" + jugador, CargarMultiple(ruta + "Archer/Archer_Idle.png"));
-        sprites.Add("monje" + jugador, CargarMultiple(ruta + "Monk/Idle.png"));
     }
 
     /// <summary>Carga un sprite individual del atlas.</summary>

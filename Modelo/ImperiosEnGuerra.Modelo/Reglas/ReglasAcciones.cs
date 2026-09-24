@@ -24,9 +24,7 @@ namespace ImperiosEnGuerra.Modelo.Reglas
         public static bool EsUnidadMilitar(string? tipoUnidad)
         {
             return tipoUnidad == "Guerrero"
-                || tipoUnidad == "Lancero"
-                || tipoUnidad == "Arquero"
-                || tipoUnidad == "Monje";
+                || tipoUnidad == "Arquero";
         }
 
         /// <summary>

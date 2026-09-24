@@ -430,7 +430,7 @@ app.MapPost(
 })
 .WithName("Atacar");
 
-// Coloca la guarnición inicial (guerrero y lancero) junto al centro de la máquina.
+// Coloca la guarnición inicial (guerrero y arquero) junto al centro de la máquina.
 static void DestacarGuarnicionMaquina(Partida partida, Coordenada centroMaquina)
 {
     var candidatos = new[]
@@ -459,7 +459,7 @@ static void DestacarGuarnicionMaquina(Partida partida, Coordenada centroMaquina)
         colocados.Add(
             colocados.Count == 0
                 ? (Unidad)new Guerrero(posicion)
-                : (Unidad)new Lancero(posicion));
+                : (Unidad)new Arquero(posicion));
     }
 
     foreach (Unidad unidad in colocados)

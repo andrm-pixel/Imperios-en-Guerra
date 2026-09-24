@@ -494,6 +494,23 @@ namespace ImperiosEnGuerra.Controladores
 
             LimpiarCaptura();
 
+            if (accion == "Batalla")
+            {
+                if (conexionApi == null ||
+                    !conexionApi.isActiveAndEnabled ||
+                    !conexionApi.PuedeIniciarAtaque)
+                {
+                    vistaHud.MostrarMensaje(
+                        "La conexión con la API no está disponible.",
+                        true);
+
+                    return;
+                }
+
+                conexionApi.IniciarBatalla();
+                return;
+            }
+
             var entidad =
                 controladorSeleccion == null
                     ? null

@@ -22,9 +22,9 @@ namespace ImperiosEnGuerra.Tests.Editor
             partida.JugadorMaquina.Recursos.Agregar(TipoRecurso.Madera, 50);
             partida.JugadorMaquina.Recursos.Agregar(TipoRecurso.Comida, 60);
             partida.JugadorHumano.AgregarUnidad(new Guerrero(new Coordenada(2, 2)));
-            var monje = new Monje(new Coordenada(7, 6));
-            monje.MarcarNoDisponible();
-            partida.JugadorMaquina.AgregarUnidad(monje);
+            var arqueroEnemigo = new Arquero(new Coordenada(7, 6));
+            arqueroEnemigo.MarcarNoDisponible();
+            partida.JugadorMaquina.AgregarUnidad(arqueroEnemigo);
 
             var respuesta = PartidaEstadoMapper.Convertir(partida);
 
@@ -79,10 +79,10 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(maquina.Edificios[0].Coordenada.X, Is.EqualTo(9));
             Assert.That(maquina.Edificios[0].Coordenada.Y, Is.EqualTo(7));
             Assert.That(maquina.Unidades, Has.Count.EqualTo(3));
-            var monjeEstado = maquina.Unidades.Single(u => u.Tipo == "Monje");
-            Assert.That(monjeEstado.Coordenada.X, Is.EqualTo(7));
-            Assert.That(monjeEstado.Coordenada.Y, Is.EqualTo(6));
-            Assert.That(monjeEstado.Disponible, Is.False);
+            var arqueroEstado = maquina.Unidades.Single(u => u.Tipo == "Arquero");
+            Assert.That(arqueroEstado.Coordenada.X, Is.EqualTo(7));
+            Assert.That(arqueroEstado.Coordenada.Y, Is.EqualTo(6));
+            Assert.That(arqueroEstado.Disponible, Is.False);
         }
 
         // Caso Convertir: verifica partida nula - lanza excepcion.

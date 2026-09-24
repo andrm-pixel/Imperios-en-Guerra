@@ -38,22 +38,14 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Sprite aldeanoHumano;
         /// <summary>Sprite del guerrero humano.</summary>
         [SerializeField] private Sprite guerreroHumano;
-        /// <summary>Sprite del lancero humano.</summary>
-        [SerializeField] private Sprite lanceroHumano;
         /// <summary>Sprite del arquero humano.</summary>
         [SerializeField] private Sprite arqueroHumano;
-        /// <summary>Sprite del monje humano.</summary>
-        [SerializeField] private Sprite monjeHumano;
         /// <summary>Sprite del aldeano máquina.</summary>
         [SerializeField] private Sprite aldeanoMaquina;
         /// <summary>Sprite del guerrero máquina.</summary>
         [SerializeField] private Sprite guerreroMaquina;
-        /// <summary>Sprite del lancero máquina.</summary>
-        [SerializeField] private Sprite lanceroMaquina;
         /// <summary>Sprite del arquero máquina.</summary>
         [SerializeField] private Sprite arqueroMaquina;
-        /// <summary>Sprite del monje máquina.</summary>
-        [SerializeField] private Sprite monjeMaquina;
 
         /// <summary>Raíz de los objetos generados para la partida.</summary>
         private GameObject contenidoGenerado;
@@ -560,18 +552,10 @@ namespace ImperiosEnGuerra.Vistas
                     return humano
                         ? guerreroHumano
                         : guerreroMaquina;
-                case "Lancero":
-                    return humano
-                        ? lanceroHumano
-                        : lanceroMaquina;
                 case "Arquero":
                     return humano
                         ? arqueroHumano
                         : arqueroMaquina;
-                case "Monje":
-                    return humano
-                        ? monjeHumano
-                        : monjeMaquina;
                 default:
                     Debug.LogWarning(
                         $"Tipo de unidad desconocido: {tipo}",
@@ -839,9 +823,7 @@ namespace ImperiosEnGuerra.Vistas
                 {
                     case "Aldeano": sprite = humano ? aldeanoHumano : aldeanoMaquina; break;
                     case "Guerrero": sprite = humano ? guerreroHumano : guerreroMaquina; break;
-                    case "Lancero": sprite = humano ? lanceroHumano : lanceroMaquina; break;
                     case "Arquero": sprite = humano ? arqueroHumano : arqueroMaquina; break;
-                    case "Monje": sprite = humano ? monjeHumano : monjeMaquina; break;
                     default:
                         Debug.LogWarning($"Tipo de unidad desconocido: {unidad.tipo}", this);
                         continue;

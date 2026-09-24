@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using ImperiosEnGuerra.Controladores.Red.Contratos;
+using ImperiosEnGuerra.Modelo.Servicios;
 using ImperiosEnGuerra.Vistas;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -347,6 +349,91 @@ public bool PuedeIniciarAtaque =>
                         atacanteId = atacanteId,
                         objetivoId = objetivoId
                     }));
+        }
+
+        /// <summary>
+        /// Ordena a todo el ejército atacar sin detener entrenamiento,
+        /// recolección ni construcción (cada unidad pelea en su worker).
+        /// Solo modo interno.
+        /// </summary>
+        public void IniciarBatalla()
+        {
+            if (!PuedeIniciarAtaque)
+            {
+                MostrarError(
+                    "La conexión con la API no está disponible.");
+                return;
+            }
+
+            if (!usarApiExterna)
+            {
+                StartCoroutine(EjecutarBatallaInterna());
+                return;
+            }
+
+            MostrarError(
+                "La batalla total solo está disponible en modo interno.");
+        }
+
+        private IEnumerator EjecutarBatallaInterna()
+        {
+            IReadOnlyList<NucleoBatalla.ProcesoBatalla> ordenes = null;
+
+            try
+            {
+                ExigirApiInterna();
+
+                foreach (var pendiente in new System.Collections.Generic.List<string>(
+                    procesosPorUnidad.Keys))
+                {
+                    if (procesosPorUnidad.TryGetValue(
+                        pendiente,
+                        out System.Guid previo))
+                    {
+                        apiInterna.CancelarProceso(previo);
+                        OlvidarProceso(pendiente);
+                    }
+                }
+
+                ordenes = apiInterna.IniciarBatalla();
+            }
+            catch (System.Exception ex)
+            {
+                MostrarError(ex.Message);
+                yield break;
+            }
+
+            if (ordenes == null || ordenes.Count == 0)
+            {
+                if (vistaHud != null)
+                {
+                    vistaHud.MostrarMensaje(
+                        "No hay tropas para la batalla. Entrena guerreros o arqueros.");
+                }
+
+                yield break;
+            }
+
+            if (vistaHud != null)
+            {
+                vistaHud.MostrarMensaje(
+                    $"¡A la batalla! {ordenes.Count} unidades atacan. Aldeanos y obras siguen en curso.");
+            }
+
+            foreach (var orden in ordenes)
+            {
+                string clave = orden.UnidadId.ToString("D");
+                RegistrarProceso(clave, orden.ProcesoId);
+                StartCoroutine(SeguirProcesoBatalla(orden.ProcesoId, clave));
+            }
+        }
+
+        private IEnumerator SeguirProcesoBatalla(
+            System.Guid procesoId,
+            string unidadId)
+        {
+            yield return EsperarProcesoInterno(procesoId, unidadId, "Batalla");
+            OlvidarProceso(unidadId);
         }
 
         /// <summary>Ejecuta un movimiento con la API interna.</summary>
@@ -1781,14 +1868,8 @@ public bool PuedeIniciarAtaque =>
                 case "Guerrero":
                     costo = economiaActual.guerrero;
                     break;
-                case "Lancero":
-                    costo = economiaActual.lancero;
-                    break;
                 case "Arquero":
                     costo = economiaActual.arquero;
-                    break;
-                case "Monje":
-                    costo = economiaActual.monje;
                     break;
             }
 

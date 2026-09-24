@@ -22,9 +22,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                 {
                     { nameof(Aldeano), 1.00d },
                     { nameof(Guerrero), 1.20d },
-                    { nameof(Lancero), 1.10d },
-                    { nameof(Arquero), 1.30d },
-                    { nameof(Monje), 1.50d }
+                    { nameof(Arquero), 1.30d }
                 };
         }
 

@@ -29,12 +29,8 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 return new Aldeano(coordenada);
             if (string.Equals(tipoUnidad, nameof(Guerrero), StringComparison.OrdinalIgnoreCase))
                 return new Guerrero(coordenada);
-            if (string.Equals(tipoUnidad, nameof(Lancero), StringComparison.OrdinalIgnoreCase))
-                return new Lancero(coordenada);
             if (string.Equals(tipoUnidad, nameof(Arquero), StringComparison.OrdinalIgnoreCase))
                 return new Arquero(coordenada);
-            if (string.Equals(tipoUnidad, nameof(Monje), StringComparison.OrdinalIgnoreCase))
-                return new Monje(coordenada);
 
             return null;
         }

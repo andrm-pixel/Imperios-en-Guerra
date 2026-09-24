@@ -147,18 +147,14 @@ public static class Fase3HudConfigurator
         {
             "Aldeano",
             "Guerrero",
-            "Lancero",
-            "Arquero",
-            "Monje"
+            "Arquero"
         };
 
         string[] propiedadesUnidad =
         {
             "entrenarAldeano",
             "entrenarGuerrero",
-            "entrenarLancero",
-            "entrenarArquero",
-            "entrenarMonje"
+            "entrenarArquero"
         };
 
         for (int i = 0; i < tiposUnidad.Length; i++)

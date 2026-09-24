@@ -135,11 +135,11 @@ public class EntrenamientoConcurrenteTests
 
         ProcesoConcurrente primero =
             servicio.IniciarEntrenamiento(
-                CrearRequest("Lancero", 3, 3));
+                CrearRequest("Guerrero", 3, 3));
 
         ProcesoConcurrente segundo =
             servicio.IniciarEntrenamiento(
-                CrearRequest("Monje", 3, 3));
+                CrearRequest("Arquero", 3, 3));
 
         await Task.WhenAll(
             primero.Finalizacion,

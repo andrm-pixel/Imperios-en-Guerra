@@ -45,17 +45,9 @@ public sealed class EconomiaEstadoResponse
     /// </summary>
     public CostoEstadoResponse Guerrero { get; set; }
     /// <summary>
-    /// Obtiene o establece lancero.
-    /// </summary>
-    public CostoEstadoResponse Lancero { get; set; }
-    /// <summary>
     /// Obtiene o establece arquero.
     /// </summary>
     public CostoEstadoResponse Arquero { get; set; }
-    /// <summary>
-    /// Obtiene o establece monje.
-    /// </summary>
-    public CostoEstadoResponse Monje { get; set; }
 }
 
 /// <summary>

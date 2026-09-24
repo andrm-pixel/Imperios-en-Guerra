@@ -88,7 +88,7 @@ public class ColaEntrenamientoTests
 
         ProcesoConcurrente primero =
             servicio.IniciarEntrenamiento(
-                Request("Monje"));
+                Request("Arquero"));
 
         ProcesoConcurrente segundo =
             servicio.IniciarEntrenamiento(

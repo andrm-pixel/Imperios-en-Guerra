@@ -152,7 +152,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
                 new Guerrero(new Coordenada(11, 7)));
             estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
-                new Lancero(new Coordenada(12, 6)));
+                new Arquero(new Coordenada(12, 6)));
 
             accionesConcurrentes.IniciarIA();
         }
@@ -227,6 +227,15 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                 ObjetivoId = objetivoId
             });
             return proceso.Id;
+        }
+
+        public IReadOnlyList<NucleoBatalla.ProcesoBatalla> IniciarBatalla()
+        {
+            ExigirDisponible();
+
+            return NucleoBatalla.IniciarBatalla(
+                estadoPartida,
+                accionesConcurrentes);
         }
 
         /// <summary>Lee el resultado de un proceso si ya terminó.</summary>

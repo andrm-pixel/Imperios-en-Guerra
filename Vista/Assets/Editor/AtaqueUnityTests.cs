@@ -73,7 +73,7 @@ public class AtaqueUnityTests
         objetivoEnemigo = CrearEntidad(
             "ObjetivoMaquina",
             IdObjetivo,
-            "Lancero",
+            "Arquero",
             "Maquina",
             4,
             4);

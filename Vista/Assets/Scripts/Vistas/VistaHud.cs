@@ -23,18 +23,16 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Button entrenar;
         /// <summary>Botón que solicita la acción Atacar.</summary>
         [SerializeField] private Button atacar;
+        /// <summary>Botón fijo que ordena a todo el ejército atacar.</summary>
+        [SerializeField] private Button batalla;
         /// <summary>Panel con los tipos de unidad entrenables.</summary>
         [SerializeField] private GameObject selectorEntrenamiento;
         /// <summary>Botón para entrenar un Aldeano.</summary>
         [SerializeField] private Button entrenarAldeano;
         /// <summary>Botón para entrenar un Guerrero.</summary>
         [SerializeField] private Button entrenarGuerrero;
-        /// <summary>Botón para entrenar un Lancero.</summary>
-        [SerializeField] private Button entrenarLancero;
         /// <summary>Botón para entrenar un Arquero.</summary>
         [SerializeField] private Button entrenarArquero;
-        /// <summary>Botón para entrenar un Monje.</summary>
-        [SerializeField] private Button entrenarMonje;
 
         /// <summary>Se emite cuando se pulsa un botón de acción.</summary>
         public event Action<string> AccionSolicitada;
@@ -49,20 +47,15 @@ namespace ImperiosEnGuerra.Vistas
             if (construir != null) construir.onClick.AddListener(SolicitarConstruir);
             if (entrenar != null) entrenar.onClick.AddListener(SolicitarEntrenar);
             if (atacar != null) atacar.onClick.AddListener(SolicitarAtacar);
+            if (batalla != null) batalla.onClick.AddListener(SolicitarBatalla);
 
             if (entrenarAldeano != null)
                 entrenarAldeano.onClick.AddListener(SolicitarEntrenarAldeano);
             if (entrenarGuerrero != null)
                 entrenarGuerrero.onClick.AddListener(SolicitarEntrenarGuerrero);
 
-            if (entrenarLancero != null)
-                entrenarLancero.onClick.AddListener(SolicitarEntrenarLancero);
-
             if (entrenarArquero != null)
                 entrenarArquero.onClick.AddListener(SolicitarEntrenarArquero);
-
-            if (entrenarMonje != null)
-                entrenarMonje.onClick.AddListener(SolicitarEntrenarMonje);
         }
 
         /// <summary>Cancela las suscripciones de los botones del HUD.</summary>
@@ -73,6 +66,7 @@ namespace ImperiosEnGuerra.Vistas
             if (construir != null) construir.onClick.RemoveListener(SolicitarConstruir);
             if (entrenar != null) entrenar.onClick.RemoveListener(SolicitarEntrenar);
             if (atacar != null) atacar.onClick.RemoveListener(SolicitarAtacar);
+            if (batalla != null) batalla.onClick.RemoveListener(SolicitarBatalla);
 
             if (entrenarAldeano != null)
                 entrenarAldeano.onClick.RemoveListener(SolicitarEntrenarAldeano);
@@ -80,14 +74,8 @@ namespace ImperiosEnGuerra.Vistas
             if (entrenarGuerrero != null)
                 entrenarGuerrero.onClick.RemoveListener(SolicitarEntrenarGuerrero);
 
-            if (entrenarLancero != null)
-                entrenarLancero.onClick.RemoveListener(SolicitarEntrenarLancero);
-
             if (entrenarArquero != null)
                 entrenarArquero.onClick.RemoveListener(SolicitarEntrenarArquero);
-
-            if (entrenarMonje != null)
-                entrenarMonje.onClick.RemoveListener(SolicitarEntrenarMonje);
         }
 
         /// <summary>Notifica la intención de mover la unidad.</summary>
@@ -100,6 +88,8 @@ namespace ImperiosEnGuerra.Vistas
         private void SolicitarEntrenar() => AccionSolicitada?.Invoke("Entrenar");
         /// <summary>Notifica la intención de atacar un objetivo.</summary>
         private void SolicitarAtacar() => AccionSolicitada?.Invoke("Atacar");
+        /// <summary>Notifica la orden de batalla total del ejército.</summary>
+        private void SolicitarBatalla() => AccionSolicitada?.Invoke("Batalla");
 
         /// <summary>Notifica la elección del tipo Aldeano.</summary>
         private void SolicitarEntrenarAldeano() =>
@@ -107,15 +97,9 @@ namespace ImperiosEnGuerra.Vistas
         /// <summary>Notifica la elección del tipo Guerrero.</summary>
         private void SolicitarEntrenarGuerrero() =>
             TipoUnidadSolicitado?.Invoke("Guerrero");
-        /// <summary>Notifica la elección del tipo Lancero.</summary>
-        private void SolicitarEntrenarLancero() =>
-            TipoUnidadSolicitado?.Invoke("Lancero");
         /// <summary>Notifica la elección del tipo Arquero.</summary>
         private void SolicitarEntrenarArquero() =>
             TipoUnidadSolicitado?.Invoke("Arquero");
-        /// <summary>Notifica la elección del tipo Monje.</summary>
-        private void SolicitarEntrenarMonje() =>
-            TipoUnidadSolicitado?.Invoke("Monje");
         /// <summary>Muestra los recursos y la carga en camino en el HUD.</summary>
         public void MostrarRecursos(int oro, int madera, int comida, int piedra = 0, int hierro = 0, string tipoCarga = null, int cargaActual = 0)
         {

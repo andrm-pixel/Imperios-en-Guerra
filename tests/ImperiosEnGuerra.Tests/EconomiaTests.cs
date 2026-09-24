@@ -102,14 +102,14 @@ public class EconomiaTests
         Assert.That(edificio.Oro, Is.EqualTo(20));
         Assert.That(edificio.Madera, Is.EqualTo(50));
         Assert.That(edificio.Comida, Is.Zero);
+        Assert.That(edificio.Piedra, Is.EqualTo(20));
+        Assert.That(edificio.Hierro, Is.Zero);
 
-        var esperados = new Dictionary<string, (int Oro, int Comida)>
+        var esperados = new Dictionary<string, (int Oro, int Comida, int Piedra, int Hierro)>
         {
-            { "Aldeano", (0, 10) },
-            { "Guerrero", (5, 15) },
-            { "Lancero", (8, 15) },
-            { "Arquero", (10, 10) },
-            { "Monje", (20, 10) }
+            { "Aldeano", (0, 10, 0, 0) },
+            { "Guerrero", (5, 15, 0, 5) },
+            { "Arquero", (10, 10, 0, 8) }
         };
 
         foreach (var esperado in esperados)
@@ -123,6 +123,8 @@ public class EconomiaTests
             Assert.That(costo.Madera, Is.Zero, esperado.Key);
             Assert.That(costo.Oro, Is.EqualTo(esperado.Value.Oro), esperado.Key);
             Assert.That(costo.Comida, Is.EqualTo(esperado.Value.Comida), esperado.Key);
+            Assert.That(costo.Piedra, Is.EqualTo(esperado.Value.Piedra), esperado.Key);
+            Assert.That(costo.Hierro, Is.EqualTo(esperado.Value.Hierro), esperado.Key);
         }
     }
 }
