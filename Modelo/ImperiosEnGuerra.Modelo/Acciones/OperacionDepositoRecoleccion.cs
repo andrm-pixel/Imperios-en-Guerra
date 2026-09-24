@@ -10,7 +10,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 {
     /// <summary>
     /// Transfiere la carga transportada al saldo del jugador únicamente cuando
-    /// el Aldeano se encuentra junto a un Centro Urbano humano.
+    /// el Aldeano se encuentra junto a un Castillo humano.
     /// </summary>
     public sealed class OperacionDepositoRecoleccion
     {
@@ -19,12 +19,12 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         /// </summary>
         /// <param name="partida">El valor de partida.</param>
         /// <param name="aldeanoId">El valor de aldeano id.</param>
-        /// <param name="centroUrbano">El valor de centro urbano.</param>
+        /// <param name="castillo">El valor de centro urbano.</param>
         /// <returns>Resultado de la operación.</returns>
         public ResultadoDepositoRecoleccion Ejecutar(
             Partida partida,
             Guid aldeanoId,
-            Coordenada centroUrbano)
+            Coordenada castillo)
         {
             if (partida == null)
             {
@@ -44,24 +44,24 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                     "No existe un Aldeano humano con ese ID.");
             }
 
-            if (centroUrbano == null)
+            if (castillo == null)
             {
                 return ResultadoDepositoRecoleccion.Fallido(
-                    "El Centro Urbano de depósito es obligatorio.");
+                    "El Castillo de depósito es obligatorio.");
             }
 
-            CentroUrbano centro =
+            Castillo centro =
                 partida.JugadorHumano.Edificios
-                    .OfType<CentroUrbano>()
+                    .OfType<Castillo>()
                     .FirstOrDefault(
                         e =>
-                            e.Coordenada.X == centroUrbano.X &&
-                            e.Coordenada.Y == centroUrbano.Y);
+                            e.Coordenada.X == castillo.X &&
+                            e.Coordenada.Y == castillo.Y);
 
             if (centro == null)
             {
                 return ResultadoDepositoRecoleccion.Fallido(
-                    "No existe un Centro Urbano humano en la posición indicada.");
+                    "No existe un Castillo humano en la posición indicada.");
             }
 
             int distancia =
@@ -76,7 +76,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             if (distancia != 1)
             {
                 return ResultadoDepositoRecoleccion.Fallido(
-                    "El Aldeano debe estar junto al Centro Urbano para depositar.");
+                    "El Aldeano debe estar junto al Castillo para depositar.");
             }
 
             if (aldeano.CargaActual <= 0 ||

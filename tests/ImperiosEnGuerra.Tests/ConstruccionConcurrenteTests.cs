@@ -281,7 +281,7 @@ public class ConstruccionConcurrenteTests
         return new ConstruirRequest
         {
             AldeanoId = aldeano.Id.ToString("D"),
-            TipoEdificio = "CentroUrbano",
+            TipoEdificio = "Castillo",
             Destino = new CoordenadaRequest
             {
                 X = x,

@@ -14,8 +14,8 @@ public class EntrenamientoTests
 {
     private Partida partida;
     private Mapa mapa;
-    private CentroUrbano centroHumano;
-    private CentroUrbano centroMaquina;
+    private Castillo centroHumano;
+    private Castillo centroMaquina;
     private OperacionEntrenamiento operacion;
 
     [SetUp]
@@ -36,10 +36,10 @@ public class EntrenamientoTests
                 new RecursosJugador()));
 
         centroHumano =
-            new CentroUrbano(new Coordenada(1, 1));
+            new Castillo(new Coordenada(1, 1));
 
         centroMaquina =
-            new CentroUrbano(new Coordenada(4, 4));
+            new Castillo(new Coordenada(4, 4));
 
         partida.JugadorHumano
             .AgregarEdificio(centroHumano);

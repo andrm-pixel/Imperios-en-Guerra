@@ -22,7 +22,7 @@ public class ConstruccionEntrenamientoUnityTests
     /// <summary>Aldeano usado en la prueba de construcción.</summary>
     private EntidadSeleccionableVista aldeano;
     /// <summary>Edificio usado en la prueba de entrenamiento.</summary>
-    private EntidadSeleccionableVista centroUrbano;
+    private EntidadSeleccionableVista castillo;
 
     /// <summary>Selector de unidad observado en la prueba.</summary>
     private GameObject selectorEntrenamiento;
@@ -110,21 +110,21 @@ public class ConstruccionEntrenamientoUnityTests
             1);
 
         var objetoCentro = new GameObject(
-            "CentroUrbano",
+            "Castillo",
             typeof(SpriteRenderer),
             typeof(EntidadSeleccionableVista));
 
         objetoCentro.transform.SetParent(
             raiz.transform);
 
-        centroUrbano =
+        castillo =
             objetoCentro.GetComponent<
                 EntidadSeleccionableVista>();
 
-        centroUrbano.Configurar(
+        castillo.Configurar(
             CategoriaEntidadVisual.Edificio,
             "",
-            "CentroUrbano",
+            "Castillo",
             "Humano",
             2,
             2);
@@ -178,7 +178,7 @@ public class ConstruccionEntrenamientoUnityTests
 
         Assert.That(
             mensaje.text,
-            Does.Contain("Centro Urbano"));
+            Does.Contain("Castillo"));
     }
 
     /// <summary>Verifica que un no aldeano no construye.</summary>
@@ -216,12 +216,12 @@ public class ConstruccionEntrenamientoUnityTests
 
     /// <summary>Verifica que el centro muestra el selector.</summary>
     [Test]
-    public void CentroUrbanoHumano_MuestraSelectorEntrenamiento()
+    public void CastilloHumano_MuestraSelectorEntrenamiento()
     {
         Invocar(
             seleccion,
             "Seleccionar",
-            centroUrbano);
+            castillo);
 
         Invocar(
             acciones,
@@ -254,7 +254,7 @@ public class ConstruccionEntrenamientoUnityTests
         Invocar(
             seleccion,
             "Seleccionar",
-            centroUrbano);
+            castillo);
 
         Invocar(
             acciones,
@@ -288,12 +288,12 @@ public class ConstruccionEntrenamientoUnityTests
 
     /// <summary>Verifica que el centro máquina no entrena.</summary>
     [Test]
-    public void CentroUrbanoMaquina_NoPreparaEntrenamiento()
+    public void CastilloMaquina_NoPreparaEntrenamiento()
     {
-        centroUrbano.Configurar(
+        castillo.Configurar(
             CategoriaEntidadVisual.Edificio,
             "",
-            "CentroUrbano",
+            "Castillo",
             "Maquina",
             8,
             8);
@@ -301,7 +301,7 @@ public class ConstruccionEntrenamientoUnityTests
         Invocar(
             seleccion,
             "Seleccionar",
-            centroUrbano);
+            castillo);
 
         Invocar(
             acciones,
@@ -359,7 +359,7 @@ public class ConstruccionEntrenamientoUnityTests
         Invocar(
             seleccion,
             "Seleccionar",
-            centroUrbano);
+            castillo);
 
         Invocar(
             acciones,
@@ -411,7 +411,7 @@ public class ConstruccionEntrenamientoUnityTests
         var dto = new ConstruirDto
         {
             aldeanoId = IdAldeano,
-            tipoEdificio = "CentroUrbano",
+            tipoEdificio = "Castillo",
             destino = new CoordenadaDto(4, 5)
         };
 
@@ -422,7 +422,7 @@ public class ConstruccionEntrenamientoUnityTests
             Is.EqualTo(
                 "{\"aldeanoId\":\"" +
                 IdAldeano +
-                "\",\"tipoEdificio\":\"CentroUrbano\"," +
+                "\",\"tipoEdificio\":\"Castillo\"," +
                 "\"destino\":{\"x\":4,\"y\":5}}"));
     }
 

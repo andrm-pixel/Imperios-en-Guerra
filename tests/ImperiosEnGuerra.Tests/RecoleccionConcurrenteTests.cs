@@ -335,7 +335,7 @@ public class RecoleccionConcurrenteTests
         humano.AgregarUnidad(aldeano);
 
         humano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(0, 0)));
 
         Assert.That(
@@ -372,7 +372,7 @@ public class RecoleccionConcurrenteTests
 
         var aldeanoCercano = new Aldeano(new Coordenada(1, 1));
         humano.AgregarUnidad(aldeanoCercano);
-        humano.AgregarEdificio(new CentroUrbano(new Coordenada(0, 0)));
+        humano.AgregarEdificio(new Castillo(new Coordenada(0, 0)));
         Assert.That(mapa.ObtenerCasilla(0, 0).Ocupar(), Is.True);
         Assert.That(
             mapa.ColocarRecurso(new Recurso(TipoRecurso.Oro, new Coordenada(2, 2), 10)),

@@ -31,7 +31,7 @@ public class Etapa45IntegracionTests
 
         var aldeano = new Aldeano(new Coordenada(2, 1));
         humano.AgregarUnidad(aldeano);
-        humano.AgregarEdificio(new CentroUrbano(new Coordenada(1, 1)));
+        humano.AgregarEdificio(new Castillo(new Coordenada(1, 1)));
         mapa.ObtenerCasilla(1, 1).Ocupar();
 
         mapa.ColocarRecurso(new Recurso(
@@ -81,7 +81,7 @@ public class Etapa45IntegracionTests
                 new ConstruirRequest
                 {
                     AldeanoId = aldeano.Id.ToString("D"),
-                    TipoEdificio = "CentroUrbano",
+                    TipoEdificio = "Castillo",
                     Destino = new CoordenadaRequest { X = 7, Y = 7 }
                 });
 
@@ -119,7 +119,7 @@ public class Etapa45IntegracionTests
             resultadoEntrenamiento.Resultado?.Mensaje);
 
         Assert.That(
-            humano.Edificios.OfType<CentroUrbano>().Count(),
+            humano.Edificios.OfType<Castillo>().Count(),
             Is.EqualTo(2));
         Assert.That(
             humano.Unidades.OfType<Soldado>().Count(),
@@ -164,7 +164,7 @@ public class Etapa45IntegracionTests
                 new ConstruirRequest
                 {
                     AldeanoId = aldeano.Id.ToString("D"),
-                    TipoEdificio = "CentroUrbano",
+                    TipoEdificio = "Castillo",
                     Destino = new CoordenadaRequest { X = 3, Y = 3 }
                 });
 
@@ -197,7 +197,7 @@ public class Etapa45IntegracionTests
         var aldeano = new Aldeano(new Coordenada(0, 0));
 
         humano.AgregarUnidad(aldeano);
-        humano.AgregarEdificio(new CentroUrbano(new Coordenada(1, 1)));
+        humano.AgregarEdificio(new Castillo(new Coordenada(1, 1)));
         mapa.ObtenerCasilla(1, 1).Ocupar();
 
         var estado = new EstadoPartidaService();
@@ -208,7 +208,7 @@ public class Etapa45IntegracionTests
                 new ConstruirRequest
                 {
                     AldeanoId = aldeano.Id.ToString("D"),
-                    TipoEdificio = "CentroUrbano",
+                    TipoEdificio = "Castillo",
                     Destino = new CoordenadaRequest { X = 3, Y = 3 }
                 });
 

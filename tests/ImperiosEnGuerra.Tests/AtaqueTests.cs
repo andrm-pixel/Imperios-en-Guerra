@@ -153,7 +153,7 @@ public class AtaqueTests
     [Test]
     public void AtaqueAEdificio_AplicaDano()
     {
-        var centroEnemigo = new CentroUrbano(new Coordenada(1, 2));
+        var centroEnemigo = new Castillo(new Coordenada(1, 2));
         partida.JugadorMaquina.AgregarEdificio(centroEnemigo);
 
         ResultadoAccion resultado = operacion.Ejecutar(
@@ -174,7 +174,7 @@ public class AtaqueTests
     [Test]
     public void DestruirCentro_SoloNoDaVictoriaFaltaEjercito()
     {
-        var centroEnemigo = new CentroUrbano(new Coordenada(1, 2));
+        var centroEnemigo = new Castillo(new Coordenada(1, 2));
         partida.JugadorMaquina.AgregarEdificio(centroEnemigo);
 
         ResultadoAccion ultimo = null;
@@ -216,7 +216,7 @@ public class AtaqueTests
     [Test]
     public void EdificioPropio_Falla()
     {
-        var centroPropio = new CentroUrbano(new Coordenada(0, 0));
+        var centroPropio = new Castillo(new Coordenada(0, 0));
         partida.JugadorHumano.AgregarEdificio(centroPropio);
 
         ResultadoAccion resultado = operacion.Ejecutar(

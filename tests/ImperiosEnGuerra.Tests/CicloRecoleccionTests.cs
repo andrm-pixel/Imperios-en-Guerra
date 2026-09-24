@@ -136,7 +136,7 @@ public class CicloRecoleccionTests
 
         humano.AgregarUnidad(aldeano);
         humano.AgregarEdificio(
-            new CentroUrbano(new Coordenada(1, 1)));
+            new Castillo(new Coordenada(1, 1)));
         mapa.ObtenerCasilla(1, 1).Ocupar();
         mapa.ColocarRecurso(
             new Recurso(

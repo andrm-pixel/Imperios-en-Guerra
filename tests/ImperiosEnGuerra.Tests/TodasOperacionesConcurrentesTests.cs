@@ -71,7 +71,7 @@ public class TodasOperacionesConcurrentesTests
                 new ConstruirRequest
                 {
                     AldeanoId = aldeanoConstruccion.Id.ToString(),
-                    TipoEdificio = "CentroUrbano",
+                    TipoEdificio = "Castillo",
                     Destino = new CoordenadaRequest
                     {
                         X = 3,
@@ -235,7 +235,7 @@ public class TodasOperacionesConcurrentesTests
 
 
         humano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(1,1)));
 
 

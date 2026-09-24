@@ -50,7 +50,7 @@ public class PlanificadorMovimientoTests
     public void EdificioIntermedio_SeRodea()
     {
         partida.JugadorHumano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(2, 1)));
 
         ResultadoPlanMovimiento resultado =
@@ -108,11 +108,11 @@ public class PlanificadorMovimientoTests
     public void UnidadEncerradaPorEntidades_RutaImposible()
     {
         partida.JugadorHumano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(0, 1)));
 
         partida.JugadorHumano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(2, 1)));
 
         partida.JugadorMaquina.AgregarUnidad(

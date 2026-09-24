@@ -26,7 +26,7 @@ namespace ImperiosEnGuerra.Modelo.Recursos
                     StringComparer.OrdinalIgnoreCase)
                 {
                     {
-                        nameof(CentroUrbano),
+                        nameof(Castillo),
                         new CostoRecursos(
                             oro: 20,
                             madera: 50,

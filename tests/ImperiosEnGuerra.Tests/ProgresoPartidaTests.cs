@@ -31,7 +31,7 @@ public class ProgresoPartidaTests
         var guerrero = new Soldado(new Coordenada(2, 2));
         guerrero.RecibirDano(10);
         humano.AgregarUnidad(guerrero);
-        humano.AgregarEdificio(new CentroUrbano(new Coordenada(1, 7)));
+        humano.AgregarEdificio(new Castillo(new Coordenada(1, 7)));
         mapa.ObtenerCasilla(1, 7).Ocupar();
 
         var enemigo = new Arquero(new Coordenada(13, 7));

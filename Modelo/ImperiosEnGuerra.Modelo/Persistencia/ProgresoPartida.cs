@@ -237,16 +237,16 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
             Jugador jugador,
             Mapa mapa)
         {
-            // Formato: CentroUrbano=(x,y,vida)
+            // Formato: Castillo=(x,y,vida)
             int igual = linea.IndexOf('=');
             string tipo = igual < 0 ? linea : linea.Substring(0, igual);
             int[] v = Enteros(ExtraerParentesis(linea), 3);
 
             Edificio edificio;
 
-            if (tipo == nameof(CentroUrbano))
+            if (tipo == nameof(Castillo))
             {
-                edificio = new CentroUrbano(new Coordenada(v[0], v[1]));
+                edificio = new Castillo(new Coordenada(v[0], v[1]));
             }
             else
             {

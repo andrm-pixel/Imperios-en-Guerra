@@ -67,7 +67,7 @@ public class RegistroAccionesTests
                 new ConstruirRequest
                 {
                     AldeanoId = aldeano.Id.ToString("D"),
-                    TipoEdificio = "CentroUrbano",
+                    TipoEdificio = "Castillo",
                     Destino = Coordenada(4, 4)
                 }).Exito,
             Is.True);
@@ -167,8 +167,8 @@ public class RegistroAccionesTests
         humano.Recursos.Agregar(TipoRecurso.Piedra, 500);
         humano.Recursos.Agregar(TipoRecurso.Hierro, 500);
 
-        var centroHumano = new CentroUrbano(new Coordenada(0, 0));
-        var centroMaquina = new CentroUrbano(new Coordenada(9, 9));
+        var centroHumano = new Castillo(new Coordenada(0, 0));
+        var centroMaquina = new Castillo(new Coordenada(9, 9));
 
         humano.AgregarEdificio(centroHumano);
         maquina.AgregarEdificio(centroMaquina);

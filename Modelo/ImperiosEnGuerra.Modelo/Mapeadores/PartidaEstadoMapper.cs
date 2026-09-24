@@ -49,7 +49,7 @@ public static class PartidaEstadoMapper
             new ConfiguracionEconomia();
 
         configuracion.IntentarObtenerCostoEdificio(
-            "CentroUrbano",
+            "Castillo",
             out CostoRecursos centro);
 
         configuracion.IntentarObtenerCostoUnidad(
@@ -66,7 +66,7 @@ public static class PartidaEstadoMapper
 
         return new EconomiaEstadoResponse
         {
-            CentroUrbano = ConvertirCosto(centro),
+            Castillo = ConvertirCosto(centro),
             Aldeano = ConvertirCosto(aldeano),
             Soldado = ConvertirCosto(soldado),
             Arquero = ConvertirCosto(arquero)
@@ -105,7 +105,7 @@ public static class PartidaEstadoMapper
                 Id = edificio.Id.ToString("D"),
                 Tipo = edificio.GetType().Name,
                 Coordenada = ConvertirCoordenada(edificio.Coordenada),
-                ColaEntrenamiento = edificio is CentroUrbano centro
+                ColaEntrenamiento = edificio is Castillo centro
                     ? centro.ColaEntrenamiento.Select(p => new EntrenamientoEstadoResponse
                     {
                         Id = p.Id.ToString("D"),

@@ -21,7 +21,7 @@ namespace ImperiosEnGuerra.Vistas
         public CategoriaEntidadVisual Categoria { get; private set; }
         /// <summary>Identificador lógico del Modelo.</summary>
         public string IdLogico { get; private set; }
-        /// <summary>Tipo lógico (Aldeano, Oro, CentroUrbano...).</summary>
+        /// <summary>Tipo lógico (Aldeano, Oro, Castillo...).</summary>
         public string TipoLogico { get; private set; }
         /// <summary>Propietario (Humano, Maquina o vacío).</summary>
         public string Propietario { get; private set; }

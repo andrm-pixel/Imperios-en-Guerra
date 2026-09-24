@@ -305,11 +305,11 @@ public sealed class EstadoPartidaService
     /// Ejecuta la operación depositar carga.
     /// </summary>
     /// <param name="aldeanoId">El valor de aldeano id.</param>
-    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="castillo">El valor de centro urbano.</param>
     /// <returns>Resultado de la operación.</returns>
     public ResultadoDepositoRecoleccion DepositarCarga(
         Guid aldeanoId,
-        Coordenada centroUrbano)
+        Coordenada castillo)
     {
         lock (sincronizacion)
         {
@@ -323,7 +323,7 @@ public sealed class EstadoPartidaService
                 .Ejecutar(
                     partidaActiva,
                     aldeanoId,
-                    centroUrbano);
+                    castillo);
         }
     }
 
@@ -600,7 +600,7 @@ public sealed class EstadoPartidaService
 
             if (!string.Equals(
                     request.TipoEdificio,
-                    nameof(CentroUrbano),
+                    nameof(Castillo),
                     StringComparison.OrdinalIgnoreCase))
             {
                 return ResultadoAccion.Fallido(
@@ -641,7 +641,7 @@ public sealed class EstadoPartidaService
             var obra =
                 new ObraConstruccion(
                     aldeanoId,
-                    nameof(CentroUrbano),
+                    nameof(Castillo),
                     destino);
 
             partidaActiva.JugadorHumano
@@ -740,7 +740,7 @@ public sealed class EstadoPartidaService
 
                 partidaActiva.JugadorHumano
                     .AgregarEdificio(
-                        new CentroUrbano(
+                        new Castillo(
                             obra.Coordenada));
             }
 
@@ -861,17 +861,17 @@ public sealed class EstadoPartidaService
     /// </summary>
     /// <param name="request">El valor de request.</param>
     /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
-    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="castillo">El valor de centro urbano.</param>
     /// <returns>Resultado de la operación.</returns>
     public ResultadoAccion EncolarEntrenamiento(
         EntrenarRequest? request,
         out Guid entrenamientoId,
-        out Coordenada centroUrbano)
+        out Coordenada castillo)
     {
         lock (sincronizacion)
         {
             entrenamientoId = Guid.Empty;
-            centroUrbano = null;
+            castillo = null;
 
             if (partidaActiva == null)
             {
@@ -903,9 +903,9 @@ public sealed class EstadoPartidaService
                 PartidaRequestMapper.ConvertirCoordenada(
                     request.EdificioOrigen);
 
-            CentroUrbano? centro =
+            Castillo? centro =
                 partidaActiva.JugadorHumano.Edificios
-                    .OfType<CentroUrbano>()
+                    .OfType<Castillo>()
                     .FirstOrDefault(
                         e =>
                             e.Coordenada.X == origen.X &&
@@ -914,7 +914,7 @@ public sealed class EstadoPartidaService
             if (centro == null)
             {
                 return ResultadoAccion.Fallido(
-                    "No existe un Centro Urbano humano en la posición indicada.");
+                    "No existe un Castillo humano en la posición indicada.");
             }
 
             Coordenada reunion =
@@ -931,7 +931,7 @@ public sealed class EstadoPartidaService
             entrenamientoId =
                 pendiente.Id;
 
-            centroUrbano =
+            castillo =
                 centro.Coordenada;
 
             return ResultadoAccion.Exitoso(
@@ -942,18 +942,18 @@ public sealed class EstadoPartidaService
     /// <summary>
     /// Ejecuta la operación es turno entrenamiento.
     /// </summary>
-    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="castillo">El valor de centro urbano.</param>
     /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
     /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool EsTurnoEntrenamiento(
-        Coordenada centroUrbano,
+        Coordenada castillo,
         Guid entrenamientoId)
     {
         lock (sincronizacion)
         {
-            CentroUrbano? centro =
+            Castillo? centro =
                 BuscarCentroHumano(
-                    centroUrbano);
+                    castillo);
 
             return centro != null &&
                    centro.EsPrimero(
@@ -964,24 +964,24 @@ public sealed class EstadoPartidaService
     /// <summary>
     /// Ejecuta la operación avanzar entrenamiento.
     /// </summary>
-    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="castillo">El valor de centro urbano.</param>
     /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
     /// <param name="incremento">El valor de incremento.</param>
     /// <returns>Resultado de la operación.</returns>
     public ResultadoProgresoEntrenamiento AvanzarEntrenamiento(
-        Coordenada centroUrbano,
+        Coordenada castillo,
         Guid entrenamientoId,
         int incremento)
     {
         lock (sincronizacion)
         {
-            CentroUrbano? centro =
+            Castillo? centro =
                 BuscarCentroHumano(
-                    centroUrbano);
+                    castillo);
 
             return centro == null
                 ? ResultadoProgresoEntrenamiento.Fallido(
-                    "No existe el Centro Urbano indicado.")
+                    "No existe el Castillo indicado.")
                 : centro.AvanzarEntrenamiento(
                     entrenamientoId,
                     incremento);
@@ -991,12 +991,12 @@ public sealed class EstadoPartidaService
     /// <summary>
     /// Completa entrenamiento con spawn.
     /// </summary>
-    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="castillo">El valor de centro urbano.</param>
     /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
     /// <param name="tipoUnidad">El valor de tipo unidad.</param>
     /// <returns>Resultado de la operación.</returns>
     public ResultadoSpawnEntrenamiento CompletarEntrenamientoConSpawn(
-        Coordenada centroUrbano,
+        Coordenada castillo,
         Guid entrenamientoId,
         string tipoUnidad)
     {
@@ -1008,9 +1008,9 @@ public sealed class EstadoPartidaService
                     "No hay una partida activa.");
             }
 
-            CentroUrbano? centro =
+            Castillo? centro =
                 BuscarCentroHumano(
-                    centroUrbano);
+                    castillo);
 
             if (centro == null ||
                 !centro.EsPrimero(
@@ -1095,18 +1095,18 @@ public sealed class EstadoPartidaService
     /// <summary>
     /// Cancela entrenamiento cola.
     /// </summary>
-    /// <param name="centroUrbano">El valor de centro urbano.</param>
+    /// <param name="castillo">El valor de centro urbano.</param>
     /// <param name="entrenamientoId">El valor de entrenamiento id.</param>
     /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
     public bool CancelarEntrenamientoCola(
-        Coordenada centroUrbano,
+        Coordenada castillo,
         Guid entrenamientoId)
     {
         lock (sincronizacion)
         {
-            CentroUrbano? centro =
+            Castillo? centro =
                 BuscarCentroHumano(
-                    centroUrbano);
+                    castillo);
 
             return centro != null &&
                    centro.CancelarEntrenamiento(
@@ -1114,7 +1114,7 @@ public sealed class EstadoPartidaService
         }
     }
 
-    private CentroUrbano? BuscarCentroHumano(
+    private Castillo? BuscarCentroHumano(
         Coordenada coordenada)
     {
         if (partidaActiva == null ||
@@ -1124,7 +1124,7 @@ public sealed class EstadoPartidaService
         }
 
         return partidaActiva.JugadorHumano.Edificios
-            .OfType<CentroUrbano>()
+            .OfType<Castillo>()
             .FirstOrDefault(
                 e =>
                     e.Coordenada.X == coordenada.X &&
@@ -1449,7 +1449,7 @@ public sealed class EstadoPartidaService
     /// </summary>
     /// <param name="coordenada">El valor de coordenada.</param>
     /// <returns>Resultado de la operación.</returns>
-    public CentroUrbano? ObtenerCentroUrbano(Coordenada coordenada)
+    public Castillo? ObtenerCastillo(Coordenada coordenada)
     {
         lock (sincronizacion)
         {
@@ -1457,7 +1457,7 @@ public sealed class EstadoPartidaService
                 return null;
 
             return partidaActiva.JugadorHumano.Edificios
-                .OfType<CentroUrbano>()
+                .OfType<Castillo>()
                 .FirstOrDefault(e =>
                     e.Coordenada.X == coordenada.X &&
                     e.Coordenada.Y == coordenada.Y);

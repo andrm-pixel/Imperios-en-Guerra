@@ -82,8 +82,8 @@ public class MovimientoTests
             case "no transitable": mapa.ObtenerCasilla(4, 5).CambiarTransitabilidad(false); break;
             case "unidad humana": partida.JugadorHumano.AgregarUnidad(new Aldeano(destino)); break;
             case "unidad enemiga": partida.JugadorMaquina.AgregarUnidad(new Aldeano(destino)); break;
-            case "edificio humano": partida.JugadorHumano.AgregarEdificio(new CentroUrbano(destino)); break;
-            case "edificio enemigo": partida.JugadorMaquina.AgregarEdificio(new CentroUrbano(destino)); break;
+            case "edificio humano": partida.JugadorHumano.AgregarEdificio(new Castillo(destino)); break;
+            case "edificio enemigo": partida.JugadorMaquina.AgregarEdificio(new Castillo(destino)); break;
         }
 
         var posiciones = partida.JugadorHumano.Unidades.Concat(partida.JugadorMaquina.Unidades)

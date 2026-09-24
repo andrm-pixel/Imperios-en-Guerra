@@ -16,7 +16,7 @@ namespace ImperiosEnGuerra.Modelo.IA
     /// del GestorProcesosConcurrentes cada pocos segundos.
     /// Cada turno: sus soldados cazan humanos en un radio de 7 casillas
     /// (caminan hasta el alcance y golpean); si no hay objetivo cerca,
-    /// regresan junto a su Centro Urbano. Sin hilos propios.
+    /// regresan junto a su Castillo. Sin hilos propios.
     /// </summary>
     public sealed class InteligenciaMaquina
     {
@@ -60,7 +60,7 @@ namespace ImperiosEnGuerra.Modelo.IA
             if (OperacionAtaque.EsVictoriaMaquina(partida))
             {
                 return ResultadoAccion.Exitoso(
-                    $"IA: {bitacora}¡Victoria! La máquina destruyó el Centro Urbano o todas las unidades humanas.");
+                    $"IA: {bitacora}¡Victoria! La máquina destruyó el Castillo o todas las unidades humanas.");
             }
 
             if (acciones == 0)
@@ -303,9 +303,9 @@ namespace ImperiosEnGuerra.Modelo.IA
             Unidad soldado,
             StringBuilder bitacora)
         {
-            CentroUrbano centro =
+            Castillo centro =
                 partida.JugadorMaquina.Edificios
-                    .OfType<CentroUrbano>()
+                    .OfType<Castillo>()
                     .FirstOrDefault();
 
             if (centro == null || centro.Coordenada == null)

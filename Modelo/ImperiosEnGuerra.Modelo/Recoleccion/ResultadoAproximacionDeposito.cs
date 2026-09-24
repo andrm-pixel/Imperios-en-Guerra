@@ -22,7 +22,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// <summary>
         /// Obtiene centro urbano.
         /// </summary>
-        public Coordenada CentroUrbano { get; }
+        public Coordenada Castillo { get; }
         /// <summary>
         /// Obtiene punto interaccion.
         /// </summary>
@@ -41,14 +41,14 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         private ResultadoAproximacionDeposito(
             bool exito,
             string mensaje,
-            Coordenada centroUrbano,
+            Coordenada castillo,
             Coordenada puntoInteraccion,
             IEnumerable<Coordenada> pasos,
             bool reintentable)
         {
             Exito = exito;
             Mensaje = mensaje ?? string.Empty;
-            CentroUrbano = centroUrbano;
+            Castillo = castillo;
             PuntoInteraccion = puntoInteraccion;
             this.pasos = pasos == null
                 ? new List<Coordenada>()
@@ -59,17 +59,17 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
         /// <summary>
         /// Crea un resultado exitoso el elemento solicitado.
         /// </summary>
-        /// <param name="centroUrbano">El valor de centro urbano.</param>
+        /// <param name="castillo">El valor de centro urbano.</param>
         /// <param name="puntoInteraccion">El valor de punto interaccion.</param>
         /// <param name="pasos">El valor de pasos.</param>
         /// <returns>Resultado de la operación.</returns>
         public static ResultadoAproximacionDeposito Exitoso(
-            Coordenada centroUrbano,
+            Coordenada castillo,
             Coordenada puntoInteraccion,
             IEnumerable<Coordenada> pasos)
         {
-            if (centroUrbano == null)
-                throw new ArgumentNullException(nameof(centroUrbano));
+            if (castillo == null)
+                throw new ArgumentNullException(nameof(castillo));
 
             if (puntoInteraccion == null)
                 throw new ArgumentNullException(nameof(puntoInteraccion));
@@ -80,7 +80,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             return new ResultadoAproximacionDeposito(
                 true,
                 "Ruta hacia el punto de depósito preparada.",
-                centroUrbano,
+                castillo,
                 puntoInteraccion,
                 pasos,
                 false);

@@ -58,7 +58,7 @@ namespace ImperiosEnGuerra.Tests.Editor
         public void Jugador_AgregaYEliminaEdificio()
         {
             Jugador jugador = CrearJugador(TipoJugador.Humano);
-            CentroUrbano centro = new CentroUrbano(new Coordenada(0, 0));
+            Castillo centro = new Castillo(new Coordenada(0, 0));
             Assert.That(jugador.Edificios, Is.Empty);
 
             jugador.AgregarEdificio(centro);
@@ -74,7 +74,7 @@ namespace ImperiosEnGuerra.Tests.Editor
         public void Jugador_EdificioNull_NoModificaColeccion()
         {
             Jugador jugador = CrearJugador(TipoJugador.Humano);
-            CentroUrbano centro = new CentroUrbano(new Coordenada(0, 0));
+            Castillo centro = new Castillo(new Coordenada(0, 0));
             jugador.AgregarEdificio(centro);
 
             Assert.Throws<ArgumentNullException>(() => jugador.AgregarEdificio(null));
@@ -371,7 +371,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(jugador.Tipo, Is.EqualTo(tipo));
             Assert.That(jugador.Mapa, Is.SameAs(mapa));
             Assert.That(jugador.Edificios.Count, Is.EqualTo(1));
-            Assert.That(jugador.Edificios[0], Is.TypeOf<CentroUrbano>());
+            Assert.That(jugador.Edificios[0], Is.TypeOf<Castillo>());
             Assert.That(jugador.Edificios[0].Coordenada.X, Is.EqualTo(centro.X));
             Assert.That(jugador.Edificios[0].Coordenada.Y, Is.EqualTo(centro.Y));
             Assert.That(mapa.ObtenerCasilla(centro.X, centro.Y).EstaOcupada, Is.True);

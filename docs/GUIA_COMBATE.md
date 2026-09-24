@@ -8,12 +8,12 @@ batalla, guardado de progreso y victoria total.
 - Unidades: **Aldeano** (50 vida), **Soldado** (120 vida, 25 daño, alcance 1),
   **Arquero** (90 vida, 15 daño, alcance 4).
 - Cualquier militar ataca cualquier objetivo enemigo: unidades (incluidos
-  aldeanos) y edificios (Centro Urbano, 500 vida).
+  aldeanos) y edificios (Castillo, 500 vida).
 - El worker `ATACAR` camina solo hasta el alcance y golpea cada 1 s hasta
   destruir. El botón **¡Batalla!** ordena a todo el ejército a la vez, cada
   unidad en su propio hilo; entrenar y recolectar siguen en simultáneo.
 - La **máquina** patrulla con 2 soldados y caza humanos en radio 7.
-- Victoria total: destruir el Centro Urbano **Y** todas las unidades enemigas.
+- Victoria total: destruir el Castillo **Y** todas las unidades enemigas.
   Se guarda en `resultado_final.txt`.
 - Progreso: **F5** guarda y **F9** carga `progreso.txt` (mapa, saldos, edificios,
   unidades con vida y carga, recursos restantes).

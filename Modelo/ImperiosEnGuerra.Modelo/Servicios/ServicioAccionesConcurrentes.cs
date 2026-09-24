@@ -438,7 +438,7 @@ public sealed class ServicioAccionesConcurrentes
                         ResultadoDepositoRecoleccion depositoPendiente =
                             estadoPartida.DepositarCarga(
                                 unidadId,
-                                cargaPendiente.CentroUrbano);
+                                cargaPendiente.Castillo);
 
                         if (!depositoPendiente.Exito)
                         {
@@ -626,7 +626,7 @@ public sealed class ServicioAccionesConcurrentes
                             ResultadoDepositoRecoleccion deposito =
                                 estadoPartida.DepositarCarga(
                                     unidadId,
-                                    depositoPlan.CentroUrbano);
+                                    depositoPlan.Castillo);
 
                             if (!deposito.Exito)
                             {
@@ -647,8 +647,7 @@ public sealed class ServicioAccionesConcurrentes
                                 objetivo))
                         {
                             return ResultadoAccion.Exitoso(
-                                $"Recolección completada. Se depositaron {totalDepositado} " +
-                                $"de {tipoObjetivo} y el nodo quedó agotado. En espera de órdenes.");
+                                $"Nodo agotado: {totalDepositado} {tipoObjetivo}. En espera de órdenes.");
                         }
 
                         if (!estadoPartida.IntentarReemplazarOrdenUnidad(
@@ -904,7 +903,7 @@ public sealed class ServicioAccionesConcurrentes
                 bool costoReservado = false;
                 bool completado = false;
                 Guid entrenamientoId = Guid.Empty;
-                Coordenada centroUrbano = null;
+                Coordenada castillo = null;
 
                 try
                 {
@@ -922,13 +921,13 @@ public sealed class ServicioAccionesConcurrentes
                         estadoPartida.EncolarEntrenamiento(
                             copia,
                             out entrenamientoId,
-                            out centroUrbano);
+                            out castillo);
 
                     if (!encolado.Exito)
                         return encolado;
 
                     while (!estadoPartida.EsTurnoEntrenamiento(
-                        centroUrbano,
+                        castillo,
                         entrenamientoId))
                     {
                         EsperarAntesDeAplicar(
@@ -963,7 +962,7 @@ public sealed class ServicioAccionesConcurrentes
 
                         ResultadoProgresoEntrenamiento progreso =
                             estadoPartida.AvanzarEntrenamiento(
-                                centroUrbano,
+                                castillo,
                                 entrenamientoId,
                                 10);
 
@@ -980,7 +979,7 @@ public sealed class ServicioAccionesConcurrentes
 
                     ResultadoSpawnEntrenamiento spawn =
                         estadoPartida.CompletarEntrenamientoConSpawn(
-                            centroUrbano,
+                            castillo,
                             entrenamientoId,
                             copia?.TipoUnidad ?? string.Empty);
 
@@ -999,10 +998,10 @@ public sealed class ServicioAccionesConcurrentes
                 {
                     if (!completado &&
                         entrenamientoId != Guid.Empty &&
-                        centroUrbano != null)
+                        castillo != null)
                     {
                         estadoPartida.CancelarEntrenamientoCola(
-                            centroUrbano,
+                            castillo,
                             entrenamientoId);
                     }
 
@@ -1464,7 +1463,7 @@ public sealed class ServicioAccionesConcurrentes
         }
 
         return ResultadoAccion.Fallido(
-            "No se encontró una ruta libre hacia un Centro Urbano tras varios cambios del mapa. " +
+            "No se encontró una ruta libre hacia un Castillo tras varios cambios del mapa. " +
             "La carga del Aldeano se conserva para poder reintentarla.");
     }
 

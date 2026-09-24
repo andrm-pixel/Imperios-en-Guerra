@@ -383,7 +383,7 @@ namespace ImperiosEnGuerra.Controladores
             {
                 conexionApi.Construir(
                     id,
-                    ReglasAcciones.TipoCentroUrbano,
+                    ReglasAcciones.TipoCastillo,
                     x,
                     y);
 
@@ -560,7 +560,7 @@ namespace ImperiosEnGuerra.Controladores
                 vistaHud.MostrarSelectorEntrenamiento(true);
 
                 vistaHud.MostrarMensaje(
-                    "Selecciona el tipo de unidad a entrenar.");
+                    "Selecciona el tipo de unidad a invocar.");
 
                 return;
             }
@@ -650,7 +650,7 @@ namespace ImperiosEnGuerra.Controladores
                             : conexionApi.DescribirCostoConstruccion();
 
                     string mensajeConstruccion =
-                        "Selecciona una casilla para construir el Centro Urbano.";
+                        "Selecciona una casilla para construir el Castillo.";
 
                     if (!string.IsNullOrWhiteSpace(costo))
                     {
@@ -716,7 +716,7 @@ namespace ImperiosEnGuerra.Controladores
                 return "Construcción cancelada.";
 
             if (accion == "Entrenar")
-                return "Entrenamiento cancelado.";
+                return "Invocación cancelada.";
 
             if (accion == "Atacar")
                 return "Ataque cancelado.";

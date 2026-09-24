@@ -1900,7 +1900,7 @@ public bool PuedeIniciarAtaque =>
         public string DescribirCostoConstruccion()
         {
             return DescribirCosto(
-                economiaActual?.centroUrbano);
+                economiaActual?.castillo);
         }
 
         /// <summary>Describe el costo de un tipo de unidad.</summary>

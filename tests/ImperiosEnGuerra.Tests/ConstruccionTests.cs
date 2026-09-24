@@ -57,7 +57,7 @@ public class ConstruccionTests
 
         var solicitud = new SolicitudConstruccion(
             aldeano.Id,
-            "CentroUrbano",
+            "Castillo",
             new Coordenada(3, 3));
 
         ResultadoAccion resultado =
@@ -71,7 +71,7 @@ public class ConstruccionTests
 
         Assert.That(
             partida.JugadorHumano.Edificios[^1],
-            Is.TypeOf<CentroUrbano>());
+            Is.TypeOf<Castillo>());
 
         Assert.That(
             mapa.ObtenerCasilla(3, 3).EstaOcupada,
@@ -87,7 +87,7 @@ public class ConstruccionTests
                 partida,
                 new SolicitudConstruccion(
                     aldeano.Id,
-                    "CentroUrbano",
+                    "Castillo",
                     new Coordenada(8, 8)));
 
         Assert.That(resultado.Exito, Is.False);
@@ -105,7 +105,7 @@ public class ConstruccionTests
                 partida,
                 new SolicitudConstruccion(
                     aldeano.Id,
-                    "CentroUrbano",
+                    "Castillo",
                     new Coordenada(3, 3)));
 
         Assert.That(resultado.Exito, Is.False);
@@ -127,7 +127,7 @@ public class ConstruccionTests
                 partida,
                 new SolicitudConstruccion(
                     aldeanoMaquina.Id,
-                    "CentroUrbano",
+                    "Castillo",
                     new Coordenada(3, 3)));
 
         Assert.That(resultado.Exito, Is.False);
@@ -160,7 +160,7 @@ public class ConstruccionTests
         var request = new ConstruirRequest
         {
             AldeanoId = aldeano.Id.ToString("D"),
-            TipoEdificio = "CentroUrbano",
+            TipoEdificio = "Castillo",
             Destino = new CoordenadaRequest
             {
                 X = 3,
@@ -187,7 +187,7 @@ public class ConstruccionTests
         var request = new ConstruirRequest
         {
             AldeanoId = "no-es-guid",
-            TipoEdificio = "CentroUrbano",
+            TipoEdificio = "Castillo",
             Destino = new CoordenadaRequest
             {
                 X = 3,

@@ -180,11 +180,11 @@ public class EntrenamientoConcurrenteTests
         humano.Recursos.Agregar(TipoRecurso.Hierro, 500);
 
         humano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(1, 1)));
 
         maquina.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(5, 5)));
 
         mapa.ObtenerCasilla(1, 1).Ocupar();

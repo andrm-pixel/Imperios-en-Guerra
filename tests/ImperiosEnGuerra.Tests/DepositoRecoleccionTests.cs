@@ -31,7 +31,7 @@ public class DepositoRecoleccionTests
             new Aldeano(new Coordenada(2, 1), 5);
 
         var centro =
-            new CentroUrbano(new Coordenada(1, 1));
+            new Castillo(new Coordenada(1, 1));
 
         var recurso =
             new Recurso(
@@ -81,7 +81,7 @@ public class DepositoRecoleccionTests
         var aldeano =
             new Aldeano(new Coordenada(5, 5), 5);
         var centro =
-            new CentroUrbano(new Coordenada(1, 1));
+            new Castillo(new Coordenada(1, 1));
         var recurso =
             new Recurso(
                 TipoRecurso.Oro,

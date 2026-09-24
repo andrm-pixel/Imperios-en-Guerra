@@ -35,7 +35,7 @@ public sealed class EconomiaEstadoResponse
     /// <summary>
     /// Obtiene o establece centro urbano.
     /// </summary>
-    public CostoEstadoResponse CentroUrbano { get; set; }
+    public CostoEstadoResponse Castillo { get; set; }
     /// <summary>
     /// Obtiene o establece aldeano.
     /// </summary>

@@ -272,7 +272,7 @@ namespace ImperiosEnGuerra.Vistas
             {
                 if (edificio == null ||
                     edificio.coordenada == null ||
-                    edificio.tipo != "CentroUrbano")
+                    edificio.tipo != "Castillo")
                 {
                     continue;
                 }
@@ -363,7 +363,7 @@ namespace ImperiosEnGuerra.Vistas
             {
                 if (obra == null ||
                     obra.coordenada == null ||
-                    obra.tipo != "CentroUrbano")
+                    obra.tipo != "Castillo")
                 {
                     continue;
                 }
@@ -738,7 +738,7 @@ namespace ImperiosEnGuerra.Vistas
                         Debug.LogWarning("Edificio sin datos o coordenada; se omite su representación.", this);
                         continue;
                     }
-                    if (edificio.tipo != "CentroUrbano")
+                    if (edificio.tipo != "Castillo")
                     {
                         Debug.LogWarning($"Tipo de edificio desconocido: {edificio.tipo}", this);
                         continue;
@@ -759,7 +759,7 @@ namespace ImperiosEnGuerra.Vistas
                 {
                     if (obra == null ||
                         obra.coordenada == null ||
-                        obra.tipo != "CentroUrbano")
+                        obra.tipo != "Castillo")
                     {
                         continue;
                     }

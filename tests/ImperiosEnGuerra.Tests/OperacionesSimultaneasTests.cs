@@ -129,11 +129,11 @@ public class OperacionesSimultaneasTests
         humano.AgregarUnidad(aldeano);
 
         humano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(1, 1)));
 
         maquina.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(5, 5)));
 
         mapa.ObtenerCasilla(1, 1).Ocupar();

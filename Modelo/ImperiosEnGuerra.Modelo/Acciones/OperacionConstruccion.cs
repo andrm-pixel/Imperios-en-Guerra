@@ -72,15 +72,15 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 
             if (!string.Equals(
                 solicitud.TipoEdificio,
-                nameof(CentroUrbano),
+                nameof(Castillo),
                 StringComparison.OrdinalIgnoreCase))
             {
                 return ResultadoAccion.Fallido(
                     "El tipo de edificio indicado no está permitido.");
             }
 
-            CentroUrbano edificio =
-                new CentroUrbano(solicitud.Destino);
+            Castillo edificio =
+                new Castillo(solicitud.Destino);
 
             partida.JugadorHumano.AgregarEdificio(edificio);
 

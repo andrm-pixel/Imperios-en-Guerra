@@ -164,7 +164,7 @@ public class PlanificadorAproximacionRecursoTests
     public void LadoMasCercanoBloqueado_EligeOtraCasilla()
     {
         partida.JugadorHumano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(3, 1)));
 
         ResultadoAproximacionRecurso resultado =

@@ -50,9 +50,9 @@ public class ColaEntrenamientoTests
             partida.JugadorHumano.Unidades.Count,
             Is.EqualTo(2));
 
-        CentroUrbano centro =
+        Castillo centro =
             partida.JugadorHumano.Edificios
-                .OfType<CentroUrbano>()
+                .OfType<Castillo>()
                 .Single();
 
         Assert.That(
@@ -266,7 +266,7 @@ public class ColaEntrenamientoTests
             500);
 
         humano.AgregarEdificio(
-            new CentroUrbano(
+            new Castillo(
                 new Coordenada(3, 3)));
 
         mapa.ObtenerCasilla(3, 3)

@@ -294,10 +294,10 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return ReglasAcciones.EsObjetivoAtaqueValido(categoria, propietario, id);
         }
 
-        /// <summary>Nombre del tipo Centro Urbano del Modelo.</summary>
-        public string TipoCentroUrbano
+        /// <summary>Nombre del tipo Castillo del Modelo.</summary>
+        public string TipoCastillo
         {
-            get { return ReglasAcciones.TipoCentroUrbano; }
+            get { return ReglasAcciones.TipoCastillo; }
         }
 
         /// <summary>Lanza error si la API interna no está lista.</summary>

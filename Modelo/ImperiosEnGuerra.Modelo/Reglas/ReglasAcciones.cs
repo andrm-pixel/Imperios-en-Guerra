@@ -10,7 +10,7 @@ namespace ImperiosEnGuerra.Modelo.Reglas
         /// <summary>
         /// Representa el campo tipo centro urbano.
         /// </summary>
-        public const string TipoCentroUrbano = "CentroUrbano";
+        public const string TipoCastillo = "Castillo";
         /// <summary>
         /// Representa el campo tipo aldeano.
         /// </summary>
@@ -81,7 +81,7 @@ namespace ImperiosEnGuerra.Modelo.Reglas
         {
             if (propietario != "Humano")
                 return false;
-            return categoria == "Edificio" && tipoLogico == TipoCentroUrbano;
+            return categoria == "Edificio" && tipoLogico == TipoCastillo;
         }
 
         /// <summary>

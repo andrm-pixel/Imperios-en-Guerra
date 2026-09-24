@@ -8,7 +8,7 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
     {
         /// <summary>Identificador del aldeano constructor.</summary>
         public string aldeanoId;
-        /// <summary>Tipo de edificio a construir (CentroUrbano).</summary>
+        /// <summary>Tipo de edificio a construir (Castillo).</summary>
         public string tipoEdificio;
         /// <summary>Casilla destino donde se levantará la obra.</summary>
         public CoordenadaDto destino;

@@ -78,7 +78,7 @@ public class ObraConstruccionTests
 
     // Caso Progreso100: verifica convierte obra en centro urbano una sola vez.
     [Test]
-    public void Progreso100_ConvierteObraEnCentroUrbanoUnaSolaVez()
+    public void Progreso100_ConvierteObraEnCastilloUnaSolaVez()
     {
         Partida partida =
             CrearPartida(
@@ -159,7 +159,7 @@ public class ObraConstruccionTests
             AldeanoId =
                 aldeano.Id.ToString("D"),
             TipoEdificio =
-                "CentroUrbano",
+                "Castillo",
             Destino =
                 new CoordenadaRequest
                 {

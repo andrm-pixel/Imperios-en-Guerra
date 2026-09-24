@@ -58,7 +58,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 return ResultadoAccion.Fallido(
                     "No existe un edificio humano en la posición indicada.");
 
-            if (!(edificio is CentroUrbano))
+            if (!(edificio is Castillo))
                 return ResultadoAccion.Fallido(
                     "El edificio seleccionado no permite entrenamiento.");
 

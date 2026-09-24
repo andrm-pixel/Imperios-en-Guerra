@@ -35,7 +35,7 @@ namespace ImperiosEnGuerra.Modelo.Core
         }
 
         /// <summary>
-        /// Crea ambos participantes con Centro Urbano, nodos físicos, saldo inicial
+        /// Crea ambos participantes con Castillo, nodos físicos, saldo inicial
         /// y Aldeanos iniciales colocados de forma determinista en casillas libres.
         /// </summary>
         public Partida Crear(
@@ -130,7 +130,7 @@ namespace ImperiosEnGuerra.Modelo.Core
             if (!mapa.PuedeColocar(centro))
             {
                 throw new ArgumentException(
-                    "La posición del Centro Urbano no está disponible.",
+                    "La posición del Castillo no está disponible.",
                     nameof(centro));
             }
 
@@ -150,7 +150,7 @@ namespace ImperiosEnGuerra.Modelo.Core
                     (centro.X, centro.Y)))
             {
                 throw new ArgumentException(
-                    "La posición del Centro Urbano está repetida.",
+                    "La posición del Castillo está repetida.",
                     nameof(centro));
             }
 
@@ -180,7 +180,7 @@ namespace ImperiosEnGuerra.Modelo.Core
                          recurso.Coordenada.Y)))
                 {
                     throw new ArgumentException(
-                        "Un recurso coincide con un Centro Urbano u otro recurso.",
+                        "Un recurso coincide con un Castillo u otro recurso.",
                         nameof(recursos));
                 }
 
@@ -320,11 +320,11 @@ namespace ImperiosEnGuerra.Modelo.Core
                 .Ocupar())
             {
                 throw new InvalidOperationException(
-                    "No se pudo ocupar la casilla del Centro Urbano.");
+                    "No se pudo ocupar la casilla del Castillo.");
             }
 
             jugador.AgregarEdificio(
-                new CentroUrbano(centro));
+                new Castillo(centro));
 
             foreach (Recurso recurso in recursos)
             {

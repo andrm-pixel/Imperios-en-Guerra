@@ -50,14 +50,14 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(humano.Recursos.Madera, Is.EqualTo(220));
             Assert.That(humano.Recursos.Comida, Is.EqualTo(330));
             Assert.That(humano.Edificios, Has.Count.EqualTo(1));
-            Assert.That(humano.Edificios[0].Tipo, Is.EqualTo("CentroUrbano"));
+            Assert.That(humano.Edificios[0].Tipo, Is.EqualTo("Castillo"));
             Assert.That(humano.Edificios[0].Coordenada.X, Is.EqualTo(0));
             Assert.That(humano.Edificios[0].Coordenada.Y, Is.EqualTo(0));
             Assert.That(humano.Edificios[0].ColaEntrenamiento, Is.Empty);
             Assert.That(humano.ObrasConstruccion, Is.Empty);
 
-            Assert.That(respuesta.Economia.CentroUrbano.Oro, Is.EqualTo(20));
-            Assert.That(respuesta.Economia.CentroUrbano.Madera, Is.EqualTo(50));
+            Assert.That(respuesta.Economia.Castillo.Oro, Is.EqualTo(20));
+            Assert.That(respuesta.Economia.Castillo.Madera, Is.EqualTo(50));
             Assert.That(respuesta.Economia.Soldado.Oro, Is.EqualTo(5));
             Assert.That(respuesta.Economia.Soldado.Comida, Is.EqualTo(15));
             Assert.That(respuesta.Economia.Soldado.Madera, Is.Zero);
@@ -75,7 +75,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(maquina.Recursos.Madera, Is.EqualTo(70));
             Assert.That(maquina.Recursos.Comida, Is.EqualTo(90));
             Assert.That(maquina.Edificios, Has.Count.EqualTo(1));
-            Assert.That(maquina.Edificios[0].Tipo, Is.EqualTo("CentroUrbano"));
+            Assert.That(maquina.Edificios[0].Tipo, Is.EqualTo("Castillo"));
             Assert.That(maquina.Edificios[0].Coordenada.X, Is.EqualTo(9));
             Assert.That(maquina.Edificios[0].Coordenada.Y, Is.EqualTo(7));
             Assert.That(maquina.Unidades, Has.Count.EqualTo(3));

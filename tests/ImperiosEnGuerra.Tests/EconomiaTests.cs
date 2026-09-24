@@ -95,7 +95,7 @@ public class EconomiaTests
 
         Assert.That(
             config.IntentarObtenerCostoEdificio(
-                "CentroUrbano",
+                "Castillo",
                 out CostoRecursos edificio),
             Is.True);
 

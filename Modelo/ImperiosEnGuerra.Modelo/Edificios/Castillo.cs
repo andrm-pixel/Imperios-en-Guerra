@@ -8,7 +8,7 @@ namespace ImperiosEnGuerra.Modelo.Edificios
     /// <summary>
     /// Representa centro urbano dentro del modelo del juego.
     /// </summary>
-    public class CentroUrbano : Edificio
+    public class Castillo : Edificio
     {
         private readonly object sincronizacion =
             new object();
@@ -63,10 +63,10 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de CentroUrbano.
+        /// Inicializa una nueva instancia de Castillo.
         /// </summary>
         /// <param name="coordenada">El valor de coordenada.</param>
-        public CentroUrbano(
+        public Castillo(
             Coordenada coordenada)
             : base(coordenada)
         {

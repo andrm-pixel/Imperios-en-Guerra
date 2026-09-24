@@ -23,7 +23,7 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
     public class EconomiaEstadoDto
     {
         /// <summary>Costo del centro urbano.</summary>
-        public CostoEstadoDto centroUrbano;
+        public CostoEstadoDto castillo;
         /// <summary>Costo del aldeano.</summary>
         public CostoEstadoDto aldeano;
         /// <summary>Costo del soldado.</summary>

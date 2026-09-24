@@ -11,7 +11,7 @@ using ImperiosEnGuerra.Modelo.Unidades;
 namespace ImperiosEnGuerra.Modelo.Recoleccion
 {
     /// <summary>
-    /// Selecciona un Centro Urbano humano accesible y distribuye Aldeanos
+    /// Selecciona un Castillo humano accesible y distribuye Aldeanos
     /// entre sus casillas adyacentes para evitar que todos compitan por el
     /// mismo punto de depósito.
     /// </summary>
@@ -86,18 +86,18 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
                     "El Aldeano no está disponible.");
             }
 
-            CentroUrbano[] centros =
+            Castillo[] centros =
                 partida.JugadorHumano.Edificios
-                    .OfType<CentroUrbano>()
+                    .OfType<Castillo>()
                     .ToArray();
 
             if (centros.Length == 0)
             {
                 return ResultadoAproximacionDeposito.Fallido(
-                    "No existe un Centro Urbano humano para depositar.");
+                    "No existe un Castillo humano para depositar.");
             }
 
-            foreach (CentroUrbano centro in centros)
+            foreach (Castillo centro in centros)
             {
                 if (Distancia(
                         aldeano.Coordenada,
@@ -116,7 +116,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             var candidatos =
                 new List<(int Indice, Coordenada Centro, Coordenada Punto, ResultadoPlanMovimiento Plan)>();
 
-            foreach (CentroUrbano centro in centros)
+            foreach (Castillo centro in centros)
             {
                 for (int i = 0;
                      i < Direcciones.Length;
@@ -155,7 +155,7 @@ namespace ImperiosEnGuerra.Modelo.Recoleccion
             if (candidatos.Count == 0)
             {
                 return ResultadoAproximacionDeposito.Fallido(
-                    "No existe una ruta accesible hasta un Centro Urbano.",
+                    "No existe una ruta accesible hasta un Castillo.",
                     true);
             }
 

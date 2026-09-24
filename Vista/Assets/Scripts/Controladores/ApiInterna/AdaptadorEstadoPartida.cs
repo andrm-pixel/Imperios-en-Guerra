@@ -95,7 +95,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
         {
             return new UnityDto.EconomiaEstadoDto
             {
-                centroUrbano = ConvertirCosto(economia.CentroUrbano),
+                castillo = ConvertirCosto(economia.Castillo),
                 aldeano = ConvertirCosto(economia.Aldeano),
                 soldado = ConvertirCosto(economia.Soldado),
                 arquero = ConvertirCosto(economia.Arquero)

@@ -13,7 +13,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// Unidades del prototipo: Aldeano, Soldado y Arquero.
     /// Valores del prototipo: Soldado 25/alc.1,
     /// Arquero 15/alc.4. Lo destruido se retira y libera
-    /// su casilla. Victoria: sin Centro Urbano o sin unidades enemigas.
+    /// su casilla. Victoria: sin Castillo o sin unidades enemigas.
     /// </summary>
     public sealed class OperacionAtaque
     {
@@ -138,7 +138,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             if (EsVictoriaHumana(partida))
             {
                 return ResultadoAccion.Exitoso(
-                    $"{nombreObjetivo} enemigo destruido. ¡Victoria! La máquina perdió su Centro Urbano y todas sus unidades.");
+                    $"{nombreObjetivo} enemigo destruido. ¡Victoria! La máquina perdió su Castillo y todas sus unidades.");
             }
 
             return ResultadoAccion.Exitoso(
@@ -146,7 +146,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         }
 
         /// <summary>
-        /// Verifica la victoria humana: Centro Urbano Y todas las unidades enemigas destruidas.
+        /// Verifica la victoria humana: Castillo Y todas las unidades enemigas destruidas.
         /// </summary>
         /// <param name="partida">Partida que se evalúa.</param>
         /// <returns>true si la máquina perdió su centro y sus unidades.</returns>
@@ -156,7 +156,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                 return false;
 
             bool sinCentro = !partida.JugadorMaquina.Edificios
-                .OfType<CentroUrbano>()
+                .OfType<Castillo>()
                 .Any();
 
             bool sinUnidades =

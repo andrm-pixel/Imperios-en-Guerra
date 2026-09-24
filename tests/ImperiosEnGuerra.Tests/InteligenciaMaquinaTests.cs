@@ -94,7 +94,7 @@ public class InteligenciaMaquinaTests
 
         if (withCentro)
         {
-            var centro = new CentroUrbano(new Coordenada(8, 8));
+            var centro = new Castillo(new Coordenada(8, 8));
             maquina.AgregarEdificio(centro);
             mapa.ObtenerCasilla(8, 8).Ocupar();
         }
