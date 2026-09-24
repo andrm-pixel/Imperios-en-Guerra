@@ -128,7 +128,7 @@ public class OperacionPasoMovimientoTests
             TipoAccionJuego.Mover);
 
         partida.JugadorMaquina.AgregarUnidad(
-            new Guerrero(
+            new Soldado(
                 new Coordenada(2, 1)));
 
         var origen = unidad.Coordenada;

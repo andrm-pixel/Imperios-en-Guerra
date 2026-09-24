@@ -39,7 +39,7 @@ public class InteligenciaMaquinaTests
             new Coordenada(5, 5),
             withCentro: true);
 
-        var guerrero = partida.JugadorMaquina.Unidades.OfType<Guerrero>().First();
+        var guerrero = partida.JugadorMaquina.Unidades.OfType<Soldado>().First();
         int antes =
             Math.Abs(guerrero.Coordenada.X - 8) +
             Math.Abs(guerrero.Coordenada.Y - 8);
@@ -90,7 +90,7 @@ public class InteligenciaMaquinaTests
             "Máquina", TipoJugador.Maquina, mapa, new RecursosJugador());
 
         humano.AgregarUnidad(new Aldeano(aldeanoHumano));
-        maquina.AgregarUnidad(new Guerrero(guerreroMaquina));
+        maquina.AgregarUnidad(new Soldado(guerreroMaquina));
 
         if (withCentro)
         {

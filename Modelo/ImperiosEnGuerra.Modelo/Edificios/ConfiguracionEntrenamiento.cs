@@ -21,8 +21,8 @@ namespace ImperiosEnGuerra.Modelo.Edificios
                     StringComparer.OrdinalIgnoreCase)
                 {
                     { nameof(Aldeano), 1.00d },
-                    { nameof(Guerrero), 1.20d },
-                    { nameof(Lancero), 1.10d },
+                    { nameof(Soldado), 1.20d },
+                    
                     { nameof(Arquero), 1.30d }
                 };
         }

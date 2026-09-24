@@ -5,7 +5,7 @@ namespace ImperiosEnGuerra.Modelo.Unidades
     /// <summary>
     /// Representa la especialización Arquero con la posición y disponibilidad heredadas.
     /// </summary>
-    public class Arquero : Soldado
+    public class Arquero : UnidadMilitar
     {
        /// <summary>
        /// Inicializa la unidad delegando la posición y la disponibilidad inicial en su clase base.

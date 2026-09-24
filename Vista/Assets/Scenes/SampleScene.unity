@@ -986,7 +986,7 @@ GameObject:
   - component: {fileID: 894886106}
   - component: {fileID: 894886108}
   m_Layer: 0
-  m_Name: Guerrero
+  m_Name: Soldado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1500,14 +1500,14 @@ MonoBehaviour:
   centroHumano: {fileID: 21300000, guid: fab36cafddc278f4dba30f8ecbd5a27a, type: 3}
   centroMaquina: {fileID: 21300000, guid: 534ebd0e6aeb4b84fbd7eed77201d54e, type: 3}
   aldeanoHumano: {fileID: -5948806968594788206, guid: 3dbcc06a4c3a3154b89787c9aff4f24d, type: 3}
-  guerreroHumano: {fileID: 7384290322352760091, guid: 80b71cd25219e774183f42c59cb83f16, type: 3}
-  lanceroHumano: {fileID: -594197781322936934, guid: 91dcad21e647cf54aa05c9970da717e9, type: 3}
+  soldadoHumano: {fileID: 7384290322352760091, guid: 80b71cd25219e774183f42c59cb83f16, type: 3}
+
 
   arqueroHumano: {fileID: 7257567913506708742, guid: 24fe71d5c436a9e4faa14ef884be302e, type: 3}
 
   aldeanoMaquina: {fileID: -5948806968594788206, guid: 6848afca674496c4c8a4d7b56801c610, type: 3}
-  guerreroMaquina: {fileID: 7384290322352760091, guid: 11c7ee9b590190145abc10ec4bb2de6e, type: 3}
-  lanceroMaquina: {fileID: -594197781322936934, guid: c3cf3d7c53774a446bdb937ad270a318, type: 3}
+  soldadoMaquina: {fileID: 7384290322352760091, guid: 11c7ee9b590190145abc10ec4bb2de6e, type: 3}
+
 
   arqueroMaquina: {fileID: 7257567913506708742, guid: 9d2645fa25c1520438959be423224197, type: 3}
 
@@ -1683,7 +1683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 232, y: 2}
+  m_AnchoredPosition: {x: 160, y: 2}
   m_SizeDelta: {x: 68, y: 42}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1434918295
@@ -1799,13 +1799,12 @@ RectTransform:
   - {fileID: 239584902}
   - {fileID: 894886105}
   - {fileID: 1434918294}
-  - {fileID: 920000105}
   m_Father: {fileID: 1517412433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -182, y: 8}
-  m_SizeDelta: {x: 312, y: 46}
+  m_AnchoredPosition: {x: -122, y: 8}
+  m_SizeDelta: {x: 244, y: 46}
   m_Pivot: {x: 0, y: 0}
 
 
@@ -1881,7 +1880,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Guerrero
+  m_Text: Soldado
 --- !u!222 &1490040293
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2241,8 +2240,7 @@ MonoBehaviour:
   atacar: {fileID: 1277827777}
   selectorEntrenamiento: {fileID: 1437857678}
   entrenarAldeano: {fileID: 239584905}
-  entrenarGuerrero: {fileID: 894886108}
-  entrenarLancero: {fileID: 920000102}
+  entrenarSoldado: {fileID: 894886108}
   entrenarArquero: {fileID: 1434918297}
   batalla: {fileID: 910000102}
 --- !u!114 &1795446609
@@ -3054,203 +3052,11 @@ RectTransform:
   m_AnchoredPosition: {x: -435, y: 8}
   m_SizeDelta: {x: 64, y: 42}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &920000106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 920000107}
-  - component: {fileID: 920000109}
-  - component: {fileID: 920000108}
-  m_Layer: 0
-  m_Name: TextoLancero
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &920000107
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000106}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 920000105}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -4}
-  m_SizeDelta: {x: -4, y: 34}
-  m_Pivot: {x: 0.5, y: 1}
---- !u!114 &920000108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 8
-    m_MaxSize: 12
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 0
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Lancero
---- !u!222 &920000109
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000106}
-  m_CullTransparentMesh: 1
---- !u!1 &920000101
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 920000105}
-  - component: {fileID: 920000104}
-  - component: {fileID: 920000103}
-  - component: {fileID: 920000102}
-  m_Layer: 0
-  m_Name: Lancero
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &920000105
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000101}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 920000107}
-  m_Father: {fileID: 1437857679}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 160, y: 2}
-  m_SizeDelta: {x: 68, y: 42}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &920000103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.22, g: 0.34, b: 0.44, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &920000104
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000101}
-  m_CullTransparentMesh: 1
---- !u!114 &920000102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 920000101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name:
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 920000103}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
+
+
+
+
+
+
+
+

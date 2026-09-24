@@ -150,7 +150,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             // Guarnición inicial de la máquina: patrulla su base y caza
             // humanos en un radio de 7 casillas.
             estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
-                new Guerrero(new Coordenada(11, 7)));
+                new Soldado(new Coordenada(11, 7)));
             estadoPartida.ObtenerPartida()?.JugadorMaquina.AgregarUnidad(
                 new Arquero(new Coordenada(12, 6)));
 
@@ -263,6 +263,28 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
         {
             ExigirDisponible();
             return accionesConcurrentes.Cancelar(procesoId);
+        }
+
+        /// <summary>
+        /// Guarda el progreso en progreso.txt (tecla F5).
+        /// </summary>
+        public string GuardarProgreso()
+        {
+            ExigirDisponible();
+            var resultado = estadoPartida.GuardarProgreso();
+            return resultado.Mensaje;
+        }
+
+        /// <summary>
+        /// Carga el progreso desde progreso.txt (tecla F9).
+        /// Cancela los workers anteriores porque la partida cambia.
+        /// </summary>
+        public string CargarProgreso()
+        {
+            ExigirDisponible();
+            accionesConcurrentes.CancelarTodos();
+            var resultado = estadoPartida.CargarProgreso();
+            return resultado.Mensaje;
         }
 
         /// <summary>Consulta si la unidad puede recibir orden de mover.</summary>

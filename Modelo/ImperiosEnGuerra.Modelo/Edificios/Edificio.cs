@@ -28,6 +28,11 @@ namespace ImperiosEnGuerra.Modelo.Edificios
         public int Vida { get; private set; }
 
         /// <summary>
+        /// Vida máxima del edificio; sirve para restaurar partidas guardadas.
+        /// </summary>
+        public int VidaMaxima { get; }
+
+        /// <summary>
         /// Inicializa la posición común de las construcciones.
         /// </summary>
         /// <param name="coordenada">Posición lógica no nula.</param>
@@ -52,6 +57,26 @@ namespace ImperiosEnGuerra.Modelo.Edificios
             Id = Guid.NewGuid();
             Coordenada = coordenada;
             Vida = vidaMaxima;
+            VidaMaxima = vidaMaxima;
+        }
+
+        /// <summary>
+        /// Restaura la vida al cargar una partida guardada.
+        /// La usa <see cref="Persistencia.ProgresoPartida"/>.
+        /// </summary>
+        internal void RestaurarVida(int vida)
+        {
+            lock (sincronizacionVida)
+            {
+                if (vida < 0 || vida > VidaMaxima)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(vida),
+                        "La vida restaurada debe estar entre 0 y la máxima.");
+                }
+
+                Vida = vida;
+            }
         }
 
         /// <summary>

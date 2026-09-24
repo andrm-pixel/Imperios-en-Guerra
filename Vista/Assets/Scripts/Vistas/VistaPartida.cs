@@ -36,18 +36,14 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Sprite centroMaquina;
         /// <summary>Sprite del aldeano humano.</summary>
         [SerializeField] private Sprite aldeanoHumano;
-        /// <summary>Sprite del guerrero humano.</summary>
-        [SerializeField] private Sprite guerreroHumano;
-        /// <summary>Sprite del lancero humano.</summary>
-        [SerializeField] private Sprite lanceroHumano;
+        /// <summary>Sprite del soldado humano.</summary>
+        [SerializeField] private Sprite soldadoHumano;
         /// <summary>Sprite del arquero humano.</summary>
         [SerializeField] private Sprite arqueroHumano;
         /// <summary>Sprite del aldeano máquina.</summary>
         [SerializeField] private Sprite aldeanoMaquina;
-        /// <summary>Sprite del guerrero máquina.</summary>
-        [SerializeField] private Sprite guerreroMaquina;
-        /// <summary>Sprite del lancero máquina.</summary>
-        [SerializeField] private Sprite lanceroMaquina;
+        /// <summary>Sprite del soldado máquina.</summary>
+        [SerializeField] private Sprite soldadoMaquina;
         /// <summary>Sprite del arquero máquina.</summary>
         [SerializeField] private Sprite arqueroMaquina;
 
@@ -552,14 +548,10 @@ namespace ImperiosEnGuerra.Vistas
                     return humano
                         ? aldeanoHumano
                         : aldeanoMaquina;
-                case "Guerrero":
+                case "Soldado":
                     return humano
-                        ? guerreroHumano
-                        : guerreroMaquina;
-                case "Lancero":
-                    return humano
-                        ? lanceroHumano
-                        : lanceroMaquina;
+                        ? soldadoHumano
+                        : soldadoMaquina;
                 case "Arquero":
                     return humano
                         ? arqueroHumano
@@ -830,8 +822,7 @@ namespace ImperiosEnGuerra.Vistas
                 switch (unidad.tipo)
                 {
                     case "Aldeano": sprite = humano ? aldeanoHumano : aldeanoMaquina; break;
-                    case "Guerrero": sprite = humano ? guerreroHumano : guerreroMaquina; break;
-                    case "Lancero": sprite = humano ? lanceroHumano : lanceroMaquina; break;
+                    case "Soldado": sprite = humano ? soldadoHumano : soldadoMaquina; break;
                     case "Arquero": sprite = humano ? arqueroHumano : arqueroMaquina; break;
                     default:
                         Debug.LogWarning($"Tipo de unidad desconocido: {unidad.tipo}", this);

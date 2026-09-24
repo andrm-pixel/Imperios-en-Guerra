@@ -29,10 +29,8 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private GameObject selectorEntrenamiento;
         /// <summary>Botón para entrenar un Aldeano.</summary>
         [SerializeField] private Button entrenarAldeano;
-        /// <summary>Botón para entrenar un Guerrero.</summary>
-        [SerializeField] private Button entrenarGuerrero;
-        /// <summary>Botón para entrenar un Lancero.</summary>
-        [SerializeField] private Button entrenarLancero;
+        /// <summary>Botón para entrenar un Soldado.</summary>
+        [SerializeField] private Button entrenarSoldado;
         /// <summary>Botón para entrenar un Arquero.</summary>
         [SerializeField] private Button entrenarArquero;
 
@@ -53,11 +51,8 @@ namespace ImperiosEnGuerra.Vistas
 
             if (entrenarAldeano != null)
                 entrenarAldeano.onClick.AddListener(SolicitarEntrenarAldeano);
-            if (entrenarGuerrero != null)
-                entrenarGuerrero.onClick.AddListener(SolicitarEntrenarGuerrero);
-
-            if (entrenarLancero != null)
-                entrenarLancero.onClick.AddListener(SolicitarEntrenarLancero);
+            if (entrenarSoldado != null)
+                entrenarSoldado.onClick.AddListener(SolicitarEntrenarSoldado);
 
             if (entrenarArquero != null)
                 entrenarArquero.onClick.AddListener(SolicitarEntrenarArquero);
@@ -76,11 +71,8 @@ namespace ImperiosEnGuerra.Vistas
             if (entrenarAldeano != null)
                 entrenarAldeano.onClick.RemoveListener(SolicitarEntrenarAldeano);
 
-            if (entrenarGuerrero != null)
-                entrenarGuerrero.onClick.RemoveListener(SolicitarEntrenarGuerrero);
-
-            if (entrenarLancero != null)
-                entrenarLancero.onClick.RemoveListener(SolicitarEntrenarLancero);
+            if (entrenarSoldado != null)
+                entrenarSoldado.onClick.RemoveListener(SolicitarEntrenarSoldado);
 
             if (entrenarArquero != null)
                 entrenarArquero.onClick.RemoveListener(SolicitarEntrenarArquero);
@@ -102,12 +94,9 @@ namespace ImperiosEnGuerra.Vistas
         /// <summary>Notifica la elección del tipo Aldeano.</summary>
         private void SolicitarEntrenarAldeano() =>
             TipoUnidadSolicitado?.Invoke("Aldeano");
-        /// <summary>Notifica la elección del tipo Guerrero.</summary>
-        private void SolicitarEntrenarGuerrero() =>
-            TipoUnidadSolicitado?.Invoke("Guerrero");
-        /// <summary>Notifica la elección del tipo Lancero.</summary>
-        private void SolicitarEntrenarLancero() =>
-            TipoUnidadSolicitado?.Invoke("Lancero");
+        /// <summary>Notifica la elección del tipo Soldado.</summary>
+        private void SolicitarEntrenarSoldado() =>
+            TipoUnidadSolicitado?.Invoke("Soldado");
         /// <summary>Notifica la elección del tipo Arquero.</summary>
         private void SolicitarEntrenarArquero() =>
             TipoUnidadSolicitado?.Invoke("Arquero");

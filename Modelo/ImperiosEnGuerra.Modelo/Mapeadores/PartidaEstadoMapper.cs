@@ -57,12 +57,8 @@ public static class PartidaEstadoMapper
             out CostoRecursos aldeano);
 
         configuracion.IntentarObtenerCostoUnidad(
-            "Guerrero",
-            out CostoRecursos guerrero);
-
-        configuracion.IntentarObtenerCostoUnidad(
-            "Lancero",
-            out CostoRecursos lancero);
+            "Soldado",
+            out CostoRecursos soldado);
 
         configuracion.IntentarObtenerCostoUnidad(
             "Arquero",
@@ -72,8 +68,7 @@ public static class PartidaEstadoMapper
         {
             CentroUrbano = ConvertirCosto(centro),
             Aldeano = ConvertirCosto(aldeano),
-            Guerrero = ConvertirCosto(guerrero),
-            Lancero = ConvertirCosto(lancero),
+            Soldado = ConvertirCosto(soldado),
             Arquero = ConvertirCosto(arquero)
         };
     }

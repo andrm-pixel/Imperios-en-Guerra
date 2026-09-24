@@ -16,8 +16,8 @@ public class AtaqueConcurrenteTests
     public async Task AtaqueConcurrente_EjecutaEnWorkerYPublicaResultado()
     {
         Partida partida = CrearPartida(
-            out Guerrero atacante,
-            out Lancero objetivo);
+            out Soldado atacante,
+            out Arquero objetivo);
 
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
@@ -60,8 +60,8 @@ public class AtaqueConcurrenteTests
     public async Task CancelarAtaque_AntesDeAplicar_NoModificaModelo()
     {
         Partida partida = CrearPartida(
-            out Guerrero atacante,
-            out Lancero objetivo);
+            out Soldado atacante,
+            out Arquero objetivo);
 
         var estado = new EstadoPartidaService();
         estado.EstablecerPartida(partida);
@@ -117,8 +117,8 @@ public class AtaqueConcurrenteTests
         var maquina = new Jugador(
             "Máquina", TipoJugador.Maquina, mapa, new RecursosJugador());
 
-        var atacanteLejos = new Guerrero(new Coordenada(1, 1));
-        var objetivoLejos = new Lancero(new Coordenada(4, 4));
+        var atacanteLejos = new Soldado(new Coordenada(1, 1));
+        var objetivoLejos = new Arquero(new Coordenada(4, 4));
         humano.AgregarUnidad(atacanteLejos);
         maquina.AgregarUnidad(objetivoLejos);
 
@@ -157,8 +157,8 @@ public class AtaqueConcurrenteTests
     }
 
     private static Partida CrearPartida(
-        out Guerrero atacante,
-        out Lancero objetivo)
+        out Soldado atacante,
+        out Arquero objetivo)
     {
         var mapa = new Mapa(6, 6);
 
@@ -178,12 +178,12 @@ public class AtaqueConcurrenteTests
 
 
         atacante =
-            new Guerrero(
+            new Soldado(
                 new Coordenada(1, 1));
 
 
         objetivo =
-            new Lancero(
+            new Arquero(
                 new Coordenada(2, 1));
 
 

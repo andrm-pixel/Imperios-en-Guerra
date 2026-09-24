@@ -1286,6 +1286,81 @@ public sealed class EstadoPartidaService
     }
 
     /// <summary>
+    /// Guarda el progreso actual en progreso.txt (tecla F5).
+    /// </summary>
+    public ResultadoAccion GuardarProgreso()
+    {
+        lock (sincronizacion)
+        {
+            if (partidaActiva == null)
+                return ResultadoAccion.Fallido("No hay una partida activa.");
+
+            if (servicioArchivos == null)
+                return ResultadoAccion.Fallido("Sin persistencia configurada.");
+
+            try
+            {
+                servicioArchivos.GuardarProgreso(
+                    ProgresoPartida.Serializar(partidaActiva));
+                RegistrarEventoSeguro("PROGRESO|EXITO|Progreso guardado.");
+                return ResultadoAccion.Exitoso("Progreso guardado.");
+            }
+            catch (Exception ex) when (
+                ex is IOException ||
+                ex is UnauthorizedAccessException)
+            {
+                return ResultadoAccion.Fallido(
+                    "No se pudo guardar el progreso: " + ex.Message);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Restaura el progreso desde progreso.txt (tecla F9).
+    /// </summary>
+    public ResultadoAccion CargarProgreso()
+    {
+        string contenido;
+
+        if (servicioArchivos == null)
+            return ResultadoAccion.Fallido("Sin persistencia configurada.");
+
+        try
+        {
+            contenido = servicioArchivos.LeerProgreso();
+        }
+        catch (Exception ex) when (
+            ex is IOException ||
+            ex is UnauthorizedAccessException)
+        {
+            return ResultadoAccion.Fallido(
+                "No se pudo leer el progreso: " + ex.Message);
+        }
+
+        Partida partida;
+
+        try
+        {
+            partida = ProgresoPartida.Deserializar(contenido);
+        }
+        catch (Exception ex) when (
+            ex is FormatException ||
+            ex is ArgumentException ||
+            ex is InvalidOperationException)
+        {
+            return ResultadoAccion.Fallido(
+                "Progreso inválido: " + ex.Message);
+        }
+
+        lock (sincronizacion)
+        {
+            partidaActiva = partida;
+            RegistrarEventoSeguro("PROGRESO|EXITO|Progreso cargado.");
+            return ResultadoAccion.Exitoso("Progreso cargado.");
+        }
+    }
+
+    /// <summary>
     /// Obtiene partida.
     /// </summary>
     /// <returns>Resultado de la operación.</returns>

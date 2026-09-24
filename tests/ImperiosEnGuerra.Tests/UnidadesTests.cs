@@ -9,30 +9,31 @@ namespace ImperiosEnGuerra.Tests.Editor
     /// <summary>Pruebas de Unidades: verifica unidades.</summary>
     public class UnidadesTests
     {
-        // Caso Guerrero: verifica es soldado y conserva coordenada.
+        // Caso Soldado: verifica es soldado y conserva coordenada.
         [Test]
-        public void Guerrero_EsSoldadoYConservaCoordenada()
+        public void Soldado_EsSoldadoYConservaCoordenada()
         {
             Coordenada coordenada = new Coordenada(1, 2);
 
-            Guerrero guerrero = new Guerrero(coordenada);
+            Soldado guerrero = new Soldado(coordenada);
 
-            Assert.That(guerrero, Is.InstanceOf<Soldado>());
+            Assert.That(guerrero, Is.InstanceOf<UnidadMilitar>());
             Assert.That(guerrero.Coordenada, Is.SameAs(coordenada));
             Assert.That(guerrero.Disponible, Is.True);
         }
 
-        // Caso Lancero: verifica es soldado y conserva coordenada.
+        // Caso Arquero: verifica alcance a distancia y conserva coordenada.
         [Test]
-        public void Lancero_EsSoldadoYConservaCoordenada()
+        public void Arquero_TieneAlcanceADistancia()
         {
             Coordenada coordenada = new Coordenada(2, 3);
 
-            Lancero lancero = new Lancero(coordenada);
+            Arquero arquero = new Arquero(coordenada);
 
-            Assert.That(lancero, Is.InstanceOf<Soldado>());
-            Assert.That(lancero.Coordenada, Is.SameAs(coordenada));
-            Assert.That(lancero.Disponible, Is.True);
+            Assert.That(arquero, Is.InstanceOf<UnidadMilitar>());
+            Assert.That(arquero.AlcanceAtaque, Is.GreaterThan(1));
+            Assert.That(arquero.Coordenada, Is.SameAs(coordenada));
+            Assert.That(arquero.Disponible, Is.True);
         }
 
         // Caso Arquero: verifica es soldado y conserva coordenada.
@@ -43,7 +44,7 @@ namespace ImperiosEnGuerra.Tests.Editor
 
             Arquero arquero = new Arquero(coordenada);
 
-            Assert.That(arquero, Is.InstanceOf<Soldado>());
+            Assert.That(arquero, Is.InstanceOf<UnidadMilitar>());
             Assert.That(arquero.Coordenada, Is.SameAs(coordenada));
             Assert.That(arquero.Disponible, Is.True);
         }
@@ -56,21 +57,21 @@ namespace ImperiosEnGuerra.Tests.Editor
 
             Arquero arquero = new Arquero(coordenada);
 
-            Assert.That(arquero, Is.InstanceOf<Soldado>());
+            Assert.That(arquero, Is.InstanceOf<UnidadMilitar>());
             Assert.That(arquero.Coordenada, Is.SameAs(coordenada));
             Assert.That(arquero.Disponible, Is.True);
         }
 
-        // Caso Guerrero: verifica tiene vida y ataque de combate.
+        // Caso Soldado: verifica tiene vida y ataque de combate.
         [Test]
-        public void Guerrero_TieneVidaYAtaqueDeCombate()
+        public void Soldado_TieneVidaYAtaqueDeCombate()
         {
             Coordenada coordenada = new Coordenada(4, 5);
 
-            Guerrero guerrero = new Guerrero(coordenada);
+            Soldado guerrero = new Soldado(coordenada);
 
             Assert.That(guerrero, Is.InstanceOf<Unidad>());
-            Assert.That(guerrero, Is.InstanceOf<Soldado>());
+            Assert.That(guerrero, Is.InstanceOf<UnidadMilitar>());
             Assert.That(guerrero.Vida, Is.GreaterThan(0));
             Assert.That(guerrero.PuntosAtaque, Is.GreaterThan(0));
             Assert.That(guerrero.AlcanceAtaque, Is.GreaterThanOrEqualTo(1));
@@ -83,8 +84,8 @@ namespace ImperiosEnGuerra.Tests.Editor
             Unidad[] unidades =
             {
                 new Aldeano(new Coordenada(0, 0)),
-                new Guerrero(new Coordenada(0, 0)),
-                new Lancero(new Coordenada(0, 0)),
+                new Soldado(new Coordenada(0, 0)),
+                new Arquero(new Coordenada(0, 0)),
                 new Arquero(new Coordenada(0, 0))
             };
 
@@ -103,21 +104,21 @@ namespace ImperiosEnGuerra.Tests.Editor
             var aldeano =
                 new Aldeano(new Coordenada(0, 0));
 
-            var lancero =
-                new Lancero(new Coordenada(0, 0));
+            var arqueroVeloz =
+                new Arquero(new Coordenada(0, 0));
 
             var arquero =
                 new Arquero(new Coordenada(0, 0));
 
             Assert.That(
-                lancero.VelocidadMovimiento,
+                arqueroVeloz.VelocidadMovimiento,
                 Is.GreaterThan(
                     aldeano.VelocidadMovimiento));
 
             Assert.That(
                 aldeano.VelocidadMovimiento,
                 Is.EqualTo(
-                    new Guerrero(new Coordenada(0, 0)).VelocidadMovimiento));
+                    new Soldado(new Coordenada(0, 0)).VelocidadMovimiento));
 
             Assert.That(
                 arquero.VelocidadMovimiento,

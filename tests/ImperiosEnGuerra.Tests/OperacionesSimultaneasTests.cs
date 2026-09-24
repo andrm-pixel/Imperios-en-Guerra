@@ -49,7 +49,7 @@ public class OperacionesSimultaneasTests
                         X = 1,
                         Y = 1
                     },
-                    TipoUnidad = "Guerrero",
+                    TipoUnidad = "Soldado",
                     Destino = new CoordenadaRequest
                     {
                         X = 3,
@@ -97,7 +97,7 @@ public class OperacionesSimultaneasTests
 
         Assert.That(
             partida.JugadorHumano.Unidades[1],
-            Is.TypeOf<Guerrero>());
+            Is.TypeOf<Soldado>());
     }
 
     private static Partida CrearPartida(

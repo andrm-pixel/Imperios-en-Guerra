@@ -36,7 +36,7 @@ public class ColaEntrenamientoTests
 
         ProcesoConcurrente primero =
             servicio.IniciarEntrenamiento(
-                Request("Guerrero"));
+                Request("Soldado"));
 
         ProcesoConcurrente segundo =
             servicio.IniciarEntrenamiento(
@@ -88,11 +88,11 @@ public class ColaEntrenamientoTests
 
         ProcesoConcurrente primero =
             servicio.IniciarEntrenamiento(
-                Request("Lancero"));
+                Request("Arquero"));
 
         ProcesoConcurrente segundo =
             servicio.IniciarEntrenamiento(
-                Request("Guerrero"));
+                Request("Soldado"));
 
         servicio.Cancelar(
             primero.Id);
@@ -126,7 +126,7 @@ public class ColaEntrenamientoTests
 
         ResultadoAccion encolado =
             estado.EncolarEntrenamiento(
-                Request("Guerrero"),
+                Request("Soldado"),
                 out Guid entrenamientoId,
                 out Coordenada centro);
 
@@ -152,7 +152,7 @@ public class ColaEntrenamientoTests
             estado.CompletarEntrenamientoConSpawn(
                 centro,
                 entrenamientoId,
-                "Guerrero");
+                "Soldado");
 
         Assert.That(spawn.Exito, Is.False);
         Assert.That(

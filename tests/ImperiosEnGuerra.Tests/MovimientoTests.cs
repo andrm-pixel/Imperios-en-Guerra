@@ -71,7 +71,7 @@ public class MovimientoTests
         {
             case "inexistente": id = Guid.NewGuid(); break;
             case "maquina":
-                var enemiga = new Guerrero(new Coordenada(2, 2));
+                var enemiga = new Soldado(new Coordenada(2, 2));
                 partida.JugadorMaquina.AgregarUnidad(enemiga);
                 id = enemiga.Id;
                 break;

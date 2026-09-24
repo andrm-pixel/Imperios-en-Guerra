@@ -18,6 +18,7 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
         private const string ArchivoConfiguracion = "configuracion.txt";
         private const string ArchivoLogPartida = "log_partida.txt";
         private const string ArchivoResultadoFinal = "resultado_final.txt";
+        private const string ArchivoProgreso = "progreso.txt";
 
         private readonly string directorioBase;
 
@@ -171,6 +172,37 @@ namespace ImperiosEnGuerra.Modelo.Persistencia
 
             File.AppendAllText(
                 Path.Combine(directorioBase, ArchivoLogPartida), contenido + Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Guarda el progreso serializado en progreso.txt para continuar después.
+        /// Lo usa <see cref="Servicios.EstadoPartidaService"/> con la tecla F5.
+        /// </summary>
+        public void GuardarProgreso(string contenido)
+        {
+            if (contenido == null)
+            {
+                throw new ArgumentNullException(nameof(contenido));
+            }
+
+            File.WriteAllText(Path.Combine(directorioBase, ArchivoProgreso), contenido);
+        }
+
+        /// <summary>
+        /// Lee progreso.txt para restaurar la partida con la tecla F9.
+        /// </summary>
+        public string LeerProgreso()
+        {
+            string ruta = Path.Combine(directorioBase, ArchivoProgreso);
+
+            if (!File.Exists(ruta))
+            {
+                throw new FileNotFoundException(
+                    "No existe un progreso guardado.",
+                    ruta);
+            }
+
+            return File.ReadAllText(ruta);
         }
 
         /// <summary>

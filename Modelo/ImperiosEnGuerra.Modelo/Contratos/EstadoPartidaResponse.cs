@@ -41,14 +41,9 @@ public sealed class EconomiaEstadoResponse
     /// </summary>
     public CostoEstadoResponse Aldeano { get; set; }
     /// <summary>
-    /// Obtiene o establece guerrero.
+    /// Obtiene o establece soldado.
     /// </summary>
-    public CostoEstadoResponse Guerrero { get; set; }
-    /// <summary>
-    /// Obtiene o establece lancero; lo usa la Vista para mostrar su costo
-    /// y <see cref="Mapeadores.PartidaEstadoMapper"/> para exponerlo.
-    /// </summary>
-    public CostoEstadoResponse Lancero { get; set; }
+    public CostoEstadoResponse Soldado { get; set; }
     /// <summary>
     /// Obtiene o establece arquero.
     /// </summary>

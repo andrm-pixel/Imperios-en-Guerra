@@ -47,6 +47,11 @@ namespace ImperiosEnGuerra.Modelo.Unidades
         public int Vida { get; private set; }
 
         /// <summary>
+        /// Vida máxima de la unidad; sirve para restaurar partidas guardadas.
+        /// </summary>
+        public int VidaMaxima { get; }
+
+        /// <summary>
         /// Daño que inflige cada ataque exitoso.
         /// </summary>
         public int PuntosAtaque { get; }
@@ -103,11 +108,31 @@ namespace ImperiosEnGuerra.Modelo.Unidades
             Coordenada = coordenada;
             VelocidadMovimiento = velocidadMovimiento;
             Vida = vidaMaxima;
+            VidaMaxima = vidaMaxima;
             PuntosAtaque = puntosAtaque;
             AlcanceAtaque = alcanceAtaque;
             Disponible = true;
             Estado = EstadoUnidad.Idle;
             OrdenActiva = null;
+        }
+
+        /// <summary>
+        /// Restaura la vida al cargar una partida guardada.
+        /// La usa <see cref="Persistencia.ProgresoPartida"/>.
+        /// </summary>
+        internal void RestaurarVida(int vida)
+        {
+            lock (sincronizacionVida)
+            {
+                if (vida < 0 || vida > VidaMaxima)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        nameof(vida),
+                        "La vida restaurada debe estar entre 0 y la máxima.");
+                }
+
+                Vida = vida;
+            }
         }
 
         /// <summary>

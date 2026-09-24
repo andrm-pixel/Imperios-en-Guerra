@@ -23,8 +23,8 @@ namespace ImperiosEnGuerra.Modelo.Reglas
         /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
         public static bool EsUnidadMilitar(string? tipoUnidad)
         {
-            return tipoUnidad == "Guerrero"
-                || tipoUnidad == "Lancero"
+            return tipoUnidad == "Soldado"
+                
                 || tipoUnidad == "Arquero";
         }
 

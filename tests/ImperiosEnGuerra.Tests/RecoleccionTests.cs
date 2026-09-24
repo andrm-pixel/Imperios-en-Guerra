@@ -79,7 +79,7 @@ public class RecoleccionTests
     [Test]
     public void UnidadQueNoEsAldeano_Falla()
     {
-        var guerrero = new Guerrero(new Coordenada(2, 2));
+        var guerrero = new Soldado(new Coordenada(2, 2));
         partida.JugadorHumano.AgregarUnidad(guerrero);
 
         ResultadoAccion resultado = operacion.Ejecutar(

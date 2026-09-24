@@ -10,8 +10,8 @@ namespace ImperiosEnGuerra.Modelo.Acciones
     /// <summary>
     /// Aplica daño real de combate en el Modelo con estadísticas por tipo.
     /// El objetivo puede ser una unidad enemiga o un edificio enemigo.
-    /// Unidades del prototipo: Aldeano, Guerrero, Lancero y Arquero.
-    /// Valores del prototipo: Guerrero 25/alc.1, Lancero 20/alc.2,
+    /// Unidades del prototipo: Aldeano, Soldado y Arquero.
+    /// Valores del prototipo: Soldado 25/alc.1,
     /// Arquero 15/alc.4. Lo destruido se retira y libera
     /// su casilla. Victoria: sin Centro Urbano o sin unidades enemigas.
     /// </summary>
@@ -138,7 +138,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             if (EsVictoriaHumana(partida))
             {
                 return ResultadoAccion.Exitoso(
-                    $"{nombreObjetivo} enemigo destruido. ¡Victoria! La máquina perdió su Centro Urbano o todas sus unidades.");
+                    $"{nombreObjetivo} enemigo destruido. ¡Victoria! La máquina perdió su Centro Urbano y todas sus unidades.");
             }
 
             return ResultadoAccion.Exitoso(
@@ -146,10 +146,10 @@ namespace ImperiosEnGuerra.Modelo.Acciones
         }
 
         /// <summary>
-        /// Ejecuta la operación es victoria humana.
+        /// Verifica la victoria humana: Centro Urbano Y todas las unidades enemigas destruidas.
         /// </summary>
-        /// <param name="partida">El valor de partida.</param>
-        /// <returns>true si la operación tuvo éxito; false en caso contrario.</returns>
+        /// <param name="partida">Partida que se evalúa.</param>
+        /// <returns>true si la máquina perdió su centro y sus unidades.</returns>
         public static bool EsVictoriaHumana(Partida partida)
         {
             if (partida == null)
@@ -162,7 +162,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
             bool sinUnidades =
                 partida.JugadorMaquina.Unidades.Count == 0;
 
-            return sinCentro || sinUnidades;
+            return sinCentro && sinUnidades;
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 
         private static bool EsUnidadMilitar(Unidad unidad)
         {
-            return unidad is Soldado;
+            return unidad is UnidadMilitar;
         }
     }
 }

@@ -2,6 +2,7 @@ using ImperiosEnGuerra.Vistas;
 using ImperiosEnGuerra.Controladores.Red;
 using ImperiosEnGuerra.Modelo.Reglas;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace ImperiosEnGuerra.Controladores
 {
@@ -112,6 +113,23 @@ namespace ImperiosEnGuerra.Controladores
         /// <summary>Vigila la selección y refresca el HUD si cambia.</summary>
         private void Update()
         {
+            // F5 guarda y F9 carga el progreso sin tocar la escena.
+            if (Keyboard.current != null)
+            {
+                if (Keyboard.current.f5Key.wasPressedThisFrame &&
+                    conexionApi != null &&
+                    conexionApi.isActiveAndEnabled)
+                {
+                    conexionApi.GuardarProgreso();
+                }
+                else if (Keyboard.current.f9Key.wasPressedThisFrame &&
+                    conexionApi != null &&
+                    conexionApi.isActiveAndEnabled)
+                {
+                    conexionApi.CargarProgreso();
+                }
+            }
+
             if (EsperandoObjetivo &&
                 !ConservaSeleccion())
             {

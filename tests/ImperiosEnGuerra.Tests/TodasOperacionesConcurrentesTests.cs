@@ -20,8 +20,8 @@ public class TodasOperacionesConcurrentesTests
             out Aldeano aldeanoMovimiento,
             out Aldeano aldeanoRecoleccion,
             out Aldeano aldeanoConstruccion,
-            out Guerrero guerrero,
-            out Lancero enemigo);
+            out Soldado guerrero,
+            out Arquero enemigo);
 
 
         var estado = new EstadoPartidaService();
@@ -89,7 +89,7 @@ public class TodasOperacionesConcurrentesTests
                         X = 1,
                         Y = 1
                     },
-                    TipoUnidad = "Guerrero",
+                    TipoUnidad = "Soldado",
                     Destino = new CoordenadaRequest
                     {
                         X = 4,
@@ -181,8 +181,8 @@ public class TodasOperacionesConcurrentesTests
         out Aldeano aldeanoMovimiento,
         out Aldeano aldeanoRecoleccion,
         out Aldeano aldeanoConstruccion,
-        out Guerrero guerrero,
-        out Lancero enemigo)
+        out Soldado guerrero,
+        out Arquero enemigo)
     {
         var mapa = new Mapa(6,6);
 
@@ -218,11 +218,11 @@ public class TodasOperacionesConcurrentesTests
 
 
         guerrero =
-            new Guerrero(new Coordenada(1,2));
+            new Soldado(new Coordenada(1,2));
 
 
         enemigo =
-            new Lancero(new Coordenada(1,3));
+            new Arquero(new Coordenada(1,3));
 
 
         humano.AgregarUnidad(aldeanoMovimiento);

@@ -21,7 +21,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             partida.JugadorMaquina.Recursos.Agregar(TipoRecurso.Oro, 40);
             partida.JugadorMaquina.Recursos.Agregar(TipoRecurso.Madera, 50);
             partida.JugadorMaquina.Recursos.Agregar(TipoRecurso.Comida, 60);
-            partida.JugadorHumano.AgregarUnidad(new Guerrero(new Coordenada(2, 2)));
+            partida.JugadorHumano.AgregarUnidad(new Soldado(new Coordenada(2, 2)));
             var arqueroEnemigo = new Arquero(new Coordenada(7, 6));
             arqueroEnemigo.MarcarNoDisponible();
             partida.JugadorMaquina.AgregarUnidad(arqueroEnemigo);
@@ -58,12 +58,12 @@ namespace ImperiosEnGuerra.Tests.Editor
 
             Assert.That(respuesta.Economia.CentroUrbano.Oro, Is.EqualTo(20));
             Assert.That(respuesta.Economia.CentroUrbano.Madera, Is.EqualTo(50));
-            Assert.That(respuesta.Economia.Guerrero.Oro, Is.EqualTo(5));
-            Assert.That(respuesta.Economia.Guerrero.Comida, Is.EqualTo(15));
-            Assert.That(respuesta.Economia.Guerrero.Madera, Is.Zero);
+            Assert.That(respuesta.Economia.Soldado.Oro, Is.EqualTo(5));
+            Assert.That(respuesta.Economia.Soldado.Comida, Is.EqualTo(15));
+            Assert.That(respuesta.Economia.Soldado.Madera, Is.Zero);
 
             Assert.That(humano.Unidades, Has.Count.EqualTo(3));
-            var guerreroEstado = humano.Unidades.Single(u => u.Tipo == "Guerrero");
+            var guerreroEstado = humano.Unidades.Single(u => u.Tipo == "Soldado");
             Assert.That(guerreroEstado.Coordenada.X, Is.EqualTo(2));
             Assert.That(guerreroEstado.Coordenada.Y, Is.EqualTo(2));
             Assert.That(guerreroEstado.Disponible, Is.True);

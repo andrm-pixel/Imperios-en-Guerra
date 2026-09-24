@@ -102,7 +102,7 @@ public class Etapa45IntegracionTests
                 new EntrenarRequest
                 {
                     EdificioOrigen = new CoordenadaRequest { X = 1, Y = 1 },
-                    TipoUnidad = "Guerrero",
+                    TipoUnidad = "Soldado",
                     Destino = new CoordenadaRequest { X = 8, Y = 8 }
                 });
 
@@ -122,7 +122,7 @@ public class Etapa45IntegracionTests
             humano.Edificios.OfType<CentroUrbano>().Count(),
             Is.EqualTo(2));
         Assert.That(
-            humano.Unidades.OfType<Guerrero>().Count(),
+            humano.Unidades.OfType<Soldado>().Count(),
             Is.EqualTo(1));
 
         Assert.That(humano.Recursos.ObtenerCantidad(TipoRecurso.Oro), Is.GreaterThanOrEqualTo(0));
@@ -217,7 +217,7 @@ public class Etapa45IntegracionTests
                 new EntrenarRequest
                 {
                     EdificioOrigen = new CoordenadaRequest { X = 1, Y = 1 },
-                    TipoUnidad = "Guerrero",
+                    TipoUnidad = "Soldado",
                     Destino = new CoordenadaRequest { X = 2, Y = 2 }
                 });
 

@@ -31,7 +31,7 @@ public class EntrenamientoConcurrenteTests
 
         ProcesoConcurrente proceso =
             servicio.IniciarEntrenamiento(
-                CrearRequest("Guerrero", 2, 2));
+                CrearRequest("Soldado", 2, 2));
 
         await proceso.Finalizacion;
 
@@ -53,7 +53,7 @@ public class EntrenamientoConcurrenteTests
 
         Assert.That(
             partida.JugadorHumano.Unidades[0],
-            Is.TypeOf<Guerrero>());
+            Is.TypeOf<Soldado>());
 
         Coordenada spawn =
             partida.JugadorHumano.Unidades[0]
@@ -135,7 +135,7 @@ public class EntrenamientoConcurrenteTests
 
         ProcesoConcurrente primero =
             servicio.IniciarEntrenamiento(
-                CrearRequest("Lancero", 3, 3));
+                CrearRequest("Arquero", 3, 3));
 
         ProcesoConcurrente segundo =
             servicio.IniciarEntrenamiento(

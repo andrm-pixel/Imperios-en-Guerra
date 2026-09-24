@@ -55,7 +55,7 @@ namespace ImperiosEnGuerra.Modelo.Servicios
 
             foreach (Unidad unidad in partida.JugadorHumano.Unidades.ToList())
             {
-                if (!(unidad is Soldado) ||
+                if (!(unidad is UnidadMilitar) ||
                     unidad.Coordenada == null)
                 {
                     continue;

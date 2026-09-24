@@ -3,28 +3,17 @@ using ImperiosEnGuerra.Modelo.Map;
 namespace ImperiosEnGuerra.Modelo.Unidades
 {
     /// <summary>
-    /// Agrupa las unidades de tipo soldado con la posición y disponibilidad heredadas de Unidad.
+    /// Soldado cuerpo a cuerpo del prototipo (antes Guerrero).
+    /// Lo crean <see cref="Acciones.FabricaUnidades"/> y
+    /// <see cref="Acciones.OperacionEntrenamiento"/> por su nombre.
     /// </summary>
-    public abstract class Soldado : Unidad
+    public class Soldado : UnidadMilitar
     {
         /// <summary>
-        /// Inicializa la base del soldado delegando la posición y la disponibilidad inicial en su clase base.
+        /// Inicializa el Soldado en la coordenada indicada.
         /// </summary>
-        /// <param name="coordenada">Posición lógica inicial, conservada sin validación.</param>
-        protected Soldado(
-            Coordenada coordenada,
-            double velocidadMovimiento = 1d)
-            : base(coordenada, velocidadMovimiento)
-        {
-        }
-
-        protected Soldado(
-            Coordenada coordenada,
-            double velocidadMovimiento,
-            int vidaMaxima,
-            int puntosAtaque,
-            int alcanceAtaque)
-            : base(coordenada, velocidadMovimiento, vidaMaxima, puntosAtaque, alcanceAtaque)
+        public Soldado(Coordenada coordenada)
+            : base(coordenada, 1.00d, 120, 25, 1)
         {
         }
     }

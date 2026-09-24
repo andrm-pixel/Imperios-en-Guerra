@@ -13,8 +13,8 @@ namespace ImperiosEnGuerra.Tests;
 public class AtaqueTests
 {
     private Partida partida;
-    private Guerrero atacante;
-    private Lancero objetivo;
+    private Soldado atacante;
+    private Arquero objetivo;
     private OperacionAtaque operacion;
 
     [SetUp]
@@ -34,8 +34,8 @@ public class AtaqueTests
                 mapa,
                 new RecursosJugador()));
 
-        atacante = new Guerrero(new Coordenada(1, 1));
-        objetivo = new Lancero(new Coordenada(2, 1));
+        atacante = new Soldado(new Coordenada(1, 1));
+        objetivo = new Arquero(new Coordenada(2, 1));
 
         partida.JugadorHumano.AgregarUnidad(atacante);
         partida.JugadorMaquina.AgregarUnidad(objetivo);
@@ -60,14 +60,14 @@ public class AtaqueTests
         Assert.That(resultado.Mensaje, Does.Contain("Impacto"));
         Assert.That(partida.JugadorHumano.Unidades.Count, Is.EqualTo(unidadesHumano));
         Assert.That(partida.JugadorMaquina.Unidades.Count, Is.EqualTo(unidadesMaquina));
-        Assert.That(objetivo.Vida, Is.EqualTo(75));
+        Assert.That(objetivo.Vida, Is.EqualTo(65));
     }
 
     // Caso Objetivo Fuera De Alcance: verifica falla.
     [Test]
     public void ObjetivoFueraDeAlcance_Falla()
     {
-        var lejano = new Lancero(new Coordenada(4, 4));
+        var lejano = new Arquero(new Coordenada(4, 4));
         partida.JugadorMaquina.AgregarUnidad(lejano);
 
         ResultadoAccion resultado = operacion.Ejecutar(
@@ -78,12 +78,12 @@ public class AtaqueTests
 
         Assert.That(resultado.Exito, Is.False);
         Assert.That(resultado.Mensaje, Does.Contain("alcance"));
-        Assert.That(lejano.Vida, Is.EqualTo(100));
+        Assert.That(lejano.Vida, Is.EqualTo(90));
     }
 
     // Caso Cuatro Impactos: verifica destruyen arquero y declaran victoria.
     [Test]
-    public void CuatroImpactos_DestruyenLanceroYDeclaranVictoria()
+    public void CuatroImpactos_DestruyenArqueroYDeclaranVictoria()
     {
         ResultadoAccion ultimo = null;
 
@@ -172,7 +172,7 @@ public class AtaqueTests
 
     // Caso Destruir Centro: verifica declara victoria.
     [Test]
-    public void DestruirCentro_DeclaraVictoria()
+    public void DestruirCentro_SoloNoDaVictoriaFaltaEjercito()
     {
         var centroEnemigo = new CentroUrbano(new Coordenada(1, 2));
         partida.JugadorMaquina.AgregarEdificio(centroEnemigo);
@@ -193,6 +193,22 @@ public class AtaqueTests
         Assert.That(
             partida.JugadorMaquina.Edificios.Contains(centroEnemigo),
             Is.False);
+
+        // Sin centro pero con ejército vivo: aún no hay victoria total.
+        Assert.That(ultimo.Mensaje, Does.Not.Contain("¡Victoria!"));
+
+        // Al eliminar también la última unidad sí hay victoria total.
+        for (int i = 0; i < 4; i++)
+        {
+            ultimo = operacion.Ejecutar(
+                partida,
+                new SolicitudAtaque(
+                    atacante.Id,
+                    objetivo.Id));
+
+            Assert.That(ultimo.Exito, Is.True);
+        }
+
         Assert.That(ultimo.Mensaje, Does.Contain("¡Victoria!"));
     }
 

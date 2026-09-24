@@ -112,18 +112,10 @@ namespace ImperiosEnGuerra.Modelo.Acciones
 
             if (string.Equals(
                 tipoUnidad,
-                nameof(Guerrero),
+                nameof(Soldado),
                 StringComparison.OrdinalIgnoreCase))
             {
-                return new Guerrero(coordenada);
-            }
-
-            if (string.Equals(
-                tipoUnidad,
-                nameof(Lancero),
-                StringComparison.OrdinalIgnoreCase))
-            {
-                return new Lancero(coordenada);
+                return new Soldado(coordenada);
             }
 
             if (string.Equals(

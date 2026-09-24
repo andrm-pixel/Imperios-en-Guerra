@@ -18,7 +18,7 @@ namespace ImperiosEnGuerra.Tests.Editor
             Partida partida = new InicializadorPartida().Crear(
                 "Ana", mapa, new Coordenada(0, 0), CrearRecursos(1),
                 "Máquina", mapa, new Coordenada(5, 5), CrearRecursos(4));
-            var unidad = new Guerrero(new Coordenada(2, 2));
+            var unidad = new Soldado(new Coordenada(2, 2));
             partida.JugadorHumano.AgregarUnidad(unidad);
 
             var primeraRespuesta = PartidaEstadoMapper.Convertir(partida);

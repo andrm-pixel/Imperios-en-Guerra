@@ -81,7 +81,7 @@ public class PlanificadorMovimientoTests
     public void UnidadEnemigaIntermedia_SeRodea()
     {
         partida.JugadorMaquina.AgregarUnidad(
-            new Guerrero(
+            new Soldado(
                 new Coordenada(2, 1)));
 
         ResultadoPlanMovimiento resultado =
@@ -116,11 +116,11 @@ public class PlanificadorMovimientoTests
                 new Coordenada(2, 1)));
 
         partida.JugadorMaquina.AgregarUnidad(
-            new Guerrero(
+            new Soldado(
                 new Coordenada(1, 0)));
 
         partida.JugadorMaquina.AgregarUnidad(
-            new Guerrero(
+            new Soldado(
                 new Coordenada(1, 2)));
 
         ResultadoPlanMovimiento resultado =

@@ -69,7 +69,7 @@ public class EntrenamientoTests
         var solicitud =
             new SolicitudEntrenamiento(
                 new Coordenada(1, 1),
-                "Guerrero",
+                "Soldado",
                 new Coordenada(2, 2));
 
         ResultadoAccion resultado =
@@ -85,7 +85,7 @@ public class EntrenamientoTests
 
         Assert.That(
             partida.JugadorHumano.Unidades[^1],
-            Is.TypeOf<Guerrero>());
+            Is.TypeOf<Soldado>());
 
         Assert.That(
             mapa.ObtenerCasilla(2, 2).EstaOcupada,
@@ -101,7 +101,7 @@ public class EntrenamientoTests
                 partida,
                 new SolicitudEntrenamiento(
                     new Coordenada(4, 4),
-                    "Guerrero",
+                    "Soldado",
                     new Coordenada(2, 2)));
 
         Assert.That(resultado.Exito, Is.False);
@@ -119,7 +119,7 @@ public class EntrenamientoTests
                 partida,
                 new SolicitudEntrenamiento(
                     new Coordenada(3, 3),
-                    "Guerrero",
+                    "Soldado",
                     new Coordenada(2, 2)));
 
         Assert.That(resultado.Exito, Is.False);
@@ -175,7 +175,7 @@ public class EntrenamientoTests
                 partida,
                 new SolicitudEntrenamiento(
                     new Coordenada(1, 1),
-                    "Lancero",
+                    "Soldado",
                     new Coordenada(2, 2)));
 
         Assert.That(resultado.Exito, Is.False);

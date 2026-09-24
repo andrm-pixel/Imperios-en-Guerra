@@ -108,8 +108,7 @@ public class EconomiaTests
         var esperados = new Dictionary<string, (int Oro, int Comida, int Piedra, int Hierro)>
         {
             { "Aldeano", (0, 10, 0, 0) },
-            { "Guerrero", (5, 15, 0, 5) },
-            { "Lancero", (8, 15, 5, 0) },
+            { "Soldado", (5, 15, 0, 5) },
             { "Arquero", (10, 10, 0, 8) }
         };
 

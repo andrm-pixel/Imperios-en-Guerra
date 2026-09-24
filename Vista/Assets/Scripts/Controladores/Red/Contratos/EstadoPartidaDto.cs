@@ -26,10 +26,8 @@ namespace ImperiosEnGuerra.Controladores.Red.Contratos
         public CostoEstadoDto centroUrbano;
         /// <summary>Costo del aldeano.</summary>
         public CostoEstadoDto aldeano;
-        /// <summary>Costo del guerrero.</summary>
-        public CostoEstadoDto guerrero;
-        /// <summary>Costo del lancero.</summary>
-        public CostoEstadoDto lancero;
+        /// <summary>Costo del soldado.</summary>
+        public CostoEstadoDto soldado;
         /// <summary>Costo del arquero.</summary>
         public CostoEstadoDto arquero;
     }

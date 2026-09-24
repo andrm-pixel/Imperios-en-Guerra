@@ -458,7 +458,7 @@ static void DestacarGuarnicionMaquina(Partida partida, Coordenada centroMaquina)
 
         colocados.Add(
             colocados.Count == 0
-                ? (Unidad)new Guerrero(posicion)
+                ? (Unidad)new Soldado(posicion)
                 : (Unidad)new Arquero(posicion));
     }
 

@@ -119,6 +119,64 @@ namespace ImperiosEnGuerra.Controladores.Red
         }
     }
 
+    /// <summary>
+    /// Guarda el progreso en progreso.txt (tecla F5). Solo modo interno.
+    /// </summary>
+    public void GuardarProgreso()
+    {
+        if (usarApiExterna)
+        {
+            MostrarError("El guardado solo está disponible en modo interno.");
+            return;
+        }
+
+        try
+        {
+            ExigirApiInterna();
+            string mensaje = apiInterna.GuardarProgreso();
+
+            if (vistaHud != null)
+                vistaHud.MostrarMensaje(mensaje);
+        }
+        catch (System.Exception ex)
+        {
+            MostrarError(ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Carga el progreso desde progreso.txt (tecla F9). Solo modo interno.
+    /// </summary>
+    public void CargarProgreso()
+    {
+        if (usarApiExterna)
+        {
+            MostrarError("La carga solo está disponible en modo interno.");
+            return;
+        }
+
+        StartCoroutine(CargarProgresoInterno());
+    }
+
+    private IEnumerator CargarProgresoInterno()
+    {
+        string mensaje = string.Empty;
+
+        try
+        {
+            ExigirApiInterna();
+            mensaje = apiInterna.CargarProgreso();
+        }
+        catch (System.Exception ex)
+        {
+            MostrarError(ex.Message);
+            yield break;
+        }
+
+        yield return SincronizarEstadoInterno(
+            string.IsNullOrWhiteSpace(mensaje) ? "Progreso cargado." : mensaje);
+    }
+
 /// <summary>Indica si alguna acción concurrente sigue activa.</summary>
 public bool AccionEnCurso =>
     MovimientoEnCurso ||
@@ -1865,11 +1923,8 @@ public bool PuedeIniciarAtaque =>
                 case "Aldeano":
                     costo = economiaActual.aldeano;
                     break;
-                case "Guerrero":
-                    costo = economiaActual.guerrero;
-                    break;
-                case "Lancero":
-                    costo = economiaActual.lancero;
+                case "Soldado":
+                    costo = economiaActual.soldado;
                     break;
                 case "Arquero":
                     costo = economiaActual.arquero;

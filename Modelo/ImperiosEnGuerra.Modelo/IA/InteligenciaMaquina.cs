@@ -38,7 +38,7 @@ namespace ImperiosEnGuerra.Modelo.IA
 
             List<Unidad> soldados =
                 partida.JugadorMaquina.Unidades
-                    .Where(u => u is Soldado)
+                    .Where(u => u is UnidadMilitar)
                     .ToList();
 
             foreach (Unidad soldado in soldados)
