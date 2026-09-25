@@ -59,9 +59,13 @@ public class CicloRecoleccionTests
 
         Assert.That(
             partida.JugadorHumano.Mapa
-                .ObtenerRecursoEn(new Coordenada(4, 1))
-                .CantidadRestante,
-            Is.Zero);
+                .ObtenerRecursoEn(new Coordenada(4, 1)),
+            Is.Null);
+
+        Assert.That(
+            partida.JugadorHumano.Mapa
+                .PuedeColocar(new Coordenada(4, 1)),
+            Is.True);
 
         Assert.That(
             aldeano.CargaActual,
@@ -113,9 +117,13 @@ public class CicloRecoleccionTests
 
         Assert.That(
             partida.JugadorHumano.Mapa
-                .ObtenerRecursoEn(new Coordenada(4, 1))
-                .CantidadRestante,
-            Is.Zero);
+                .ObtenerRecursoEn(new Coordenada(4, 1)),
+            Is.Null);
+
+        Assert.That(
+            partida.JugadorHumano.Mapa
+                .PuedeColocar(new Coordenada(4, 1)),
+            Is.True);
 
         Assert.That(a.CargaActual + b.CargaActual, Is.Zero);
     }

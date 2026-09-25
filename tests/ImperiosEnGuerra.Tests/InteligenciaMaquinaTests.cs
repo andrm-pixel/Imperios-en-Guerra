@@ -12,9 +12,9 @@ namespace ImperiosEnGuerra.Tests;
 /// <summary>Pruebas de Inteligencia Maquina: verifica inteligencia maquina.</summary>
 public class InteligenciaMaquinaTests
 {
-    // Caso Turno: verifica golpea humano adyacente.
+    // Caso Turno: verifica golpea militar adyacente e ignora aldeanos.
     [Test]
-    public void Turno_GolpeaHumanoAdyacente()
+    public void Turno_GolpeaMilitarAdyacente()
     {
         Partida partida = CrearPartida(
             new Coordenada(1, 1),
@@ -22,12 +22,16 @@ public class InteligenciaMaquinaTests
             withCentro: false);
 
         var aldeano = partida.JugadorHumano.Unidades.OfType<Aldeano>().First();
+        var soldadoHumano = new Soldado(new Coordenada(2, 2));
+        partida.JugadorHumano.AgregarUnidad(soldadoHumano);
+
         var ia = new InteligenciaMaquina();
 
         ResultadoAccion turno = ia.EjecutarTurno(partida);
 
         Assert.That(turno.Exito, Is.True);
-        Assert.That(aldeano.Vida, Is.EqualTo(25));
+        Assert.That(soldadoHumano.Vida, Is.EqualTo(95));
+        Assert.That(aldeano.Vida, Is.EqualTo(50));
     }
 
     // Caso Turno: verifica sin objetivo cercano - regresa a guardia.
@@ -60,21 +64,28 @@ public class InteligenciaMaquinaTests
     [Test]
     public void Turno_EliminaUltimoHumano_DeclaraVictoriaMaquina()
     {
-        Partida partida = CrearPartida(
-            new Coordenada(1, 1),
-            new Coordenada(2, 1),
-            withCentro: false);
+        var mapa = new Mapa(10, 10);
+        var humano = new Jugador(
+            "Humano", TipoJugador.Humano, mapa, new RecursosJugador());
+        var maquina = new Jugador(
+            "Maquina", TipoJugador.Maquina, mapa, new RecursosJugador());
+
+        humano.AgregarUnidad(new Soldado(new Coordenada(1, 1)));
+        maquina.AgregarUnidad(new Soldado(new Coordenada(2, 1)));
 
         var servicio = new EstadoPartidaService();
-        servicio.EstablecerPartida(partida);
+        servicio.EstablecerPartida(new Partida(humano, maquina));
 
-        ResultadoAccion primero = servicio.EjecutarTurnoMaquina();
-        Assert.That(primero.Exito, Is.True);
+        ResultadoAccion ultimo = null;
 
-        ResultadoAccion segundo = servicio.EjecutarTurnoMaquina();
-        Assert.That(segundo.Exito, Is.True);
-        Assert.That(segundo.Mensaje, Does.Contain("¡Victoria!"));
-        Assert.That(partida.JugadorHumano.Unidades.Count, Is.EqualTo(0));
+        for (int i = 0; i < 5; i++)
+        {
+            ultimo = servicio.EjecutarTurnoMaquina();
+            Assert.That(ultimo.Exito, Is.True);
+        }
+
+        Assert.That(ultimo.Mensaje, Does.Contain("¡Victoria!"));
+        Assert.That(humano.Unidades.Count, Is.EqualTo(0));
     }
 
     private static Partida CrearPartida(

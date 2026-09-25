@@ -34,6 +34,8 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
         private TareasJuego gestorProcesos;
         /// <summary>Fachada de acciones concurrentes del Modelo.</summary>
         private MotorAcciones accionesConcurrentes;
+        /// <summary>Proceso del turno continuo de la maquina.</summary>
+        private Guid procesoIA = Guid.Empty;
 
         /// <summary>Indica si la API interna tiene partida activa.</summary>
         public bool EstaDisponible { get; private set; }
@@ -121,7 +123,7 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
                         new Arquero(posicion));
             }
 
-            accionesConcurrentes.IniciarIA();
+            procesoIA = accionesConcurrentes.IniciarIA().Id;
         }
 
         /// <summary>Devuelve el estado actual como DTO de Unity.</summary>
@@ -231,6 +233,33 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
         }
 
         /// <summary>
+        /// Lee el resultado del turno de la máquina sin bloquear.
+        /// Anuncia su victoria en el HUD cuando ocurre.
+        /// </summary>
+        public bool IntentarResultadoIA(out ContratosUnity.ResultadoProcesoDto dto)
+        {
+            dto = null;
+
+            if (!EstaDisponible || procesoIA == Guid.Empty)
+                return false;
+
+            if (!accionesConcurrentes.IntentarObtenerResultado(procesoIA, out ResultadoProcesoConcurrente r))
+                return false;
+
+            dto = new ContratosUnity.ResultadoProcesoDto
+            {
+                procesoId = r.ProcesoId.ToString("D"),
+                nombre = r.Nombre,
+                estado = r.Estado.ToString(),
+                hiloTrabajoId = r.HiloTrabajoId,
+                exito = r.Resultado?.Exito ?? false,
+                mensaje = r.Resultado?.Mensaje,
+                errorTecnico = r.ErrorTecnico
+            };
+            return true;
+        }
+
+        /// <summary>
         /// Guarda el progreso en progreso.txt (tecla F5).
         /// </summary>
         public string GuardarProgreso()
@@ -249,6 +278,10 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             ExigirDisponible();
             accionesConcurrentes.CancelarTodos();
             var resultado = estadoPartida.CargarProgreso();
+
+            // La carga cancela el worker de IA: se relanza.
+            procesoIA = accionesConcurrentes.IniciarIA().Id;
+
             return resultado.Mensaje;
         }
 

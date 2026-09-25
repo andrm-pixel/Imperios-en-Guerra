@@ -393,12 +393,22 @@ public sealed class EstadoPartidaService
                     "No hay una partida activa.");
             }
 
-            return new OperacionPasoRecoleccion()
-                .Ejecutar(
-                    partidaActiva,
-                    aldeanoId,
-                    objetivo,
-                    tasa);
+            ResultadoPasoRecoleccion paso =
+                new OperacionPasoRecoleccion()
+                    .Ejecutar(
+                        partidaActiva,
+                        aldeanoId,
+                        objetivo,
+                        tasa);
+
+            // Nodo agotado: se retira del mapa para dejar
+            // la casilla libre y ocultar el recuadro en Unity.
+            if (paso.Exito && paso.RecursoAgotado && objetivo != null)
+            {
+                partidaActiva.JugadorHumano.Mapa.RetirarRecurso(objetivo);
+            }
+
+            return paso;
         }
     }
 
@@ -1032,11 +1042,31 @@ public sealed class EstadoPartidaService
                     "El entrenamiento todavía no está completo.");
             }
 
-            Coordenada spawn =
-                new BuscadorCasillaSpawn()
-                    .Buscar(
-                        partidaActiva,
-                        centro.Coordenada);
+            Coordenada spawn = null;
+            Coordenada reunion = pendiente.PuntoReunion;
+
+            if (reunion != null &&
+                partidaActiva.JugadorHumano.Mapa.EstaDentroDeLimites(reunion) &&
+                partidaActiva.JugadorHumano.Mapa.PuedeColocar(reunion) &&
+                !partidaActiva.JugadorHumano.Unidades.Any(
+                    u => u.Coordenada != null &&
+                        u.Coordenada.X == reunion.X &&
+                        u.Coordenada.Y == reunion.Y) &&
+                !partidaActiva.JugadorMaquina.Unidades.Any(
+                    u => u.Coordenada != null &&
+                        u.Coordenada.X == reunion.X &&
+                        u.Coordenada.Y == reunion.Y))
+            {
+                spawn = reunion;
+            }
+            else
+            {
+                spawn =
+                    new BuscadorCasillaSpawn()
+                        .Buscar(
+                            partidaActiva,
+                            centro.Coordenada);
+            }
 
             if (spawn == null)
             {

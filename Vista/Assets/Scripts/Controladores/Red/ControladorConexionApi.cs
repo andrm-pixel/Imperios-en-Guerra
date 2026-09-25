@@ -2007,6 +2007,58 @@ public bool PuedeIniciarAtaque =>
                 }
             }
             StartCoroutine(ComprobarConexion());
+            StartCoroutine(VigilarIA());
+        }
+
+        /// <summary>Derrota ya anunciada para no repetir el mensaje.</summary>
+        private bool derrotaAnunciada;
+
+        /// <summary>
+        /// Vigila el worker continuo de la maquina y anuncia su victoria
+        /// (derrota humana) en el HUD con el estado sincronizado.
+        /// Solo modo interno.
+        /// </summary>
+        private IEnumerator VigilarIA()
+        {
+            const float intervalo = 0.5f;
+
+            while (isActiveAndEnabled)
+            {
+                yield return new WaitForSecondsRealtime(intervalo);
+
+                if (usarApiExterna ||
+                    derrotaAnunciada ||
+                    !ApiInternaDisponible)
+                {
+                    continue;
+                }
+
+                Contratos.ResultadoProcesoDto resultado = null;
+                bool listo = false;
+
+                try
+                {
+                    listo = apiInterna.IntentarResultadoIA(out resultado);
+                }
+                catch
+                {
+                    continue;
+                }
+
+                if (!listo || resultado == null || !resultado.exito)
+                {
+                    continue;
+                }
+
+                if (resultado.mensaje != null &&
+                    resultado.mensaje.Contains("¡Victoria!"))
+                {
+                    derrotaAnunciada = true;
+
+                    yield return SincronizarEstadoInterno(
+                        "Derrota: " + resultado.mensaje);
+                }
+            }
         }
 
         /// <summary>Verifica la API y carga la partida inicial.</summary>

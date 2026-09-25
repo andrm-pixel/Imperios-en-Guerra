@@ -141,8 +141,12 @@ namespace ImperiosEnGuerra.Modelo.Acciones
                     $"{nombreObjetivo} enemigo destruido. ¡Victoria! La máquina perdió su Castillo y todas sus unidades.");
             }
 
+            int restantesMaquina =
+                partida.JugadorMaquina.Unidades.Count +
+                partida.JugadorMaquina.Edificios.Count;
+
             return ResultadoAccion.Exitoso(
-                $"{nombreObjetivo} enemigo destruido.");
+                $"{nombreObjetivo} enemigo destruido. Quedan {restantesMaquina} enemigos.");
         }
 
         /// <summary>

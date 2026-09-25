@@ -83,9 +83,14 @@ public class RecoleccionConcurrenteTests
         Assert.That(
             partida.JugadorHumano.Mapa
                 .ObtenerRecursoEn(
-                    new Coordenada(2, 2))
-                .CantidadRestante,
-            Is.Zero);
+                    new Coordenada(2, 2)),
+            Is.Null);
+
+        Assert.That(
+            partida.JugadorHumano.Mapa
+                .PuedeColocar(
+                    new Coordenada(2, 2)),
+            Is.True);
     }
 
     // Caso Cancelar Recoleccion: verifica antes de aplicar - devuelve cancelado.
@@ -409,8 +414,11 @@ public class RecoleccionConcurrenteTests
             Does.Contain("En espera de órdenes"));
 
         Assert.That(
-            mapa.ObtenerRecursoEn(new Coordenada(2, 2)).CantidadRestante,
-            Is.Zero);
+            mapa.ObtenerRecursoEn(new Coordenada(2, 2)),
+            Is.Null);
+        Assert.That(
+            mapa.PuedeColocar(new Coordenada(2, 2)),
+            Is.True);
         Assert.That(
             mapa.ObtenerRecursoEn(new Coordenada(4, 2)).CantidadRestante,
             Is.EqualTo(10));

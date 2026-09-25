@@ -59,10 +59,9 @@ public class EntrenamientoConcurrenteTests
             partida.JugadorHumano.Unidades[0]
                 .Coordenada;
 
-        Assert.That(
-            Math.Abs(spawn.X - 1) +
-            Math.Abs(spawn.Y - 1),
-            Is.EqualTo(1));
+        // El punto de reunion pedido (2,2) se respeta si esta libre.
+        Assert.That(spawn.X, Is.EqualTo(2));
+        Assert.That(spawn.Y, Is.EqualTo(2));
 
         Assert.That(
             partida.JugadorHumano.Mapa

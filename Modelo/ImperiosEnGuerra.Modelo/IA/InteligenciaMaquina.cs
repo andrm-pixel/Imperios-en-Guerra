@@ -112,6 +112,57 @@ namespace ImperiosEnGuerra.Modelo.IA
             Partida partida,
             Unidad soldado)
         {
+            // Prioridad: militares primero para defender el castillo;
+            // aldeanos y edificios solo si no hay tropa cerca.
+            Objetivo militar =
+                BuscarMilitarCercano(partida, soldado);
+
+            if (militar != null)
+                return militar;
+
+            return BuscarBlandaCercana(partida, soldado);
+        }
+
+        private static Objetivo BuscarMilitarCercano(
+            Partida partida,
+            Unidad soldado)
+        {
+            Objetivo mejor = null;
+            int mejorDistancia = RadioCaza + 1;
+
+            foreach (Unidad unidad in partida.JugadorHumano.Unidades)
+            {
+                if (unidad == null ||
+                    unidad.Coordenada == null ||
+                    !unidad.EstaViva ||
+                    unidad is Aldeano ||
+                    !(unidad is UnidadMilitar))
+                {
+                    continue;
+                }
+
+                int distancia =
+                    Distancia(soldado.Coordenada, unidad.Coordenada);
+
+                if (distancia < mejorDistancia)
+                {
+                    mejorDistancia = distancia;
+                    mejor = new Objetivo
+                    {
+                        Id = unidad.Id,
+                        Posicion = unidad.Coordenada,
+                        EsUnidad = true
+                    };
+                }
+            }
+
+            return mejorDistancia <= RadioCaza ? mejor : null;
+        }
+
+        private static Objetivo BuscarBlandaCercana(
+            Partida partida,
+            Unidad soldado)
+        {
             Objetivo mejor = null;
             int mejorDistancia = RadioCaza + 1;
 

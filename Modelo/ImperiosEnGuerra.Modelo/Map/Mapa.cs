@@ -158,5 +158,34 @@ namespace ImperiosEnGuerra.Modelo.Map
             recursos.Add(recurso);
             return true;
         }
+
+        /// <summary>
+        /// Retira el recurso de la posicion indicada y deja la casilla libre
+        /// para mover, construir o entrenar. No toca la ocupacion fisica.
+        /// </summary>
+        /// <param name="coordenada">Posicion logica que se libera.</param>
+        /// <returns>true si existia un recurso y fue retirado.</returns>
+        public bool RetirarRecurso(Coordenada coordenada)
+        {
+            if (!EstaDentroDeLimites(coordenada))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < recursos.Count; i++)
+            {
+                Recurso actual = recursos[i];
+
+                if (actual != null &&
+                    actual.Coordenada.X == coordenada.X &&
+                    actual.Coordenada.Y == coordenada.Y)
+                {
+                    recursos.RemoveAt(i);
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
