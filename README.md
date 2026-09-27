@@ -41,12 +41,22 @@ Modelo/        Lógica del juego y concurrencia (Thread/Task/lock solo aquí)
 Assets/        Proyecto Unity (la raíz del repo): escenas, sprites y scripts
   Scripts/Controladores/  puente (corutinas, sin Thread/Task)
   Scripts/Vistas/         solo lectura del estado
-Controlador/   (sin hilos propios)
+Controlador/   Servidor REST externo opcional (sin hilos propios)
   ImperiosEnGuerra.Controlador/
 tests/         Pruebas .NET (NUnit, 313 verdes)
 docs/          Documentación (guía, combate, instalación)
 scripts/       Instalador de sprites Tiny Swords
 ```
+
+**Qué es cada parte (en simple):**
+
+- **`Modelo/`** — el cerebro. Aquí están las reglas, las piezas (aldeanos, soldados, arqueros, castillos, recursos, mapa) y los trabajadores (hilos) que hacen todo a la vez. Si quieres saber por qué el juego hace algo, la respuesta está aquí.
+- **`Assets/`** — lo que ves y tocas. `Scenes/` trae el mapa jugable (`SampleScene`); `Scripts/Vistas/` dibuja todo; `Scripts/Controladores/` lleva tus clics al cerebro; `Art/` trae los dibujos (se instalan aparte); `Plugins/` trae el cerebro compilado para que Unity lo use.
+- **`Controlador/`** — un programa aparte que atiende por internet (REST). Solo se usa en modo externo; el juego normal no lo necesita.
+- **`tests/`** — 313 pruebas automáticas que revisan que nada se rompa (movimiento, recolección, ataques, victoria, guardado).
+- **`docs/`** — papeles de ayuda: cómo cumple la guía, cómo se pelea y cómo instalar los dibujos.
+- **`scripts/`** — instala los dibujos Tiny Swords en su lugar con un doble clic.
+- **`Packages/` y `ProjectSettings/`** — configuración interna de Unity (versión, paquetes, calidad). No se tocan.
 
 ---
 
