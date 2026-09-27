@@ -4,9 +4,9 @@ Videojuego de estrategia en tiempo real (RTS) en C# y Unity, inspirado en Age of
 
 ---
 
-## Qué es el juego (en palabras simples)
+## Qué es el juego
 
-Tú comandas a los **Griegos** (castillo al este) contra **Troya**, la máquina (castillo al oeste), en un mapa de **15×15**.
+Tú comandas a los **Griegos** (castillo a la derecha) contra **Troya**, la máquina (castillo a la izquierda), en un mapa de **15×15**.
 
 1. Tus **aldeanos** recogen oro, madera, comida, piedra y hierro de los nodos del mapa.
 2. Con esos recursos **invocas** más aldeanos, **soldados** (fuertes de cerca) y **arqueros** (atacan de lejos) desde tu castillo.
@@ -18,7 +18,7 @@ La máquina no es tonta: sus tropas cazan a las tuyas, cuidan su castillo, huyen
 
 ---
 
-## Cómo está organizado (MVC en palabras simples)
+## Cómo está organizado (MVC)
 
 - **Modelo** (`Modelo/`): el cerebro. Sabe las reglas, mueve las piezas y usa hilos para que varias cosas pasen a la vez (recolectar, construir, entrenar, atacar, la IA). No sabe nada de pantallas.
 - **Vista** (`Assets/Scripts/Vistas/` + escenas y dibujos): los ojos. Solo muestra el mapa, los botones y los mensajes. No decide nada.
@@ -30,7 +30,7 @@ Modelo/        Lógica del juego y concurrencia (Thread/Task/lock solo aquí)
 Assets/        Proyecto Unity (la raíz del repo): escenas, sprites y scripts
   Scripts/Controladores/  puente (corutinas, sin Thread/Task)
   Scripts/Vistas/         solo lectura del estado
-Controlador/   Servidor REST externo opcional (sin hilos propios)
+Controlador/   (sin hilos propios)
   ImperiosEnGuerra.Controlador/
 tests/         Pruebas .NET (NUnit, 313 verdes)
 docs/          Documentación (informe, diagramas, pruebas de escritorio, clases)
@@ -44,12 +44,6 @@ scripts/       Instalador de sprites Tiny Swords
 1. Instala los sprites con `scripts\instalar_tinyswords.ps1` (ver `docs/INSTALACION_TINY_SWORDS.md`).
 2. Abre la raíz del repo en Unity Hub (Unity 6000.6.0f1), abre `Assets/Scenes/SampleScene.unity` y dale Play.
 3. Clic para seleccionar; botones Mover / Recolectar / Construir / Entrenar / Atacar / ¡Batalla!; F5 guarda, F9 carga.
-
----
-
-## Qué cambió
-
-Juego base MVC, concurrencia con workers e IA, barras de vida, proyecto en la raíz y documentación en `docs/`.
 
 ---
 
