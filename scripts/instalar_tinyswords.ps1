@@ -50,7 +50,9 @@ o directamente:
 
 $repo = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 
-$destino = Join-Path $repo "Vista\Assets\Art\TinySwords"
+# El proyecto Unity vive en la raiz del repositorio: el pack se instala en
+# Assets\Art\TinySwords para que Unity lo importe como parte del proyecto.
+$destino = Join-Path $repo "Assets\Art\TinySwords"
 
 New-Item `
     -ItemType Directory `

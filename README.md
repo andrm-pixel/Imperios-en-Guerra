@@ -11,15 +11,27 @@ Modelo/        Lógica del juego y concurrencia (Thread/Task/lock solo aquí)
   ImperiosEnGuerra.Modelo/
 Controlador/   Puente HTTP y API interna (sin hilos propios)
   ImperiosEnGuerra.Controlador/
-Vista/         Proyecto Unity: escenas, sprites y scripts de presentación
-  Assets/Scripts/Controladores/  puente (corutinas, sin Thread/Task)
-  Assets/Scripts/Vistas/         solo lectura del estado
+Assets/        Proyecto Unity: escenas, sprites y scripts de presentación
+  Scripts/Controladores/  puente (corutinas, sin Thread/Task)
+  Scripts/Vistas/         solo lectura del estado
+Packages/      Dependencias del proyecto Unity
+Modelo/        Lógica del juego y concurrencia (Thread/Task/lock solo aquí)
+  ImperiosEnGuerra.Modelo/
+Controlador/   Puente HTTP y API interna (sin hilos propios)
+  ImperiosEnGuerra.Controlador/
 tests/         Pruebas .NET (NUnit)
 docs/          Documentación
 scripts/       Instalador de sprites Tiny Swords
 ```
 
-Abrir en Unity Hub la carpeta `Vista`. La API externa (opcional) se ejecuta con `dotnet run --project Controlador/ImperiosEnGuerra.Controlador`.
+El proyecto Unity es **la raíz del repositorio**: se abre en Unity Hub la carpeta
+`Imperios-en-Guerra` (donde están `Assets/`, `Packages/` y `ProjectSettings/`).
+
+Antes de abrirlo, instala los sprites de Tiny Swords, que no se versionan:
+ver `docs/INSTALACION_TINY_SWORDS.md` o ejecuta
+`powershell -ExecutionPolicy Bypass -File scripts\instalar_tinyswords.ps1 -Origen "<ruta del pack>"`.
+
+La API externa (opcional) se ejecuta con `dotnet run --project Controlador/ImperiosEnGuerra.Controlador`.
 
 ## Tecnologías
 

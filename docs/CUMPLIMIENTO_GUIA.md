@@ -22,7 +22,7 @@ Modalidad: Humano vs Maquina (sin multijugador, por decision del curso).
 ## Detalle por requisito tecnico
 
 - C# + Unity 6000 desktop UGUI: OK.
-- MVC en carpetas y namespaces (`Modelo/`, `Vista/`, `Controlador/`): OK.
+- MVC en carpetas y namespaces (`Modelo/`, `Assets/Scripts/`, `Controlador/`): OK.
 - Hilos Task + sincronizacion: OK (tabla de hilos en el informe del chat).
 - Red REST: OK (modo externo) + modo interno en memoria.
 - Combate: los Aldeanos humanos disponibles reaccionan alejándose de militares enemigos cercanos; la IA retira sus militares cuando su vida baja del 25%.
