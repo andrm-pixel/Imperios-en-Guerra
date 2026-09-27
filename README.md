@@ -12,7 +12,7 @@ Tú comandas a los **Griegos** (castillo a la derecha) contra **Troya**, la máq
 2. Con esos recursos **invocas** más aldeanos, **soldados** (fuertes de cerca) y **arqueros** (atacan de lejos) desde tu castillo.
 3. Mueves tus tropas con clics, atacas al enemigo y cuidas tu castillo.
 4. **Ganas** si destruyes el castillo enemigo **y** todas sus unidades. **Pierdes** si te quedas sin unidades.
-5. Puedes **guardar** con F5 y **cargar** con F9. Cada partida deja archivos: configuración inicial, bitácora de acciones y resultado final (ver `docs/INFORME_PROYECTO.md` §4).
+5. Puedes **guardar** con F5 y **cargar** con F9. Cada partida deja archivos: configuración inicial, bitácora de acciones y resultado final.
 
 La máquina no es tonta: sus tropas cazan a las tuyas, cuidan su castillo, huyen tus aldeanos del peligro y sus heridos se retiran. Además ves **barras de vida** sobre cada unidad y edificio.
 
@@ -33,7 +33,7 @@ Assets/        Proyecto Unity (la raíz del repo): escenas, sprites y scripts
 Controlador/   (sin hilos propios)
   ImperiosEnGuerra.Controlador/
 tests/         Pruebas .NET (NUnit, 313 verdes)
-docs/          Documentación (informe, diagramas, pruebas de escritorio, clases)
+docs/          Documentación (guía, combate, instalación)
 scripts/       Instalador de sprites Tiny Swords
 ```
 
