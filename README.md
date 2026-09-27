@@ -41,33 +41,21 @@ scripts/       Instalador de sprites Tiny Swords
 
 ## Abrir y jugar
 
-1. Instala los sprites de Tiny Swords (no se versionan): ver `docs/INSTALACION_TINY_SWORDS.md` o ejecuta `powershell -ExecutionPolicy Bypass -File scripts\instalar_tinyswords.ps1 -Origen "<ruta del pack>"`.
-2. Abre en **Unity Hub la raíz del repositorio** (donde están `Assets/`, `Packages/` y `ProjectSettings/`). Usa **Unity 6000.6.0f1**.
-3. Abre `Assets/Scenes/SampleScene.unity` y dale **Play**. Con una sola ventana de Unity abierta.
-4. Controles: clic para seleccionar, botones Mover / Recolectar / Construir / Entrenar / Atacar / ¡Batalla!; F5 guarda, F9 carga.
-5. (Opcional) Servidor REST externo: `dotnet run --project Controlador/ImperiosEnGuerra.Controlador` y activa `usarApiExterna` en el inspector. Por defecto el juego usa la API interna en memoria.
+1. Instala los sprites con `scripts\instalar_tinyswords.ps1` (ver `docs/INSTALACION_TINY_SWORDS.md`).
+2. Abre la raíz del repo en Unity Hub (Unity 6000.6.0f1), abre `Assets/Scenes/SampleScene.unity` y dale Play.
+3. Clic para seleccionar; botones Mover / Recolectar / Construir / Entrenar / Atacar / ¡Batalla!; F5 guarda, F9 carga.
 
 ---
 
-## Qué cambió (historial corto)
+## Qué cambió
 
-- **Base MVC + combate real + IA enemiga + guardado TXT + HUD** (mapa 15×15, Tiny Swords, victoria total).
-- **Concurrencia real**: un worker por orden (movimiento, recolección, construcción, entrenamiento, ataque, batalla) + worker continuo de IA; `lock`, `ConcurrentDictionary/Queue`, cancelación y polling 0,1 s sin congelar Unity.
-- **Nodo agotado libera su casilla**; la unidad nace en la casilla clicada; la IA prioriza tropas y defiende su castillo; la derrota se anuncia una vez en el HUD.
-- **Modelo de combate del compañero**: aldeanos que huyen del peligro, máquinas heridas que se retiran, **barras de vida**, proyecto Unity movido a la raíz yTests nuevos.
-- **Documentación formal**: `docs/INFORME_PROYECTO.md` (concurrencia, MVC, red, archivos), `docs/DIAGRAMAS.md` (arquitectura, clases y flujos), `docs/PRUEBA_ESCRITORIO.md` (trazas de recolección, ataque, red y victoria), `docs/CLASES.md` (todas las clases explicadas) y `docs/CUMPLIMIENTO_GUIA.md` (guía vs implementación).
-
-**Nota honesta sobre red:** el rival es la máquina, no otro humano. La red implementada es REST + JSON entre Unity y el Modelo (modo interno en memoria por defecto, servidor externo alterno en `localhost:5086`).
+Juego base MVC, concurrencia con workers e IA, barras de vida, proyecto en la raíz y documentación en `docs/`.
 
 ---
 
 ## Tecnologías
 
 C#, Unity (UGUI), .NET Tasks/ThreadPool, `lock`, colecciones concurrentes, REST + JSON (`UnityWebRequest`), `System.IO`, NUnit.
-
-## Ramas
-
-`main` (estable) y `develop` (integración). Flujo: Issue → Branch → Desarrollo → Pruebas → Commit → Pull Request → Develop → Main.
 
 ## Estado
 
