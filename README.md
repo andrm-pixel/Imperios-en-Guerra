@@ -8,13 +8,24 @@ Videojuego de estrategia en tiempo real (RTS) en C# y Unity, inspirado en Age of
 
 Tú comandas a los **Griegos** (castillo a la derecha) contra **Troya**, la máquina (castillo a la izquierda), en un mapa de **15×15**.
 
-1. Tus **aldeanos** recogen oro, madera, comida, piedra y hierro de los nodos del mapa.
-2. Con esos recursos **invocas** más aldeanos, **soldados** (fuertes de cerca) y **arqueros** (atacan de lejos) desde tu castillo.
+**Lo que ves al abrirlo:** tu castillo, tus aldeanos, árboles de madera, minas de oro, arbustos de comida, piedras y hierros regados por el mapa, y arriba tus monedas.
+
+**Cada pieza sirve para algo:**
+
+1. El **aldeano** es tu trabajador: recoge recursos y construye. Sin aldeanos no hay nada.
+2. El **soldado** pega fuerte de cerca (25 de daño, alcance 1) y aguanta mucho (120 de vida).
+3. El **arquero** pega de lejos (alcance 4) pero es más débil (90 de vida, 15 de daño).
+4. El **castillo** es tu casa principal: ahí nacen tus tropas y ahí guardas lo recogido. Si lo pierdes y te quedas sin tropas, pierdes.
+
+**Cómo se juega:**
+
+1. Manda aldeanos a recoger oro, madera, comida, piedra y hierro.
+2. Con esos recursos **invocas** más aldeanos, soldados y arqueros desde tu castillo.
 3. Mueves tus tropas con clics, atacas al enemigo y cuidas tu castillo.
 4. **Ganas** si destruyes el castillo enemigo **y** todas sus unidades. **Pierdes** si te quedas sin unidades.
-5. Puedes **guardar** con F5 y **cargar** con F9. Cada partida deja archivos: configuración inicial, bitácora de acciones y resultado final.
+5. **F5 guarda** y **F9 carga**. Cada partida deja archivos: configuración inicial, bitácora de acciones y resultado final.
 
-La máquina no es tonta: sus tropas cazan a las tuyas, cuidan su castillo, huyen tus aldeanos del peligro y sus heridos se retiran. Además ves **barras de vida** sobre cada unidad y edificio.
+La máquina no es tonta: sus tropas cazan a las tuyas, cuidan su castillo, tus aldeanos huyen del peligro y sus heridos se retiran. Además ves **barras de vida** sobre cada unidad y edificio.
 
 ---
 
