@@ -130,6 +130,35 @@ namespace ImperiosEnGuerra.Tests.Editor
             Assert.That(respuesta.Mapa.Recursos.All(r => r.Coordenada.Y == 1), Is.True);
         }
 
+        // Caso Convertir: verifica expone la vida que la Vista usa para las barras.
+        [Test]
+        public void Convertir_ExponeVidaDeUnidadesYEdificios()
+        {
+            Partida partida = CrearPartida();
+            var soldado = new Soldado(new Coordenada(2, 2));
+            partida.JugadorHumano.AgregarUnidad(soldado);
+
+            var respuesta = PartidaEstadoMapper.Convertir(partida);
+
+            var unidad = respuesta.JugadorHumano.Unidades
+                .Single(u => u.Tipo == "Soldado");
+            Assert.That(unidad.VidaMaxima, Is.EqualTo(soldado.VidaMaxima));
+            Assert.That(unidad.Vida, Is.EqualTo(soldado.Vida));
+
+            // Tras recibir dano la barra debe reflejar la vida restante.
+            soldado.RecibirDano(50);
+            respuesta = PartidaEstadoMapper.Convertir(partida);
+            unidad = respuesta.JugadorHumano.Unidades
+                .Single(u => u.Tipo == "Soldado");
+            Assert.That(unidad.VidaMaxima, Is.EqualTo(soldado.VidaMaxima));
+            Assert.That(unidad.Vida, Is.EqualTo(soldado.VidaMaxima - 50));
+
+            var castillo = respuesta.JugadorHumano.Edificios
+                .Single(e => e.Tipo == "Castillo");
+            Assert.That(castillo.VidaMaxima, Is.GreaterThan(0));
+            Assert.That(castillo.Vida, Is.EqualTo(castillo.VidaMaxima));
+        }
+
         private static Partida CrearPartida()
         {
             var mapa = new Mapa(10, 8);

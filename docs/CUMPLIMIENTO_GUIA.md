@@ -14,6 +14,8 @@ Modalidad: Humano vs Maquina (sin multijugador, por decision del curso).
 | Sincronizacion anti carreras | OK | `lock` en `EstadoPartidaService`, `RecursosJugador`, `Castillo`, `Aldeano`, `Recurso`, `ConcurrentDictionary/Queue` |
 | Red entre jugadores | PARCIAL | REST con JSON entre Unity y servicios (`ControladorConexionApi`, `Program.cs`); el rival es la IA, no otro humano |
 | Acciones construir/entrenar/mover/atacar desde UI | OK | botones + clics con raycast, `ControladorAcciones` |
+| Reacciones defensivas de unidades | OK | `DefensaHumana` (huida de Aldeanos) y retirada de militares heridos en `InteligenciaMaquina` |
+| Barras de vida de unidades y edificios | OK | `BarraVidaVista` (relleno anclado a la izquierda, color por umbral), `vida`/`vidaMaxima` en el DTO, datos desde `PartidaEstadoMapper` |
 | Validaciones (recursos, limites, disponibilidad) | OK | `ReglasAcciones`, planificadores, `Operacion*` + tests |
 | Verificacion de ganador | OK | `OperacionAtaque.EsVictoriaHumana/Maquina` (castillo Y ejercito), anuncio HUD, `resultado_final.txt` |
 
@@ -23,6 +25,8 @@ Modalidad: Humano vs Maquina (sin multijugador, por decision del curso).
 - MVC en carpetas y namespaces (`Modelo/`, `Vista/`, `Controlador/`): OK.
 - Hilos Task + sincronizacion: OK (tabla de hilos en el informe del chat).
 - Red REST: OK (modo externo) + modo interno en memoria.
+- Combate: los Aldeanos humanos disponibles reaccionan alejándose de militares enemigos cercanos; la IA retira sus militares cuando su vida baja del 25%.
+- Vista de combate: la barra de vida viaja en el DTO (`vida`, `vidaMaxima`) y se dibuja sobre cada unidad y edificio sin depender de assets externos.
 - Archivos: `configuracion.txt`, `log_partida.txt` (formato Turno/Accion/Resultado), `resultado_final.txt`, `progreso.txt` (F5/F9): OK.
 - Colecciones `List/Dictionary/Concurrent`: OK.
 - Validacion de entradas y try-catch en endpoints, IO y workers: OK.

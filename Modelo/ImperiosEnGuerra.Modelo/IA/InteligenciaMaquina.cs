@@ -14,8 +14,9 @@ namespace ImperiosEnGuerra.Modelo.IA
     /// <summary>
     /// Cerebro de la maquina. Vive en el Modelo y se ejecuta desde un worker
     /// del TareasJuego cada pocos segundos.
-    /// Cada turno: sus soldados cazan humanos en un radio de 7 casillas
-    /// (caminan hasta el alcance y golpean); si no hay objetivo cerca,
+    /// Cada turno: los Aldeanos humanos libres huyen de amenazas militares
+    /// cercanas; los soldados de la maquina cazan humanos en un radio de 7
+    /// casillas, se retiran cuando estan muy heridos y, sin objetivo cerca,
     /// regresan junto a su Castillo. Sin hilos propios.
     /// </summary>
     public sealed class InteligenciaMaquina
@@ -35,6 +36,20 @@ namespace ImperiosEnGuerra.Modelo.IA
 
             var bitacora = new StringBuilder();
             int acciones = 0;
+
+            // Los Aldeanos humanos pueden reaccionar antes de que la
+            // maquina ejecute su turno. No se interrumpe una orden del jugador.
+            ResultadoAccion defensa =
+                DefensaHumana.Ejecutar(
+                    partida,
+                    out int accionesDefensivas);
+
+            if (defensa.Exito &&
+                accionesDefensivas > 0)
+            {
+                acciones += accionesDefensivas;
+                bitacora.Append(defensa.Mensaje).Append(' ');
+            }
 
             List<Unidad> soldados =
                 partida.JugadorMaquina.Unidades
@@ -74,6 +89,16 @@ namespace ImperiosEnGuerra.Modelo.IA
             Unidad soldado,
             StringBuilder bitacora)
         {
+            // Una unidad muy herida deja de exponerse y vuelve a la
+            // guardia. Esto evita que la IA se suicide constantemente.
+            if (DebeRetirarse(soldado))
+            {
+                return RegresarAGuardia(
+                    partida,
+                    soldado,
+                    bitacora);
+            }
+
             var objetivo = BuscarObjetivoCercano(partida, soldado);
 
             if (objetivo == null)
@@ -513,6 +538,15 @@ namespace ImperiosEnGuerra.Modelo.IA
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Indica si una unidad militar debe abandonar el combate.
+        /// </summary>
+        private static bool DebeRetirarse(Unidad unidad)
+        {
+            int umbral = Math.Max(1, unidad.VidaMaxima / 4);
+            return unidad.Vida <= umbral;
         }
 
         private static int Distancia(Coordenada a, Coordenada b)

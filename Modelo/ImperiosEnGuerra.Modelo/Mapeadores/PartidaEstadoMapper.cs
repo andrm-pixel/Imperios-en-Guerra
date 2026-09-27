@@ -105,6 +105,8 @@ public static class PartidaEstadoMapper
                 Id = edificio.Id.ToString("D"),
                 Tipo = edificio.GetType().Name,
                 Coordenada = ConvertirCoordenada(edificio.Coordenada),
+                Vida = edificio.Vida,
+                VidaMaxima = edificio.VidaMaxima,
                 ColaEntrenamiento = edificio is Castillo centro
                     ? centro.ColaEntrenamiento.Select(p => new EntrenamientoEstadoResponse
                     {
@@ -131,6 +133,8 @@ public static class PartidaEstadoMapper
                 Disponible = unidad.Disponible,
                 Estado = unidad.Estado.ToString(),
                 OrdenActiva = unidad.OrdenActiva?.ToString(),
+                Vida = unidad.Vida,
+                VidaMaxima = unidad.VidaMaxima,
                 CapacidadCarga = unidad is Aldeano aldeano
                     ? aldeano.CapacidadCarga
                     : 0,

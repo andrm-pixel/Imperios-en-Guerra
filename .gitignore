@@ -84,11 +84,16 @@ AGENTS.md
 # =========================
 # Recuperación de escenas de Unity
 # =========================
-Vista/Assets/_Recovery/
+/Assets/_Recovery/
 # =========================
 # Tiny Swords - archivos graficos externos, no redistribuir
+#
+# El pack NO se versiona: cada equipo lo instala con
+#   scripts\instalar_tinyswords.ps1
+# Los .meta SI se versionan para conservar los GUID de los sprites que
+# referencia Assets/Scenes/SampleScene.unity.
 # =========================
-/Vista/Assets/Art/TinySwords/**/*.png
-/Vista/Assets/Art/TinySwords/**/*.aseprite
-/Vista/Assets/Art/TinySwords/**/*.jpg
-/Vista/Assets/Art/TinySwords/**/*.jpeg
+/Assets/Art/TinySwords/**/*.png
+/Assets/Art/TinySwords/**/*.aseprite
+/Assets/Art/TinySwords/**/*.jpg
+/Assets/Art/TinySwords/**/*.jpeg

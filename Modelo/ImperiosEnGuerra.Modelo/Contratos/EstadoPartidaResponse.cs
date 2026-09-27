@@ -194,6 +194,17 @@ public sealed class EdificioEstadoResponse
     /// Obtiene o establece cola entrenamiento.
     /// </summary>
     public IReadOnlyList<EntrenamientoEstadoResponse> ColaEntrenamiento { get; set; }
+
+    /// <summary>
+    /// Obtiene o establece los puntos de vida actuales del edificio.
+    /// Permite a la Vista dibujar la barra de vida sin consultar el Modelo.
+    /// </summary>
+    public int Vida { get; set; }
+
+    /// <summary>
+    /// Obtiene o establece la vida maxima del edificio.
+    /// </summary>
+    public int VidaMaxima { get; set; }
 }
 
 /// <summary>
@@ -281,6 +292,17 @@ public sealed class UnidadEstadoResponse
     /// Obtiene o establece tipo carga.
     /// </summary>
     public string? TipoCarga { get; set; }
+
+    /// <summary>
+    /// Obtiene o establece los puntos de vida actuales de la unidad.
+    /// Permite a la Vista dibujar la barra de vida sin consultar el Modelo.
+    /// </summary>
+    public int Vida { get; set; }
+
+    /// <summary>
+    /// Obtiene o establece la vida maxima de la unidad.
+    /// </summary>
+    public int VidaMaxima { get; set; }
 }
 
 /// <summary>
