@@ -25,6 +25,8 @@ namespace ImperiosEnGuerra.Vistas
                 "Selecciona con clic.\nMover / Recolectar / Construir / Entrenar / Atacar / Batalla.\nF5 guarda - F9 carga.\nDestruye su castillo Y su ejercito.",
                 18, Color.white, -60f, 150f);
             PanelSimple.CrearBoton(panel.transform, "BotonJugar", "JUGAR", -190f, Ocultar);
+            Debug.Log("PanelInicio creado: " + panel.transform.childCount + " hijos.", panel);
+        }
         }
 
         /// <summary>Esconde la pantalla de inicio.</summary>
