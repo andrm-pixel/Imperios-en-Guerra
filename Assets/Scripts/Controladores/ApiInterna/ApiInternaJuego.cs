@@ -285,6 +285,20 @@ namespace ImperiosEnGuerra.Controladores.ApiInterna
             return resultado.Mensaje;
         }
 
+        /// <summary>
+        /// Cancela todo y arranca una partida nueva (revancha).
+        /// Relanza la IA porque la anterior se cancela.
+        /// </summary>
+        public string ReiniciarPartida()
+        {
+            ExigirDisponible();
+            accionesConcurrentes.CancelarTodos();
+            IniciarPartidaPruebaInterna();
+            EstaDisponible = estadoPartida.HayPartidaActiva();
+
+            return "Nueva partida. ¡A jugar!";
+        }
+
         /// <summary>Consulta si la unidad puede recibir orden de mover.</summary>
         public bool PermiteMover(string propietario, string categoria, string ordenActiva)
         {
