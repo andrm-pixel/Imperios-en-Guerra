@@ -74,10 +74,15 @@ namespace ImperiosEnGuerra.Vistas
 
         private static Font Fuente(Transform raiz)
         {
-            Text existente = raiz.GetComponentInChildren<Text>();
+            Text existente = Object.FindAnyObjectByType<Text>();
             if (existente != null && existente.font != null)
                 return existente.font;
-            return Resources.GetBuiltinResource<Font>("Arial.ttf");
+
+            Font builtin = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            if (builtin != null)
+                return builtin;
+
+            return Font.CreateDynamicFontFromOSFont("Arial");
         }
     }
 }
