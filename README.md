@@ -20,12 +20,12 @@ Tú comandas a los **Griegos** (castillo a la derecha) contra **Troya**, la máq
 **Cómo se juega:**
 
 1. Manda aldeanos a recoger oro, madera, comida, piedra y hierro.
-2. Con esos recursos **invocas** más aldeanos, soldados y arqueros desde tu castillo.
+2. Con esos recursos puedes **invocas** más aldeanos, soldados y arqueros desde tu castillo a cambio de cierta cantidad de recursos especificos.
 3. Mueves tus tropas con clics, atacas al enemigo y cuidas tu castillo.
 4. **Ganas** si destruyes el castillo enemigo **y** todas sus unidades. **Pierdes** si te quedas sin unidades.
-5. **F5 guarda** y **F9 carga**. Cada partida deja archivos: configuración inicial, bitácora de acciones y resultado final.
+5. **F5 guarda** tu progreso e el juego y **F9 carga** ese progreso que guardaste. Cada partida deja archivos: configuración inicial, bitácora de acciones y resultado final.
 
-La máquina no es tonta: sus tropas cazan a las tuyas, cuidan su castillo, tus aldeanos huyen del peligro y sus heridos se retiran. Además ves **barras de vida** sobre cada unidad y edificio.
+La máquina no es tonta, sus tropas cazan a las tuyas, cuidan su castillo, tus aldeanos huyen del peligro y sus heridos se retiran. Además ves **barras de vida** sobre cada unidad y edificio.
 
 ---
 
