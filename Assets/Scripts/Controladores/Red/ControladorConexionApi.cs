@@ -24,6 +24,9 @@ namespace ImperiosEnGuerra.Controladores.Red
         /// <summary>HUD para recursos, mensajes y opciones.</summary>
         private VistaHud vistaHud;
 
+        /// <summary>Pantalla de fin de partida (se busca sola).</summary>
+        private Vistas.VistaFinPartida vistaFin;
+
         [Header("API interna (sin terminal)")]
         [SerializeField]
         /// <summary>API interna usada sin terminal externa.</summary>
@@ -156,6 +159,43 @@ namespace ImperiosEnGuerra.Controladores.Red
         }
 
         StartCoroutine(CargarProgresoInterno());
+    }
+
+    /// <summary>
+    /// Arranca una partida nueva (revancha). Solo modo interno.
+    /// </summary>
+    public void ReiniciarPartida()
+    {
+        if (usarApiExterna)
+        {
+            MostrarError("La revancha solo está disponible en modo interno.");
+            return;
+        }
+
+        StartCoroutine(ReiniciarPartidaInterno());
+    }
+
+    private IEnumerator ReiniciarPartidaInterno()
+    {
+        string mensaje = "Nueva partida. ¡A jugar!";
+
+        try
+        {
+            ExigirApiInterna();
+            mensaje = apiInterna.ReiniciarPartida();
+        }
+        catch (System.Exception ex)
+        {
+            MostrarError(ex.Message);
+            yield break;
+        }
+
+        derrotaAnunciada = false;
+
+        if (vistaFin != null)
+            vistaFin.Ocultar();
+
+        yield return SincronizarEstadoInterno(mensaje);
     }
 
     private IEnumerator CargarProgresoInterno()
@@ -745,6 +785,13 @@ public bool PuedeIniciarAtaque =>
                 yield break;
             }
             AplicarEstado(estado, mensaje);
+
+            if (!string.IsNullOrEmpty(mensaje) &&
+                mensaje.Contains("¡Victoria!") &&
+                vistaFin != null)
+            {
+                vistaFin.MostrarVictoria(mensaje);
+            }
         }
 
         /// <summary>Valida y dibuja un estado en vista y HUD.</summary>
@@ -2007,6 +2054,7 @@ public bool PuedeIniciarAtaque =>
             }
             StartCoroutine(ComprobarConexion());
             StartCoroutine(VigilarIA());
+            vistaFin = FindAnyObjectByType<Vistas.VistaFinPartida>();
         }
 
         /// <summary>Derrota ya anunciada para no repetir el mensaje.</summary>
@@ -2053,6 +2101,9 @@ public bool PuedeIniciarAtaque =>
                     resultado.mensaje.Contains("¡Victoria!"))
                 {
                     derrotaAnunciada = true;
+
+                    if (vistaFin != null)
+                        vistaFin.MostrarDerrota("Derrota: " + resultado.mensaje);
 
                     yield return SincronizarEstadoInterno(
                         "Derrota: " + resultado.mensaje);

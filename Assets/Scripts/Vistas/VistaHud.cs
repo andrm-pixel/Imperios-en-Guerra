@@ -44,6 +44,8 @@ namespace ImperiosEnGuerra.Vistas
         {
             HudDisposicion.Aplicar(this);
             AsegurarBatalla();
+            gameObject.AddComponent<VistaInicio>();
+            gameObject.AddComponent<VistaFinPartida>();
         }
 
         /// <summary>Crea el boton Batalla si la escena vieja no lo trae.</summary>
