@@ -25,6 +25,10 @@ namespace ImperiosEnGuerra.Vistas
         [SerializeField] private Button atacar;
         /// <summary>Boton fijo que ordena a todo el ejercito atacar.</summary>
         [SerializeField] private Button batalla;
+        /// <summary>Boton de guardado rapido (equivale a F5).</summary>
+        private Button guardar;
+        /// <summary>Boton de carga rapida (equivale a F9).</summary>
+        private Button cargar;
         /// <summary>Panel con los tipos de unidad entrenables.</summary>
         [SerializeField] private GameObject selectorEntrenamiento;
         /// <summary>Boton para entrenar un Aldeano.</summary>
@@ -44,6 +48,7 @@ namespace ImperiosEnGuerra.Vistas
         {
             HudDisposicion.Aplicar(this);
             AsegurarBatalla();
+            AsegurarUtilidades();
             gameObject.AddComponent<VistaInicio>();
             gameObject.AddComponent<VistaFinPartida>();
         }
@@ -81,6 +86,46 @@ namespace ImperiosEnGuerra.Vistas
             batalla = clon.GetComponent<Button>();
         }
 
+        /// <summary>Crea los botones Guardar (F5) y Cargar (F9) si la escena no los trae.</summary>
+        private void AsegurarUtilidades()
+        {
+            guardar = ClonarBotonAccion("Mover", "Guardar", "Guardar", 490f);
+            cargar = ClonarBotonAccion("Mover", "Cargar", "Cargar", 569f);
+        }
+
+        /// <summary>Clona un boton de accion con nueva etiqueta y posicion.</summary>
+        private Button ClonarBotonAccion(string origen, string nombre, string etiqueta, float x)
+        {
+            if (transform == null)
+                return null;
+
+            Transform modelo = HudDisposicion.Buscar(transform.root, origen);
+
+            if (modelo == null || modelo.parent == null)
+                return null;
+
+            GameObject clon = Instantiate(modelo.gameObject, modelo.parent);
+            clon.name = nombre;
+
+            RectTransform rect = clon.GetComponent<RectTransform>();
+
+            if (rect != null)
+            {
+                rect.anchorMin = new Vector2(0f, 0f);
+                rect.anchorMax = new Vector2(0f, 0f);
+                rect.anchoredPosition = new Vector2(x, 16f);
+                rect.sizeDelta = new Vector2(72f, 46f);
+                rect.pivot = new Vector2(0f, 0f);
+            }
+
+            Text texto = clon.GetComponentInChildren<Text>();
+
+            if (texto != null)
+                texto.text = etiqueta;
+
+            return clon.GetComponent<Button>();
+        }
+
         /// <summary>Suscribe los botones a sus solicitudes de accion.</summary>
         private void OnEnable()
         {
@@ -90,6 +135,8 @@ namespace ImperiosEnGuerra.Vistas
             if (entrenar != null) entrenar.onClick.AddListener(SolicitarEntrenar);
             if (atacar != null) atacar.onClick.AddListener(SolicitarAtacar);
             if (batalla != null) batalla.onClick.AddListener(SolicitarBatalla);
+            if (guardar != null) guardar.onClick.AddListener(SolicitarGuardar);
+            if (cargar != null) cargar.onClick.AddListener(SolicitarCargar);
 
             if (entrenarAldeano != null)
                 entrenarAldeano.onClick.AddListener(SolicitarEntrenarAldeano);
@@ -109,6 +156,8 @@ namespace ImperiosEnGuerra.Vistas
             if (entrenar != null) entrenar.onClick.RemoveListener(SolicitarEntrenar);
             if (atacar != null) atacar.onClick.RemoveListener(SolicitarAtacar);
             if (batalla != null) batalla.onClick.RemoveListener(SolicitarBatalla);
+            if (guardar != null) guardar.onClick.RemoveListener(SolicitarGuardar);
+            if (cargar != null) cargar.onClick.RemoveListener(SolicitarCargar);
 
             if (entrenarAldeano != null)
                 entrenarAldeano.onClick.RemoveListener(SolicitarEntrenarAldeano);
@@ -132,6 +181,10 @@ namespace ImperiosEnGuerra.Vistas
         private void SolicitarAtacar() => AccionSolicitada?.Invoke("Atacar");
         /// <summary>Notifica la orden de batalla total del ejercito.</summary>
         private void SolicitarBatalla() => AccionSolicitada?.Invoke("Batalla");
+        /// <summary>Notifica el guardado rapido (equivale a F5).</summary>
+        private void SolicitarGuardar() => AccionSolicitada?.Invoke("Guardar");
+        /// <summary>Notifica la carga rapida (equivale a F9).</summary>
+        private void SolicitarCargar() => AccionSolicitada?.Invoke("Cargar");
 
         /// <summary>Notifica la eleccion del tipo Aldeano.</summary>
         private void SolicitarEntrenarAldeano() =>

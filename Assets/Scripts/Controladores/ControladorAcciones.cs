@@ -529,6 +529,38 @@ namespace ImperiosEnGuerra.Controladores
                 return;
             }
 
+            if (accion == "Guardar")
+            {
+                if (conexionApi == null ||
+                    !conexionApi.isActiveAndEnabled)
+                {
+                    vistaHud.MostrarMensaje(
+                        "La conexión con la API no está disponible.",
+                        true);
+
+                    return;
+                }
+
+                conexionApi.GuardarProgreso();
+                return;
+            }
+
+            if (accion == "Cargar")
+            {
+                if (conexionApi == null ||
+                    !conexionApi.isActiveAndEnabled)
+                {
+                    vistaHud.MostrarMensaje(
+                        "La conexión con la API no está disponible.",
+                        true);
+
+                    return;
+                }
+
+                conexionApi.CargarProgreso();
+                return;
+            }
+
             var entidad =
                 controladorSeleccion == null
                     ? null
