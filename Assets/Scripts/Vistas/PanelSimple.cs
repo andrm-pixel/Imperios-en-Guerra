@@ -82,7 +82,7 @@ namespace ImperiosEnGuerra.Vistas
             if (builtin != null)
                 return builtin;
 
-            return Font.CreateDynamicFontFromOSFont("Arial");
+            return Font.CreateDynamicFontFromOSFont("Arial", 16);
         }
     }
 }

@@ -27,7 +27,6 @@ namespace ImperiosEnGuerra.Vistas
             PanelSimple.CrearBoton(panel.transform, "BotonJugar", "JUGAR", -190f, Ocultar);
             Debug.Log("PanelInicio creado: " + panel.transform.childCount + " hijos.", panel);
         }
-        }
 
         /// <summary>Esconde la pantalla de inicio.</summary>
         private void Ocultar()
