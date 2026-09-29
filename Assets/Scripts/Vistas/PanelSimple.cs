@@ -78,11 +78,24 @@ namespace ImperiosEnGuerra.Vistas
             if (existente != null && existente.font != null)
                 return existente.font;
 
-            Font builtin = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            if (builtin != null)
-                return builtin;
+            try
+            {
+                Font legacy = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+                if (legacy != null)
+                    return legacy;
+            }
+            catch (System.Exception)
+            {
+            }
 
-            return Font.CreateDynamicFontFromOSFont("Arial", 16);
+            try
+            {
+                return Font.CreateDynamicFontFromOSFont("Arial", 16);
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
         }
     }
 }
